@@ -1,0 +1,1733 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - test_coverage.info - include/forward_list</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">include</a> - forward_list<span style="font-size: 80%;"> (source / <a href="forward_list.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">test_coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">490</td>
+            <td class="headerCovTableEntry">508</td>
+            <td class="headerCovTableEntryHi">96.5 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2015-06-02</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">632</td>
+            <td class="headerCovTableEntry">639</td>
+            <td class="headerCovTableEntryHi">98.9 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : // -*- C++ -*-</a>
+<span class="lineNum">       2 </span>            : //===----------------------- forward_list ---------------------------------===//
+<span class="lineNum">       3 </span>            : //
+<span class="lineNum">       4 </span>            : //                     The LLVM Compiler Infrastructure
+<span class="lineNum">       5 </span>            : //
+<span class="lineNum">       6 </span>            : // This file is dual licensed under the MIT and the University of Illinois Open
+<span class="lineNum">       7 </span>            : // Source Licenses. See LICENSE.TXT for details.
+<span class="lineNum">       8 </span>            : //
+<span class="lineNum">       9 </span>            : //===----------------------------------------------------------------------===//
+<span class="lineNum">      10 </span>            : 
+<span class="lineNum">      11 </span>            : #ifndef _LIBCPP_FORWARD_LIST
+<span class="lineNum">      12 </span>            : #define _LIBCPP_FORWARD_LIST
+<span class="lineNum">      13 </span>            : 
+<span class="lineNum">      14 </span>            : /*
+<span class="lineNum">      15 </span>            :     forward_list synopsis
+<span class="lineNum">      16 </span>            : 
+<span class="lineNum">      17 </span>            : namespace std
+<span class="lineNum">      18 </span>            : {
+<span class="lineNum">      19 </span>            : 
+<span class="lineNum">      20 </span>            : template &lt;class T, class Allocator = allocator&lt;T&gt;&gt;
+<span class="lineNum">      21 </span>            : class forward_list
+<span class="lineNum">      22 </span>            : {
+<span class="lineNum">      23 </span>            : public:
+<span class="lineNum">      24 </span>            :     typedef T         value_type;
+<span class="lineNum">      25 </span>            :     typedef Allocator allocator_type;
+<span class="lineNum">      26 </span>            : 
+<span class="lineNum">      27 </span>            :     typedef value_type&amp;                                                reference;
+<span class="lineNum">      28 </span>            :     typedef const value_type&amp;                                          const_reference;
+<span class="lineNum">      29 </span>            :     typedef typename allocator_traits&lt;allocator_type&gt;::pointer         pointer;
+<span class="lineNum">      30 </span>            :     typedef typename allocator_traits&lt;allocator_type&gt;::const_pointer   const_pointer;
+<span class="lineNum">      31 </span>            :     typedef typename allocator_traits&lt;allocator_type&gt;::size_type       size_type;
+<span class="lineNum">      32 </span>            :     typedef typename allocator_traits&lt;allocator_type&gt;::difference_type difference_type;
+<span class="lineNum">      33 </span>            : 
+<span class="lineNum">      34 </span>            :     typedef &lt;details&gt; iterator;
+<span class="lineNum">      35 </span>            :     typedef &lt;details&gt; const_iterator;
+<span class="lineNum">      36 </span>            : 
+<span class="lineNum">      37 </span>            :     forward_list()
+<span class="lineNum">      38 </span>            :         noexcept(is_nothrow_default_constructible&lt;allocator_type&gt;::value);
+<span class="lineNum">      39 </span>            :     explicit forward_list(const allocator_type&amp; a);
+<span class="lineNum">      40 </span>            :     explicit forward_list(size_type n);
+<span class="lineNum">      41 </span>            :     explicit forward_list(size_type n, const allocator_type&amp; a); // C++14
+<span class="lineNum">      42 </span>            :     forward_list(size_type n, const value_type&amp; v);
+<span class="lineNum">      43 </span>            :     forward_list(size_type n, const value_type&amp; v, const allocator_type&amp; a);
+<span class="lineNum">      44 </span>            :     template &lt;class InputIterator&gt;
+<span class="lineNum">      45 </span>            :         forward_list(InputIterator first, InputIterator last);
+<span class="lineNum">      46 </span>            :     template &lt;class InputIterator&gt;
+<span class="lineNum">      47 </span>            :         forward_list(InputIterator first, InputIterator last, const allocator_type&amp; a);
+<span class="lineNum">      48 </span>            :     forward_list(const forward_list&amp; x);
+<span class="lineNum">      49 </span>            :     forward_list(const forward_list&amp; x, const allocator_type&amp; a);
+<span class="lineNum">      50 </span>            :     forward_list(forward_list&amp;&amp; x)
+<span class="lineNum">      51 </span>            :         noexcept(is_nothrow_move_constructible&lt;allocator_type&gt;::value);
+<span class="lineNum">      52 </span>            :     forward_list(forward_list&amp;&amp; x, const allocator_type&amp; a);
+<span class="lineNum">      53 </span>            :     forward_list(initializer_list&lt;value_type&gt; il);
+<span class="lineNum">      54 </span>            :     forward_list(initializer_list&lt;value_type&gt; il, const allocator_type&amp; a);
+<span class="lineNum">      55 </span>            : 
+<span class="lineNum">      56 </span>            :     ~forward_list();
+<span class="lineNum">      57 </span>            : 
+<span class="lineNum">      58 </span>            :     forward_list&amp; operator=(const forward_list&amp; x);
+<span class="lineNum">      59 </span>            :     forward_list&amp; operator=(forward_list&amp;&amp; x)
+<span class="lineNum">      60 </span>            :         noexcept(
+<span class="lineNum">      61 </span>            :              allocator_type::propagate_on_container_move_assignment::value &amp;&amp;
+<span class="lineNum">      62 </span>            :              is_nothrow_move_assignable&lt;allocator_type&gt;::value);
+<span class="lineNum">      63 </span>            :     forward_list&amp; operator=(initializer_list&lt;value_type&gt; il);
+<span class="lineNum">      64 </span>            : 
+<span class="lineNum">      65 </span>            :     template &lt;class InputIterator&gt;
+<span class="lineNum">      66 </span>            :         void assign(InputIterator first, InputIterator last);
+<span class="lineNum">      67 </span>            :     void assign(size_type n, const value_type&amp; v);
+<span class="lineNum">      68 </span>            :     void assign(initializer_list&lt;value_type&gt; il);
+<span class="lineNum">      69 </span>            : 
+<span class="lineNum">      70 </span>            :     allocator_type get_allocator() const noexcept;
+<span class="lineNum">      71 </span>            : 
+<span class="lineNum">      72 </span>            :     iterator       begin() noexcept;
+<span class="lineNum">      73 </span>            :     const_iterator begin() const noexcept;
+<span class="lineNum">      74 </span>            :     iterator       end() noexcept;
+<span class="lineNum">      75 </span>            :     const_iterator end() const noexcept;
+<span class="lineNum">      76 </span>            : 
+<span class="lineNum">      77 </span>            :     const_iterator cbegin() const noexcept;
+<span class="lineNum">      78 </span>            :     const_iterator cend() const noexcept;
+<span class="lineNum">      79 </span>            : 
+<span class="lineNum">      80 </span>            :     iterator       before_begin() noexcept;
+<span class="lineNum">      81 </span>            :     const_iterator before_begin() const noexcept;
+<span class="lineNum">      82 </span>            :     const_iterator cbefore_begin() const noexcept;
+<span class="lineNum">      83 </span>            : 
+<span class="lineNum">      84 </span>            :     bool empty() const noexcept;
+<span class="lineNum">      85 </span>            :     size_type max_size() const noexcept;
+<span class="lineNum">      86 </span>            : 
+<span class="lineNum">      87 </span>            :     reference       front();
+<span class="lineNum">      88 </span>            :     const_reference front() const;
+<span class="lineNum">      89 </span>            : 
+<span class="lineNum">      90 </span>            :     template &lt;class... Args&gt; void emplace_front(Args&amp;&amp;... args);
+<span class="lineNum">      91 </span>            :     void push_front(const value_type&amp; v);
+<span class="lineNum">      92 </span>            :     void push_front(value_type&amp;&amp; v);
+<span class="lineNum">      93 </span>            : 
+<span class="lineNum">      94 </span>            :     void pop_front();
+<span class="lineNum">      95 </span>            : 
+<span class="lineNum">      96 </span>            :     template &lt;class... Args&gt;
+<span class="lineNum">      97 </span>            :         iterator emplace_after(const_iterator p, Args&amp;&amp;... args);
+<span class="lineNum">      98 </span>            :     iterator insert_after(const_iterator p, const value_type&amp; v);
+<span class="lineNum">      99 </span>            :     iterator insert_after(const_iterator p, value_type&amp;&amp; v);
+<span class="lineNum">     100 </span>            :     iterator insert_after(const_iterator p, size_type n, const value_type&amp; v);
+<span class="lineNum">     101 </span>            :     template &lt;class InputIterator&gt;
+<span class="lineNum">     102 </span>            :         iterator insert_after(const_iterator p,
+<span class="lineNum">     103 </span>            :                               InputIterator first, InputIterator last);
+<span class="lineNum">     104 </span>            :     iterator insert_after(const_iterator p, initializer_list&lt;value_type&gt; il);
+<span class="lineNum">     105 </span>            : 
+<span class="lineNum">     106 </span>            :     iterator erase_after(const_iterator p);
+<span class="lineNum">     107 </span>            :     iterator erase_after(const_iterator first, const_iterator last);
+<span class="lineNum">     108 </span>            : 
+<span class="lineNum">     109 </span>            :     void swap(forward_list&amp; x)
+<span class="lineNum">     110 </span>            :         noexcept(!allocator_type::propagate_on_container_swap::value ||
+<span class="lineNum">     111 </span>            :                  __is_nothrow_swappable&lt;allocator_type&gt;::value);
+<span class="lineNum">     112 </span>            : 
+<span class="lineNum">     113 </span>            :     void resize(size_type n);
+<span class="lineNum">     114 </span>            :     void resize(size_type n, const value_type&amp; v);
+<span class="lineNum">     115 </span>            :     void clear() noexcept;
+<span class="lineNum">     116 </span>            : 
+<span class="lineNum">     117 </span>            :     void splice_after(const_iterator p, forward_list&amp; x);
+<span class="lineNum">     118 </span>            :     void splice_after(const_iterator p, forward_list&amp;&amp; x);
+<span class="lineNum">     119 </span>            :     void splice_after(const_iterator p, forward_list&amp; x, const_iterator i);
+<span class="lineNum">     120 </span>            :     void splice_after(const_iterator p, forward_list&amp;&amp; x, const_iterator i);
+<span class="lineNum">     121 </span>            :     void splice_after(const_iterator p, forward_list&amp; x,
+<span class="lineNum">     122 </span>            :                       const_iterator first, const_iterator last);
+<span class="lineNum">     123 </span>            :     void splice_after(const_iterator p, forward_list&amp;&amp; x,
+<span class="lineNum">     124 </span>            :                       const_iterator first, const_iterator last);
+<span class="lineNum">     125 </span>            :     void remove(const value_type&amp; v);
+<span class="lineNum">     126 </span>            :     template &lt;class Predicate&gt; void remove_if(Predicate pred);
+<span class="lineNum">     127 </span>            :     void unique();
+<span class="lineNum">     128 </span>            :     template &lt;class BinaryPredicate&gt; void unique(BinaryPredicate binary_pred);
+<span class="lineNum">     129 </span>            :     void merge(forward_list&amp; x);
+<span class="lineNum">     130 </span>            :     void merge(forward_list&amp;&amp; x);
+<span class="lineNum">     131 </span>            :     template &lt;class Compare&gt; void merge(forward_list&amp; x, Compare comp);
+<span class="lineNum">     132 </span>            :     template &lt;class Compare&gt; void merge(forward_list&amp;&amp; x, Compare comp);
+<span class="lineNum">     133 </span>            :     void sort();
+<span class="lineNum">     134 </span>            :     template &lt;class Compare&gt; void sort(Compare comp);
+<span class="lineNum">     135 </span>            :     void reverse() noexcept;
+<span class="lineNum">     136 </span>            : };
+<span class="lineNum">     137 </span>            : 
+<span class="lineNum">     138 </span>            : template &lt;class T, class Allocator&gt;
+<span class="lineNum">     139 </span>            :     bool operator==(const forward_list&lt;T, Allocator&gt;&amp; x,
+<span class="lineNum">     140 </span>            :                     const forward_list&lt;T, Allocator&gt;&amp; y);
+<span class="lineNum">     141 </span>            : 
+<span class="lineNum">     142 </span>            : template &lt;class T, class Allocator&gt;
+<span class="lineNum">     143 </span>            :     bool operator&lt; (const forward_list&lt;T, Allocator&gt;&amp; x,
+<span class="lineNum">     144 </span>            :                     const forward_list&lt;T, Allocator&gt;&amp; y);
+<span class="lineNum">     145 </span>            : 
+<span class="lineNum">     146 </span>            : template &lt;class T, class Allocator&gt;
+<span class="lineNum">     147 </span>            :     bool operator!=(const forward_list&lt;T, Allocator&gt;&amp; x,
+<span class="lineNum">     148 </span>            :                     const forward_list&lt;T, Allocator&gt;&amp; y);
+<span class="lineNum">     149 </span>            : 
+<span class="lineNum">     150 </span>            : template &lt;class T, class Allocator&gt;
+<span class="lineNum">     151 </span>            :     bool operator&gt; (const forward_list&lt;T, Allocator&gt;&amp; x,
+<span class="lineNum">     152 </span>            :                     const forward_list&lt;T, Allocator&gt;&amp; y);
+<span class="lineNum">     153 </span>            : 
+<span class="lineNum">     154 </span>            : template &lt;class T, class Allocator&gt;
+<span class="lineNum">     155 </span>            :     bool operator&gt;=(const forward_list&lt;T, Allocator&gt;&amp; x,
+<span class="lineNum">     156 </span>            :                     const forward_list&lt;T, Allocator&gt;&amp; y);
+<span class="lineNum">     157 </span>            : 
+<span class="lineNum">     158 </span>            : template &lt;class T, class Allocator&gt;
+<span class="lineNum">     159 </span>            :     bool operator&lt;=(const forward_list&lt;T, Allocator&gt;&amp; x,
+<span class="lineNum">     160 </span>            :                     const forward_list&lt;T, Allocator&gt;&amp; y);
+<span class="lineNum">     161 </span>            : 
+<span class="lineNum">     162 </span>            : template &lt;class T, class Allocator&gt;
+<span class="lineNum">     163 </span>            :     void swap(forward_list&lt;T, Allocator&gt;&amp; x, forward_list&lt;T, Allocator&gt;&amp; y)
+<span class="lineNum">     164 </span>            :          noexcept(noexcept(x.swap(y)));
+<span class="lineNum">     165 </span>            : 
+<span class="lineNum">     166 </span>            : }  // std
+<span class="lineNum">     167 </span>            : 
+<span class="lineNum">     168 </span>            : */
+<span class="lineNum">     169 </span>            : 
+<span class="lineNum">     170 </span>            : #include &lt;__config&gt;
+<span class="lineNum">     171 </span>            : 
+<span class="lineNum">     172 </span>            : #include &lt;initializer_list&gt;
+<span class="lineNum">     173 </span>            : #include &lt;memory&gt;
+<span class="lineNum">     174 </span>            : #include &lt;limits&gt;
+<span class="lineNum">     175 </span>            : #include &lt;iterator&gt;
+<span class="lineNum">     176 </span>            : #include &lt;algorithm&gt;
+<span class="lineNum">     177 </span>            : 
+<span class="lineNum">     178 </span>            : #include &lt;__undef_min_max&gt;
+<span class="lineNum">     179 </span>            : 
+<span class="lineNum">     180 </span>            : #if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
+<span class="lineNum">     181 </span>            : #pragma GCC system_header
+<span class="lineNum">     182 </span>            : #endif
+<span class="lineNum">     183 </span>            : 
+<span class="lineNum">     184 </span>            : _LIBCPP_BEGIN_NAMESPACE_STD
+<span class="lineNum">     185 </span>            : 
+<span class="lineNum">     186 </span>            : template &lt;class _Tp, class _VoidPtr&gt; struct __forward_list_node;
+<span class="lineNum">     187 </span>            : 
+<span class="lineNum">     188 </span>            : template &lt;class _NodePtr&gt;
+<span class="lineNum">     189 </span>            : struct __forward_begin_node
+<span class="lineNum">     190 </span>            : {
+<span class="lineNum">     191 </span>            :     typedef _NodePtr pointer;
+<span class="lineNum">     192 </span>            : 
+<a name="193"><span class="lineNum">     193 </span>            :     pointer __next_;</a>
+<span class="lineNum">     194 </span>            : 
+<span class="lineNum">     195 </span><span class="lineCov">       3762 :      _LIBCPP_INLINE_VISIBILITY __forward_begin_node() : __next_(nullptr) {}</span>
+<span class="lineNum">     196 </span>            : };
+<span class="lineNum">     197 </span>            : 
+<span class="lineNum">     198 </span>            : template &lt;class _Tp, class _VoidPtr&gt;
+<span class="lineNum">     199 </span>            : struct _LIBCPP_HIDDEN __begin_node_of
+<span class="lineNum">     200 </span>            : {
+<span class="lineNum">     201 </span>            :     typedef __forward_begin_node
+<span class="lineNum">     202 </span>            :         &lt;
+<span class="lineNum">     203 </span>            :              typename pointer_traits&lt;_VoidPtr&gt;::template
+<span class="lineNum">     204 </span>            : #ifndef _LIBCPP_HAS_NO_TEMPLATE_ALIASES
+<span class="lineNum">     205 </span>            :                  rebind&lt;__forward_list_node&lt;_Tp, _VoidPtr&gt; &gt;
+<span class="lineNum">     206 </span>            : #else
+<span class="lineNum">     207 </span>            :                  rebind&lt;__forward_list_node&lt;_Tp, _VoidPtr&gt; &gt;::other
+<span class="lineNum">     208 </span>            : #endif
+<span class="lineNum">     209 </span>            :          &gt; type;
+<span class="lineNum">     210 </span>            : };
+<span class="lineNum">     211 </span>            : 
+<span class="lineNum">     212 </span>            : template &lt;class _Tp, class _VoidPtr&gt;
+<span class="lineNum">     213 </span>            : struct __forward_list_node
+<span class="lineNum">     214 </span>            :     : public __begin_node_of&lt;_Tp, _VoidPtr&gt;::type
+<span class="lineNum">     215 </span>            : {
+<span class="lineNum">     216 </span>            :     typedef _Tp value_type;
+<span class="lineNum">     217 </span>            : 
+<span class="lineNum">     218 </span>            :     value_type __value_;
+<span class="lineNum">     219 </span>            : };
+<span class="lineNum">     220 </span>            : 
+<span class="lineNum">     221 </span>            : template &lt;class _Tp, class _Alloc = allocator&lt;_Tp&gt; &gt; class _LIBCPP_TYPE_VIS_ONLY forward_list;
+<span class="lineNum">     222 </span>            : template&lt;class _NodeConstPtr&gt; class _LIBCPP_TYPE_VIS_ONLY __forward_list_const_iterator;
+<span class="lineNum">     223 </span>            : 
+<span class="lineNum">     224 </span>            : template &lt;class _NodePtr&gt;
+<span class="lineNum">     225 </span>            : class _LIBCPP_TYPE_VIS_ONLY __forward_list_iterator
+<span class="lineNum">     226 </span>            : {
+<span class="lineNum">     227 </span>            :     typedef _NodePtr __node_pointer;
+<span class="lineNum">     228 </span>            : 
+<span class="lineNum">     229 </span>            :     __node_pointer __ptr_;
+<a name="230"><span class="lineNum">     230 </span>            : </a>
+<span class="lineNum">     231 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<a name="232"><span class="lineNum">     232 </span><span class="lineCov">       7195 :     explicit __forward_list_iterator(__node_pointer __p) _NOEXCEPT : __ptr_(__p) {}</span></a>
+<span class="lineNum">     233 </span>            : 
+<span class="lineNum">     234 </span><span class="lineCov">       1303 :     template&lt;class, class&gt; friend class _LIBCPP_TYPE_VIS_ONLY forward_list;</span>
+<span class="lineNum">     235 </span>            :     template&lt;class&gt; friend class _LIBCPP_TYPE_VIS_ONLY __forward_list_const_iterator;
+<span class="lineNum">     236 </span>            : 
+<span class="lineNum">     237 </span>            : public:
+<span class="lineNum">     238 </span>            :     typedef forward_iterator_tag                              iterator_category;
+<span class="lineNum">     239 </span>            :     typedef typename pointer_traits&lt;__node_pointer&gt;::element_type::value_type
+<span class="lineNum">     240 </span>            :                                                               value_type;
+<span class="lineNum">     241 </span>            :     typedef value_type&amp;                                       reference;
+<span class="lineNum">     242 </span>            :     typedef typename pointer_traits&lt;__node_pointer&gt;::difference_type
+<span class="lineNum">     243 </span>            :                                                               difference_type;
+<span class="lineNum">     244 </span>            :     typedef typename pointer_traits&lt;__node_pointer&gt;::template
+<span class="lineNum">     245 </span>            : #ifndef _LIBCPP_HAS_NO_TEMPLATE_ALIASES
+<span class="lineNum">     246 </span>            :             rebind&lt;value_type&gt;
+<span class="lineNum">     247 </span>            : #else
+<span class="lineNum">     248 </span>            :             rebind&lt;value_type&gt;::other
+<span class="lineNum">     249 </span>            : #endif
+<span class="lineNum">     250 </span>            :                                                               pointer;
+<a name="251"><span class="lineNum">     251 </span>            : </a>
+<span class="lineNum">     252 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     253 </span><span class="lineCov">          5 :     __forward_list_iterator() _NOEXCEPT : __ptr_(nullptr) {}</span>
+<a name="254"><span class="lineNum">     254 </span>            : </a>
+<span class="lineNum">     255 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     256 </span><span class="lineCov">       1200 :     reference operator*() const {return __ptr_-&gt;__value_;}</span>
+<span class="lineNum">     257 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     258 </span>            :     pointer operator-&gt;() const {return pointer_traits&lt;pointer&gt;::pointer_to(__ptr_-&gt;__value_);}
+<a name="259"><span class="lineNum">     259 </span>            : </a>
+<span class="lineNum">     260 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     261 </span>            :     __forward_list_iterator&amp; operator++()
+<span class="lineNum">     262 </span>            :     {
+<span class="lineNum">     263 </span><span class="lineCov">      13361 :         __ptr_ = __ptr_-&gt;__next_;</span>
+<span class="lineNum">     264 </span><span class="lineCov">      13361 :         return *this;</span>
+<span class="lineNum">     265 </span>            :     }
+<span class="lineNum">     266 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     267 </span>            :     __forward_list_iterator operator++(int)
+<span class="lineNum">     268 </span>            :     {
+<span class="lineNum">     269 </span>            :         __forward_list_iterator __t(*this);
+<span class="lineNum">     270 </span>            :         ++(*this);
+<span class="lineNum">     271 </span>            :         return __t;
+<span class="lineNum">     272 </span>            :     }
+<a name="273"><span class="lineNum">     273 </span>            : </a>
+<span class="lineNum">     274 </span>            :     friend _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     275 </span>            :     bool operator==(const __forward_list_iterator&amp; __x,
+<span class="lineNum">     276 </span>            :                     const __forward_list_iterator&amp; __y)
+<a name="277"><span class="lineNum">     277 </span><span class="lineCov">       8883 :         {return __x.__ptr_ == __y.__ptr_;}</span></a>
+<span class="lineNum">     278 </span>            :     friend _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     279 </span>            :     bool operator!=(const __forward_list_iterator&amp; __x,
+<span class="lineNum">     280 </span>            :                     const __forward_list_iterator&amp; __y)
+<span class="lineNum">     281 </span><span class="lineCov">       8562 :         {return !(__x == __y);}</span>
+<span class="lineNum">     282 </span>            : };
+<span class="lineNum">     283 </span>            : 
+<span class="lineNum">     284 </span>            : template &lt;class _NodeConstPtr&gt;
+<span class="lineNum">     285 </span>            : class _LIBCPP_TYPE_VIS_ONLY __forward_list_const_iterator
+<span class="lineNum">     286 </span>            : {
+<span class="lineNum">     287 </span>            :     typedef _NodeConstPtr __node_const_pointer;
+<span class="lineNum">     288 </span>            : 
+<span class="lineNum">     289 </span>            :     __node_const_pointer __ptr_;
+<a name="290"><span class="lineNum">     290 </span>            : </a>
+<span class="lineNum">     291 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     292 </span>            :     explicit __forward_list_const_iterator(__node_const_pointer __p) _NOEXCEPT
+<span class="lineNum">     293 </span><span class="lineCov">      17095 :         : __ptr_(__p) {}</span>
+<span class="lineNum">     294 </span>            : 
+<span class="lineNum">     295 </span>            :     typedef typename remove_const
+<span class="lineNum">     296 </span>            :         &lt;
+<span class="lineNum">     297 </span>            :             typename pointer_traits&lt;__node_const_pointer&gt;::element_type
+<span class="lineNum">     298 </span>            :         &gt;::type                                               __node;
+<span class="lineNum">     299 </span>            :     typedef typename pointer_traits&lt;__node_const_pointer&gt;::template
+<span class="lineNum">     300 </span>            : #ifndef _LIBCPP_HAS_NO_TEMPLATE_ALIASES
+<span class="lineNum">     301 </span>            :             rebind&lt;__node&gt;
+<span class="lineNum">     302 </span>            : #else
+<span class="lineNum">     303 </span>            :             rebind&lt;__node&gt;::other
+<span class="lineNum">     304 </span>            : #endif
+<a name="305"><span class="lineNum">     305 </span>            :                                                               __node_pointer;</a>
+<span class="lineNum">     306 </span>            : 
+<span class="lineNum">     307 </span><span class="lineCov">         49 :     template&lt;class, class&gt; friend class forward_list;</span>
+<span class="lineNum">     308 </span>            : 
+<span class="lineNum">     309 </span>            : public:
+<span class="lineNum">     310 </span>            :     typedef forward_iterator_tag                              iterator_category;
+<span class="lineNum">     311 </span>            :     typedef typename __node::value_type                       value_type;
+<span class="lineNum">     312 </span>            :     typedef const value_type&amp;                                 reference;
+<span class="lineNum">     313 </span>            :     typedef typename pointer_traits&lt;__node_const_pointer&gt;::difference_type
+<span class="lineNum">     314 </span>            :                                                               difference_type;
+<span class="lineNum">     315 </span>            :     typedef typename pointer_traits&lt;__node_const_pointer&gt;::template
+<span class="lineNum">     316 </span>            : #ifndef _LIBCPP_HAS_NO_TEMPLATE_ALIASES
+<span class="lineNum">     317 </span>            :             rebind&lt;const value_type&gt;
+<span class="lineNum">     318 </span>            : #else
+<span class="lineNum">     319 </span>            :             rebind&lt;const value_type&gt;::other
+<span class="lineNum">     320 </span>            : #endif
+<span class="lineNum">     321 </span>            :                                                               pointer;
+<a name="322"><span class="lineNum">     322 </span>            : </a>
+<span class="lineNum">     323 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<a name="324"><span class="lineNum">     324 </span><span class="lineCov">          4 :     __forward_list_const_iterator() _NOEXCEPT : __ptr_(nullptr) {}</span></a>
+<span class="lineNum">     325 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     326 </span>            :     __forward_list_const_iterator(__forward_list_iterator&lt;__node_pointer&gt; __p) _NOEXCEPT
+<span class="lineNum">     327 </span><span class="lineCov">        791 :         : __ptr_(__p.__ptr_) {}</span>
+<a name="328"><span class="lineNum">     328 </span>            : </a>
+<span class="lineNum">     329 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<a name="330"><span class="lineNum">     330 </span><span class="lineCov">      23926 :     reference operator*() const {return __ptr_-&gt;__value_;}</span></a>
+<span class="lineNum">     331 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     332 </span><span class="lineCov">          5 :     pointer operator-&gt;() const {return pointer_traits&lt;pointer&gt;::pointer_to(__ptr_-&gt;__value_);}</span>
+<a name="333"><span class="lineNum">     333 </span>            : </a>
+<span class="lineNum">     334 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     335 </span>            :     __forward_list_const_iterator&amp; operator++()
+<span class="lineNum">     336 </span>            :     {
+<span class="lineNum">     337 </span><span class="lineCov">      55826 :         __ptr_ = __ptr_-&gt;__next_;</span>
+<span class="lineNum">     338 </span><span class="lineCov">      55826 :         return *this;</span>
+<span class="lineNum">     339 </span>            :     }
+<span class="lineNum">     340 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     341 </span>            :     __forward_list_const_iterator operator++(int)
+<span class="lineNum">     342 </span>            :     {
+<span class="lineNum">     343 </span>            :         __forward_list_const_iterator __t(*this);
+<span class="lineNum">     344 </span>            :         ++(*this);
+<span class="lineNum">     345 </span>            :         return __t;
+<span class="lineNum">     346 </span>            :     }
+<a name="347"><span class="lineNum">     347 </span>            : </a>
+<span class="lineNum">     348 </span>            :     friend _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     349 </span>            :     bool operator==(const __forward_list_const_iterator&amp; __x,
+<span class="lineNum">     350 </span>            :                     const __forward_list_const_iterator&amp; __y)
+<a name="351"><span class="lineNum">     351 </span><span class="lineCov">      26913 :         {return __x.__ptr_ == __y.__ptr_;}</span></a>
+<span class="lineNum">     352 </span>            :     friend _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     353 </span>            :     bool operator!=(const __forward_list_const_iterator&amp; __x,
+<span class="lineNum">     354 </span>            :                            const __forward_list_const_iterator&amp; __y)
+<span class="lineNum">     355 </span><span class="lineCov">      25762 :         {return !(__x == __y);}</span>
+<span class="lineNum">     356 </span>            : };
+<span class="lineNum">     357 </span>            : 
+<span class="lineNum">     358 </span>            : template &lt;class _Tp, class _Alloc&gt;
+<span class="lineNum">     359 </span>            : class __forward_list_base
+<span class="lineNum">     360 </span>            : {
+<span class="lineNum">     361 </span>            : protected:
+<span class="lineNum">     362 </span>            :     typedef _Tp    value_type;
+<span class="lineNum">     363 </span>            :     typedef _Alloc allocator_type;
+<span class="lineNum">     364 </span>            : 
+<span class="lineNum">     365 </span>            :     typedef typename allocator_traits&lt;allocator_type&gt;::void_pointer  void_pointer;
+<span class="lineNum">     366 </span>            :     typedef __forward_list_node&lt;value_type, void_pointer&gt;            __node;
+<span class="lineNum">     367 </span>            :     typedef typename __begin_node_of&lt;value_type, void_pointer&gt;::type __begin_node;
+<span class="lineNum">     368 </span>            :     typedef typename __rebind_alloc_helper&lt;allocator_traits&lt;allocator_type&gt;, __node&gt;::type __node_allocator;
+<span class="lineNum">     369 </span>            :     typedef allocator_traits&lt;__node_allocator&gt;        __node_traits;
+<span class="lineNum">     370 </span>            :     typedef typename __node_traits::pointer           __node_pointer;
+<span class="lineNum">     371 </span>            :     typedef typename __node_traits::pointer           __node_const_pointer;
+<span class="lineNum">     372 </span>            : 
+<span class="lineNum">     373 </span>            :     typedef typename __rebind_alloc_helper&lt;allocator_traits&lt;allocator_type&gt;, __begin_node&gt;::type __begin_node_allocator;
+<span class="lineNum">     374 </span>            :     typedef typename allocator_traits&lt;__begin_node_allocator&gt;::pointer __begin_node_pointer;
+<span class="lineNum">     375 </span>            : 
+<span class="lineNum">     376 </span>            :     __compressed_pair&lt;__begin_node, __node_allocator&gt; __before_begin_;
+<a name="377"><span class="lineNum">     377 </span>            : </a>
+<span class="lineNum">     378 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     379 </span>            :     __node_pointer        __before_begin() _NOEXCEPT
+<span class="lineNum">     380 </span><span class="lineCov">      43325 :         {return static_cast&lt;__node_pointer&gt;(pointer_traits&lt;__begin_node_pointer&gt;::</span>
+<a name="381"><span class="lineNum">     381 </span><span class="lineCov">      17483 :                                         pointer_to(__before_begin_.first()));}</span></a>
+<span class="lineNum">     382 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     383 </span>            :     __node_const_pointer  __before_begin() const _NOEXCEPT
+<span class="lineNum">     384 </span><span class="lineCov">      32617 :         {return static_cast&lt;__node_const_pointer&gt;(pointer_traits&lt;__begin_node_pointer&gt;::</span>
+<span class="lineNum">     385 </span><span class="lineCov">      13096 :                                         pointer_to(const_cast&lt;__begin_node&amp;&gt;(__before_begin_.first())));}</span>
+<a name="386"><span class="lineNum">     386 </span>            : </a>
+<span class="lineNum">     387 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     388 </span>            :           __node_allocator&amp; __alloc() _NOEXCEPT
+<a name="389"><span class="lineNum">     389 </span><span class="lineCov">      10709 :             {return __before_begin_.second();}</span></a>
+<span class="lineNum">     390 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     391 </span>            :     const __node_allocator&amp; __alloc() const _NOEXCEPT
+<span class="lineNum">     392 </span><span class="lineCov">        101 :         {return __before_begin_.second();}</span>
+<span class="lineNum">     393 </span>            : 
+<span class="lineNum">     394 </span>            :     typedef __forward_list_iterator&lt;__node_pointer&gt;             iterator;
+<span class="lineNum">     395 </span>            :     typedef __forward_list_const_iterator&lt;__node_pointer&gt;       const_iterator;
+<a name="396"><span class="lineNum">     396 </span>            : </a>
+<span class="lineNum">     397 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     398 </span>            :     __forward_list_base()
+<span class="lineNum">     399 </span>            :         _NOEXCEPT_(is_nothrow_default_constructible&lt;__node_allocator&gt;::value)
+<a name="400"><span class="lineNum">     400 </span><span class="lineCov">      10921 :         : __before_begin_(__begin_node()) {}</span></a>
+<span class="lineNum">     401 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     402 </span>            :     __forward_list_base(const allocator_type&amp; __a)
+<span class="lineNum">     403 </span><span class="lineCov">        159 :         : __before_begin_(__begin_node(), __node_allocator(__a)) {}</span>
+<span class="lineNum">     404 </span>            : 
+<span class="lineNum">     405 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">     406 </span>            : public:
+<span class="lineNum">     407 </span>            :     __forward_list_base(__forward_list_base&amp;&amp; __x)
+<span class="lineNum">     408 </span>            :         _NOEXCEPT_(is_nothrow_move_constructible&lt;__node_allocator&gt;::value);
+<span class="lineNum">     409 </span>            :     __forward_list_base(__forward_list_base&amp;&amp; __x, const allocator_type&amp; __a);
+<span class="lineNum">     410 </span>            : #endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">     411 </span>            : 
+<span class="lineNum">     412 </span>            : private:
+<span class="lineNum">     413 </span>            :     __forward_list_base(const __forward_list_base&amp;);
+<span class="lineNum">     414 </span>            :     __forward_list_base&amp; operator=(const __forward_list_base&amp;);
+<span class="lineNum">     415 </span>            : 
+<span class="lineNum">     416 </span>            : public:
+<span class="lineNum">     417 </span>            :     ~__forward_list_base();
+<span class="lineNum">     418 </span>            : 
+<a name="419"><span class="lineNum">     419 </span>            : protected:</a>
+<span class="lineNum">     420 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     421 </span>            :     void __copy_assign_alloc(const __forward_list_base&amp; __x)
+<span class="lineNum">     422 </span><span class="lineCov">        210 :         {__copy_assign_alloc(__x, integral_constant&lt;bool,</span>
+<span class="lineNum">     423 </span><span class="lineCov">        210 :               __node_traits::propagate_on_container_copy_assignment::value&gt;());}</span>
+<a name="424"><span class="lineNum">     424 </span>            : </a>
+<span class="lineNum">     425 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     426 </span>            :     void __move_assign_alloc(__forward_list_base&amp; __x)
+<span class="lineNum">     427 </span>            :         _NOEXCEPT_(!__node_traits::propagate_on_container_move_assignment::value ||
+<span class="lineNum">     428 </span>            :                    is_nothrow_move_assignable&lt;__node_allocator&gt;::value)
+<span class="lineNum">     429 </span><span class="lineCov">          8 :         {__move_assign_alloc(__x, integral_constant&lt;bool,</span>
+<span class="lineNum">     430 </span><span class="lineCov">          8 :               __node_traits::propagate_on_container_move_assignment::value&gt;());}</span>
+<span class="lineNum">     431 </span>            : 
+<span class="lineNum">     432 </span>            : public:
+<span class="lineNum">     433 </span>            :     void swap(__forward_list_base&amp; __x)
+<span class="lineNum">     434 </span>            :         _NOEXCEPT_(!__node_traits::propagate_on_container_swap::value ||
+<span class="lineNum">     435 </span>            :                    __is_nothrow_swappable&lt;__node_allocator&gt;::value);
+<span class="lineNum">     436 </span>            : protected:
+<span class="lineNum">     437 </span>            :     void clear() _NOEXCEPT;
+<span class="lineNum">     438 </span>            : 
+<a name="439"><span class="lineNum">     439 </span>            : private:</a>
+<span class="lineNum">     440 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<a name="441"><span class="lineNum">     441 </span><span class="lineCov">        206 :     void __copy_assign_alloc(const __forward_list_base&amp;, false_type) {}</span></a>
+<span class="lineNum">     442 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     443 </span>            :     void __copy_assign_alloc(const __forward_list_base&amp; __x, true_type)
+<span class="lineNum">     444 </span>            :     {
+<span class="lineNum">     445 </span><span class="lineCov">          4 :         if (__alloc() != __x.__alloc())</span>
+<span class="lineNum">     446 </span><span class="lineCov">          2 :             clear();</span>
+<span class="lineNum">     447 </span><span class="lineCov">          4 :         __alloc() = __x.__alloc();</span>
+<span class="lineNum">     448 </span><span class="lineCov">          4 :     }</span>
+<a name="449"><span class="lineNum">     449 </span>            : </a>
+<span class="lineNum">     450 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     451 </span>            :     void __move_assign_alloc(__forward_list_base&amp; __x, false_type) _NOEXCEPT
+<a name="452"><span class="lineNum">     452 </span><span class="lineCov">          4 :         {}</span></a>
+<span class="lineNum">     453 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     454 </span>            :     void __move_assign_alloc(__forward_list_base&amp; __x, true_type)
+<span class="lineNum">     455 </span>            :         _NOEXCEPT_(is_nothrow_move_assignable&lt;__node_allocator&gt;::value)
+<span class="lineNum">     456 </span><span class="lineCov">          4 :         {__alloc() = _VSTD::move(__x.__alloc());}</span>
+<a name="457"><span class="lineNum">     457 </span>            : </a>
+<span class="lineNum">     458 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     459 </span>            :     static void __swap_alloc(__node_allocator&amp; __x, __node_allocator&amp; __y)
+<span class="lineNum">     460 </span>            :         _NOEXCEPT_(!__node_traits::propagate_on_container_swap::value ||
+<span class="lineNum">     461 </span>            :                    __is_nothrow_swappable&lt;__node_allocator&gt;::value)
+<span class="lineNum">     462 </span><span class="lineCov">         24 :         {__swap_alloc(__x, __y, integral_constant&lt;bool,</span>
+<a name="463"><span class="lineNum">     463 </span><span class="lineCov">         24 :                          __node_traits::propagate_on_container_swap::value&gt;());}</span></a>
+<span class="lineNum">     464 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     465 </span>            :     static void __swap_alloc(__node_allocator&amp; __x, __node_allocator&amp; __y,
+<span class="lineNum">     466 </span>            :                                                                      false_type)
+<span class="lineNum">     467 </span>            :         _NOEXCEPT
+<a name="468"><span class="lineNum">     468 </span><span class="lineCov">         16 :         {}</span></a>
+<span class="lineNum">     469 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     470 </span>            :     static void __swap_alloc(__node_allocator&amp; __x, __node_allocator&amp; __y,
+<span class="lineNum">     471 </span>            :                                                                       true_type)
+<span class="lineNum">     472 </span>            :         _NOEXCEPT_(__is_nothrow_swappable&lt;__node_allocator&gt;::value)
+<span class="lineNum">     473 </span>            :         {
+<span class="lineNum">     474 </span>            :             using _VSTD::swap;
+<span class="lineNum">     475 </span><span class="lineCov">          8 :             swap(__x, __y);</span>
+<span class="lineNum">     476 </span><span class="lineCov">          8 :         }</span>
+<span class="lineNum">     477 </span>            : };
+<span class="lineNum">     478 </span>            : 
+<span class="lineNum">     479 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">     480 </span>            : 
+<a name="481"><span class="lineNum">     481 </span>            : template &lt;class _Tp, class _Alloc&gt;</a>
+<span class="lineNum">     482 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     483 </span>            : __forward_list_base&lt;_Tp, _Alloc&gt;::__forward_list_base(__forward_list_base&amp;&amp; __x)
+<span class="lineNum">     484 </span>            :         _NOEXCEPT_(is_nothrow_move_constructible&lt;__node_allocator&gt;::value)
+<span class="lineNum">     485 </span><span class="lineCov">          3 :     : __before_begin_(_VSTD::move(__x.__before_begin_))</span>
+<span class="lineNum">     486 </span>            : {
+<span class="lineNum">     487 </span><span class="lineCov">          5 :     __x.__before_begin()-&gt;__next_ = nullptr;</span>
+<span class="lineNum">     488 </span><span class="lineCov">          3 : }</span>
+<span class="lineNum">     489 </span>            : 
+<a name="490"><span class="lineNum">     490 </span>            : template &lt;class _Tp, class _Alloc&gt;</a>
+<span class="lineNum">     491 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     492 </span>            : __forward_list_base&lt;_Tp, _Alloc&gt;::__forward_list_base(__forward_list_base&amp;&amp; __x,
+<span class="lineNum">     493 </span>            :                                                       const allocator_type&amp; __a)
+<span class="lineNum">     494 </span><span class="lineCov">          5 :     : __before_begin_(__begin_node(), __node_allocator(__a))</span>
+<span class="lineNum">     495 </span>            : {
+<span class="lineNum">     496 </span><span class="lineCov">          5 :     if (__alloc() == __x.__alloc())</span>
+<span class="lineNum">     497 </span>            :     {
+<span class="lineNum">     498 </span><span class="lineCov">          2 :         __before_begin()-&gt;__next_ = __x.__before_begin()-&gt;__next_;</span>
+<span class="lineNum">     499 </span><span class="lineCov">          2 :         __x.__before_begin()-&gt;__next_ = nullptr;</span>
+<span class="lineNum">     500 </span><span class="lineCov">          2 :     }</span>
+<span class="lineNum">     501 </span><span class="lineCov">          3 : }</span>
+<span class="lineNum">     502 </span>            : 
+<span class="lineNum">     503 </span>            : #endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<a name="504"><span class="lineNum">     504 </span>            : </a>
+<span class="lineNum">     505 </span>            : template &lt;class _Tp, class _Alloc&gt;
+<span class="lineNum">     506 </span>            : __forward_list_base&lt;_Tp, _Alloc&gt;::~__forward_list_base()
+<span class="lineNum">     507 </span>            : {
+<span class="lineNum">     508 </span><span class="lineCov">       3765 :     clear();</span>
+<span class="lineNum">     509 </span><span class="lineCov">       3765 : }</span>
+<span class="lineNum">     510 </span>            : 
+<span class="lineNum">     511 </span>            : template &lt;class _Tp, class _Alloc&gt;
+<a name="512"><span class="lineNum">     512 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     513 </span>            : void
+<span class="lineNum">     514 </span>            : __forward_list_base&lt;_Tp, _Alloc&gt;::swap(__forward_list_base&amp; __x)
+<span class="lineNum">     515 </span>            :         _NOEXCEPT_(!__node_traits::propagate_on_container_swap::value ||
+<span class="lineNum">     516 </span>            :                    __is_nothrow_swappable&lt;__node_allocator&gt;::value)
+<span class="lineNum">     517 </span>            : {
+<span class="lineNum">     518 </span><span class="lineCov">         24 :     __swap_alloc(__alloc(), __x.__alloc());</span>
+<span class="lineNum">     519 </span>            :     using _VSTD::swap;
+<span class="lineNum">     520 </span><span class="lineCov">         40 :     swap(__before_begin()-&gt;__next_, __x.__before_begin()-&gt;__next_);</span>
+<span class="lineNum">     521 </span><span class="lineCov">         24 : }</span>
+<span class="lineNum">     522 </span>            : 
+<a name="523"><span class="lineNum">     523 </span>            : template &lt;class _Tp, class _Alloc&gt;</a>
+<span class="lineNum">     524 </span>            : void
+<span class="lineNum">     525 </span>            : __forward_list_base&lt;_Tp, _Alloc&gt;::clear() _NOEXCEPT
+<span class="lineNum">     526 </span>            : {
+<span class="lineNum">     527 </span><span class="lineCov">       3781 :     __node_allocator&amp; __a = __alloc();</span>
+<span class="lineNum">     528 </span><span class="lineCov">      75233 :     for (__node_pointer __p = __before_begin()-&gt;__next_; __p != nullptr;)</span>
+<span class="lineNum">     529 </span>            :     {
+<span class="lineNum">     530 </span><span class="lineCov">      38313 :         __node_pointer __next = __p-&gt;__next_;</span>
+<span class="lineNum">     531 </span><span class="lineCov">      38313 :         __node_traits::destroy(__a, _VSTD::addressof(__p-&gt;__value_));</span>
+<span class="lineNum">     532 </span><span class="lineCov">      25644 :         __node_traits::deallocate(__a, __p, 1);</span>
+<span class="lineNum">     533 </span><span class="lineCov">      25644 :         __p = __next;</span>
+<span class="lineNum">     534 </span>            :     }
+<span class="lineNum">     535 </span><span class="lineCov">       7495 :     __before_begin()-&gt;__next_ = nullptr;</span>
+<span class="lineNum">     536 </span><span class="lineCov">       3781 : }</span>
+<a name="537"><span class="lineNum">     537 </span>            : </a>
+<span class="lineNum">     538 </span>            : template &lt;class _Tp, class _Alloc /*= allocator&lt;_Tp&gt;*/&gt;
+<span class="lineNum">     539 </span><span class="lineCov">       2413 : class _LIBCPP_TYPE_VIS_ONLY forward_list</span>
+<span class="lineNum">     540 </span>            :     : private __forward_list_base&lt;_Tp, _Alloc&gt;
+<span class="lineNum">     541 </span>            : {
+<span class="lineNum">     542 </span>            :     typedef __forward_list_base&lt;_Tp, _Alloc&gt; base;
+<span class="lineNum">     543 </span>            :     typedef typename base::__node_allocator  __node_allocator;
+<span class="lineNum">     544 </span>            :     typedef typename base::__node            __node;
+<span class="lineNum">     545 </span>            :     typedef typename base::__node_traits     __node_traits;
+<span class="lineNum">     546 </span>            :     typedef typename base::__node_pointer    __node_pointer;
+<span class="lineNum">     547 </span>            : 
+<span class="lineNum">     548 </span>            : public:
+<span class="lineNum">     549 </span>            :     typedef _Tp    value_type;
+<span class="lineNum">     550 </span>            :     typedef _Alloc allocator_type;
+<span class="lineNum">     551 </span>            : 
+<span class="lineNum">     552 </span>            :     typedef value_type&amp;                                                reference;
+<span class="lineNum">     553 </span>            :     typedef const value_type&amp;                                          const_reference;
+<span class="lineNum">     554 </span>            :     typedef typename allocator_traits&lt;allocator_type&gt;::pointer         pointer;
+<span class="lineNum">     555 </span>            :     typedef typename allocator_traits&lt;allocator_type&gt;::const_pointer   const_pointer;
+<span class="lineNum">     556 </span>            :     typedef typename allocator_traits&lt;allocator_type&gt;::size_type       size_type;
+<span class="lineNum">     557 </span>            :     typedef typename allocator_traits&lt;allocator_type&gt;::difference_type difference_type;
+<span class="lineNum">     558 </span>            : 
+<span class="lineNum">     559 </span>            :     typedef typename base::iterator       iterator;
+<span class="lineNum">     560 </span>            :     typedef typename base::const_iterator const_iterator;
+<a name="561"><span class="lineNum">     561 </span>            : </a>
+<span class="lineNum">     562 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     563 </span><span class="lineCov">        905 :     forward_list()</span>
+<span class="lineNum">     564 </span>            :         _NOEXCEPT_(is_nothrow_default_constructible&lt;__node_allocator&gt;::value)
+<a name="565"><span class="lineNum">     565 </span><span class="lineCov">       1810 :         {} // = default;</span></a>
+<span class="lineNum">     566 </span>            :     explicit forward_list(const allocator_type&amp; __a);
+<span class="lineNum">     567 </span><span class="lineCov">          2 :     explicit forward_list(size_type __n);</span>
+<span class="lineNum">     568 </span>            : #if _LIBCPP_STD_VER &gt; 11
+<a name="569"><span class="lineNum">     569 </span>            :     explicit forward_list(size_type __n, const allocator_type&amp; __a);</a>
+<span class="lineNum">     570 </span>            : #endif
+<span class="lineNum">     571 </span><span class="lineCov">          2 :     forward_list(size_type __n, const value_type&amp; __v);</span>
+<a name="572"><span class="lineNum">     572 </span>            :     forward_list(size_type __n, const value_type&amp; __v, const allocator_type&amp; __a);</a>
+<span class="lineNum">     573 </span>            :     template &lt;class _InputIterator&gt;
+<span class="lineNum">     574 </span><span class="lineCov">       2732 :         forward_list(_InputIterator __f, _InputIterator __l,</span>
+<span class="lineNum">     575 </span>            :                      typename enable_if&lt;
+<span class="lineNum">     576 </span>            :                        __is_input_iterator&lt;_InputIterator&gt;::value
+<span class="lineNum">     577 </span>            :                      &gt;::type* = nullptr);
+<span class="lineNum">     578 </span>            :     template &lt;class _InputIterator&gt;
+<span class="lineNum">     579 </span>            :         forward_list(_InputIterator __f, _InputIterator __l,
+<span class="lineNum">     580 </span>            :                      const allocator_type&amp; __a,
+<span class="lineNum">     581 </span>            :                      typename enable_if&lt;
+<span class="lineNum">     582 </span>            :                        __is_input_iterator&lt;_InputIterator&gt;::value
+<span class="lineNum">     583 </span>            :                      &gt;::type* = nullptr);
+<span class="lineNum">     584 </span>            :     forward_list(const forward_list&amp; __x);
+<span class="lineNum">     585 </span>            :     forward_list(const forward_list&amp; __x, const allocator_type&amp; __a);
+<a name="586"><span class="lineNum">     586 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES</a>
+<span class="lineNum">     587 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     588 </span>            :     forward_list(forward_list&amp;&amp; __x)
+<span class="lineNum">     589 </span>            :         _NOEXCEPT_(is_nothrow_move_constructible&lt;base&gt;::value)
+<span class="lineNum">     590 </span><span class="lineCov">          3 :         : base(_VSTD::move(__x)) {}</span>
+<span class="lineNum">     591 </span>            :     forward_list(forward_list&amp;&amp; __x, const allocator_type&amp; __a);
+<a name="592"><span class="lineNum">     592 </span>            : #endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES</a>
+<span class="lineNum">     593 </span>            : #ifndef _LIBCPP_HAS_NO_GENERALIZED_INITIALIZERS
+<span class="lineNum">     594 </span><span class="lineCov">          2 :     forward_list(initializer_list&lt;value_type&gt; __il);</span>
+<span class="lineNum">     595 </span>            :     forward_list(initializer_list&lt;value_type&gt; __il, const allocator_type&amp; __a);
+<span class="lineNum">     596 </span>            : #endif  // _LIBCPP_HAS_NO_GENERALIZED_INITIALIZERS
+<span class="lineNum">     597 </span>            : 
+<span class="lineNum">     598 </span>            :     // ~forward_list() = default;
+<span class="lineNum">     599 </span>            : 
+<span class="lineNum">     600 </span>            :     forward_list&amp; operator=(const forward_list&amp; __x);
+<span class="lineNum">     601 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">     602 </span>            :     forward_list&amp; operator=(forward_list&amp;&amp; __x)
+<span class="lineNum">     603 </span>            :         _NOEXCEPT_(
+<span class="lineNum">     604 </span>            :              __node_traits::propagate_on_container_move_assignment::value &amp;&amp;
+<span class="lineNum">     605 </span>            :              is_nothrow_move_assignable&lt;allocator_type&gt;::value);
+<span class="lineNum">     606 </span>            : #endif
+<span class="lineNum">     607 </span>            : #ifndef  _LIBCPP_HAS_NO_GENERALIZED_INITIALIZERS
+<span class="lineNum">     608 </span>            :     forward_list&amp; operator=(initializer_list&lt;value_type&gt; __il);
+<span class="lineNum">     609 </span>            : #endif  // _LIBCPP_HAS_NO_GENERALIZED_INITIALIZERS
+<span class="lineNum">     610 </span>            : 
+<span class="lineNum">     611 </span>            :     template &lt;class _InputIterator&gt;
+<span class="lineNum">     612 </span>            :         typename enable_if
+<span class="lineNum">     613 </span>            :         &lt;
+<span class="lineNum">     614 </span>            :             __is_input_iterator&lt;_InputIterator&gt;::value,
+<span class="lineNum">     615 </span>            :             void
+<span class="lineNum">     616 </span>            :         &gt;::type
+<span class="lineNum">     617 </span>            :         assign(_InputIterator __f, _InputIterator __l);
+<span class="lineNum">     618 </span>            :     void assign(size_type __n, const value_type&amp; __v);
+<span class="lineNum">     619 </span>            : #ifndef _LIBCPP_HAS_NO_GENERALIZED_INITIALIZERS
+<span class="lineNum">     620 </span>            :     void assign(initializer_list&lt;value_type&gt; __il);
+<span class="lineNum">     621 </span>            : #endif  // _LIBCPP_HAS_NO_GENERALIZED_INITIALIZERS
+<a name="622"><span class="lineNum">     622 </span>            : </a>
+<span class="lineNum">     623 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     624 </span>            :     allocator_type get_allocator() const _NOEXCEPT
+<span class="lineNum">     625 </span><span class="lineCov">        147 :         {return allocator_type(base::__alloc());}</span>
+<a name="626"><span class="lineNum">     626 </span>            : </a>
+<span class="lineNum">     627 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     628 </span>            :     iterator       begin() _NOEXCEPT
+<a name="629"><span class="lineNum">     629 </span><span class="lineCov">       1714 :         {return       iterator(base::__before_begin()-&gt;__next_);}</span></a>
+<span class="lineNum">     630 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     631 </span>            :     const_iterator begin() const _NOEXCEPT
+<a name="632"><span class="lineNum">     632 </span><span class="lineCov">       8336 :         {return const_iterator(base::__before_begin()-&gt;__next_);}</span></a>
+<span class="lineNum">     633 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     634 </span>            :     iterator       end() _NOEXCEPT
+<a name="635"><span class="lineNum">     635 </span><span class="lineCov">       1255 :         {return       iterator(nullptr);}</span></a>
+<span class="lineNum">     636 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     637 </span>            :     const_iterator end() const _NOEXCEPT
+<span class="lineNum">     638 </span><span class="lineCov">       5894 :         {return const_iterator(nullptr);}</span>
+<a name="639"><span class="lineNum">     639 </span>            : </a>
+<span class="lineNum">     640 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     641 </span>            :     const_iterator cbegin() const _NOEXCEPT
+<a name="642"><span class="lineNum">     642 </span><span class="lineCov">         66 :         {return const_iterator(base::__before_begin()-&gt;__next_);}</span></a>
+<span class="lineNum">     643 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     644 </span>            :     const_iterator cend() const _NOEXCEPT
+<span class="lineNum">     645 </span><span class="lineCov">        291 :         {return const_iterator(nullptr);}</span>
+<a name="646"><span class="lineNum">     646 </span>            : </a>
+<span class="lineNum">     647 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     648 </span>            :     iterator       before_begin() _NOEXCEPT
+<a name="649"><span class="lineNum">     649 </span><span class="lineCov">        399 :         {return       iterator(base::__before_begin());}</span></a>
+<span class="lineNum">     650 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     651 </span>            :     const_iterator before_begin() const _NOEXCEPT
+<a name="652"><span class="lineNum">     652 </span><span class="lineCov">          6 :         {return const_iterator(base::__before_begin());}</span></a>
+<span class="lineNum">     653 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     654 </span>            :     const_iterator cbefore_begin() const _NOEXCEPT
+<span class="lineNum">     655 </span><span class="lineCov">       7329 :         {return const_iterator(base::__before_begin());}</span>
+<a name="656"><span class="lineNum">     656 </span>            : </a>
+<span class="lineNum">     657 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     658 </span>            :     bool empty() const _NOEXCEPT
+<a name="659"><span class="lineNum">     659 </span><span class="lineCov">        285 :         {return base::__before_begin()-&gt;__next_ == nullptr;}</span></a>
+<span class="lineNum">     660 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     661 </span>            :     size_type max_size() const _NOEXCEPT
+<span class="lineNum">     662 </span><span class="lineCov">          2 :         {return numeric_limits&lt;size_type&gt;::max();}</span>
+<a name="663"><span class="lineNum">     663 </span>            : </a>
+<span class="lineNum">     664 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<a name="665"><span class="lineNum">     665 </span><span class="lineCov">        232 :     reference       front()       {return base::__before_begin()-&gt;__next_-&gt;__value_;}</span></a>
+<span class="lineNum">     666 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     667 </span><span class="lineCov">          2 :     const_reference front() const {return base::__before_begin()-&gt;__next_-&gt;__value_;}</span>
+<span class="lineNum">     668 </span>            : 
+<span class="lineNum">     669 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">     670 </span>            : #ifndef _LIBCPP_HAS_NO_VARIADICS
+<span class="lineNum">     671 </span>            :     template &lt;class... _Args&gt; void emplace_front(_Args&amp;&amp;... __args);
+<span class="lineNum">     672 </span>            : #endif
+<span class="lineNum">     673 </span>            :     void push_front(value_type&amp;&amp; __v);
+<span class="lineNum">     674 </span>            : #endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">     675 </span>            :     void push_front(const value_type&amp; __v);
+<span class="lineNum">     676 </span>            : 
+<span class="lineNum">     677 </span>            :     void pop_front();
+<span class="lineNum">     678 </span>            : 
+<span class="lineNum">     679 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">     680 </span>            : #ifndef _LIBCPP_HAS_NO_VARIADICS
+<span class="lineNum">     681 </span>            :     template &lt;class... _Args&gt;
+<span class="lineNum">     682 </span>            :         iterator emplace_after(const_iterator __p, _Args&amp;&amp;... __args);
+<span class="lineNum">     683 </span>            : #endif  // _LIBCPP_HAS_NO_VARIADICS
+<span class="lineNum">     684 </span>            :     iterator insert_after(const_iterator __p, value_type&amp;&amp; __v);
+<span class="lineNum">     685 </span>            : #endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">     686 </span>            :     iterator insert_after(const_iterator __p, const value_type&amp; __v);
+<span class="lineNum">     687 </span>            :     iterator insert_after(const_iterator __p, size_type __n, const value_type&amp; __v);
+<span class="lineNum">     688 </span>            :     template &lt;class _InputIterator&gt;
+<span class="lineNum">     689 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     690 </span>            :         typename enable_if
+<span class="lineNum">     691 </span>            :         &lt;
+<span class="lineNum">     692 </span>            :             __is_input_iterator&lt;_InputIterator&gt;::value,
+<span class="lineNum">     693 </span>            :             iterator
+<span class="lineNum">     694 </span>            :         &gt;::type
+<a name="695"><span class="lineNum">     695 </span>            :         insert_after(const_iterator __p, _InputIterator __f, _InputIterator __l);</a>
+<span class="lineNum">     696 </span>            : #ifndef _LIBCPP_HAS_NO_GENERALIZED_INITIALIZERS
+<span class="lineNum">     697 </span>            :     iterator insert_after(const_iterator __p, initializer_list&lt;value_type&gt; __il)
+<span class="lineNum">     698 </span><span class="lineCov">          6 :         {return insert_after(__p, __il.begin(), __il.end());}</span>
+<span class="lineNum">     699 </span>            : #endif  // _LIBCPP_HAS_NO_GENERALIZED_INITIALIZERS
+<span class="lineNum">     700 </span>            : 
+<span class="lineNum">     701 </span>            :     iterator erase_after(const_iterator __p);
+<span class="lineNum">     702 </span>            :     iterator erase_after(const_iterator __f, const_iterator __l);
+<a name="703"><span class="lineNum">     703 </span>            : </a>
+<span class="lineNum">     704 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     705 </span>            :     void swap(forward_list&amp; __x)
+<span class="lineNum">     706 </span>            :         _NOEXCEPT_(!__node_traits::propagate_on_container_swap::value ||
+<span class="lineNum">     707 </span>            :                    __is_nothrow_swappable&lt;__node_allocator&gt;::value)
+<span class="lineNum">     708 </span><span class="lineCov">         24 :         {base::swap(__x);}</span>
+<span class="lineNum">     709 </span>            : 
+<span class="lineNum">     710 </span>            :     void resize(size_type __n);
+<a name="711"><span class="lineNum">     711 </span>            :     void resize(size_type __n, const value_type&amp; __v);</a>
+<span class="lineNum">     712 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     713 </span><span class="lineCov">         14 :     void clear() _NOEXCEPT {base::clear();}</span>
+<span class="lineNum">     714 </span>            : 
+<span class="lineNum">     715 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">     716 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     717 </span>            :     void splice_after(const_iterator __p, forward_list&amp;&amp; __x);
+<span class="lineNum">     718 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     719 </span>            :     void splice_after(const_iterator __p, forward_list&amp;&amp; __x, const_iterator __i);
+<span class="lineNum">     720 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     721 </span>            :     void splice_after(const_iterator __p, forward_list&amp;&amp; __x,
+<span class="lineNum">     722 </span>            :                       const_iterator __f, const_iterator __l);
+<span class="lineNum">     723 </span>            : #endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">     724 </span>            :     void splice_after(const_iterator __p, forward_list&amp; __x);
+<span class="lineNum">     725 </span>            :     void splice_after(const_iterator __p, forward_list&amp; __x, const_iterator __i);
+<span class="lineNum">     726 </span>            :     void splice_after(const_iterator __p, forward_list&amp; __x,
+<span class="lineNum">     727 </span>            :                       const_iterator __f, const_iterator __l);
+<span class="lineNum">     728 </span>            :     void remove(const value_type&amp; __v);
+<a name="729"><span class="lineNum">     729 </span>            :     template &lt;class _Predicate&gt; void remove_if(_Predicate __pred);</a>
+<span class="lineNum">     730 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     731 </span><span class="lineCov">         10 :     void unique() {unique(__equal_to&lt;value_type&gt;());}</span>
+<span class="lineNum">     732 </span>            :     template &lt;class _BinaryPredicate&gt; void unique(_BinaryPredicate __binary_pred);
+<span class="lineNum">     733 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">     734 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     735 </span>            :     void merge(forward_list&amp;&amp; __x) {merge(__x, __less&lt;value_type&gt;());}
+<span class="lineNum">     736 </span>            :     template &lt;class _Compare&gt;
+<span class="lineNum">     737 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     738 </span>            :         void merge(forward_list&amp;&amp; __x, _Compare __comp)
+<span class="lineNum">     739 </span>            :         {merge(__x, _VSTD::move(__comp));}
+<a name="740"><span class="lineNum">     740 </span>            : #endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES</a>
+<span class="lineNum">     741 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     742 </span><span class="lineCov">          2 :     void merge(forward_list&amp; __x) {merge(__x, __less&lt;value_type&gt;());}</span>
+<a name="743"><span class="lineNum">     743 </span>            :     template &lt;class _Compare&gt; void merge(forward_list&amp; __x, _Compare __comp);</a>
+<span class="lineNum">     744 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     745 </span><span class="lineCov">         80 :     void sort() {sort(__less&lt;value_type&gt;());}</span>
+<span class="lineNum">     746 </span>            :     template &lt;class _Compare&gt; void sort(_Compare __comp);
+<span class="lineNum">     747 </span>            :     void reverse() _NOEXCEPT;
+<span class="lineNum">     748 </span>            : 
+<span class="lineNum">     749 </span>            : private:
+<span class="lineNum">     750 </span>            : 
+<span class="lineNum">     751 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">     752 </span>            :     void __move_assign(forward_list&amp; __x, true_type)
+<span class="lineNum">     753 </span>            :         _NOEXCEPT_(is_nothrow_move_assignable&lt;allocator_type&gt;::value);
+<span class="lineNum">     754 </span>            :     void __move_assign(forward_list&amp; __x, false_type);
+<span class="lineNum">     755 </span>            : #endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">     756 </span>            : 
+<span class="lineNum">     757 </span>            :     template &lt;class _Compare&gt;
+<span class="lineNum">     758 </span>            :         static
+<span class="lineNum">     759 </span>            :         __node_pointer
+<span class="lineNum">     760 </span>            :         __merge(__node_pointer __f1, __node_pointer __f2, _Compare&amp; __comp);
+<span class="lineNum">     761 </span>            : 
+<span class="lineNum">     762 </span>            :     template &lt;class _Compare&gt;
+<span class="lineNum">     763 </span>            :         static
+<span class="lineNum">     764 </span>            :         __node_pointer
+<span class="lineNum">     765 </span>            :         __sort(__node_pointer __f, difference_type __sz, _Compare&amp; __comp);
+<span class="lineNum">     766 </span>            : };
+<span class="lineNum">     767 </span>            : 
+<a name="768"><span class="lineNum">     768 </span>            : template &lt;class _Tp, class _Alloc&gt;</a>
+<span class="lineNum">     769 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     770 </span>            : forward_list&lt;_Tp, _Alloc&gt;::forward_list(const allocator_type&amp; __a)
+<span class="lineNum">     771 </span><span class="lineCov">         26 :     : base(__a)</span>
+<span class="lineNum">     772 </span><span class="lineCov">         26 : {</span>
+<span class="lineNum">     773 </span><span class="lineCov">         26 : }</span>
+<span class="lineNum">     774 </span>            : 
+<span class="lineNum">     775 </span>            : template &lt;class _Tp, class _Alloc&gt;
+<span class="lineNum">     776 </span>            : forward_list&lt;_Tp, _Alloc&gt;::forward_list(size_type __n)
+<span class="lineNum">     777 </span><span class="lineCov">          2 : {</span>
+<span class="lineNum">     778 </span><span class="lineCov">          2 :     if (__n &gt; 0)</span>
+<span class="lineNum">     779 </span>            :     {
+<span class="lineNum">     780 </span><span class="lineCov">          2 :         __node_allocator&amp; __a = base::__alloc();</span>
+<span class="lineNum">     781 </span>            :         typedef __allocator_destructor&lt;__node_allocator&gt; _Dp;
+<span class="lineNum">     782 </span><span class="lineCov">          3 :         unique_ptr&lt;__node, _Dp&gt; __h(nullptr, _Dp(__a, 1));</span>
+<span class="lineNum">     783 </span><span class="lineCov">         64 :         for (__node_pointer __p = base::__before_begin(); __n &gt; 0; --__n,</span>
+<span class="lineNum">     784 </span><span class="lineCov">         30 :                                                              __p = __p-&gt;__next_)</span>
+<span class="lineNum">     785 </span>            :         {
+<span class="lineNum">     786 </span><span class="lineCov">         40 :             __h.reset(__node_traits::allocate(__a, 1));</span>
+<span class="lineNum">     787 </span><span class="lineCov">         30 :             __node_traits::construct(__a, _VSTD::addressof(__h-&gt;__value_));</span>
+<span class="lineNum">     788 </span><span class="lineCov">         40 :             __h-&gt;__next_ = nullptr;</span>
+<span class="lineNum">     789 </span><span class="lineCov">         30 :             __p-&gt;__next_ = __h.release();</span>
+<span class="lineNum">     790 </span><span class="lineCov">         20 :         }</span>
+<span class="lineNum">     791 </span><span class="lineCov">          2 :     }</span>
+<span class="lineNum">     792 </span><span class="lineCov">          2 : }</span>
+<span class="lineNum">     793 </span>            : 
+<a name="794"><span class="lineNum">     794 </span>            : #if _LIBCPP_STD_VER &gt; 11</a>
+<span class="lineNum">     795 </span>            : template &lt;class _Tp, class _Alloc&gt;
+<span class="lineNum">     796 </span>            : forward_list&lt;_Tp, _Alloc&gt;::forward_list(size_type __n, const allocator_type&amp; __a)
+<span class="lineNum">     797 </span><span class="lineCov">          2 :     : base ( __a )</span>
+<span class="lineNum">     798 </span><span class="lineCov">          2 : {</span>
+<span class="lineNum">     799 </span><span class="lineCov">          2 :     if (__n &gt; 0)</span>
+<span class="lineNum">     800 </span>            :     {
+<span class="lineNum">     801 </span><span class="lineCov">          1 :         __node_allocator&amp; __a = base::__alloc();</span>
+<span class="lineNum">     802 </span>            :         typedef __allocator_destructor&lt;__node_allocator&gt; _Dp;
+<span class="lineNum">     803 </span><span class="lineCov">          2 :         unique_ptr&lt;__node, _Dp&gt; __h(nullptr, _Dp(__a, 1));</span>
+<span class="lineNum">     804 </span><span class="lineCov">         11 :         for (__node_pointer __p = base::__before_begin(); __n &gt; 0; --__n,</span>
+<span class="lineNum">     805 </span><span class="lineCov">          6 :                                                              __p = __p-&gt;__next_)</span>
+<span class="lineNum">     806 </span>            :         {
+<span class="lineNum">     807 </span><span class="lineCov">          6 :             __h.reset(__node_traits::allocate(__a, 1));</span>
+<span class="lineNum">     808 </span><span class="lineCov">          6 :             __node_traits::construct(__a, _VSTD::addressof(__h-&gt;__value_));</span>
+<span class="lineNum">     809 </span><span class="lineCov">          9 :             __h-&gt;__next_ = nullptr;</span>
+<span class="lineNum">     810 </span><span class="lineCov">          6 :             __p-&gt;__next_ = __h.release();</span>
+<span class="lineNum">     811 </span><span class="lineCov">          3 :         }</span>
+<span class="lineNum">     812 </span><span class="lineCov">          1 :     }</span>
+<span class="lineNum">     813 </span><span class="lineCov">          2 : }</span>
+<span class="lineNum">     814 </span>            : #endif
+<span class="lineNum">     815 </span>            : 
+<span class="lineNum">     816 </span>            : template &lt;class _Tp, class _Alloc&gt;
+<span class="lineNum">     817 </span>            : forward_list&lt;_Tp, _Alloc&gt;::forward_list(size_type __n, const value_type&amp; __v)
+<span class="lineNum">     818 </span><span class="lineCov">          2 : {</span>
+<span class="lineNum">     819 </span><span class="lineCov">          4 :     insert_after(cbefore_begin(), __n, __v);</span>
+<span class="lineNum">     820 </span><span class="lineCov">          2 : }</span>
+<a name="821"><span class="lineNum">     821 </span>            : </a>
+<span class="lineNum">     822 </span>            : template &lt;class _Tp, class _Alloc&gt;
+<span class="lineNum">     823 </span>            : forward_list&lt;_Tp, _Alloc&gt;::forward_list(size_type __n, const value_type&amp; __v,
+<span class="lineNum">     824 </span>            :                                         const allocator_type&amp; __a)
+<span class="lineNum">     825 </span><span class="lineCov">          2 :     : base(__a)</span>
+<span class="lineNum">     826 </span><span class="lineCov">          2 : {</span>
+<span class="lineNum">     827 </span><span class="lineCov">          4 :     insert_after(cbefore_begin(), __n, __v);</span>
+<span class="lineNum">     828 </span><span class="lineCov">          2 : }</span>
+<span class="lineNum">     829 </span>            : 
+<span class="lineNum">     830 </span>            : template &lt;class _Tp, class _Alloc&gt;
+<span class="lineNum">     831 </span>            : template &lt;class _InputIterator&gt;
+<span class="lineNum">     832 </span>            : forward_list&lt;_Tp, _Alloc&gt;::forward_list(_InputIterator __f, _InputIterator __l,
+<span class="lineNum">     833 </span>            :                                         typename enable_if&lt;
+<span class="lineNum">     834 </span>            :                                           __is_input_iterator&lt;_InputIterator&gt;::value
+<span class="lineNum">     835 </span>            :                                         &gt;::type*)
+<span class="lineNum">     836 </span><span class="lineCov">       2732 : {</span>
+<span class="lineNum">     837 </span><span class="lineCov">       5464 :     insert_after(cbefore_begin(), __f, __l);</span>
+<span class="lineNum">     838 </span><span class="lineCov">       2732 : }</span>
+<span class="lineNum">     839 </span>            : 
+<a name="840"><span class="lineNum">     840 </span>            : template &lt;class _Tp, class _Alloc&gt;</a>
+<span class="lineNum">     841 </span>            : template &lt;class _InputIterator&gt;
+<span class="lineNum">     842 </span>            : forward_list&lt;_Tp, _Alloc&gt;::forward_list(_InputIterator __f, _InputIterator __l,
+<span class="lineNum">     843 </span>            :                                         const allocator_type&amp; __a,
+<span class="lineNum">     844 </span>            :                                         typename enable_if&lt;
+<span class="lineNum">     845 </span>            :                                           __is_input_iterator&lt;_InputIterator&gt;::value
+<span class="lineNum">     846 </span>            :                                         &gt;::type*)
+<span class="lineNum">     847 </span><span class="lineCov">         78 :     : base(__a)</span>
+<span class="lineNum">     848 </span><span class="lineCov">         78 : {</span>
+<span class="lineNum">     849 </span><span class="lineCov">        156 :     insert_after(cbefore_begin(), __f, __l);</span>
+<span class="lineNum">     850 </span><span class="lineCov">         78 : }</span>
+<a name="851"><span class="lineNum">     851 </span>            : </a>
+<span class="lineNum">     852 </span>            : template &lt;class _Tp, class _Alloc&gt;
+<span class="lineNum">     853 </span>            : forward_list&lt;_Tp, _Alloc&gt;::forward_list(const forward_list&amp; __x)
+<span class="lineNum">     854 </span><span class="lineCov">          4 :     : base(allocator_type(</span>
+<span class="lineNum">     855 </span><span class="lineCov">          3 :              __node_traits::select_on_container_copy_construction(__x.__alloc())</span>
+<span class="lineNum">     856 </span>            :                          )
+<span class="lineNum">     857 </span>            :           )
+<span class="lineNum">     858 </span><span class="lineCov">          3 : {</span>
+<span class="lineNum">     859 </span><span class="lineCov">          6 :     insert_after(cbefore_begin(), __x.begin(), __x.end());</span>
+<span class="lineNum">     860 </span><span class="lineCov">          3 : }</span>
+<a name="861"><span class="lineNum">     861 </span>            : </a>
+<span class="lineNum">     862 </span>            : template &lt;class _Tp, class _Alloc&gt;
+<span class="lineNum">     863 </span>            : forward_list&lt;_Tp, _Alloc&gt;::forward_list(const forward_list&amp; __x,
+<span class="lineNum">     864 </span>            :                                         const allocator_type&amp; __a)
+<span class="lineNum">     865 </span><span class="lineCov">          3 :     : base(__a)</span>
+<span class="lineNum">     866 </span><span class="lineCov">          3 : {</span>
+<span class="lineNum">     867 </span><span class="lineCov">          6 :     insert_after(cbefore_begin(), __x.begin(), __x.end());</span>
+<span class="lineNum">     868 </span><span class="lineCov">          3 : }</span>
+<span class="lineNum">     869 </span>            : 
+<span class="lineNum">     870 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<a name="871"><span class="lineNum">     871 </span>            : </a>
+<span class="lineNum">     872 </span>            : template &lt;class _Tp, class _Alloc&gt;
+<span class="lineNum">     873 </span>            : forward_list&lt;_Tp, _Alloc&gt;::forward_list(forward_list&amp;&amp; __x,
+<span class="lineNum">     874 </span>            :                                         const allocator_type&amp; __a)
+<span class="lineNum">     875 </span><span class="lineCov">          3 :     : base(_VSTD::move(__x), __a)</span>
+<span class="lineNum">     876 </span><span class="lineCov">          3 : {</span>
+<span class="lineNum">     877 </span><span class="lineCov">          6 :     if (base::__alloc() != __x.__alloc())</span>
+<span class="lineNum">     878 </span>            :     {
+<span class="lineNum">     879 </span>            :         typedef move_iterator&lt;iterator&gt; _Ip;
+<span class="lineNum">     880 </span><span class="lineCov">          4 :         insert_after(cbefore_begin(), _Ip(__x.begin()), _Ip(__x.end()));</span>
+<span class="lineNum">     881 </span><span class="lineCov">          1 :     }</span>
+<span class="lineNum">     882 </span><span class="lineCov">          3 : }</span>
+<span class="lineNum">     883 </span>            : 
+<span class="lineNum">     884 </span>            : #endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">     885 </span>            : 
+<span class="lineNum">     886 </span>            : #ifndef _LIBCPP_HAS_NO_GENERALIZED_INITIALIZERS
+<span class="lineNum">     887 </span>            : 
+<span class="lineNum">     888 </span>            : template &lt;class _Tp, class _Alloc&gt;
+<span class="lineNum">     889 </span>            : forward_list&lt;_Tp, _Alloc&gt;::forward_list(initializer_list&lt;value_type&gt; __il)
+<span class="lineNum">     890 </span><span class="lineCov">          2 : {</span>
+<span class="lineNum">     891 </span><span class="lineCov">          4 :     insert_after(cbefore_begin(), __il.begin(), __il.end());</span>
+<span class="lineNum">     892 </span><span class="lineCov">          2 : }</span>
+<a name="893"><span class="lineNum">     893 </span>            : </a>
+<span class="lineNum">     894 </span>            : template &lt;class _Tp, class _Alloc&gt;
+<span class="lineNum">     895 </span>            : forward_list&lt;_Tp, _Alloc&gt;::forward_list(initializer_list&lt;value_type&gt; __il,
+<span class="lineNum">     896 </span>            :                                         const allocator_type&amp; __a)
+<span class="lineNum">     897 </span><span class="lineCov">          2 :     : base(__a)</span>
+<span class="lineNum">     898 </span><span class="lineCov">          2 : {</span>
+<span class="lineNum">     899 </span><span class="lineCov">          4 :     insert_after(cbefore_begin(), __il.begin(), __il.end());</span>
+<span class="lineNum">     900 </span><span class="lineCov">          2 : }</span>
+<span class="lineNum">     901 </span>            : 
+<span class="lineNum">     902 </span>            : #endif  // _LIBCPP_HAS_NO_GENERALIZED_INITIALIZERS
+<span class="lineNum">     903 </span>            : 
+<a name="904"><span class="lineNum">     904 </span>            : template &lt;class _Tp, class _Alloc&gt;</a>
+<span class="lineNum">     905 </span>            : forward_list&lt;_Tp, _Alloc&gt;&amp;
+<span class="lineNum">     906 </span>            : forward_list&lt;_Tp, _Alloc&gt;::operator=(const forward_list&amp; __x)
+<span class="lineNum">     907 </span>            : {
+<span class="lineNum">     908 </span><span class="lineCov">        210 :     if (this != &amp;__x)</span>
+<span class="lineNum">     909 </span>            :     {
+<span class="lineNum">     910 </span><span class="lineCov">        210 :         base::__copy_assign_alloc(__x);</span>
+<span class="lineNum">     911 </span><span class="lineCov">        210 :         assign(__x.begin(), __x.end());</span>
+<span class="lineNum">     912 </span><span class="lineCov">        210 :     }</span>
+<span class="lineNum">     913 </span><span class="lineCov">        210 :     return *this;</span>
+<span class="lineNum">     914 </span>            : }
+<span class="lineNum">     915 </span>            : 
+<span class="lineNum">     916 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">     917 </span>            : 
+<a name="918"><span class="lineNum">     918 </span>            : template &lt;class _Tp, class _Alloc&gt;</a>
+<span class="lineNum">     919 </span>            : void
+<span class="lineNum">     920 </span>            : forward_list&lt;_Tp, _Alloc&gt;::__move_assign(forward_list&amp; __x, true_type)
+<span class="lineNum">     921 </span>            :     _NOEXCEPT_(is_nothrow_move_assignable&lt;allocator_type&gt;::value)
+<span class="lineNum">     922 </span>            : {
+<span class="lineNum">     923 </span><span class="lineCov">          8 :     clear();</span>
+<span class="lineNum">     924 </span><span class="lineCov">          8 :     base::__move_assign_alloc(__x);</span>
+<span class="lineNum">     925 </span><span class="lineCov">         12 :     base::__before_begin()-&gt;__next_ = __x.__before_begin()-&gt;__next_;</span>
+<span class="lineNum">     926 </span><span class="lineCov">         12 :     __x.__before_begin()-&gt;__next_ = nullptr;</span>
+<span class="lineNum">     927 </span><span class="lineCov">          8 : }</span>
+<span class="lineNum">     928 </span>            : 
+<a name="929"><span class="lineNum">     929 </span>            : template &lt;class _Tp, class _Alloc&gt;</a>
+<span class="lineNum">     930 </span>            : void
+<span class="lineNum">     931 </span>            : forward_list&lt;_Tp, _Alloc&gt;::__move_assign(forward_list&amp; __x, false_type)
+<span class="lineNum">     932 </span>            : {
+<span class="lineNum">     933 </span><span class="lineCov">          6 :     if (base::__alloc() == __x.__alloc())</span>
+<span class="lineNum">     934 </span><span class="lineCov">          4 :         __move_assign(__x, true_type());</span>
+<span class="lineNum">     935 </span>            :     else
+<span class="lineNum">     936 </span>            :     {
+<span class="lineNum">     937 </span>            :         typedef move_iterator&lt;iterator&gt; _Ip;
+<span class="lineNum">     938 </span><span class="lineCov">          2 :         assign(_Ip(__x.begin()), _Ip(__x.end()));</span>
+<span class="lineNum">     939 </span>            :     }
+<span class="lineNum">     940 </span><span class="lineCov">          6 : }</span>
+<span class="lineNum">     941 </span>            : 
+<span class="lineNum">     942 </span>            : template &lt;class _Tp, class _Alloc&gt;
+<a name="943"><span class="lineNum">     943 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     944 </span>            : forward_list&lt;_Tp, _Alloc&gt;&amp;
+<span class="lineNum">     945 </span>            : forward_list&lt;_Tp, _Alloc&gt;::operator=(forward_list&amp;&amp; __x)
+<span class="lineNum">     946 </span>            :     _NOEXCEPT_(
+<span class="lineNum">     947 </span>            :              __node_traits::propagate_on_container_move_assignment::value &amp;&amp;
+<span class="lineNum">     948 </span>            :              is_nothrow_move_assignable&lt;allocator_type&gt;::value)
+<span class="lineNum">     949 </span>            : {
+<span class="lineNum">     950 </span><span class="lineCov">         10 :     __move_assign(__x, integral_constant&lt;bool,</span>
+<span class="lineNum">     951 </span>            :           __node_traits::propagate_on_container_move_assignment::value&gt;());
+<span class="lineNum">     952 </span><span class="lineCov">         10 :     return *this;</span>
+<span class="lineNum">     953 </span>            : }
+<span class="lineNum">     954 </span>            : 
+<span class="lineNum">     955 </span>            : #endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">     956 </span>            : 
+<span class="lineNum">     957 </span>            : #ifndef _LIBCPP_HAS_NO_GENERALIZED_INITIALIZERS
+<span class="lineNum">     958 </span>            : 
+<span class="lineNum">     959 </span>            : template &lt;class _Tp, class _Alloc&gt;
+<a name="960"><span class="lineNum">     960 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     961 </span>            : forward_list&lt;_Tp, _Alloc&gt;&amp;
+<span class="lineNum">     962 </span>            : forward_list&lt;_Tp, _Alloc&gt;::operator=(initializer_list&lt;value_type&gt; __il)
+<span class="lineNum">     963 </span>            : {
+<span class="lineNum">     964 </span><span class="lineCov">          4 :     assign(__il.begin(), __il.end());</span>
+<span class="lineNum">     965 </span><span class="lineCov">          4 :     return *this;</span>
+<span class="lineNum">     966 </span>            : }
+<span class="lineNum">     967 </span>            : 
+<span class="lineNum">     968 </span>            : #endif  // _LIBCPP_HAS_NO_GENERALIZED_INITIALIZERS
+<span class="lineNum">     969 </span>            : 
+<span class="lineNum">     970 </span>            : template &lt;class _Tp, class _Alloc&gt;
+<span class="lineNum">     971 </span>            : template &lt;class _InputIterator&gt;
+<span class="lineNum">     972 </span>            : typename enable_if
+<span class="lineNum">     973 </span>            : &lt;
+<span class="lineNum">     974 </span>            :     __is_input_iterator&lt;_InputIterator&gt;::value,
+<a name="975"><span class="lineNum">     975 </span>            :     void</a>
+<span class="lineNum">     976 </span>            : &gt;::type
+<span class="lineNum">     977 </span>            : forward_list&lt;_Tp, _Alloc&gt;::assign(_InputIterator __f, _InputIterator __l)
+<span class="lineNum">     978 </span>            : {
+<span class="lineNum">     979 </span><span class="lineCov">        224 :     iterator __i = before_begin();</span>
+<span class="lineNum">     980 </span><span class="lineCov">        224 :     iterator __j = _VSTD::next(__i);</span>
+<span class="lineNum">     981 </span><span class="lineCov">        224 :     iterator __e = end();</span>
+<span class="lineNum">     982 </span><span class="lineCov">       3405 :     for (; __j != __e &amp;&amp; __f != __l; ++__i, (void) ++__j, ++__f)</span>
+<span class="lineNum">     983 </span><span class="lineCov">        658 :         *__j = *__f;</span>
+<span class="lineNum">     984 </span><span class="lineCov">        224 :     if (__j == __e)</span>
+<span class="lineNum">     985 </span><span class="lineCov">        123 :         insert_after(__i, __f, __l);</span>
+<span class="lineNum">     986 </span>            :     else
+<span class="lineNum">     987 </span><span class="lineCov">        101 :         erase_after(__i, __e);</span>
+<span class="lineNum">     988 </span><span class="lineCov">        224 : }</span>
+<span class="lineNum">     989 </span>            : 
+<a name="990"><span class="lineNum">     990 </span>            : template &lt;class _Tp, class _Alloc&gt;</a>
+<span class="lineNum">     991 </span>            : void
+<span class="lineNum">     992 </span>            : forward_list&lt;_Tp, _Alloc&gt;::assign(size_type __n, const value_type&amp; __v)
+<span class="lineNum">     993 </span>            : {
+<span class="lineNum">     994 </span><span class="lineCov">          4 :     iterator __i = before_begin();</span>
+<span class="lineNum">     995 </span><span class="lineCov">          4 :     iterator __j = _VSTD::next(__i);</span>
+<span class="lineNum">     996 </span><span class="lineCov">          4 :     iterator __e = end();</span>
+<span class="lineNum">     997 </span><span class="lineCov">         78 :     for (; __j != __e &amp;&amp; __n &gt; 0; --__n, ++__i, ++__j)</span>
+<span class="lineNum">     998 </span><span class="lineCov">         16 :         *__j = __v;</span>
+<span class="lineNum">     999 </span><span class="lineCov">          4 :     if (__j == __e)</span>
+<span class="lineNum">    1000 </span><span class="lineCov">          2 :         insert_after(__i, __n, __v);</span>
+<span class="lineNum">    1001 </span>            :     else
+<span class="lineNum">    1002 </span><span class="lineCov">          2 :         erase_after(__i, __e);</span>
+<span class="lineNum">    1003 </span><span class="lineCov">          4 : }</span>
+<span class="lineNum">    1004 </span>            : 
+<span class="lineNum">    1005 </span>            : #ifndef _LIBCPP_HAS_NO_GENERALIZED_INITIALIZERS
+<span class="lineNum">    1006 </span>            : 
+<span class="lineNum">    1007 </span>            : template &lt;class _Tp, class _Alloc&gt;
+<a name="1008"><span class="lineNum">    1008 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">    1009 </span>            : void
+<span class="lineNum">    1010 </span>            : forward_list&lt;_Tp, _Alloc&gt;::assign(initializer_list&lt;value_type&gt; __il)
+<span class="lineNum">    1011 </span>            : {
+<span class="lineNum">    1012 </span><span class="lineCov">          4 :     assign(__il.begin(), __il.end());</span>
+<span class="lineNum">    1013 </span><span class="lineCov">          4 : }</span>
+<span class="lineNum">    1014 </span>            : 
+<span class="lineNum">    1015 </span>            : #endif  // _LIBCPP_HAS_NO_GENERALIZED_INITIALIZERS
+<span class="lineNum">    1016 </span>            : 
+<span class="lineNum">    1017 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">    1018 </span>            : #ifndef _LIBCPP_HAS_NO_VARIADICS
+<span class="lineNum">    1019 </span>            : 
+<span class="lineNum">    1020 </span>            : template &lt;class _Tp, class _Alloc&gt;
+<a name="1021"><span class="lineNum">    1021 </span>            : template &lt;class... _Args&gt;</a>
+<span class="lineNum">    1022 </span>            : void
+<span class="lineNum">    1023 </span>            : forward_list&lt;_Tp, _Alloc&gt;::emplace_front(_Args&amp;&amp;... __args)
+<span class="lineNum">    1024 </span>            : {
+<span class="lineNum">    1025 </span><span class="lineCov">          4 :     __node_allocator&amp; __a = base::__alloc();</span>
+<span class="lineNum">    1026 </span>            :     typedef __allocator_destructor&lt;__node_allocator&gt; _Dp;
+<span class="lineNum">    1027 </span><span class="lineCov">          4 :     unique_ptr&lt;__node, _Dp&gt; __h(__node_traits::allocate(__a, 1), _Dp(__a, 1));</span>
+<span class="lineNum">    1028 </span><span class="lineCov">          8 :     __node_traits::construct(__a, _VSTD::addressof(__h-&gt;__value_),</span>
+<span class="lineNum">    1029 </span><span class="lineCov">          2 :                                   _VSTD::forward&lt;_Args&gt;(__args)...);</span>
+<span class="lineNum">    1030 </span><span class="lineCov">          8 :     __h-&gt;__next_ = base::__before_begin()-&gt;__next_;</span>
+<span class="lineNum">    1031 </span><span class="lineCov">          6 :     base::__before_begin()-&gt;__next_ = __h.release();</span>
+<span class="lineNum">    1032 </span><span class="lineCov">          4 : }</span>
+<span class="lineNum">    1033 </span>            : 
+<span class="lineNum">    1034 </span>            : #endif  // _LIBCPP_HAS_NO_VARIADICS
+<span class="lineNum">    1035 </span>            : 
+<a name="1036"><span class="lineNum">    1036 </span>            : template &lt;class _Tp, class _Alloc&gt;</a>
+<span class="lineNum">    1037 </span>            : void
+<span class="lineNum">    1038 </span>            : forward_list&lt;_Tp, _Alloc&gt;::push_front(value_type&amp;&amp; __v)
+<span class="lineNum">    1039 </span>            : {
+<span class="lineNum">    1040 </span><span class="lineCov">         24 :     __node_allocator&amp; __a = base::__alloc();</span>
+<span class="lineNum">    1041 </span>            :     typedef __allocator_destructor&lt;__node_allocator&gt; _Dp;
+<span class="lineNum">    1042 </span><span class="lineCov">         24 :     unique_ptr&lt;__node, _Dp&gt; __h(__node_traits::allocate(__a, 1), _Dp(__a, 1));</span>
+<span class="lineNum">    1043 </span><span class="lineCov">         32 :     __node_traits::construct(__a, _VSTD::addressof(__h-&gt;__value_), _VSTD::move(__v));</span>
+<span class="lineNum">    1044 </span><span class="lineCov">         40 :     __h-&gt;__next_ = base::__before_begin()-&gt;__next_;</span>
+<span class="lineNum">    1045 </span><span class="lineCov">         32 :     base::__before_begin()-&gt;__next_ = __h.release();</span>
+<span class="lineNum">    1046 </span><span class="lineCov">         24 : }</span>
+<span class="lineNum">    1047 </span>            : 
+<span class="lineNum">    1048 </span>            : #endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">    1049 </span>            : 
+<a name="1050"><span class="lineNum">    1050 </span>            : template &lt;class _Tp, class _Alloc&gt;</a>
+<span class="lineNum">    1051 </span>            : void
+<span class="lineNum">    1052 </span>            : forward_list&lt;_Tp, _Alloc&gt;::push_front(const value_type&amp; __v)
+<span class="lineNum">    1053 </span>            : {
+<span class="lineNum">    1054 </span><span class="lineCov">       3692 :     __node_allocator&amp; __a = base::__alloc();</span>
+<span class="lineNum">    1055 </span>            :     typedef __allocator_destructor&lt;__node_allocator&gt; _Dp;
+<span class="lineNum">    1056 </span><span class="lineCov">       3692 :     unique_ptr&lt;__node, _Dp&gt; __h(__node_traits::allocate(__a, 1), _Dp(__a, 1));</span>
+<span class="lineNum">    1057 </span><span class="lineCov">       5537 :     __node_traits::construct(__a, _VSTD::addressof(__h-&gt;__value_), __v);</span>
+<span class="lineNum">    1058 </span><span class="lineCov">       7381 :     __h-&gt;__next_ = base::__before_begin()-&gt;__next_;</span>
+<span class="lineNum">    1059 </span><span class="lineCov">       5536 :     base::__before_begin()-&gt;__next_ = __h.release();</span>
+<span class="lineNum">    1060 </span><span class="lineCov">       3692 : }</span>
+<span class="lineNum">    1061 </span>            : 
+<a name="1062"><span class="lineNum">    1062 </span>            : template &lt;class _Tp, class _Alloc&gt;</a>
+<span class="lineNum">    1063 </span>            : void
+<span class="lineNum">    1064 </span>            : forward_list&lt;_Tp, _Alloc&gt;::pop_front()
+<span class="lineNum">    1065 </span>            : {
+<span class="lineNum">    1066 </span><span class="lineCov">          8 :     __node_allocator&amp; __a = base::__alloc();</span>
+<span class="lineNum">    1067 </span><span class="lineCov">          8 :     __node_pointer __p = base::__before_begin()-&gt;__next_;</span>
+<span class="lineNum">    1068 </span><span class="lineCov">          8 :     base::__before_begin()-&gt;__next_ = __p-&gt;__next_;</span>
+<span class="lineNum">    1069 </span><span class="lineCov">          8 :     __node_traits::destroy(__a, _VSTD::addressof(__p-&gt;__value_));</span>
+<span class="lineNum">    1070 </span><span class="lineCov">          8 :     __node_traits::deallocate(__a, __p, 1);</span>
+<span class="lineNum">    1071 </span><span class="lineCov">          8 : }</span>
+<span class="lineNum">    1072 </span>            : 
+<span class="lineNum">    1073 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">    1074 </span>            : #ifndef _LIBCPP_HAS_NO_VARIADICS
+<span class="lineNum">    1075 </span>            : 
+<span class="lineNum">    1076 </span>            : template &lt;class _Tp, class _Alloc&gt;
+<a name="1077"><span class="lineNum">    1077 </span>            : template &lt;class... _Args&gt;</a>
+<span class="lineNum">    1078 </span>            : typename forward_list&lt;_Tp, _Alloc&gt;::iterator
+<span class="lineNum">    1079 </span>            : forward_list&lt;_Tp, _Alloc&gt;::emplace_after(const_iterator __p, _Args&amp;&amp;... __args)
+<span class="lineNum">    1080 </span>            : {
+<span class="lineNum">    1081 </span><span class="lineCov">          8 :     __node_pointer const __r = __p.__ptr_;</span>
+<span class="lineNum">    1082 </span><span class="lineCov">          8 :     __node_allocator&amp; __a = base::__alloc();</span>
+<span class="lineNum">    1083 </span>            :     typedef __allocator_destructor&lt;__node_allocator&gt; _Dp;
+<span class="lineNum">    1084 </span><span class="lineCov">          8 :     unique_ptr&lt;__node, _Dp&gt; __h(__node_traits::allocate(__a, 1), _Dp(__a, 1));</span>
+<span class="lineNum">    1085 </span><span class="lineCov">         18 :     __node_traits::construct(__a, _VSTD::addressof(__h-&gt;__value_),</span>
+<span class="lineNum">    1086 </span><span class="lineCov">          6 :                                   _VSTD::forward&lt;_Args&gt;(__args)...);</span>
+<span class="lineNum">    1087 </span><span class="lineCov">         16 :     __h-&gt;__next_ = __r-&gt;__next_;</span>
+<span class="lineNum">    1088 </span><span class="lineCov">         12 :     __r-&gt;__next_ = __h.release();</span>
+<span class="lineNum">    1089 </span><span class="lineCov">         12 :     return iterator(__r-&gt;__next_);</span>
+<span class="lineNum">    1090 </span><span class="lineCov">          8 : }</span>
+<span class="lineNum">    1091 </span>            : 
+<span class="lineNum">    1092 </span>            : #endif  // _LIBCPP_HAS_NO_VARIADICS
+<span class="lineNum">    1093 </span>            : 
+<a name="1094"><span class="lineNum">    1094 </span>            : template &lt;class _Tp, class _Alloc&gt;</a>
+<span class="lineNum">    1095 </span>            : typename forward_list&lt;_Tp, _Alloc&gt;::iterator
+<span class="lineNum">    1096 </span>            : forward_list&lt;_Tp, _Alloc&gt;::insert_after(const_iterator __p, value_type&amp;&amp; __v)
+<span class="lineNum">    1097 </span>            : {
+<span class="lineNum">    1098 </span><span class="lineCov">         16 :     __node_pointer const __r = __p.__ptr_;</span>
+<span class="lineNum">    1099 </span><span class="lineCov">         16 :     __node_allocator&amp; __a = base::__alloc();</span>
+<span class="lineNum">    1100 </span>            :     typedef __allocator_destructor&lt;__node_allocator&gt; _Dp;
+<span class="lineNum">    1101 </span><span class="lineCov">         16 :     unique_ptr&lt;__node, _Dp&gt; __h(__node_traits::allocate(__a, 1), _Dp(__a, 1));</span>
+<span class="lineNum">    1102 </span><span class="lineCov">         24 :     __node_traits::construct(__a, _VSTD::addressof(__h-&gt;__value_), _VSTD::move(__v));</span>
+<span class="lineNum">    1103 </span><span class="lineCov">         32 :     __h-&gt;__next_ = __r-&gt;__next_;</span>
+<span class="lineNum">    1104 </span><span class="lineCov">         24 :     __r-&gt;__next_ = __h.release();</span>
+<span class="lineNum">    1105 </span><span class="lineCov">         24 :     return iterator(__r-&gt;__next_);</span>
+<span class="lineNum">    1106 </span><span class="lineCov">         16 : }</span>
+<span class="lineNum">    1107 </span>            : 
+<span class="lineNum">    1108 </span>            : #endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">    1109 </span>            : 
+<span class="lineNum">    1110 </span>            : template &lt;class _Tp, class _Alloc&gt;
+<span class="lineNum">    1111 </span>            : typename forward_list&lt;_Tp, _Alloc&gt;::iterator
+<span class="lineNum">    1112 </span>            : forward_list&lt;_Tp, _Alloc&gt;::insert_after(const_iterator __p, const value_type&amp; __v)
+<span class="lineNum">    1113 </span>            : {
+<span class="lineNum">    1114 </span>            :     __node_pointer const __r = __p.__ptr_;
+<span class="lineNum">    1115 </span>            :     __node_allocator&amp; __a = base::__alloc();
+<span class="lineNum">    1116 </span>            :     typedef __allocator_destructor&lt;__node_allocator&gt; _Dp;
+<span class="lineNum">    1117 </span>            :     unique_ptr&lt;__node, _Dp&gt; __h(__node_traits::allocate(__a, 1), _Dp(__a, 1));
+<span class="lineNum">    1118 </span>            :     __node_traits::construct(__a, _VSTD::addressof(__h-&gt;__value_), __v);
+<span class="lineNum">    1119 </span>            :     __h-&gt;__next_ = __r-&gt;__next_;
+<span class="lineNum">    1120 </span>            :     __r-&gt;__next_ = __h.release();
+<span class="lineNum">    1121 </span>            :     return iterator(__r-&gt;__next_);
+<span class="lineNum">    1122 </span>            : }
+<span class="lineNum">    1123 </span>            : 
+<a name="1124"><span class="lineNum">    1124 </span>            : template &lt;class _Tp, class _Alloc&gt;</a>
+<span class="lineNum">    1125 </span>            : typename forward_list&lt;_Tp, _Alloc&gt;::iterator
+<span class="lineNum">    1126 </span>            : forward_list&lt;_Tp, _Alloc&gt;::insert_after(const_iterator __p, size_type __n,
+<span class="lineNum">    1127 </span>            :                                         const value_type&amp; __v)
+<span class="lineNum">    1128 </span>            : {
+<span class="lineNum">    1129 </span><span class="lineCov">         12 :     __node_pointer __r = __p.__ptr_;</span>
+<span class="lineNum">    1130 </span><span class="lineCov">         12 :     if (__n &gt; 0)</span>
+<span class="lineNum">    1131 </span>            :     {
+<span class="lineNum">    1132 </span><span class="lineCov">         10 :         __node_allocator&amp; __a = base::__alloc();</span>
+<span class="lineNum">    1133 </span>            :         typedef __allocator_destructor&lt;__node_allocator&gt; _Dp;
+<span class="lineNum">    1134 </span><span class="lineCov">         10 :         unique_ptr&lt;__node, _Dp&gt; __h(__node_traits::allocate(__a, 1), _Dp(__a, 1));</span>
+<span class="lineNum">    1135 </span><span class="lineCov">         15 :         __node_traits::construct(__a, _VSTD::addressof(__h-&gt;__value_), __v);</span>
+<span class="lineNum">    1136 </span><span class="lineCov">         10 :         __node_pointer __first = __h.release();</span>
+<span class="lineNum">    1137 </span><span class="lineCov">         10 :         __node_pointer __last = __first;</span>
+<span class="lineNum">    1138 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1139 </span>            :         try
+<span class="lineNum">    1140 </span>            :         {
+<span class="lineNum">    1141 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1142 </span><span class="lineCov">        150 :             for (--__n; __n != 0; --__n, __last = __last-&gt;__next_)</span>
+<span class="lineNum">    1143 </span>            :             {
+<span class="lineNum">    1144 </span><span class="lineCov">        104 :                 __h.reset(__node_traits::allocate(__a, 1));</span>
+<span class="lineNum">    1145 </span><span class="lineCov">         78 :                 __node_traits::construct(__a, _VSTD::addressof(__h-&gt;__value_), __v);</span>
+<span class="lineNum">    1146 </span><span class="lineCov">         78 :                 __last-&gt;__next_ = __h.release();</span>
+<span class="lineNum">    1147 </span><span class="lineCov">         52 :             }</span>
+<span class="lineNum">    1148 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1149 </span><span class="lineCov">         10 :         }</span>
+<span class="lineNum">    1150 </span>            :         catch (...)
+<span class="lineNum">    1151 </span>            :         {
+<span class="lineNum">    1152 </span><span class="lineNoCov">          0 :             while (__first != nullptr)</span>
+<span class="lineNum">    1153 </span>            :             {
+<span class="lineNum">    1154 </span><span class="lineNoCov">          0 :                 __node_pointer __next = __first-&gt;__next_;</span>
+<span class="lineNum">    1155 </span><span class="lineNoCov">          0 :                 __node_traits::destroy(__a, _VSTD::addressof(__first-&gt;__value_));</span>
+<span class="lineNum">    1156 </span><span class="lineNoCov">          0 :                 __node_traits::deallocate(__a, __first, 1);</span>
+<span class="lineNum">    1157 </span><span class="lineNoCov">          0 :                 __first = __next;</span>
+<span class="lineNum">    1158 </span>            :             }
+<span class="lineNum">    1159 </span><span class="lineNoCov">          0 :             throw;</span>
+<span class="lineNum">    1160 </span><span class="lineNoCov">          0 :         }</span>
+<span class="lineNum">    1161 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1162 </span><span class="lineCov">         20 :         __last-&gt;__next_ = __r-&gt;__next_;</span>
+<span class="lineNum">    1163 </span><span class="lineCov">         15 :         __r-&gt;__next_ = __first;</span>
+<span class="lineNum">    1164 </span><span class="lineCov">         10 :         __r = __last;</span>
+<span class="lineNum">    1165 </span><span class="lineCov">         10 :     }</span>
+<span class="lineNum">    1166 </span><span class="lineCov">         12 :     return iterator(__r);</span>
+<span class="lineNum">    1167 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">    1168 </span>            : 
+<span class="lineNum">    1169 </span>            : template &lt;class _Tp, class _Alloc&gt;
+<span class="lineNum">    1170 </span>            : template &lt;class _InputIterator&gt;
+<span class="lineNum">    1171 </span>            : typename enable_if
+<span class="lineNum">    1172 </span>            : &lt;
+<span class="lineNum">    1173 </span>            :     __is_input_iterator&lt;_InputIterator&gt;::value,
+<a name="1174"><span class="lineNum">    1174 </span>            :     typename forward_list&lt;_Tp, _Alloc&gt;::iterator</a>
+<span class="lineNum">    1175 </span>            : &gt;::type
+<span class="lineNum">    1176 </span>            : forward_list&lt;_Tp, _Alloc&gt;::insert_after(const_iterator __p,
+<span class="lineNum">    1177 </span>            :                                         _InputIterator __f, _InputIterator __l)
+<span class="lineNum">    1178 </span>            : {
+<span class="lineNum">    1179 </span><span class="lineCov">       2956 :     __node_pointer __r = __p.__ptr_;</span>
+<span class="lineNum">    1180 </span><span class="lineCov">       2956 :     if (__f != __l)</span>
+<span class="lineNum">    1181 </span>            :     {
+<span class="lineNum">    1182 </span><span class="lineCov">       2910 :         __node_allocator&amp; __a = base::__alloc();</span>
+<span class="lineNum">    1183 </span>            :         typedef __allocator_destructor&lt;__node_allocator&gt; _Dp;
+<span class="lineNum">    1184 </span><span class="lineCov">       2910 :         unique_ptr&lt;__node, _Dp&gt; __h(__node_traits::allocate(__a, 1), _Dp(__a, 1));</span>
+<span class="lineNum">    1185 </span><span class="lineCov">       4482 :         __node_traits::construct(__a, _VSTD::addressof(__h-&gt;__value_), *__f);</span>
+<span class="lineNum">    1186 </span><span class="lineCov">       2910 :         __node_pointer __first = __h.release();</span>
+<span class="lineNum">    1187 </span><span class="lineCov">       2910 :         __node_pointer __last = __first;</span>
+<span class="lineNum">    1188 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1189 </span>            :         try
+<span class="lineNum">    1190 </span>            :         {
+<span class="lineNum">    1191 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1192 </span><span class="lineCov">      55611 :             for (++__f; __f != __l; ++__f, ((void)(__last = __last-&gt;__next_)))</span>
+<span class="lineNum">    1193 </span>            :             {
+<span class="lineNum">    1194 </span><span class="lineCov">      38812 :                 __h.reset(__node_traits::allocate(__a, 1));</span>
+<span class="lineNum">    1195 </span><span class="lineCov">      29539 :                 __node_traits::construct(__a, _VSTD::addressof(__h-&gt;__value_), *__f);</span>
+<span class="lineNum">    1196 </span><span class="lineCov">      28973 :                 __last-&gt;__next_ = __h.release();</span>
+<span class="lineNum">    1197 </span><span class="lineCov">      19406 :             }</span>
+<span class="lineNum">    1198 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1199 </span><span class="lineCov">       2910 :         }</span>
+<span class="lineNum">    1200 </span>            :         catch (...)
+<span class="lineNum">    1201 </span>            :         {
+<span class="lineNum">    1202 </span><span class="lineNoCov">          0 :             while (__first != nullptr)</span>
+<span class="lineNum">    1203 </span>            :             {
+<span class="lineNum">    1204 </span><span class="lineNoCov">          0 :                 __node_pointer __next = __first-&gt;__next_;</span>
+<span class="lineNum">    1205 </span><span class="lineNoCov">          0 :                 __node_traits::destroy(__a, _VSTD::addressof(__first-&gt;__value_));</span>
+<span class="lineNum">    1206 </span><span class="lineNoCov">          0 :                 __node_traits::deallocate(__a, __first, 1);</span>
+<span class="lineNum">    1207 </span><span class="lineNoCov">          0 :                 __first = __next;</span>
+<span class="lineNum">    1208 </span>            :             }
+<span class="lineNum">    1209 </span><span class="lineNoCov">          0 :             throw;</span>
+<span class="lineNum">    1210 </span><span class="lineNoCov">          0 :         }</span>
+<span class="lineNum">    1211 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1212 </span><span class="lineCov">       5774 :         __last-&gt;__next_ = __r-&gt;__next_;</span>
+<span class="lineNum">    1213 </span><span class="lineCov">       4342 :         __r-&gt;__next_ = __first;</span>
+<span class="lineNum">    1214 </span><span class="lineCov">       2910 :         __r = __last;</span>
+<span class="lineNum">    1215 </span><span class="lineCov">       2910 :     }</span>
+<span class="lineNum">    1216 </span><span class="lineCov">       2956 :     return iterator(__r);</span>
+<span class="lineNum">    1217 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">    1218 </span>            : 
+<a name="1219"><span class="lineNum">    1219 </span>            : template &lt;class _Tp, class _Alloc&gt;</a>
+<span class="lineNum">    1220 </span>            : typename forward_list&lt;_Tp, _Alloc&gt;::iterator
+<span class="lineNum">    1221 </span>            : forward_list&lt;_Tp, _Alloc&gt;::erase_after(const_iterator __f)
+<span class="lineNum">    1222 </span>            : {
+<span class="lineNum">    1223 </span><span class="lineCov">         10 :     __node_pointer __p = __f.__ptr_;</span>
+<span class="lineNum">    1224 </span><span class="lineCov">         10 :     __node_pointer __n = __p-&gt;__next_;</span>
+<span class="lineNum">    1225 </span><span class="lineCov">         10 :     __p-&gt;__next_ = __n-&gt;__next_;</span>
+<span class="lineNum">    1226 </span><span class="lineCov">         10 :     __node_allocator&amp; __a = base::__alloc();</span>
+<span class="lineNum">    1227 </span><span class="lineCov">         10 :     __node_traits::destroy(__a, _VSTD::addressof(__n-&gt;__value_));</span>
+<span class="lineNum">    1228 </span><span class="lineCov">         10 :     __node_traits::deallocate(__a, __n, 1);</span>
+<span class="lineNum">    1229 </span><span class="lineCov">         10 :     return iterator(__p-&gt;__next_);</span>
+<span class="lineNum">    1230 </span>            : }
+<span class="lineNum">    1231 </span>            : 
+<a name="1232"><span class="lineNum">    1232 </span>            : template &lt;class _Tp, class _Alloc&gt;</a>
+<span class="lineNum">    1233 </span>            : typename forward_list&lt;_Tp, _Alloc&gt;::iterator
+<span class="lineNum">    1234 </span>            : forward_list&lt;_Tp, _Alloc&gt;::erase_after(const_iterator __f, const_iterator __l)
+<span class="lineNum">    1235 </span>            : {
+<span class="lineNum">    1236 </span><span class="lineCov">        151 :     __node_pointer __e = __l.__ptr_;</span>
+<span class="lineNum">    1237 </span><span class="lineCov">        151 :     if (__f != __l)</span>
+<span class="lineNum">    1238 </span>            :     {
+<span class="lineNum">    1239 </span><span class="lineCov">        149 :         __node_pointer __p = __f.__ptr_;</span>
+<span class="lineNum">    1240 </span><span class="lineCov">        149 :         __node_pointer __n = __p-&gt;__next_;</span>
+<span class="lineNum">    1241 </span><span class="lineCov">        149 :         if (__n != __e)</span>
+<span class="lineNum">    1242 </span>            :         {
+<span class="lineNum">    1243 </span><span class="lineCov">        147 :             __p-&gt;__next_ = __e;</span>
+<span class="lineNum">    1244 </span><span class="lineCov">        147 :             __node_allocator&amp; __a = base::__alloc();</span>
+<span class="lineNum">    1245 </span><span class="lineCov">        147 :             do</span>
+<span class="lineNum">    1246 </span>            :             {
+<span class="lineNum">    1247 </span><span class="lineCov">        534 :                 __p = __n-&gt;__next_;</span>
+<span class="lineNum">    1248 </span><span class="lineCov">        534 :                 __node_traits::destroy(__a, _VSTD::addressof(__n-&gt;__value_));</span>
+<span class="lineNum">    1249 </span><span class="lineCov">        534 :                 __node_traits::deallocate(__a, __n, 1);</span>
+<span class="lineNum">    1250 </span><span class="lineCov">        534 :                 __n = __p;</span>
+<span class="lineNum">    1251 </span><span class="lineCov">       1068 :             } while (__n != __e);</span>
+<span class="lineNum">    1252 </span><span class="lineCov">        147 :         }</span>
+<span class="lineNum">    1253 </span><span class="lineCov">        149 :     }</span>
+<span class="lineNum">    1254 </span><span class="lineCov">        151 :     return iterator(__e);</span>
+<span class="lineNum">    1255 </span>            : }
+<span class="lineNum">    1256 </span>            : 
+<a name="1257"><span class="lineNum">    1257 </span>            : template &lt;class _Tp, class _Alloc&gt;</a>
+<span class="lineNum">    1258 </span>            : void
+<span class="lineNum">    1259 </span>            : forward_list&lt;_Tp, _Alloc&gt;::resize(size_type __n)
+<span class="lineNum">    1260 </span>            : {
+<span class="lineNum">    1261 </span><span class="lineCov">         16 :     size_type __sz = 0;</span>
+<span class="lineNum">    1262 </span><span class="lineCov">         16 :     iterator __p = before_begin();</span>
+<span class="lineNum">    1263 </span><span class="lineCov">         16 :     iterator __i = begin();</span>
+<span class="lineNum">    1264 </span><span class="lineCov">         16 :     iterator __e = end();</span>
+<span class="lineNum">    1265 </span><span class="lineCov">        324 :     for (; __i != __e &amp;&amp; __sz &lt; __n; ++__p, ++__i, ++__sz)</span>
+<span class="lineNum">    1266 </span>            :         ;
+<span class="lineNum">    1267 </span><span class="lineCov">         16 :     if (__i != __e)</span>
+<span class="lineNum">    1268 </span><span class="lineCov">          6 :         erase_after(__p, __e);</span>
+<span class="lineNum">    1269 </span>            :     else
+<span class="lineNum">    1270 </span>            :     {
+<span class="lineNum">    1271 </span><span class="lineCov">         10 :         __n -= __sz;</span>
+<span class="lineNum">    1272 </span><span class="lineCov">         10 :         if (__n &gt; 0)</span>
+<span class="lineNum">    1273 </span>            :         {
+<span class="lineNum">    1274 </span><span class="lineCov">          6 :             __node_allocator&amp; __a = base::__alloc();</span>
+<span class="lineNum">    1275 </span>            :             typedef __allocator_destructor&lt;__node_allocator&gt; _Dp;
+<span class="lineNum">    1276 </span><span class="lineCov">          6 :             unique_ptr&lt;__node, _Dp&gt; __h(nullptr, _Dp(__a, 1));</span>
+<span class="lineNum">    1277 </span><span class="lineCov">        150 :             for (__node_pointer __ptr = __p.__ptr_; __n &gt; 0; --__n,</span>
+<span class="lineNum">    1278 </span><span class="lineCov">         69 :                                                          __ptr = __ptr-&gt;__next_)</span>
+<span class="lineNum">    1279 </span>            :             {
+<span class="lineNum">    1280 </span><span class="lineCov">         92 :                 __h.reset(__node_traits::allocate(__a, 1));</span>
+<span class="lineNum">    1281 </span><span class="lineCov">         69 :                 __node_traits::construct(__a, _VSTD::addressof(__h-&gt;__value_));</span>
+<span class="lineNum">    1282 </span><span class="lineCov">         92 :                 __h-&gt;__next_ = nullptr;</span>
+<span class="lineNum">    1283 </span><span class="lineCov">         69 :                 __ptr-&gt;__next_ = __h.release();</span>
+<span class="lineNum">    1284 </span><span class="lineCov">         46 :             }</span>
+<span class="lineNum">    1285 </span><span class="lineCov">          6 :         }</span>
+<span class="lineNum">    1286 </span>            :     }
+<span class="lineNum">    1287 </span><span class="lineCov">         16 : }</span>
+<span class="lineNum">    1288 </span>            : 
+<a name="1289"><span class="lineNum">    1289 </span>            : template &lt;class _Tp, class _Alloc&gt;</a>
+<span class="lineNum">    1290 </span>            : void
+<span class="lineNum">    1291 </span>            : forward_list&lt;_Tp, _Alloc&gt;::resize(size_type __n, const value_type&amp; __v)
+<span class="lineNum">    1292 </span>            : {
+<span class="lineNum">    1293 </span><span class="lineCov">          6 :     size_type __sz = 0;</span>
+<span class="lineNum">    1294 </span><span class="lineCov">          6 :     iterator __p = before_begin();</span>
+<span class="lineNum">    1295 </span><span class="lineCov">          6 :     iterator __i = begin();</span>
+<span class="lineNum">    1296 </span><span class="lineCov">          6 :     iterator __e = end();</span>
+<span class="lineNum">    1297 </span><span class="lineCov">        140 :     for (; __i != __e &amp;&amp; __sz &lt; __n; ++__p, ++__i, ++__sz)</span>
+<span class="lineNum">    1298 </span>            :         ;
+<span class="lineNum">    1299 </span><span class="lineCov">          6 :     if (__i != __e)</span>
+<span class="lineNum">    1300 </span><span class="lineCov">          2 :         erase_after(__p, __e);</span>
+<span class="lineNum">    1301 </span>            :     else
+<span class="lineNum">    1302 </span>            :     {
+<span class="lineNum">    1303 </span><span class="lineCov">          4 :         __n -= __sz;</span>
+<span class="lineNum">    1304 </span><span class="lineCov">          4 :         if (__n &gt; 0)</span>
+<span class="lineNum">    1305 </span>            :         {
+<span class="lineNum">    1306 </span><span class="lineCov">          2 :             __node_allocator&amp; __a = base::__alloc();</span>
+<span class="lineNum">    1307 </span>            :             typedef __allocator_destructor&lt;__node_allocator&gt; _Dp;
+<span class="lineNum">    1308 </span><span class="lineCov">          2 :             unique_ptr&lt;__node, _Dp&gt; __h(nullptr, _Dp(__a, 1));</span>
+<span class="lineNum">    1309 </span><span class="lineCov">         22 :             for (__node_pointer __ptr = __p.__ptr_; __n &gt; 0; --__n,</span>
+<span class="lineNum">    1310 </span><span class="lineCov">          9 :                                                          __ptr = __ptr-&gt;__next_)</span>
+<span class="lineNum">    1311 </span>            :             {
+<span class="lineNum">    1312 </span><span class="lineCov">         12 :                 __h.reset(__node_traits::allocate(__a, 1));</span>
+<span class="lineNum">    1313 </span><span class="lineCov">          9 :                 __node_traits::construct(__a, _VSTD::addressof(__h-&gt;__value_), __v);</span>
+<span class="lineNum">    1314 </span><span class="lineCov">         12 :                 __h-&gt;__next_ = nullptr;</span>
+<span class="lineNum">    1315 </span><span class="lineCov">          9 :                 __ptr-&gt;__next_ = __h.release();</span>
+<span class="lineNum">    1316 </span><span class="lineCov">          6 :             }</span>
+<span class="lineNum">    1317 </span><span class="lineCov">          2 :         }</span>
+<span class="lineNum">    1318 </span>            :     }
+<span class="lineNum">    1319 </span><span class="lineCov">          6 : }</span>
+<span class="lineNum">    1320 </span>            : 
+<a name="1321"><span class="lineNum">    1321 </span>            : template &lt;class _Tp, class _Alloc&gt;</a>
+<span class="lineNum">    1322 </span>            : void
+<span class="lineNum">    1323 </span>            : forward_list&lt;_Tp, _Alloc&gt;::splice_after(const_iterator __p,
+<span class="lineNum">    1324 </span>            :                                         forward_list&amp; __x)
+<span class="lineNum">    1325 </span>            : {
+<span class="lineNum">    1326 </span><span class="lineCov">        126 :     if (!__x.empty())</span>
+<span class="lineNum">    1327 </span>            :     {
+<span class="lineNum">    1328 </span><span class="lineCov">        108 :         if (__p.__ptr_-&gt;__next_ != nullptr)</span>
+<span class="lineNum">    1329 </span>            :         {
+<span class="lineNum">    1330 </span><span class="lineCov">         96 :             const_iterator __lm1 = __x.before_begin();</span>
+<span class="lineNum">    1331 </span><span class="lineCov">        864 :             while (__lm1.__ptr_-&gt;__next_ != nullptr)</span>
+<span class="lineNum">    1332 </span><span class="lineCov">        336 :                 ++__lm1;</span>
+<span class="lineNum">    1333 </span><span class="lineCov">         96 :             __lm1.__ptr_-&gt;__next_ = __p.__ptr_-&gt;__next_;</span>
+<span class="lineNum">    1334 </span><span class="lineCov">         96 :         }</span>
+<span class="lineNum">    1335 </span><span class="lineCov">        108 :         __p.__ptr_-&gt;__next_ = __x.__before_begin()-&gt;__next_;</span>
+<span class="lineNum">    1336 </span><span class="lineCov">        108 :         __x.__before_begin()-&gt;__next_ = nullptr;</span>
+<span class="lineNum">    1337 </span><span class="lineCov">        108 :     }</span>
+<span class="lineNum">    1338 </span><span class="lineCov">        126 : }</span>
+<span class="lineNum">    1339 </span>            : 
+<a name="1340"><span class="lineNum">    1340 </span>            : template &lt;class _Tp, class _Alloc&gt;</a>
+<span class="lineNum">    1341 </span>            : void
+<span class="lineNum">    1342 </span>            : forward_list&lt;_Tp, _Alloc&gt;::splice_after(const_iterator __p,
+<span class="lineNum">    1343 </span>            :                                         forward_list&amp; __x,
+<span class="lineNum">    1344 </span>            :                                         const_iterator __i)
+<span class="lineNum">    1345 </span>            : {
+<span class="lineNum">    1346 </span><span class="lineCov">        198 :     const_iterator __lm1 = _VSTD::next(__i);</span>
+<span class="lineNum">    1347 </span><span class="lineCov">        380 :     if (__p != __i &amp;&amp; __p != __lm1)</span>
+<span class="lineNum">    1348 </span>            :     {
+<span class="lineNum">    1349 </span><span class="lineCov">        166 :         __i.__ptr_-&gt;__next_ = __lm1.__ptr_-&gt;__next_;</span>
+<span class="lineNum">    1350 </span><span class="lineCov">        166 :         __lm1.__ptr_-&gt;__next_ = __p.__ptr_-&gt;__next_;</span>
+<span class="lineNum">    1351 </span><span class="lineCov">        166 :         __p.__ptr_-&gt;__next_ = __lm1.__ptr_;</span>
+<span class="lineNum">    1352 </span><span class="lineCov">        166 :     }</span>
+<span class="lineNum">    1353 </span><span class="lineCov">        198 : }</span>
+<span class="lineNum">    1354 </span>            : 
+<a name="1355"><span class="lineNum">    1355 </span>            : template &lt;class _Tp, class _Alloc&gt;</a>
+<span class="lineNum">    1356 </span>            : void
+<span class="lineNum">    1357 </span>            : forward_list&lt;_Tp, _Alloc&gt;::splice_after(const_iterator __p,
+<span class="lineNum">    1358 </span>            :                                         forward_list&amp; __x,
+<span class="lineNum">    1359 </span>            :                                         const_iterator __f, const_iterator __l)
+<span class="lineNum">    1360 </span>            : {
+<span class="lineNum">    1361 </span><span class="lineCov">       2318 :     if (__f != __l &amp;&amp; __p != __f)</span>
+<span class="lineNum">    1362 </span>            :     {
+<span class="lineNum">    1363 </span><span class="lineCov">        925 :         const_iterator __lm1 = __f;</span>
+<span class="lineNum">    1364 </span><span class="lineCov">       5256 :         while (__lm1.__ptr_-&gt;__next_ != __l.__ptr_)</span>
+<span class="lineNum">    1365 </span><span class="lineCov">       1703 :             ++__lm1;</span>
+<span class="lineNum">    1366 </span><span class="lineCov">        925 :         if (__f != __lm1)</span>
+<span class="lineNum">    1367 </span>            :         {
+<span class="lineNum">    1368 </span><span class="lineCov">        671 :             __lm1.__ptr_-&gt;__next_ = __p.__ptr_-&gt;__next_;</span>
+<span class="lineNum">    1369 </span><span class="lineCov">        671 :             __p.__ptr_-&gt;__next_ = __f.__ptr_-&gt;__next_;</span>
+<span class="lineNum">    1370 </span><span class="lineCov">        671 :             __f.__ptr_-&gt;__next_ = __l.__ptr_;</span>
+<span class="lineNum">    1371 </span><span class="lineCov">        671 :         }</span>
+<span class="lineNum">    1372 </span><span class="lineCov">        925 :     }</span>
+<span class="lineNum">    1373 </span><span class="lineCov">       1321 : }</span>
+<span class="lineNum">    1374 </span>            : 
+<span class="lineNum">    1375 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">    1376 </span>            : 
+<span class="lineNum">    1377 </span>            : template &lt;class _Tp, class _Alloc&gt;
+<a name="1378"><span class="lineNum">    1378 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">    1379 </span>            : void
+<span class="lineNum">    1380 </span>            : forward_list&lt;_Tp, _Alloc&gt;::splice_after(const_iterator __p,
+<span class="lineNum">    1381 </span>            :                                         forward_list&amp;&amp; __x)
+<span class="lineNum">    1382 </span>            : {
+<span class="lineNum">    1383 </span><span class="lineCov">        126 :     splice_after(__p, __x);</span>
+<span class="lineNum">    1384 </span><span class="lineCov">        126 : }</span>
+<span class="lineNum">    1385 </span>            : 
+<span class="lineNum">    1386 </span>            : template &lt;class _Tp, class _Alloc&gt;
+<a name="1387"><span class="lineNum">    1387 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">    1388 </span>            : void
+<span class="lineNum">    1389 </span>            : forward_list&lt;_Tp, _Alloc&gt;::splice_after(const_iterator __p,
+<span class="lineNum">    1390 </span>            :                                         forward_list&amp;&amp; __x,
+<span class="lineNum">    1391 </span>            :                                         const_iterator __i)
+<span class="lineNum">    1392 </span>            : {
+<span class="lineNum">    1393 </span><span class="lineCov">        198 :     splice_after(__p, __x, __i);</span>
+<span class="lineNum">    1394 </span><span class="lineCov">        198 : }</span>
+<span class="lineNum">    1395 </span>            : 
+<span class="lineNum">    1396 </span>            : template &lt;class _Tp, class _Alloc&gt;
+<a name="1397"><span class="lineNum">    1397 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">    1398 </span>            : void
+<span class="lineNum">    1399 </span>            : forward_list&lt;_Tp, _Alloc&gt;::splice_after(const_iterator __p,
+<span class="lineNum">    1400 </span>            :                                         forward_list&amp;&amp; __x,
+<span class="lineNum">    1401 </span>            :                                         const_iterator __f, const_iterator __l)
+<span class="lineNum">    1402 </span>            : {
+<span class="lineNum">    1403 </span><span class="lineCov">       1308 :     splice_after(__p, __x, __f, __l);</span>
+<span class="lineNum">    1404 </span><span class="lineCov">       1308 : }</span>
+<span class="lineNum">    1405 </span>            : 
+<span class="lineNum">    1406 </span>            : #endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">    1407 </span>            : 
+<a name="1408"><span class="lineNum">    1408 </span>            : template &lt;class _Tp, class _Alloc&gt;</a>
+<span class="lineNum">    1409 </span>            : void
+<span class="lineNum">    1410 </span>            : forward_list&lt;_Tp, _Alloc&gt;::remove(const value_type&amp; __v)
+<span class="lineNum">    1411 </span>            : {
+<span class="lineNum">    1412 </span><span class="lineCov">         12 :     forward_list&lt;_Tp, _Alloc&gt; __deleted_nodes; // collect the nodes we're removing</span>
+<span class="lineNum">    1413 </span><span class="lineCov">         12 :     iterator __e = end();</span>
+<span class="lineNum">    1414 </span><span class="lineCov">        108 :     for (iterator __i = before_begin(); __i.__ptr_-&gt;__next_ != nullptr;)</span>
+<span class="lineNum">    1415 </span>            :     {
+<span class="lineNum">    1416 </span><span class="lineCov">         61 :         if (__i.__ptr_-&gt;__next_-&gt;__value_ == __v)</span>
+<span class="lineNum">    1417 </span>            :         {
+<span class="lineNum">    1418 </span><span class="lineCov">         26 :             iterator __j = _VSTD::next(__i, 2);</span>
+<span class="lineNum">    1419 </span><span class="lineCov">        148 :             for (; __j != __e &amp;&amp; *__j == __v; ++__j)</span>
+<span class="lineNum">    1420 </span>            :                 ;
+<span class="lineNum">    1421 </span><span class="lineCov">         13 :             __deleted_nodes.splice_after(__deleted_nodes.before_begin(), *this, __i, __j);</span>
+<span class="lineNum">    1422 </span><span class="lineCov">         26 :             if (__j == __e)</span>
+<span class="lineNum">    1423 </span><span class="lineCov">          5 :                 break;</span>
+<span class="lineNum">    1424 </span><span class="lineCov">          8 :             __i = __j;</span>
+<span class="lineNum">    1425 </span><span class="lineCov">          8 :         }</span>
+<span class="lineNum">    1426 </span>            :         else
+<span class="lineNum">    1427 </span><span class="lineCov">         20 :             ++__i;</span>
+<span class="lineNum">    1428 </span>            :     }
+<span class="lineNum">    1429 </span><span class="lineCov">         12 : }</span>
+<span class="lineNum">    1430 </span>            : 
+<span class="lineNum">    1431 </span>            : template &lt;class _Tp, class _Alloc&gt;
+<a name="1432"><span class="lineNum">    1432 </span>            : template &lt;class _Predicate&gt;</a>
+<span class="lineNum">    1433 </span>            : void
+<span class="lineNum">    1434 </span>            : forward_list&lt;_Tp, _Alloc&gt;::remove_if(_Predicate __pred)
+<span class="lineNum">    1435 </span>            : {
+<span class="lineNum">    1436 </span><span class="lineCov">         10 :     iterator __e = end();</span>
+<span class="lineNum">    1437 </span><span class="lineCov">         56 :     for (iterator __i = before_begin(); __i.__ptr_-&gt;__next_ != nullptr;)</span>
+<span class="lineNum">    1438 </span>            :     {
+<span class="lineNum">    1439 </span><span class="lineCov">         22 :         if (__pred(__i.__ptr_-&gt;__next_-&gt;__value_))</span>
+<span class="lineNum">    1440 </span>            :         {
+<span class="lineNum">    1441 </span><span class="lineCov">          8 :             iterator __j = _VSTD::next(__i, 2);</span>
+<span class="lineNum">    1442 </span><span class="lineCov">         78 :             for (; __j != __e &amp;&amp; __pred(*__j); ++__j)</span>
+<span class="lineNum">    1443 </span>            :                 ;
+<span class="lineNum">    1444 </span><span class="lineCov">          8 :             erase_after(__i, __j);</span>
+<span class="lineNum">    1445 </span><span class="lineCov">          8 :             if (__j == __e)</span>
+<span class="lineNum">    1446 </span><span class="lineCov">          4 :                 break;</span>
+<span class="lineNum">    1447 </span><span class="lineCov">          4 :             __i = __j;</span>
+<span class="lineNum">    1448 </span><span class="lineCov">          4 :         }</span>
+<span class="lineNum">    1449 </span>            :         else
+<span class="lineNum">    1450 </span><span class="lineCov">         14 :             ++__i;</span>
+<span class="lineNum">    1451 </span>            :     }
+<span class="lineNum">    1452 </span><span class="lineCov">         10 : }</span>
+<span class="lineNum">    1453 </span>            : 
+<span class="lineNum">    1454 </span>            : template &lt;class _Tp, class _Alloc&gt;
+<a name="1455"><span class="lineNum">    1455 </span>            : template &lt;class _BinaryPredicate&gt;</a>
+<span class="lineNum">    1456 </span>            : void
+<span class="lineNum">    1457 </span>            : forward_list&lt;_Tp, _Alloc&gt;::unique(_BinaryPredicate __binary_pred)
+<span class="lineNum">    1458 </span>            : {
+<span class="lineNum">    1459 </span><span class="lineCov">        104 :     for (iterator __i = begin(), __e = end(); __i != __e;)</span>
+<span class="lineNum">    1460 </span>            :     {
+<span class="lineNum">    1461 </span><span class="lineCov">         32 :         iterator __j = _VSTD::next(__i);</span>
+<span class="lineNum">    1462 </span><span class="lineCov">        312 :         for (; __j != __e &amp;&amp; __binary_pred(*__i, *__j); ++__j)</span>
+<span class="lineNum">    1463 </span>            :             ;
+<span class="lineNum">    1464 </span><span class="lineCov">         32 :         if (__i.__ptr_-&gt;__next_ != __j.__ptr_)</span>
+<span class="lineNum">    1465 </span><span class="lineCov">         20 :             erase_after(__i, __j);</span>
+<span class="lineNum">    1466 </span><span class="lineCov">         32 :         __i = __j;</span>
+<span class="lineNum">    1467 </span>            :     }
+<span class="lineNum">    1468 </span><span class="lineCov">         20 : }</span>
+<span class="lineNum">    1469 </span>            : 
+<span class="lineNum">    1470 </span>            : template &lt;class _Tp, class _Alloc&gt;
+<a name="1471"><span class="lineNum">    1471 </span>            : template &lt;class _Compare&gt;</a>
+<span class="lineNum">    1472 </span>            : void
+<span class="lineNum">    1473 </span>            : forward_list&lt;_Tp, _Alloc&gt;::merge(forward_list&amp; __x, _Compare __comp)
+<span class="lineNum">    1474 </span>            : {
+<span class="lineNum">    1475 </span><span class="lineCov">          4 :     if (this != &amp;__x)</span>
+<span class="lineNum">    1476 </span>            :     {
+<span class="lineNum">    1477 </span><span class="lineCov">          8 :         base::__before_begin()-&gt;__next_ = __merge(base::__before_begin()-&gt;__next_,</span>
+<span class="lineNum">    1478 </span><span class="lineCov">          4 :                                                     __x.__before_begin()-&gt;__next_,</span>
+<span class="lineNum">    1479 </span>            :                                                     __comp);
+<span class="lineNum">    1480 </span><span class="lineCov">          4 :         __x.__before_begin()-&gt;__next_ = nullptr;</span>
+<span class="lineNum">    1481 </span><span class="lineCov">          4 :     }</span>
+<span class="lineNum">    1482 </span><span class="lineCov">          4 : }</span>
+<span class="lineNum">    1483 </span>            : 
+<span class="lineNum">    1484 </span>            : template &lt;class _Tp, class _Alloc&gt;
+<a name="1485"><span class="lineNum">    1485 </span>            : template &lt;class _Compare&gt;</a>
+<span class="lineNum">    1486 </span>            : typename forward_list&lt;_Tp, _Alloc&gt;::__node_pointer
+<span class="lineNum">    1487 </span>            : forward_list&lt;_Tp, _Alloc&gt;::__merge(__node_pointer __f1, __node_pointer __f2,
+<span class="lineNum">    1488 </span>            :                                    _Compare&amp; __comp)
+<span class="lineNum">    1489 </span>            : {
+<span class="lineNum">    1490 </span><span class="lineCov">       1636 :     if (__f1 == nullptr)</span>
+<span class="lineNum">    1491 </span><span class="lineNoCov">          0 :         return __f2;</span>
+<span class="lineNum">    1492 </span><span class="lineCov">       1636 :     if (__f2 == nullptr)</span>
+<span class="lineNum">    1493 </span><span class="lineNoCov">          0 :         return __f1;</span>
+<span class="lineNum">    1494 </span>            :     __node_pointer __r;
+<span class="lineNum">    1495 </span><span class="lineCov">       1636 :     if (__comp(__f2-&gt;__value_, __f1-&gt;__value_))</span>
+<span class="lineNum">    1496 </span>            :     {
+<span class="lineNum">    1497 </span><span class="lineCov">        930 :         __node_pointer __t = __f2;</span>
+<span class="lineNum">    1498 </span><span class="lineCov">       4473 :         while (__t-&gt;__next_ != nullptr &amp;&amp;</span>
+<span class="lineNum">    1499 </span><span class="lineCov">       1245 :                              __comp(__t-&gt;__next_-&gt;__value_, __f1-&gt;__value_))</span>
+<span class="lineNum">    1500 </span><span class="lineCov">        561 :             __t = __t-&gt;__next_;</span>
+<span class="lineNum">    1501 </span><span class="lineCov">        930 :         __r = __f2;</span>
+<span class="lineNum">    1502 </span><span class="lineCov">        930 :         __f2 = __t-&gt;__next_;</span>
+<span class="lineNum">    1503 </span><span class="lineCov">        930 :         __t-&gt;__next_ = __f1;</span>
+<span class="lineNum">    1504 </span><span class="lineCov">        930 :     }</span>
+<span class="lineNum">    1505 </span>            :     else
+<span class="lineNum">    1506 </span><span class="lineCov">        706 :         __r = __f1;</span>
+<span class="lineNum">    1507 </span><span class="lineCov">       1636 :     __node_pointer __p = __f1;</span>
+<span class="lineNum">    1508 </span><span class="lineCov">       1636 :     __f1 = __f1-&gt;__next_;</span>
+<span class="lineNum">    1509 </span><span class="lineCov">      19204 :     while (__f1 != nullptr &amp;&amp; __f2 != nullptr)</span>
+<span class="lineNum">    1510 </span>            :     {
+<span class="lineNum">    1511 </span><span class="lineCov">       3521 :         if (__comp(__f2-&gt;__value_, __f1-&gt;__value_))</span>
+<span class="lineNum">    1512 </span>            :         {
+<span class="lineNum">    1513 </span><span class="lineCov">       1920 :             __node_pointer __t = __f2;</span>
+<span class="lineNum">    1514 </span><span class="lineCov">      10302 :             while (__t-&gt;__next_ != nullptr &amp;&amp;</span>
+<span class="lineNum">    1515 </span><span class="lineCov">       2974 :                                  __comp(__t-&gt;__next_-&gt;__value_, __f1-&gt;__value_))</span>
+<span class="lineNum">    1516 </span><span class="lineCov">       1514 :                 __t = __t-&gt;__next_;</span>
+<span class="lineNum">    1517 </span><span class="lineCov">       1920 :             __p-&gt;__next_ = __f2;</span>
+<span class="lineNum">    1518 </span><span class="lineCov">       1920 :             __f2 = __t-&gt;__next_;</span>
+<span class="lineNum">    1519 </span><span class="lineCov">       1920 :             __t-&gt;__next_ = __f1;</span>
+<span class="lineNum">    1520 </span><span class="lineCov">       1920 :         }</span>
+<span class="lineNum">    1521 </span><span class="lineCov">       3521 :         __p = __f1;</span>
+<span class="lineNum">    1522 </span><span class="lineCov">       3521 :         __f1 = __f1-&gt;__next_;</span>
+<span class="lineNum">    1523 </span>            :     }
+<span class="lineNum">    1524 </span><span class="lineCov">       1636 :     if (__f2 != nullptr)</span>
+<span class="lineNum">    1525 </span><span class="lineCov">        930 :         __p-&gt;__next_ = __f2;</span>
+<span class="lineNum">    1526 </span><span class="lineCov">       1636 :     return __r;</span>
+<span class="lineNum">    1527 </span><span class="lineCov">       1636 : }</span>
+<span class="lineNum">    1528 </span>            : 
+<span class="lineNum">    1529 </span>            : template &lt;class _Tp, class _Alloc&gt;
+<span class="lineNum">    1530 </span>            : template &lt;class _Compare&gt;
+<a name="1531"><span class="lineNum">    1531 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">    1532 </span>            : void
+<span class="lineNum">    1533 </span>            : forward_list&lt;_Tp, _Alloc&gt;::sort(_Compare __comp)
+<span class="lineNum">    1534 </span>            : {
+<span class="lineNum">    1535 </span><span class="lineCov">        320 :     base::__before_begin()-&gt;__next_ = __sort(base::__before_begin()-&gt;__next_,</span>
+<span class="lineNum">    1536 </span><span class="lineCov">        160 :                                        _VSTD::distance(begin(), end()), __comp);</span>
+<span class="lineNum">    1537 </span><span class="lineCov">        160 : }</span>
+<span class="lineNum">    1538 </span>            : 
+<span class="lineNum">    1539 </span>            : template &lt;class _Tp, class _Alloc&gt;
+<a name="1540"><span class="lineNum">    1540 </span>            : template &lt;class _Compare&gt;</a>
+<span class="lineNum">    1541 </span>            : typename forward_list&lt;_Tp, _Alloc&gt;::__node_pointer
+<span class="lineNum">    1542 </span>            : forward_list&lt;_Tp, _Alloc&gt;::__sort(__node_pointer __f1, difference_type __sz,
+<span class="lineNum">    1543 </span>            :                                   _Compare&amp; __comp)
+<span class="lineNum">    1544 </span>            : {
+<span class="lineNum">    1545 </span><span class="lineCov">       3424 :     switch (__sz)</span>
+<span class="lineNum">    1546 </span>            :     {
+<span class="lineNum">    1547 </span>            :     case 0:
+<span class="lineNum">    1548 </span>            :     case 1:
+<span class="lineNum">    1549 </span><span class="lineCov">        460 :         return __f1;</span>
+<span class="lineNum">    1550 </span>            :     case 2:
+<span class="lineNum">    1551 </span><span class="lineCov">       1332 :         if (__comp(__f1-&gt;__next_-&gt;__value_, __f1-&gt;__value_))</span>
+<span class="lineNum">    1552 </span>            :         {
+<span class="lineNum">    1553 </span><span class="lineCov">        666 :             __node_pointer __t = __f1-&gt;__next_;</span>
+<span class="lineNum">    1554 </span><span class="lineCov">        666 :             __t-&gt;__next_ = __f1;</span>
+<span class="lineNum">    1555 </span><span class="lineCov">        666 :             __f1-&gt;__next_ = nullptr;</span>
+<span class="lineNum">    1556 </span><span class="lineCov">        666 :             __f1 = __t;</span>
+<span class="lineNum">    1557 </span><span class="lineCov">        666 :         }</span>
+<span class="lineNum">    1558 </span><span class="lineCov">       1332 :         return __f1;</span>
+<span class="lineNum">    1559 </span>            :     }
+<span class="lineNum">    1560 </span><span class="lineCov">       1632 :     difference_type __sz1 = __sz / 2;</span>
+<span class="lineNum">    1561 </span><span class="lineCov">       1632 :     difference_type __sz2 = __sz - __sz1;</span>
+<span class="lineNum">    1562 </span><span class="lineCov">       1632 :     __node_pointer __t = _VSTD::next(iterator(__f1), __sz1 - 1).__ptr_;</span>
+<span class="lineNum">    1563 </span><span class="lineCov">       1632 :     __node_pointer __f2 = __t-&gt;__next_;</span>
+<span class="lineNum">    1564 </span><span class="lineCov">       1632 :     __t-&gt;__next_ = nullptr;</span>
+<span class="lineNum">    1565 </span><span class="lineCov">       3264 :     return __merge(__sort(__f1, __sz1, __comp),</span>
+<span class="lineNum">    1566 </span><span class="lineCov">       1632 :                    __sort(__f2, __sz2, __comp), __comp);</span>
+<span class="lineNum">    1567 </span><span class="lineCov">       3424 : }</span>
+<span class="lineNum">    1568 </span>            : 
+<a name="1569"><span class="lineNum">    1569 </span>            : template &lt;class _Tp, class _Alloc&gt;</a>
+<span class="lineNum">    1570 </span>            : void
+<span class="lineNum">    1571 </span>            : forward_list&lt;_Tp, _Alloc&gt;::reverse() _NOEXCEPT
+<span class="lineNum">    1572 </span>            : {
+<span class="lineNum">    1573 </span><span class="lineCov">         30 :     __node_pointer __p = base::__before_begin()-&gt;__next_;</span>
+<span class="lineNum">    1574 </span><span class="lineCov">         30 :     if (__p != nullptr)</span>
+<span class="lineNum">    1575 </span>            :     {
+<span class="lineNum">    1576 </span><span class="lineCov">         27 :         __node_pointer __f = __p-&gt;__next_;</span>
+<span class="lineNum">    1577 </span><span class="lineCov">         36 :         __p-&gt;__next_ = nullptr;</span>
+<span class="lineNum">    1578 </span><span class="lineCov">        225 :         while (__f != nullptr)</span>
+<span class="lineNum">    1579 </span>            :         {
+<span class="lineNum">    1580 </span><span class="lineCov">        108 :             __node_pointer __t = __f-&gt;__next_;</span>
+<span class="lineNum">    1581 </span><span class="lineCov">        108 :             __f-&gt;__next_ = __p;</span>
+<span class="lineNum">    1582 </span><span class="lineCov">         72 :             __p = __f;</span>
+<span class="lineNum">    1583 </span><span class="lineCov">         72 :             __f = __t;</span>
+<span class="lineNum">    1584 </span>            :         }
+<span class="lineNum">    1585 </span><span class="lineCov">         27 :         base::__before_begin()-&gt;__next_ = __p;</span>
+<span class="lineNum">    1586 </span><span class="lineCov">         18 :     }</span>
+<span class="lineNum">    1587 </span><span class="lineCov">         20 : }</span>
+<a name="1588"><span class="lineNum">    1588 </span>            : </a>
+<span class="lineNum">    1589 </span>            : template &lt;class _Tp, class _Alloc&gt;
+<span class="lineNum">    1590 </span>            : bool operator==(const forward_list&lt;_Tp, _Alloc&gt;&amp; __x,
+<span class="lineNum">    1591 </span>            :                 const forward_list&lt;_Tp, _Alloc&gt;&amp; __y)
+<span class="lineNum">    1592 </span>            : {
+<span class="lineNum">    1593 </span>            :     typedef forward_list&lt;_Tp, _Alloc&gt; _Cp;
+<span class="lineNum">    1594 </span>            :     typedef typename _Cp::const_iterator _Ip;
+<span class="lineNum">    1595 </span><span class="lineCov">        641 :     _Ip __ix = __x.begin();</span>
+<span class="lineNum">    1596 </span><span class="lineCov">        641 :     _Ip __ex = __x.end();</span>
+<span class="lineNum">    1597 </span><span class="lineCov">        641 :     _Ip __iy = __y.begin();</span>
+<span class="lineNum">    1598 </span><span class="lineCov">        641 :     _Ip __ey = __y.end();</span>
+<span class="lineNum">    1599 </span><span class="lineCov">       7293 :     for (; __ix != __ex &amp;&amp; __iy != __ey; ++__ix, ++__iy)</span>
+<span class="lineNum">    1600 </span><span class="lineCov">       2838 :         if (!(*__ix == *__iy))</span>
+<span class="lineNum">    1601 </span><span class="lineCov">        324 :             return false;</span>
+<span class="lineNum">    1602 </span><span class="lineCov">        317 :     return (__ix == __ex) == (__iy == __ey);</span>
+<span class="lineNum">    1603 </span><span class="lineCov">        641 : }</span>
+<span class="lineNum">    1604 </span>            : 
+<a name="1605"><span class="lineNum">    1605 </span>            : template &lt;class _Tp, class _Alloc&gt;</a>
+<span class="lineNum">    1606 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1607 </span>            : bool operator!=(const forward_list&lt;_Tp, _Alloc&gt;&amp; __x,
+<span class="lineNum">    1608 </span>            :                 const forward_list&lt;_Tp, _Alloc&gt;&amp; __y)
+<span class="lineNum">    1609 </span>            : {
+<span class="lineNum">    1610 </span><span class="lineCov">        360 :     return !(__x == __y);</span>
+<span class="lineNum">    1611 </span>            : }
+<span class="lineNum">    1612 </span>            : 
+<a name="1613"><span class="lineNum">    1613 </span>            : template &lt;class _Tp, class _Alloc&gt;</a>
+<span class="lineNum">    1614 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1615 </span>            : bool operator&lt; (const forward_list&lt;_Tp, _Alloc&gt;&amp; __x,
+<span class="lineNum">    1616 </span>            :                 const forward_list&lt;_Tp, _Alloc&gt;&amp; __y)
+<span class="lineNum">    1617 </span>            : {
+<span class="lineNum">    1618 </span><span class="lineCov">        800 :     return _VSTD::lexicographical_compare(__x.begin(), __x.end(),</span>
+<span class="lineNum">    1619 </span><span class="lineCov">        400 :                                          __y.begin(), __y.end());</span>
+<span class="lineNum">    1620 </span>            : }
+<span class="lineNum">    1621 </span>            : 
+<a name="1622"><span class="lineNum">    1622 </span>            : template &lt;class _Tp, class _Alloc&gt;</a>
+<span class="lineNum">    1623 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1624 </span>            : bool operator&gt; (const forward_list&lt;_Tp, _Alloc&gt;&amp; __x,
+<span class="lineNum">    1625 </span>            :                 const forward_list&lt;_Tp, _Alloc&gt;&amp; __y)
+<span class="lineNum">    1626 </span>            : {
+<span class="lineNum">    1627 </span><span class="lineCov">         90 :     return __y &lt; __x;</span>
+<span class="lineNum">    1628 </span>            : }
+<span class="lineNum">    1629 </span>            : 
+<a name="1630"><span class="lineNum">    1630 </span>            : template &lt;class _Tp, class _Alloc&gt;</a>
+<span class="lineNum">    1631 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1632 </span>            : bool operator&gt;=(const forward_list&lt;_Tp, _Alloc&gt;&amp; __x,
+<span class="lineNum">    1633 </span>            :                 const forward_list&lt;_Tp, _Alloc&gt;&amp; __y)
+<span class="lineNum">    1634 </span>            : {
+<span class="lineNum">    1635 </span><span class="lineCov">        110 :     return !(__x &lt; __y);</span>
+<span class="lineNum">    1636 </span>            : }
+<span class="lineNum">    1637 </span>            : 
+<a name="1638"><span class="lineNum">    1638 </span>            : template &lt;class _Tp, class _Alloc&gt;</a>
+<span class="lineNum">    1639 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1640 </span>            : bool operator&lt;=(const forward_list&lt;_Tp, _Alloc&gt;&amp; __x,
+<span class="lineNum">    1641 </span>            :                 const forward_list&lt;_Tp, _Alloc&gt;&amp; __y)
+<span class="lineNum">    1642 </span>            : {
+<span class="lineNum">    1643 </span><span class="lineCov">        110 :     return !(__y &lt; __x);</span>
+<span class="lineNum">    1644 </span>            : }
+<span class="lineNum">    1645 </span>            : 
+<span class="lineNum">    1646 </span>            : template &lt;class _Tp, class _Alloc&gt;
+<a name="1647"><span class="lineNum">    1647 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">    1648 </span>            : void
+<span class="lineNum">    1649 </span>            : swap(forward_list&lt;_Tp, _Alloc&gt;&amp; __x, forward_list&lt;_Tp, _Alloc&gt;&amp; __y)
+<span class="lineNum">    1650 </span>            :     _NOEXCEPT_(_NOEXCEPT_(__x.swap(__y)))
+<span class="lineNum">    1651 </span>            : {
+<span class="lineNum">    1652 </span><span class="lineCov">         12 :     __x.swap(__y);</span>
+<span class="lineNum">    1653 </span><span class="lineCov">         12 : }</span>
+<span class="lineNum">    1654 </span>            : 
+<span class="lineNum">    1655 </span>            : _LIBCPP_END_NAMESPACE_STD
+<span class="lineNum">    1656 </span>            : 
+<span class="lineNum">    1657 </span>            : #endif  // _LIBCPP_FORWARD_LIST
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

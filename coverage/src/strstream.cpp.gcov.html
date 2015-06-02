@@ -1,0 +1,405 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - test_coverage.info - src/strstream.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">src</a> - strstream.cpp<span style="font-size: 80%;"> (source / <a href="strstream.cpp.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">test_coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">192</td>
+            <td class="headerCovTableEntry">217</td>
+            <td class="headerCovTableEntryMed">88.5 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2015-06-02</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">23</td>
+            <td class="headerCovTableEntry">37</td>
+            <td class="headerCovTableEntryLo">62.2 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : //===------------------------ strstream.cpp -------------------------------===//</a>
+<span class="lineNum">       2 </span>            : //
+<span class="lineNum">       3 </span>            : //                     The LLVM Compiler Infrastructure
+<span class="lineNum">       4 </span>            : //
+<span class="lineNum">       5 </span>            : // This file is dual licensed under the MIT and the University of Illinois Open
+<span class="lineNum">       6 </span>            : // Source Licenses. See LICENSE.TXT for details.
+<span class="lineNum">       7 </span>            : //
+<span class="lineNum">       8 </span>            : //===----------------------------------------------------------------------===//
+<span class="lineNum">       9 </span>            : 
+<span class="lineNum">      10 </span>            : #include &quot;strstream&quot;
+<span class="lineNum">      11 </span>            : #include &quot;algorithm&quot;
+<span class="lineNum">      12 </span>            : #include &quot;climits&quot;
+<span class="lineNum">      13 </span>            : #include &quot;cstring&quot;
+<span class="lineNum">      14 </span>            : 
+<a name="15"><span class="lineNum">      15 </span>            : _LIBCPP_BEGIN_NAMESPACE_STD</a>
+<span class="lineNum">      16 </span>            : 
+<span class="lineNum">      17 </span><span class="lineCov">         13 : strstreambuf::strstreambuf(streamsize __alsize)</span>
+<span class="lineNum">      18 </span><span class="lineCov">         13 :     : __strmode_(__dynamic),</span>
+<span class="lineNum">      19 </span><span class="lineCov">         13 :       __alsize_(__alsize),</span>
+<span class="lineNum">      20 </span><span class="lineCov">         13 :       __palloc_(nullptr),</span>
+<span class="lineNum">      21 </span><span class="lineCov">         13 :       __pfree_(nullptr)</span>
+<span class="lineNum">      22 </span><span class="lineCov">         26 : {</span>
+<a name="23"><span class="lineNum">      23 </span><span class="lineCov">         13 : }</span></a>
+<span class="lineNum">      24 </span>            : 
+<span class="lineNum">      25 </span><span class="lineCov">          1 : strstreambuf::strstreambuf(void* (*__palloc)(size_t), void (*__pfree)(void*))</span>
+<span class="lineNum">      26 </span><span class="lineCov">          1 :     : __strmode_(__dynamic),</span>
+<span class="lineNum">      27 </span><span class="lineCov">          1 :       __alsize_(__default_alsize),</span>
+<span class="lineNum">      28 </span><span class="lineCov">          1 :       __palloc_(__palloc),</span>
+<span class="lineNum">      29 </span><span class="lineCov">          1 :       __pfree_(__pfree)</span>
+<span class="lineNum">      30 </span><span class="lineCov">          2 : {</span>
+<span class="lineNum">      31 </span><span class="lineCov">          1 : }</span>
+<a name="32"><span class="lineNum">      32 </span>            : </a>
+<span class="lineNum">      33 </span>            : void
+<span class="lineNum">      34 </span>            : strstreambuf::__init(char* __gnext, streamsize __n, char* __pbeg)
+<span class="lineNum">      35 </span>            : {
+<span class="lineNum">      36 </span><span class="lineCov">         42 :     if (__n == 0)</span>
+<span class="lineNum">      37 </span><span class="lineCov">         25 :         __n = static_cast&lt;streamsize&gt;(strlen(__gnext));</span>
+<span class="lineNum">      38 </span><span class="lineCov">         17 :     else if (__n &lt; 0)</span>
+<span class="lineNum">      39 </span><span class="lineNoCov">          0 :         __n = INT_MAX;</span>
+<span class="lineNum">      40 </span><span class="lineCov">         42 :     if (__pbeg == nullptr)</span>
+<span class="lineNum">      41 </span><span class="lineCov">         23 :         setg(__gnext, __gnext, __gnext + __n);</span>
+<span class="lineNum">      42 </span>            :     else
+<span class="lineNum">      43 </span>            :     {
+<span class="lineNum">      44 </span><span class="lineCov">         19 :         setg(__gnext, __gnext, __pbeg);</span>
+<span class="lineNum">      45 </span><span class="lineCov">         19 :         setp(__pbeg, __pbeg + __n);</span>
+<span class="lineNum">      46 </span>            :     }
+<a name="47"><span class="lineNum">      47 </span><span class="lineCov">         42 : }</span></a>
+<span class="lineNum">      48 </span>            : 
+<span class="lineNum">      49 </span><span class="lineCov">         21 : strstreambuf::strstreambuf(char* __gnext, streamsize __n, char* __pbeg)</span>
+<span class="lineNum">      50 </span><span class="lineCov">         21 :     : __strmode_(),</span>
+<span class="lineNum">      51 </span><span class="lineCov">         21 :       __alsize_(__default_alsize),</span>
+<span class="lineNum">      52 </span><span class="lineCov">         21 :       __palloc_(nullptr),</span>
+<span class="lineNum">      53 </span><span class="lineCov">         21 :       __pfree_(nullptr)</span>
+<span class="lineNum">      54 </span><span class="lineCov">         42 : {</span>
+<span class="lineNum">      55 </span><span class="lineCov">         21 :     __init(__gnext, __n, __pbeg);</span>
+<a name="56"><span class="lineNum">      56 </span><span class="lineCov">         21 : }</span></a>
+<span class="lineNum">      57 </span>            : 
+<span class="lineNum">      58 </span><span class="lineCov">          7 : strstreambuf::strstreambuf(const char* __gnext, streamsize __n)</span>
+<span class="lineNum">      59 </span><span class="lineCov">          7 :     : __strmode_(__constant),</span>
+<span class="lineNum">      60 </span><span class="lineCov">          7 :       __alsize_(__default_alsize),</span>
+<span class="lineNum">      61 </span><span class="lineCov">          7 :       __palloc_(nullptr),</span>
+<span class="lineNum">      62 </span><span class="lineCov">          7 :       __pfree_(nullptr)</span>
+<span class="lineNum">      63 </span><span class="lineCov">         14 : {</span>
+<span class="lineNum">      64 </span><span class="lineCov">          7 :     __init(const_cast&lt;char *&gt;(__gnext), __n, nullptr);</span>
+<a name="65"><span class="lineNum">      65 </span><span class="lineCov">          7 : }</span></a>
+<span class="lineNum">      66 </span>            : 
+<span class="lineNum">      67 </span><span class="lineCov">          5 : strstreambuf::strstreambuf(signed char* __gnext, streamsize __n, signed char* __pbeg)</span>
+<span class="lineNum">      68 </span><span class="lineCov">          5 :     : __strmode_(),</span>
+<span class="lineNum">      69 </span><span class="lineCov">          5 :       __alsize_(__default_alsize),</span>
+<span class="lineNum">      70 </span><span class="lineCov">          5 :       __palloc_(nullptr),</span>
+<span class="lineNum">      71 </span><span class="lineCov">          5 :       __pfree_(nullptr)</span>
+<span class="lineNum">      72 </span><span class="lineCov">         10 : {</span>
+<span class="lineNum">      73 </span><span class="lineCov">          5 :     __init(const_cast&lt;char *&gt;(reinterpret_cast&lt;const char*&gt;(__gnext)), __n, reinterpret_cast&lt;char*&gt;(__pbeg));</span>
+<a name="74"><span class="lineNum">      74 </span><span class="lineCov">          5 : }</span></a>
+<span class="lineNum">      75 </span>            : 
+<span class="lineNum">      76 </span><span class="lineCov">          2 : strstreambuf::strstreambuf(const signed char* __gnext, streamsize __n)</span>
+<span class="lineNum">      77 </span><span class="lineCov">          2 :     : __strmode_(__constant),</span>
+<span class="lineNum">      78 </span><span class="lineCov">          2 :       __alsize_(__default_alsize),</span>
+<span class="lineNum">      79 </span><span class="lineCov">          2 :       __palloc_(nullptr),</span>
+<span class="lineNum">      80 </span><span class="lineCov">          2 :       __pfree_(nullptr)</span>
+<span class="lineNum">      81 </span><span class="lineCov">          4 : {</span>
+<span class="lineNum">      82 </span><span class="lineCov">          2 :     __init(const_cast&lt;char *&gt;(reinterpret_cast&lt;const char*&gt;(__gnext)), __n, nullptr);</span>
+<a name="83"><span class="lineNum">      83 </span><span class="lineCov">          2 : }</span></a>
+<span class="lineNum">      84 </span>            : 
+<span class="lineNum">      85 </span><span class="lineCov">          7 : strstreambuf::strstreambuf(unsigned char* __gnext, streamsize __n, unsigned char* __pbeg)</span>
+<span class="lineNum">      86 </span><span class="lineCov">          7 :     : __strmode_(),</span>
+<span class="lineNum">      87 </span><span class="lineCov">          7 :       __alsize_(__default_alsize),</span>
+<span class="lineNum">      88 </span><span class="lineCov">          7 :       __palloc_(nullptr),</span>
+<span class="lineNum">      89 </span><span class="lineCov">          7 :       __pfree_(nullptr)</span>
+<span class="lineNum">      90 </span><span class="lineCov">         14 : {</span>
+<span class="lineNum">      91 </span><span class="lineCov">          7 :     __init(const_cast&lt;char *&gt;(reinterpret_cast&lt;const char*&gt;(__gnext)), __n, reinterpret_cast&lt;char*&gt;(__pbeg));</span>
+<a name="92"><span class="lineNum">      92 </span><span class="lineCov">          7 : }</span></a>
+<span class="lineNum">      93 </span>            : 
+<span class="lineNum">      94 </span><span class="lineNoCov">          0 : strstreambuf::strstreambuf(const unsigned char* __gnext, streamsize __n)</span>
+<span class="lineNum">      95 </span><span class="lineNoCov">          0 :     : __strmode_(__constant),</span>
+<span class="lineNum">      96 </span><span class="lineNoCov">          0 :       __alsize_(__default_alsize),</span>
+<span class="lineNum">      97 </span><span class="lineNoCov">          0 :       __palloc_(nullptr),</span>
+<span class="lineNum">      98 </span><span class="lineNoCov">          0 :       __pfree_(nullptr)</span>
+<span class="lineNum">      99 </span><span class="lineNoCov">          0 : {</span>
+<span class="lineNum">     100 </span><span class="lineNoCov">          0 :     __init(const_cast&lt;char *&gt;(reinterpret_cast&lt;const char*&gt;(__gnext)), __n, nullptr);</span>
+<a name="101"><span class="lineNum">     101 </span><span class="lineNoCov">          0 : }</span></a>
+<span class="lineNum">     102 </span>            : 
+<span class="lineNum">     103 </span>            : strstreambuf::~strstreambuf()
+<span class="lineNum">     104 </span><span class="lineCov">         56 : {</span>
+<span class="lineNum">     105 </span><span class="lineCov">        178 :     if (eback() &amp;&amp; (__strmode_ &amp; __allocated) != 0 &amp;&amp; (__strmode_ &amp; __frozen) == 0)</span>
+<span class="lineNum">     106 </span>            :     {
+<span class="lineNum">     107 </span><span class="lineCov">         12 :         if (__pfree_)</span>
+<span class="lineNum">     108 </span><span class="lineCov">          3 :             __pfree_(eback());</span>
+<span class="lineNum">     109 </span>            :         else
+<span class="lineNum">     110 </span><span class="lineCov">         33 :             delete [] eback();</span>
+<span class="lineNum">     111 </span><span class="lineCov">         12 :     }</span>
+<span class="lineNum">     112 </span><span class="lineCov">         56 : }</span>
+<a name="113"><span class="lineNum">     113 </span>            : </a>
+<span class="lineNum">     114 </span>            : void
+<span class="lineNum">     115 </span>            : strstreambuf::swap(strstreambuf&amp; __rhs)
+<span class="lineNum">     116 </span>            : {
+<span class="lineNum">     117 </span><span class="lineNoCov">          0 :     streambuf::swap(__rhs);</span>
+<span class="lineNum">     118 </span><span class="lineNoCov">          0 :     _VSTD::swap(__strmode_, __rhs.__strmode_);</span>
+<span class="lineNum">     119 </span><span class="lineNoCov">          0 :     _VSTD::swap(__alsize_, __rhs.__alsize_);</span>
+<span class="lineNum">     120 </span><span class="lineNoCov">          0 :     _VSTD::swap(__palloc_, __rhs.__palloc_);</span>
+<span class="lineNum">     121 </span><span class="lineNoCov">          0 :     _VSTD::swap(__pfree_, __rhs.__pfree_);</span>
+<span class="lineNum">     122 </span><span class="lineNoCov">          0 : }</span>
+<a name="123"><span class="lineNum">     123 </span>            : </a>
+<span class="lineNum">     124 </span>            : void
+<span class="lineNum">     125 </span>            : strstreambuf::freeze(bool __freezefl)
+<span class="lineNum">     126 </span>            : {
+<span class="lineNum">     127 </span><span class="lineCov">         14 :     if (__strmode_ &amp; __dynamic)</span>
+<span class="lineNum">     128 </span>            :     {
+<span class="lineNum">     129 </span><span class="lineCov">         14 :         if (__freezefl)</span>
+<span class="lineNum">     130 </span><span class="lineCov">          3 :             __strmode_ |= __frozen;</span>
+<span class="lineNum">     131 </span>            :         else
+<span class="lineNum">     132 </span><span class="lineCov">         11 :             __strmode_ &amp;= ~__frozen;</span>
+<span class="lineNum">     133 </span><span class="lineCov">         14 :     }</span>
+<span class="lineNum">     134 </span><span class="lineCov">         14 : }</span>
+<a name="135"><span class="lineNum">     135 </span>            : </a>
+<span class="lineNum">     136 </span>            : char*
+<span class="lineNum">     137 </span>            : strstreambuf::str()
+<span class="lineNum">     138 </span>            : {
+<span class="lineNum">     139 </span><span class="lineCov">         37 :     if (__strmode_ &amp; __dynamic)</span>
+<span class="lineNum">     140 </span><span class="lineCov">         10 :         __strmode_ |= __frozen;</span>
+<span class="lineNum">     141 </span><span class="lineCov">         37 :     return eback();</span>
+<span class="lineNum">     142 </span>            : }
+<a name="143"><span class="lineNum">     143 </span>            : </a>
+<span class="lineNum">     144 </span>            : int
+<span class="lineNum">     145 </span>            : strstreambuf::pcount() const
+<span class="lineNum">     146 </span>            : {
+<span class="lineNum">     147 </span><span class="lineCov">         10 :     return static_cast&lt;int&gt;(pptr() - pbase());</span>
+<span class="lineNum">     148 </span>            : }
+<a name="149"><span class="lineNum">     149 </span>            : </a>
+<span class="lineNum">     150 </span>            : strstreambuf::int_type
+<span class="lineNum">     151 </span>            : strstreambuf::overflow(int_type __c)
+<span class="lineNum">     152 </span>            : {
+<span class="lineNum">     153 </span><span class="lineCov">         88 :     if (__c == EOF)</span>
+<span class="lineNum">     154 </span><span class="lineNoCov">          0 :         return int_type(0);</span>
+<span class="lineNum">     155 </span><span class="lineCov">         88 :     if (pptr() == epptr())</span>
+<span class="lineNum">     156 </span>            :     {
+<span class="lineNum">     157 </span><span class="lineCov">         41 :         if ((__strmode_ &amp; __dynamic) == 0 || (__strmode_ &amp; __frozen) != 0)</span>
+<span class="lineNum">     158 </span><span class="lineCov">         14 :             return int_type(EOF);</span>
+<span class="lineNum">     159 </span><span class="lineCov">         36 :         size_t old_size = static_cast&lt;size_t&gt; ((epptr() ? epptr() : egptr()) - eback());</span>
+<span class="lineNum">     160 </span><span class="lineCov">         12 :         size_t new_size = max&lt;size_t&gt;(static_cast&lt;size_t&gt;(__alsize_), 2*old_size);</span>
+<span class="lineNum">     161 </span><span class="lineCov">         12 :         if (new_size == 0)</span>
+<span class="lineNum">     162 </span><span class="lineCov">         11 :             new_size = __default_alsize;</span>
+<span class="lineNum">     163 </span><span class="lineCov">         12 :         char* buf = nullptr;</span>
+<span class="lineNum">     164 </span><span class="lineCov">         12 :         if (__palloc_)</span>
+<span class="lineNum">     165 </span><span class="lineCov">          1 :             buf = static_cast&lt;char*&gt;(__palloc_(new_size));</span>
+<span class="lineNum">     166 </span>            :         else
+<span class="lineNum">     167 </span><span class="lineCov">         11 :             buf = new char[new_size];</span>
+<span class="lineNum">     168 </span><span class="lineCov">         12 :         if (buf == nullptr)</span>
+<span class="lineNum">     169 </span><span class="lineNoCov">          0 :             return int_type(EOF);</span>
+<span class="lineNum">     170 </span><span class="lineCov">         12 :         memcpy(buf, eback(), static_cast&lt;size_t&gt;(old_size));</span>
+<span class="lineNum">     171 </span><span class="lineCov">         12 :         ptrdiff_t ninp = gptr()  - eback();</span>
+<span class="lineNum">     172 </span><span class="lineCov">         12 :         ptrdiff_t einp = egptr() - eback();</span>
+<span class="lineNum">     173 </span><span class="lineCov">         12 :         ptrdiff_t nout = pptr()  - pbase();</span>
+<span class="lineNum">     174 </span><span class="lineCov">         12 :         ptrdiff_t eout = epptr() - pbase();</span>
+<span class="lineNum">     175 </span><span class="lineCov">         12 :         if (__strmode_ &amp; __allocated)</span>
+<span class="lineNum">     176 </span>            :         {
+<span class="lineNum">     177 </span><span class="lineNoCov">          0 :             if (__pfree_)</span>
+<span class="lineNum">     178 </span><span class="lineNoCov">          0 :                 __pfree_(eback());</span>
+<span class="lineNum">     179 </span>            :             else
+<span class="lineNum">     180 </span><span class="lineNoCov">          0 :                 delete [] eback();</span>
+<span class="lineNum">     181 </span><span class="lineNoCov">          0 :         }</span>
+<span class="lineNum">     182 </span><span class="lineCov">         12 :         setg(buf, buf + ninp, buf + einp);</span>
+<span class="lineNum">     183 </span><span class="lineCov">         12 :         setp(buf + einp, buf + einp + eout);</span>
+<span class="lineNum">     184 </span><span class="lineCov">         12 :         pbump(static_cast&lt;int&gt;(nout));</span>
+<span class="lineNum">     185 </span><span class="lineCov">         12 :         __strmode_ |= __allocated;</span>
+<span class="lineNum">     186 </span><span class="lineCov">         12 :     }</span>
+<span class="lineNum">     187 </span><span class="lineCov">         74 :     *pptr() = static_cast&lt;char&gt;(__c);</span>
+<span class="lineNum">     188 </span><span class="lineCov">         74 :     pbump(1);</span>
+<span class="lineNum">     189 </span><span class="lineCov">         74 :     return int_type(static_cast&lt;unsigned char&gt;(__c));</span>
+<span class="lineNum">     190 </span><span class="lineCov">         88 : }</span>
+<a name="191"><span class="lineNum">     191 </span>            : </a>
+<span class="lineNum">     192 </span>            : strstreambuf::int_type
+<span class="lineNum">     193 </span>            : strstreambuf::pbackfail(int_type __c)
+<span class="lineNum">     194 </span>            : {
+<span class="lineNum">     195 </span><span class="lineCov">         13 :     if (eback() == gptr())</span>
+<span class="lineNum">     196 </span><span class="lineCov">          2 :         return EOF;</span>
+<span class="lineNum">     197 </span><span class="lineCov">         11 :     if (__c == EOF)</span>
+<span class="lineNum">     198 </span>            :     {
+<span class="lineNum">     199 </span><span class="lineCov">          2 :         gbump(-1);</span>
+<span class="lineNum">     200 </span><span class="lineCov">          2 :         return int_type(0);</span>
+<span class="lineNum">     201 </span>            :     }
+<span class="lineNum">     202 </span><span class="lineCov">          9 :     if (__strmode_ &amp; __constant)</span>
+<span class="lineNum">     203 </span>            :     {
+<span class="lineNum">     204 </span><span class="lineCov">          5 :         if (gptr()[-1] == static_cast&lt;char&gt;(__c))</span>
+<span class="lineNum">     205 </span>            :         {
+<span class="lineNum">     206 </span><span class="lineCov">          2 :             gbump(-1);</span>
+<span class="lineNum">     207 </span><span class="lineCov">          2 :             return __c;</span>
+<span class="lineNum">     208 </span>            :         }
+<span class="lineNum">     209 </span><span class="lineCov">          3 :         return EOF;</span>
+<span class="lineNum">     210 </span>            :     }
+<span class="lineNum">     211 </span><span class="lineCov">          4 :     gbump(-1);</span>
+<span class="lineNum">     212 </span><span class="lineCov">          4 :     *gptr() = static_cast&lt;char&gt;(__c);</span>
+<span class="lineNum">     213 </span><span class="lineCov">          4 :     return __c;</span>
+<span class="lineNum">     214 </span><span class="lineCov">         13 : }</span>
+<a name="215"><span class="lineNum">     215 </span>            : </a>
+<span class="lineNum">     216 </span>            : strstreambuf::int_type
+<span class="lineNum">     217 </span>            : strstreambuf::underflow()
+<span class="lineNum">     218 </span>            : {
+<span class="lineNum">     219 </span><span class="lineCov">         62 :     if (gptr() == egptr())</span>
+<span class="lineNum">     220 </span>            :     {
+<span class="lineNum">     221 </span><span class="lineCov">         55 :         if (egptr() &gt;= pptr())</span>
+<span class="lineNum">     222 </span><span class="lineCov">         43 :             return EOF;</span>
+<span class="lineNum">     223 </span><span class="lineCov">         12 :         setg(eback(), gptr(), pptr());</span>
+<span class="lineNum">     224 </span><span class="lineCov">         12 :     }</span>
+<span class="lineNum">     225 </span><span class="lineCov">         19 :     return int_type(static_cast&lt;unsigned char&gt;(*gptr()));</span>
+<span class="lineNum">     226 </span><span class="lineCov">         62 : }</span>
+<a name="227"><span class="lineNum">     227 </span>            : </a>
+<span class="lineNum">     228 </span>            : strstreambuf::pos_type
+<span class="lineNum">     229 </span>            : strstreambuf::seekoff(off_type __off, ios_base::seekdir __way, ios_base::openmode __which)
+<span class="lineNum">     230 </span>            : {
+<span class="lineNum">     231 </span><span class="lineCov">         36 :     off_type __p(-1);</span>
+<span class="lineNum">     232 </span><span class="lineCov">         36 :     bool pos_in = (__which &amp; ios::in) != 0;</span>
+<span class="lineNum">     233 </span><span class="lineCov">         36 :     bool pos_out = (__which &amp; ios::out) != 0;</span>
+<span class="lineNum">     234 </span><span class="lineCov">         36 :     bool legal = false;</span>
+<span class="lineNum">     235 </span><span class="lineCov">         36 :     switch (__way)</span>
+<span class="lineNum">     236 </span>            :     {
+<span class="lineNum">     237 </span>            :     case ios::beg:
+<span class="lineNum">     238 </span>            :     case ios::end:
+<span class="lineNum">     239 </span><span class="lineCov">         16 :         if (pos_in || pos_out)</span>
+<span class="lineNum">     240 </span><span class="lineCov">         12 :             legal = true;</span>
+<span class="lineNum">     241 </span><span class="lineCov">         12 :         break;</span>
+<span class="lineNum">     242 </span>            :     case ios::cur:
+<span class="lineNum">     243 </span><span class="lineCov">          6 :         if (pos_in != pos_out)</span>
+<span class="lineNum">     244 </span><span class="lineCov">          4 :             legal = true;</span>
+<span class="lineNum">     245 </span><span class="lineCov">          6 :         break;</span>
+<span class="lineNum">     246 </span>            :     }
+<span class="lineNum">     247 </span><span class="lineCov">         30 :     if (pos_in &amp;&amp; gptr() == nullptr)</span>
+<span class="lineNum">     248 </span><span class="lineNoCov">          0 :         legal = false;</span>
+<span class="lineNum">     249 </span><span class="lineCov">         30 :     if (pos_out &amp;&amp; pptr() == nullptr)</span>
+<span class="lineNum">     250 </span><span class="lineCov">          6 :         legal = false;</span>
+<span class="lineNum">     251 </span><span class="lineCov">         18 :     if (legal)</span>
+<span class="lineNum">     252 </span>            :     {
+<span class="lineNum">     253 </span>            :         off_type newoff;
+<span class="lineNum">     254 </span><span class="lineCov">         44 :         char* seekhigh = epptr() ? epptr() : egptr();</span>
+<span class="lineNum">     255 </span><span class="lineCov">         22 :         switch (__way)</span>
+<span class="lineNum">     256 </span>            :         {
+<span class="lineNum">     257 </span>            :         case ios::beg:
+<span class="lineNum">     258 </span><span class="lineCov">          4 :             newoff = 0;</span>
+<span class="lineNum">     259 </span><span class="lineCov">          4 :             break;</span>
+<span class="lineNum">     260 </span>            :         case ios::cur:
+<span class="lineNum">     261 </span><span class="lineCov">          9 :             newoff = (pos_in ? gptr() : pptr()) - eback();</span>
+<span class="lineNum">     262 </span><span class="lineCov">          3 :             break;</span>
+<span class="lineNum">     263 </span>            :         case ios::end:
+<span class="lineNum">     264 </span><span class="lineCov">          4 :             newoff = seekhigh - eback();</span>
+<span class="lineNum">     265 </span><span class="lineCov">          4 :             break;</span>
+<span class="lineNum">     266 </span>            :         }
+<span class="lineNum">     267 </span><span class="lineCov">         11 :         newoff += __off;</span>
+<span class="lineNum">     268 </span><span class="lineCov">         22 :         if (0 &lt;= newoff &amp;&amp; newoff &lt;= seekhigh - eback())</span>
+<span class="lineNum">     269 </span>            :         {
+<span class="lineNum">     270 </span><span class="lineCov">         11 :             char* newpos = eback() + newoff;</span>
+<span class="lineNum">     271 </span><span class="lineCov">         11 :             if (pos_in)</span>
+<span class="lineNum">     272 </span><span class="lineCov">          8 :                 setg(eback(), newpos, _VSTD::max(newpos, egptr()));</span>
+<span class="lineNum">     273 </span><span class="lineCov">         11 :             if (pos_out)</span>
+<span class="lineNum">     274 </span>            :             {
+<span class="lineNum">     275 </span>            :                 // min(pbase, newpos), newpos, epptr()
+<span class="lineNum">     276 </span><span class="lineCov">          5 :                 __off = epptr() - newpos;</span>
+<span class="lineNum">     277 </span><span class="lineCov">          5 :                 setp(min(pbase(), newpos), epptr());</span>
+<span class="lineNum">     278 </span><span class="lineCov">          5 :                 pbump(static_cast&lt;int&gt;((epptr() - pbase()) - __off));</span>
+<span class="lineNum">     279 </span><span class="lineCov">          5 :             }</span>
+<span class="lineNum">     280 </span><span class="lineCov">         11 :             __p = newoff;</span>
+<span class="lineNum">     281 </span><span class="lineCov">         11 :         }</span>
+<span class="lineNum">     282 </span><span class="lineCov">         11 :     }</span>
+<span class="lineNum">     283 </span><span class="lineCov">         18 :     return pos_type(__p);</span>
+<span class="lineNum">     284 </span>            : }
+<a name="285"><span class="lineNum">     285 </span>            : </a>
+<span class="lineNum">     286 </span>            : strstreambuf::pos_type
+<span class="lineNum">     287 </span>            : strstreambuf::seekpos(pos_type __sp, ios_base::openmode __which)
+<span class="lineNum">     288 </span>            : {
+<span class="lineNum">     289 </span><span class="lineCov">          6 :     off_type __p(-1);</span>
+<span class="lineNum">     290 </span><span class="lineCov">          6 :     bool pos_in = (__which &amp; ios::in) != 0;</span>
+<span class="lineNum">     291 </span><span class="lineCov">          6 :     bool pos_out = (__which &amp; ios::out) != 0;</span>
+<span class="lineNum">     292 </span><span class="lineCov">          8 :     if (pos_in || pos_out)</span>
+<span class="lineNum">     293 </span>            :     {
+<span class="lineNum">     294 </span><span class="lineCov">         20 :         if (!((pos_in &amp;&amp; gptr() == nullptr) || (pos_out &amp;&amp; pptr() == nullptr)))</span>
+<span class="lineNum">     295 </span>            :         {
+<span class="lineNum">     296 </span><span class="lineCov">          4 :             off_type newoff = __sp;</span>
+<span class="lineNum">     297 </span><span class="lineCov">         12 :             char* seekhigh = epptr() ? epptr() : egptr();</span>
+<span class="lineNum">     298 </span><span class="lineCov">          8 :             if (0 &lt;= newoff &amp;&amp; newoff &lt;= seekhigh - eback())</span>
+<span class="lineNum">     299 </span>            :             {
+<span class="lineNum">     300 </span><span class="lineCov">          4 :                 char* newpos = eback() + newoff;</span>
+<span class="lineNum">     301 </span><span class="lineCov">          4 :                 if (pos_in)</span>
+<span class="lineNum">     302 </span><span class="lineCov">          3 :                     setg(eback(), newpos, _VSTD::max(newpos, egptr()));</span>
+<span class="lineNum">     303 </span><span class="lineCov">          4 :                 if (pos_out)</span>
+<span class="lineNum">     304 </span>            :                 {
+<span class="lineNum">     305 </span>            :                     // min(pbase, newpos), newpos, epptr()
+<span class="lineNum">     306 </span><span class="lineCov">          2 :                     off_type temp = epptr() - newpos;</span>
+<span class="lineNum">     307 </span><span class="lineCov">          2 :                     setp(min(pbase(), newpos), epptr());</span>
+<span class="lineNum">     308 </span><span class="lineCov">          2 :                     pbump(static_cast&lt;int&gt;((epptr() - pbase()) - temp));</span>
+<span class="lineNum">     309 </span><span class="lineCov">          2 :                 }</span>
+<span class="lineNum">     310 </span><span class="lineCov">          4 :                 __p = newoff;</span>
+<span class="lineNum">     311 </span><span class="lineCov">          4 :             }</span>
+<span class="lineNum">     312 </span><span class="lineCov">          4 :         }</span>
+<span class="lineNum">     313 </span><span class="lineCov">          6 :     }</span>
+<span class="lineNum">     314 </span><span class="lineCov">          6 :     return pos_type(__p);</span>
+<a name="315"><span class="lineNum">     315 </span>            : }</a>
+<span class="lineNum">     316 </span>            : 
+<span class="lineNum">     317 </span><span class="lineNoCov">          0 : istrstream::~istrstream()</span>
+<span class="lineNum">     318 </span><span class="lineCov">         12 : {</span>
+<a name="319"><span class="lineNum">     319 </span><span class="lineCov">         12 : }</span></a>
+<span class="lineNum">     320 </span>            : 
+<span class="lineNum">     321 </span><span class="lineNoCov">          0 : ostrstream::~ostrstream()</span>
+<span class="lineNum">     322 </span><span class="lineCov">         14 : {</span>
+<a name="323"><span class="lineNum">     323 </span><span class="lineCov">         14 : }</span></a>
+<span class="lineNum">     324 </span>            : 
+<span class="lineNum">     325 </span><span class="lineNoCov">          0 : strstream::~strstream()</span>
+<span class="lineNum">     326 </span><span class="lineCov">         14 : {</span>
+<span class="lineNum">     327 </span><span class="lineCov">         14 : }</span>
+<span class="lineNum">     328 </span>            : 
+<span class="lineNum">     329 </span>            : _LIBCPP_END_NAMESPACE_STD
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

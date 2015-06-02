@@ -1,0 +1,301 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - test_coverage.info - include/cwchar</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">include</a> - cwchar<span style="font-size: 80%;"> (source / <a href="cwchar.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">test_coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2015-06-02</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : // -*- C++ -*-</a>
+<span class="lineNum">       2 </span>            : //===--------------------------- cwchar -----------------------------------===//
+<span class="lineNum">       3 </span>            : //
+<span class="lineNum">       4 </span>            : //                     The LLVM Compiler Infrastructure
+<span class="lineNum">       5 </span>            : //
+<span class="lineNum">       6 </span>            : // This file is dual licensed under the MIT and the University of Illinois Open
+<span class="lineNum">       7 </span>            : // Source Licenses. See LICENSE.TXT for details.
+<span class="lineNum">       8 </span>            : //
+<span class="lineNum">       9 </span>            : //===----------------------------------------------------------------------===//
+<span class="lineNum">      10 </span>            : 
+<span class="lineNum">      11 </span>            : #ifndef _LIBCPP_CWCHAR
+<span class="lineNum">      12 </span>            : #define _LIBCPP_CWCHAR
+<span class="lineNum">      13 </span>            : 
+<span class="lineNum">      14 </span>            : /*
+<span class="lineNum">      15 </span>            :     cwchar synopsis
+<span class="lineNum">      16 </span>            : 
+<span class="lineNum">      17 </span>            : Macros:
+<span class="lineNum">      18 </span>            : 
+<span class="lineNum">      19 </span>            :     NULL
+<span class="lineNum">      20 </span>            :     WCHAR_MAX
+<span class="lineNum">      21 </span>            :     WCHAR_MIN
+<span class="lineNum">      22 </span>            :     WEOF
+<span class="lineNum">      23 </span>            : 
+<span class="lineNum">      24 </span>            : namespace std
+<span class="lineNum">      25 </span>            : {
+<span class="lineNum">      26 </span>            : 
+<span class="lineNum">      27 </span>            : Types:
+<span class="lineNum">      28 </span>            : 
+<span class="lineNum">      29 </span>            :     mbstate_t
+<span class="lineNum">      30 </span>            :     size_t
+<span class="lineNum">      31 </span>            :     tm
+<span class="lineNum">      32 </span>            :     wint_t
+<span class="lineNum">      33 </span>            : 
+<span class="lineNum">      34 </span>            : int fwprintf(FILE* restrict stream, const wchar_t* restrict format, ...);
+<span class="lineNum">      35 </span>            : int fwscanf(FILE* restrict stream, const wchar_t* restrict format, ...);
+<span class="lineNum">      36 </span>            : int swprintf(wchar_t* restrict s, size_t n, const wchar_t* restrict format, ...);
+<span class="lineNum">      37 </span>            : int swscanf(const wchar_t* restrict s, const wchar_t* restrict format, ...);
+<span class="lineNum">      38 </span>            : int vfwprintf(FILE* restrict stream, const wchar_t* restrict format, va_list arg);
+<span class="lineNum">      39 </span>            : int vfwscanf(FILE* restrict stream, const wchar_t* restrict format, va_list arg);  // C99
+<span class="lineNum">      40 </span>            : int vswprintf(wchar_t* restrict s, size_t n, const wchar_t* restrict format, va_list arg);
+<span class="lineNum">      41 </span>            : int vswscanf(const wchar_t* restrict s, const wchar_t* restrict format, va_list arg);  // C99
+<span class="lineNum">      42 </span>            : int vwprintf(const wchar_t* restrict format, va_list arg);
+<span class="lineNum">      43 </span>            : int vwscanf(const wchar_t* restrict format, va_list arg);  // C99
+<span class="lineNum">      44 </span>            : int wprintf(const wchar_t* restrict format, ...);
+<span class="lineNum">      45 </span>            : int wscanf(const wchar_t* restrict format, ...);
+<span class="lineNum">      46 </span>            : wint_t fgetwc(FILE* stream);
+<span class="lineNum">      47 </span>            : wchar_t* fgetws(wchar_t* restrict s, int n, FILE* restrict stream);
+<span class="lineNum">      48 </span>            : wint_t fputwc(wchar_t c, FILE* stream);
+<span class="lineNum">      49 </span>            : int fputws(const wchar_t* restrict s, FILE* restrict stream);
+<span class="lineNum">      50 </span>            : int fwide(FILE* stream, int mode);
+<span class="lineNum">      51 </span>            : wint_t getwc(FILE* stream);
+<span class="lineNum">      52 </span>            : wint_t getwchar();
+<span class="lineNum">      53 </span>            : wint_t putwc(wchar_t c, FILE* stream);
+<span class="lineNum">      54 </span>            : wint_t putwchar(wchar_t c);
+<span class="lineNum">      55 </span>            : wint_t ungetwc(wint_t c, FILE* stream);
+<span class="lineNum">      56 </span>            : double wcstod(const wchar_t* restrict nptr, wchar_t** restrict endptr);
+<span class="lineNum">      57 </span>            : float wcstof(const wchar_t* restrict nptr, wchar_t** restrict endptr);         // C99
+<span class="lineNum">      58 </span>            : long double wcstold(const wchar_t* restrict nptr, wchar_t** restrict endptr);  // C99
+<span class="lineNum">      59 </span>            : long wcstol(const wchar_t* restrict nptr, wchar_t** restrict endptr, int base);
+<span class="lineNum">      60 </span>            : long long wcstoll(const wchar_t* restrict nptr, wchar_t** restrict endptr, int base);  // C99
+<span class="lineNum">      61 </span>            : unsigned long wcstoul(const wchar_t* restrict nptr, wchar_t** restrict endptr, int base);
+<span class="lineNum">      62 </span>            : unsigned long long wcstoull(const wchar_t* restrict nptr, wchar_t** restrict endptr, int base);  // C99
+<span class="lineNum">      63 </span>            : wchar_t* wcscpy(wchar_t* restrict s1, const wchar_t* restrict s2);
+<span class="lineNum">      64 </span>            : wchar_t* wcsncpy(wchar_t* restrict s1, const wchar_t* restrict s2, size_t n);
+<span class="lineNum">      65 </span>            : wchar_t* wcscat(wchar_t* restrict s1, const wchar_t* restrict s2);
+<span class="lineNum">      66 </span>            : wchar_t* wcsncat(wchar_t* restrict s1, const wchar_t* restrict s2, size_t n);
+<span class="lineNum">      67 </span>            : int wcscmp(const wchar_t* s1, const wchar_t* s2);
+<span class="lineNum">      68 </span>            : int wcscoll(const wchar_t* s1, const wchar_t* s2);
+<span class="lineNum">      69 </span>            : int wcsncmp(const wchar_t* s1, const wchar_t* s2, size_t n);
+<span class="lineNum">      70 </span>            : size_t wcsxfrm(wchar_t* restrict s1, const wchar_t* restrict s2, size_t n);
+<span class="lineNum">      71 </span>            : const wchar_t* wcschr(const wchar_t* s, wchar_t c);
+<span class="lineNum">      72 </span>            :       wchar_t* wcschr(      wchar_t* s, wchar_t c);
+<span class="lineNum">      73 </span>            : size_t wcscspn(const wchar_t* s1, const wchar_t* s2);
+<span class="lineNum">      74 </span>            : size_t wcslen(const wchar_t* s);
+<span class="lineNum">      75 </span>            : const wchar_t* wcspbrk(const wchar_t* s1, const wchar_t* s2);
+<span class="lineNum">      76 </span>            :       wchar_t* wcspbrk(      wchar_t* s1, const wchar_t* s2);
+<span class="lineNum">      77 </span>            : const wchar_t* wcsrchr(const wchar_t* s, wchar_t c);
+<span class="lineNum">      78 </span>            :       wchar_t* wcsrchr(      wchar_t* s, wchar_t c);
+<span class="lineNum">      79 </span>            : size_t wcsspn(const wchar_t* s1, const wchar_t* s2);
+<span class="lineNum">      80 </span>            : const wchar_t* wcsstr(const wchar_t* s1, const wchar_t* s2);
+<span class="lineNum">      81 </span>            :       wchar_t* wcsstr(      wchar_t* s1, const wchar_t* s2);
+<span class="lineNum">      82 </span>            : wchar_t* wcstok(wchar_t* restrict s1, const wchar_t* restrict s2, wchar_t** restrict ptr);
+<span class="lineNum">      83 </span>            : const wchar_t* wmemchr(const wchar_t* s, wchar_t c, size_t n);
+<span class="lineNum">      84 </span>            :       wchar_t* wmemchr(      wchar_t* s, wchar_t c, size_t n);
+<span class="lineNum">      85 </span>            : int wmemcmp(wchar_t* restrict s1, const wchar_t* restrict s2, size_t n);
+<span class="lineNum">      86 </span>            : wchar_t* wmemcpy(wchar_t* restrict s1, const wchar_t* restrict s2, size_t n);
+<span class="lineNum">      87 </span>            : wchar_t* wmemmove(wchar_t* s1, const wchar_t* s2, size_t n);
+<span class="lineNum">      88 </span>            : wchar_t* wmemset(wchar_t* s, wchar_t c, size_t n);
+<span class="lineNum">      89 </span>            : size_t wcsftime(wchar_t* restrict s, size_t maxsize, const wchar_t* restrict format,
+<span class="lineNum">      90 </span>            :                 const tm* restrict timeptr);
+<span class="lineNum">      91 </span>            : wint_t btowc(int c);
+<span class="lineNum">      92 </span>            : int wctob(wint_t c);
+<span class="lineNum">      93 </span>            : int mbsinit(const mbstate_t* ps);
+<span class="lineNum">      94 </span>            : size_t mbrlen(const char* restrict s, size_t n, mbstate_t* restrict ps);
+<span class="lineNum">      95 </span>            : size_t mbrtowc(wchar_t* restrict pwc, const char* restrict s, size_t n, mbstate_t* restrict ps);
+<span class="lineNum">      96 </span>            : size_t wcrtomb(char* restrict s, wchar_t wc, mbstate_t* restrict ps);
+<span class="lineNum">      97 </span>            : size_t mbsrtowcs(wchar_t* restrict dst, const char** restrict src, size_t len,
+<span class="lineNum">      98 </span>            :                  mbstate_t* restrict ps);
+<span class="lineNum">      99 </span>            : size_t wcsrtombs(char* restrict dst, const wchar_t** restrict src, size_t len,
+<span class="lineNum">     100 </span>            :                  mbstate_t* restrict ps);
+<span class="lineNum">     101 </span>            : 
+<span class="lineNum">     102 </span>            : }  // std
+<span class="lineNum">     103 </span>            : 
+<span class="lineNum">     104 </span>            : */
+<span class="lineNum">     105 </span>            : 
+<span class="lineNum">     106 </span>            : #include &lt;__config&gt;
+<span class="lineNum">     107 </span>            : #include &lt;cwctype&gt;
+<span class="lineNum">     108 </span>            : #include &lt;wchar.h&gt;
+<span class="lineNum">     109 </span>            : #if defined(_LIBCPP_MSVCRT) || defined(__MINGW32__)
+<span class="lineNum">     110 </span>            : #include &lt;support/win32/support.h&gt; // pull in *swprintf defines
+<span class="lineNum">     111 </span>            : #endif // _LIBCPP_MSVCRT
+<span class="lineNum">     112 </span>            : 
+<span class="lineNum">     113 </span>            : #if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
+<span class="lineNum">     114 </span>            : #pragma GCC system_header
+<span class="lineNum">     115 </span>            : #endif
+<span class="lineNum">     116 </span>            : 
+<span class="lineNum">     117 </span>            : _LIBCPP_BEGIN_NAMESPACE_STD
+<span class="lineNum">     118 </span>            : 
+<span class="lineNum">     119 </span>            : using ::mbstate_t;
+<span class="lineNum">     120 </span>            : using ::size_t;
+<span class="lineNum">     121 </span>            : using ::tm;
+<span class="lineNum">     122 </span>            : using ::wint_t;
+<span class="lineNum">     123 </span>            : using ::FILE;
+<span class="lineNum">     124 </span>            : using ::fwprintf;
+<span class="lineNum">     125 </span>            : using ::fwscanf;
+<span class="lineNum">     126 </span>            : using ::swprintf;
+<span class="lineNum">     127 </span>            : using ::vfwprintf;
+<span class="lineNum">     128 </span>            : using ::vswprintf;
+<span class="lineNum">     129 </span>            : #ifndef _LIBCPP_MSVCRT
+<span class="lineNum">     130 </span>            : using ::swscanf;
+<span class="lineNum">     131 </span>            : using ::vfwscanf;
+<span class="lineNum">     132 </span>            : using ::vswscanf;
+<span class="lineNum">     133 </span>            : #endif // _LIBCPP_MSVCRT
+<span class="lineNum">     134 </span>            : using ::fgetwc;
+<span class="lineNum">     135 </span>            : using ::fgetws;
+<span class="lineNum">     136 </span>            : using ::fputwc;
+<span class="lineNum">     137 </span>            : using ::fputws;
+<span class="lineNum">     138 </span>            : using ::fwide;
+<span class="lineNum">     139 </span>            : using ::getwc;
+<span class="lineNum">     140 </span>            : using ::putwc;
+<span class="lineNum">     141 </span>            : using ::ungetwc;
+<span class="lineNum">     142 </span>            : using ::wcstod;
+<span class="lineNum">     143 </span>            : #ifndef _LIBCPP_MSVCRT
+<span class="lineNum">     144 </span>            : using ::wcstof;
+<span class="lineNum">     145 </span>            : using ::wcstold;
+<span class="lineNum">     146 </span>            : #endif // _LIBCPP_MSVCRT
+<span class="lineNum">     147 </span>            : using ::wcstol;
+<span class="lineNum">     148 </span>            : #ifndef _LIBCPP_HAS_NO_LONG_LONG
+<span class="lineNum">     149 </span>            : using ::wcstoll;
+<span class="lineNum">     150 </span>            : #endif // _LIBCPP_HAS_NO_LONG_LONG
+<span class="lineNum">     151 </span>            : using ::wcstoul;
+<span class="lineNum">     152 </span>            : #ifndef _LIBCPP_HAS_NO_LONG_LONG
+<span class="lineNum">     153 </span>            : using ::wcstoull;
+<span class="lineNum">     154 </span>            : #endif // _LIBCPP_HAS_NO_LONG_LONG
+<span class="lineNum">     155 </span>            : using ::wcscpy;
+<span class="lineNum">     156 </span>            : using ::wcsncpy;
+<span class="lineNum">     157 </span>            : using ::wcscat;
+<span class="lineNum">     158 </span>            : using ::wcsncat;
+<span class="lineNum">     159 </span>            : using ::wcscmp;
+<span class="lineNum">     160 </span>            : using ::wcscoll;
+<span class="lineNum">     161 </span>            : using ::wcsncmp;
+<span class="lineNum">     162 </span>            : using ::wcsxfrm;
+<span class="lineNum">     163 </span>            : 
+<span class="lineNum">     164 </span>            : #if defined(_WCHAR_H_CPLUSPLUS_98_CONFORMANCE_)
+<span class="lineNum">     165 </span>            : 
+<span class="lineNum">     166 </span>            : using ::wcschr;
+<span class="lineNum">     167 </span>            : using ::wcspbrk;
+<span class="lineNum">     168 </span>            : using ::wcsrchr;
+<span class="lineNum">     169 </span>            : using ::wcsstr;
+<span class="lineNum">     170 </span>            : using ::wmemchr;
+<span class="lineNum">     171 </span>            : 
+<span class="lineNum">     172 </span>            : #else
+<span class="lineNum">     173 </span>            : 
+<span class="lineNum">     174 </span>            : inline _LIBCPP_INLINE_VISIBILITY const wchar_t* wcschr(const wchar_t* __s, wchar_t __c) {return ::wcschr(__s, __c);}
+<span class="lineNum">     175 </span>            : inline _LIBCPP_INLINE_VISIBILITY       wchar_t* wcschr(      wchar_t* __s, wchar_t __c) {return ::wcschr(__s, __c);}
+<span class="lineNum">     176 </span>            : 
+<span class="lineNum">     177 </span>            : inline _LIBCPP_INLINE_VISIBILITY const wchar_t* wcspbrk(const wchar_t* __s1, const wchar_t* __s2) {return ::wcspbrk(__s1, __s2);}
+<span class="lineNum">     178 </span>            : inline _LIBCPP_INLINE_VISIBILITY       wchar_t* wcspbrk(      wchar_t* __s1, const wchar_t* __s2) {return ::wcspbrk(__s1, __s2);}
+<span class="lineNum">     179 </span>            : 
+<span class="lineNum">     180 </span>            : inline _LIBCPP_INLINE_VISIBILITY const wchar_t* wcsrchr(const wchar_t* __s, wchar_t __c) {return ::wcsrchr(__s, __c);}
+<span class="lineNum">     181 </span>            : inline _LIBCPP_INLINE_VISIBILITY       wchar_t* wcsrchr(      wchar_t* __s, wchar_t __c) {return ::wcsrchr(__s, __c);}
+<span class="lineNum">     182 </span>            : 
+<span class="lineNum">     183 </span>            : inline _LIBCPP_INLINE_VISIBILITY const wchar_t* wcsstr(const wchar_t* __s1, const wchar_t* __s2) {return ::wcsstr(__s1, __s2);}
+<a name="184"><span class="lineNum">     184 </span>            : inline _LIBCPP_INLINE_VISIBILITY       wchar_t* wcsstr(      wchar_t* __s1, const wchar_t* __s2) {return ::wcsstr(__s1, __s2);}</a>
+<span class="lineNum">     185 </span>            : 
+<span class="lineNum">     186 </span><span class="lineCov">          5 : inline _LIBCPP_INLINE_VISIBILITY const wchar_t* wmemchr(const wchar_t* __s, wchar_t __c, size_t __n) {return ::wmemchr(__s, __c, __n);}</span>
+<span class="lineNum">     187 </span>            : inline _LIBCPP_INLINE_VISIBILITY       wchar_t* wmemchr(      wchar_t* __s, wchar_t __c, size_t __n) {return ::wmemchr(__s, __c, __n);}
+<span class="lineNum">     188 </span>            : 
+<span class="lineNum">     189 </span>            : #endif
+<span class="lineNum">     190 </span>            : 
+<span class="lineNum">     191 </span>            : using ::wcscspn;
+<span class="lineNum">     192 </span>            : using ::wcslen;
+<span class="lineNum">     193 </span>            : using ::wcsspn;
+<span class="lineNum">     194 </span>            : using ::wcstok;
+<span class="lineNum">     195 </span>            : using ::wmemcmp;
+<span class="lineNum">     196 </span>            : using ::wmemcpy;
+<span class="lineNum">     197 </span>            : using ::wmemmove;
+<span class="lineNum">     198 </span>            : using ::wmemset;
+<span class="lineNum">     199 </span>            : using ::wcsftime;
+<span class="lineNum">     200 </span>            : using ::btowc;
+<span class="lineNum">     201 </span>            : using ::wctob;
+<span class="lineNum">     202 </span>            : using ::mbsinit;
+<span class="lineNum">     203 </span>            : using ::mbrlen;
+<span class="lineNum">     204 </span>            : using ::mbrtowc;
+<span class="lineNum">     205 </span>            : using ::wcrtomb;
+<span class="lineNum">     206 </span>            : using ::mbsrtowcs;
+<span class="lineNum">     207 </span>            : using ::wcsrtombs;
+<span class="lineNum">     208 </span>            : 
+<span class="lineNum">     209 </span>            : #ifndef _LIBCPP_HAS_NO_STDIN
+<span class="lineNum">     210 </span>            : using ::getwchar;
+<span class="lineNum">     211 </span>            : #ifndef _LIBCPP_MSVCRT
+<span class="lineNum">     212 </span>            : using ::vwscanf;
+<span class="lineNum">     213 </span>            : #endif // _LIBCPP_MSVCRT
+<span class="lineNum">     214 </span>            : using ::wscanf;
+<span class="lineNum">     215 </span>            : #endif
+<span class="lineNum">     216 </span>            : 
+<span class="lineNum">     217 </span>            : #ifndef _LIBCPP_HAS_NO_STDOUT
+<span class="lineNum">     218 </span>            : using ::putwchar;
+<span class="lineNum">     219 </span>            : using ::vwprintf;
+<span class="lineNum">     220 </span>            : using ::wprintf;
+<span class="lineNum">     221 </span>            : #endif
+<span class="lineNum">     222 </span>            : 
+<span class="lineNum">     223 </span>            : _LIBCPP_END_NAMESPACE_STD
+<span class="lineNum">     224 </span>            : 
+<span class="lineNum">     225 </span>            : #endif  // _LIBCPP_CWCHAR
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

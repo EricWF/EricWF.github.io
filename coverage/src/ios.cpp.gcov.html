@@ -1,0 +1,542 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - test_coverage.info - src/ios.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">src</a> - ios.cpp<span style="font-size: 80%;"> (source / <a href="ios.cpp.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">test_coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">203</td>
+            <td class="headerCovTableEntry">234</td>
+            <td class="headerCovTableEntryMed">86.8 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2015-06-02</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">25</td>
+            <td class="headerCovTableEntry">30</td>
+            <td class="headerCovTableEntryMed">83.3 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : //===-------------------------- ios.cpp -----------------------------------===//</a>
+<span class="lineNum">       2 </span>            : //
+<span class="lineNum">       3 </span>            : //                     The LLVM Compiler Infrastructure
+<span class="lineNum">       4 </span>            : //
+<span class="lineNum">       5 </span>            : // This file is dual licensed under the MIT and the University of Illinois Open
+<span class="lineNum">       6 </span>            : // Source Licenses. See LICENSE.TXT for details.
+<span class="lineNum">       7 </span>            : //
+<span class="lineNum">       8 </span>            : //===----------------------------------------------------------------------===//
+<span class="lineNum">       9 </span>            : 
+<span class="lineNum">      10 </span>            : #include &quot;__config&quot;
+<span class="lineNum">      11 </span>            : 
+<span class="lineNum">      12 </span>            : #include &quot;ios&quot;
+<span class="lineNum">      13 </span>            : 
+<span class="lineNum">      14 </span>            : #include &lt;stdlib.h&gt;
+<span class="lineNum">      15 </span>            : 
+<span class="lineNum">      16 </span>            : #include &quot;__locale&quot;
+<span class="lineNum">      17 </span>            : #include &quot;algorithm&quot;
+<span class="lineNum">      18 </span>            : #include &quot;config_elast.h&quot;
+<span class="lineNum">      19 </span>            : #include &quot;istream&quot;
+<span class="lineNum">      20 </span>            : #include &quot;limits&quot;
+<span class="lineNum">      21 </span>            : #include &quot;memory&quot;
+<span class="lineNum">      22 </span>            : #include &quot;new&quot;
+<span class="lineNum">      23 </span>            : #include &quot;streambuf&quot;
+<span class="lineNum">      24 </span>            : #include &quot;string&quot;
+<span class="lineNum">      25 </span>            : 
+<span class="lineNum">      26 </span>            : _LIBCPP_BEGIN_NAMESPACE_STD
+<span class="lineNum">      27 </span>            : 
+<span class="lineNum">      28 </span>            : template class basic_ios&lt;char&gt;;
+<span class="lineNum">      29 </span>            : template class basic_ios&lt;wchar_t&gt;;
+<span class="lineNum">      30 </span>            : 
+<span class="lineNum">      31 </span>            : template class basic_streambuf&lt;char&gt;;
+<span class="lineNum">      32 </span>            : template class basic_streambuf&lt;wchar_t&gt;;
+<span class="lineNum">      33 </span>            : 
+<span class="lineNum">      34 </span>            : template class basic_istream&lt;char&gt;;
+<span class="lineNum">      35 </span>            : template class basic_istream&lt;wchar_t&gt;;
+<span class="lineNum">      36 </span>            : 
+<span class="lineNum">      37 </span>            : template class basic_ostream&lt;char&gt;;
+<span class="lineNum">      38 </span>            : template class basic_ostream&lt;wchar_t&gt;;
+<span class="lineNum">      39 </span>            : 
+<a name="40"><span class="lineNum">      40 </span>            : template class basic_iostream&lt;char&gt;;</a>
+<span class="lineNum">      41 </span>            : 
+<span class="lineNum">      42 </span><span class="lineCov">         22 : class _LIBCPP_HIDDEN __iostream_category</span>
+<span class="lineNum">      43 </span>            :     : public __do_message
+<span class="lineNum">      44 </span>            : {
+<span class="lineNum">      45 </span>            : public:
+<span class="lineNum">      46 </span>            :     virtual const char* name() const _NOEXCEPT;
+<span class="lineNum">      47 </span>            :     virtual string message(int ev) const;
+<span class="lineNum">      48 </span>            : };
+<a name="49"><span class="lineNum">      49 </span>            : </a>
+<span class="lineNum">      50 </span>            : const char*
+<span class="lineNum">      51 </span>            : __iostream_category::name() const _NOEXCEPT
+<span class="lineNum">      52 </span>            : {
+<span class="lineNum">      53 </span><span class="lineCov">          2 :     return &quot;iostream&quot;;</span>
+<span class="lineNum">      54 </span>            : }
+<a name="55"><span class="lineNum">      55 </span>            : </a>
+<span class="lineNum">      56 </span>            : string
+<span class="lineNum">      57 </span>            : __iostream_category::message(int ev) const
+<span class="lineNum">      58 </span>            : {
+<span class="lineNum">      59 </span><span class="lineCov">         14 :     if (ev != static_cast&lt;int&gt;(io_errc::stream)</span>
+<span class="lineNum">      60 </span>            : #ifdef _LIBCPP_ELAST
+<span class="lineNum">      61 </span><span class="lineCov">         14 :         &amp;&amp; ev &lt;= _LIBCPP_ELAST</span>
+<span class="lineNum">      62 </span>            : #endif  // _LIBCPP_ELAST
+<span class="lineNum">      63 </span>            :         )
+<span class="lineNum">      64 </span><span class="lineNoCov">          0 :         return __do_message::message(ev);</span>
+<span class="lineNum">      65 </span><span class="lineCov">         14 :     return string(&quot;unspecified iostream_category error&quot;);</span>
+<span class="lineNum">      66 </span><span class="lineCov">         14 : }</span>
+<a name="67"><span class="lineNum">      67 </span>            : </a>
+<span class="lineNum">      68 </span>            : const error_category&amp;
+<span class="lineNum">      69 </span>            : iostream_category() _NOEXCEPT
+<span class="lineNum">      70 </span>            : {
+<span class="lineNum">      71 </span><span class="lineCov">         44 :     static __iostream_category s;</span>
+<span class="lineNum">      72 </span><span class="lineCov">         22 :     return s;</span>
+<span class="lineNum">      73 </span>            : }
+<span class="lineNum">      74 </span>            : 
+<a name="75"><span class="lineNum">      75 </span>            : // ios_base::failure</a>
+<span class="lineNum">      76 </span>            : 
+<span class="lineNum">      77 </span>            : ios_base::failure::failure(const string&amp; msg, const error_code&amp; ec)
+<span class="lineNum">      78 </span><span class="lineCov">          2 :     : system_error(ec, msg)</span>
+<span class="lineNum">      79 </span><span class="lineCov">          4 : {</span>
+<a name="80"><span class="lineNum">      80 </span><span class="lineCov">          2 : }</span></a>
+<span class="lineNum">      81 </span>            : 
+<span class="lineNum">      82 </span>            : ios_base::failure::failure(const char* msg, const error_code&amp; ec)
+<span class="lineNum">      83 </span><span class="lineCov">         12 :     : system_error(ec, msg)</span>
+<span class="lineNum">      84 </span><span class="lineCov">         24 : {</span>
+<a name="85"><span class="lineNum">      85 </span><span class="lineCov">         12 : }</span></a>
+<span class="lineNum">      86 </span>            : 
+<span class="lineNum">      87 </span>            : ios_base::failure::~failure() throw()
+<span class="lineNum">      88 </span><span class="lineNoCov">          0 : {</span>
+<span class="lineNum">      89 </span><span class="lineCov">         14 : }</span>
+<span class="lineNum">      90 </span>            : 
+<span class="lineNum">      91 </span>            : // ios_base locale
+<span class="lineNum">      92 </span>            : 
+<span class="lineNum">      93 </span>            : const ios_base::fmtflags ios_base::boolalpha;
+<span class="lineNum">      94 </span>            : const ios_base::fmtflags ios_base::dec;
+<span class="lineNum">      95 </span>            : const ios_base::fmtflags ios_base::fixed;
+<span class="lineNum">      96 </span>            : const ios_base::fmtflags ios_base::hex;
+<span class="lineNum">      97 </span>            : const ios_base::fmtflags ios_base::internal;
+<span class="lineNum">      98 </span>            : const ios_base::fmtflags ios_base::left;
+<span class="lineNum">      99 </span>            : const ios_base::fmtflags ios_base::oct;
+<span class="lineNum">     100 </span>            : const ios_base::fmtflags ios_base::right;
+<span class="lineNum">     101 </span>            : const ios_base::fmtflags ios_base::scientific;
+<span class="lineNum">     102 </span>            : const ios_base::fmtflags ios_base::showbase;
+<span class="lineNum">     103 </span>            : const ios_base::fmtflags ios_base::showpoint;
+<span class="lineNum">     104 </span>            : const ios_base::fmtflags ios_base::showpos;
+<span class="lineNum">     105 </span>            : const ios_base::fmtflags ios_base::skipws;
+<span class="lineNum">     106 </span>            : const ios_base::fmtflags ios_base::unitbuf;
+<span class="lineNum">     107 </span>            : const ios_base::fmtflags ios_base::uppercase;
+<span class="lineNum">     108 </span>            : const ios_base::fmtflags ios_base::adjustfield;
+<span class="lineNum">     109 </span>            : const ios_base::fmtflags ios_base::basefield;
+<span class="lineNum">     110 </span>            : const ios_base::fmtflags ios_base::floatfield;
+<span class="lineNum">     111 </span>            : 
+<span class="lineNum">     112 </span>            : const ios_base::iostate ios_base::badbit;
+<span class="lineNum">     113 </span>            : const ios_base::iostate ios_base::eofbit;
+<span class="lineNum">     114 </span>            : const ios_base::iostate ios_base::failbit;
+<span class="lineNum">     115 </span>            : const ios_base::iostate ios_base::goodbit;
+<span class="lineNum">     116 </span>            : 
+<span class="lineNum">     117 </span>            : const ios_base::openmode ios_base::app;
+<span class="lineNum">     118 </span>            : const ios_base::openmode ios_base::ate;
+<span class="lineNum">     119 </span>            : const ios_base::openmode ios_base::binary;
+<span class="lineNum">     120 </span>            : const ios_base::openmode ios_base::in;
+<span class="lineNum">     121 </span>            : const ios_base::openmode ios_base::out;
+<span class="lineNum">     122 </span>            : const ios_base::openmode ios_base::trunc;
+<a name="123"><span class="lineNum">     123 </span>            : </a>
+<span class="lineNum">     124 </span>            : void
+<span class="lineNum">     125 </span>            : ios_base::__call_callbacks(event ev)
+<span class="lineNum">     126 </span>            : {
+<span class="lineNum">     127 </span><span class="lineCov">       3870 :     for (size_t i = __event_size_; i;)</span>
+<span class="lineNum">     128 </span>            :     {
+<span class="lineNum">     129 </span><span class="lineCov">         54 :         --i;</span>
+<span class="lineNum">     130 </span><span class="lineCov">         54 :         __fn_[i](ev, *this, __index_[i]);</span>
+<span class="lineNum">     131 </span>            :     }
+<span class="lineNum">     132 </span><span class="lineCov">       1881 : }</span>
+<span class="lineNum">     133 </span>            : 
+<span class="lineNum">     134 </span>            : // locale
+<a name="135"><span class="lineNum">     135 </span>            : </a>
+<span class="lineNum">     136 </span>            : locale
+<span class="lineNum">     137 </span>            : ios_base::imbue(const locale&amp; newloc)
+<span class="lineNum">     138 </span>            : {
+<span class="lineNum">     139 </span>            :     static_assert(sizeof(locale) == sizeof(__loc_), &quot;&quot;);
+<span class="lineNum">     140 </span><span class="lineCov">        598 :     locale&amp; loc_storage = *reinterpret_cast&lt;locale*&gt;(&amp;__loc_);</span>
+<span class="lineNum">     141 </span><span class="lineCov">        598 :     locale oldloc = loc_storage;</span>
+<span class="lineNum">     142 </span><span class="lineCov">        598 :     loc_storage = newloc;</span>
+<span class="lineNum">     143 </span><span class="lineCov">        598 :     __call_callbacks(imbue_event);</span>
+<span class="lineNum">     144 </span><span class="lineCov">        598 :     return oldloc;</span>
+<span class="lineNum">     145 </span><span class="lineCov">       1196 : }</span>
+<a name="146"><span class="lineNum">     146 </span>            : </a>
+<span class="lineNum">     147 </span>            : locale
+<span class="lineNum">     148 </span>            : ios_base::getloc() const
+<span class="lineNum">     149 </span>            : {
+<span class="lineNum">     150 </span><span class="lineCov">      18273 :     const locale&amp; loc_storage = *reinterpret_cast&lt;const locale*&gt;(&amp;__loc_);</span>
+<span class="lineNum">     151 </span><span class="lineCov">      18273 :     return loc_storage;</span>
+<span class="lineNum">     152 </span>            : }
+<span class="lineNum">     153 </span>            : 
+<span class="lineNum">     154 </span>            : // xalloc
+<span class="lineNum">     155 </span>            : #if __has_feature(cxx_atomic) &amp;&amp; !defined(_LIBCPP_HAS_NO_THREADS)
+<span class="lineNum">     156 </span>            : atomic&lt;int&gt; ios_base::__xindex_ = ATOMIC_VAR_INIT(0);
+<span class="lineNum">     157 </span>            : #else
+<span class="lineNum">     158 </span>            : int ios_base::__xindex_ = 0;
+<span class="lineNum">     159 </span>            : #endif
+<a name="160"><span class="lineNum">     160 </span>            : </a>
+<span class="lineNum">     161 </span>            : template &lt;typename _Tp&gt;
+<span class="lineNum">     162 </span>            : static size_t __ios_new_cap(size_t __req_size, size_t __current_cap)
+<span class="lineNum">     163 </span>            : { // Precondition: __req_size &gt; __current_cap
+<span class="lineNum">     164 </span><span class="lineCov">      10066 :         const size_t mx = std::numeric_limits&lt;size_t&gt;::max() / sizeof(_Tp);</span>
+<span class="lineNum">     165 </span><span class="lineCov">      10066 :         if (__req_size &lt; mx/2)</span>
+<span class="lineNum">     166 </span><span class="lineCov">      10066 :                 return _VSTD::max(2 * __current_cap, __req_size);</span>
+<span class="lineNum">     167 </span>            :         else
+<span class="lineNum">     168 </span><span class="lineNoCov">          0 :                 return mx;</span>
+<span class="lineNum">     169 </span><span class="lineCov">      10066 : }</span>
+<a name="170"><span class="lineNum">     170 </span>            : </a>
+<span class="lineNum">     171 </span>            : int
+<span class="lineNum">     172 </span>            : ios_base::xalloc()
+<span class="lineNum">     173 </span>            : {
+<span class="lineNum">     174 </span><span class="lineCov">          5 :     return __xindex_++;</span>
+<span class="lineNum">     175 </span>            : }
+<a name="176"><span class="lineNum">     176 </span>            : </a>
+<span class="lineNum">     177 </span>            : long&amp;
+<span class="lineNum">     178 </span>            : ios_base::iword(int index)
+<span class="lineNum">     179 </span>            : {
+<span class="lineNum">     180 </span><span class="lineCov">   50035045 :     size_t req_size = static_cast&lt;size_t&gt;(index)+1;</span>
+<span class="lineNum">     181 </span><span class="lineCov">   50035045 :     if (req_size &gt; __iarray_cap_)</span>
+<span class="lineNum">     182 </span>            :     {
+<span class="lineNum">     183 </span><span class="lineCov">         33 :         size_t newcap = __ios_new_cap&lt;long&gt;(req_size, __iarray_cap_);</span>
+<span class="lineNum">     184 </span><span class="lineCov">         33 :         long* iarray = static_cast&lt;long*&gt;(realloc(__iarray_, newcap * sizeof(long)));</span>
+<span class="lineNum">     185 </span><span class="lineCov">         33 :         if (iarray == 0)</span>
+<span class="lineNum">     186 </span>            :         {
+<span class="lineNum">     187 </span><span class="lineNoCov">          0 :             setstate(badbit);</span>
+<span class="lineNum">     188 </span>            :             static long error;
+<span class="lineNum">     189 </span><span class="lineNoCov">          0 :             error = 0;</span>
+<span class="lineNum">     190 </span><span class="lineNoCov">          0 :             return error;</span>
+<span class="lineNum">     191 </span>            :         }
+<span class="lineNum">     192 </span><span class="lineCov">         33 :         __iarray_ = iarray;</span>
+<span class="lineNum">     193 </span><span class="lineCov">      32898 :         for (long* p = __iarray_ + __iarray_size_; p &lt; __iarray_ + newcap; ++p)</span>
+<span class="lineNum">     194 </span><span class="lineCov">      16416 :             *p = 0;</span>
+<span class="lineNum">     195 </span><span class="lineCov">         33 :         __iarray_cap_ = newcap;</span>
+<span class="lineNum">     196 </span><span class="lineCov">         33 :     }</span>
+<span class="lineNum">     197 </span><span class="lineCov">   50035045 :     __iarray_size_ = max&lt;size_t&gt;(__iarray_size_, req_size);</span>
+<span class="lineNum">     198 </span><span class="lineCov">   50035045 :     return __iarray_[index];</span>
+<span class="lineNum">     199 </span><span class="lineCov">   50035045 : }</span>
+<a name="200"><span class="lineNum">     200 </span>            : </a>
+<span class="lineNum">     201 </span>            : void*&amp;
+<span class="lineNum">     202 </span>            : ios_base::pword(int index)
+<span class="lineNum">     203 </span>            : {
+<span class="lineNum">     204 </span><span class="lineCov">   50035021 :     size_t req_size = static_cast&lt;size_t&gt;(index)+1;</span>
+<span class="lineNum">     205 </span><span class="lineCov">   50035021 :     if (req_size &gt; __parray_cap_)</span>
+<span class="lineNum">     206 </span>            :     {
+<span class="lineNum">     207 </span><span class="lineCov">      10005 :         size_t newcap = __ios_new_cap&lt;void *&gt;(req_size, __iarray_cap_);</span>
+<span class="lineNum">     208 </span><span class="lineCov">      10005 :         void** parray = static_cast&lt;void**&gt;(realloc(__parray_, newcap * sizeof(void *)));</span>
+<span class="lineNum">     209 </span><span class="lineCov">      10005 :         if (parray == 0)</span>
+<span class="lineNum">     210 </span>            :         {
+<span class="lineNum">     211 </span><span class="lineNoCov">          0 :             setstate(badbit);</span>
+<span class="lineNum">     212 </span>            :             static void* error;
+<span class="lineNum">     213 </span><span class="lineNoCov">          0 :             error = 0;</span>
+<span class="lineNum">     214 </span><span class="lineNoCov">          0 :             return error;</span>
+<span class="lineNum">     215 </span>            :         }
+<span class="lineNum">     216 </span><span class="lineCov">      10005 :         __parray_ = parray;</span>
+<span class="lineNum">     217 </span><span class="lineCov">      40138 :         for (void** p = __parray_ + __parray_size_; p &lt; __parray_ + newcap; ++p)</span>
+<span class="lineNum">     218 </span><span class="lineCov">      10064 :             *p = 0;</span>
+<span class="lineNum">     219 </span><span class="lineCov">      10005 :         __parray_cap_ = newcap;</span>
+<span class="lineNum">     220 </span><span class="lineCov">      10005 :     }</span>
+<span class="lineNum">     221 </span><span class="lineCov">   50035021 :     __parray_size_ = max&lt;size_t&gt;(__parray_size_, req_size);</span>
+<span class="lineNum">     222 </span><span class="lineCov">   50035021 :     return __parray_[index];</span>
+<span class="lineNum">     223 </span><span class="lineCov">   50035021 : }</span>
+<span class="lineNum">     224 </span>            : 
+<span class="lineNum">     225 </span>            : // register_callback
+<a name="226"><span class="lineNum">     226 </span>            : </a>
+<span class="lineNum">     227 </span>            : void
+<span class="lineNum">     228 </span>            : ios_base::register_callback(event_callback fn, int index)
+<span class="lineNum">     229 </span>            : {
+<span class="lineNum">     230 </span><span class="lineCov">         28 :     size_t req_size = __event_size_ + 1;</span>
+<span class="lineNum">     231 </span><span class="lineCov">         28 :     if (req_size &gt; __event_cap_)</span>
+<span class="lineNum">     232 </span>            :     {
+<span class="lineNum">     233 </span><span class="lineCov">         28 :         size_t newcap = __ios_new_cap&lt;event_callback&gt;(req_size, __event_cap_);</span>
+<span class="lineNum">     234 </span><span class="lineCov">         28 :         event_callback* fns = static_cast&lt;event_callback*&gt;(realloc(__fn_, newcap * sizeof(event_callback)));</span>
+<span class="lineNum">     235 </span><span class="lineCov">         28 :         if (fns == 0)</span>
+<span class="lineNum">     236 </span><span class="lineNoCov">          0 :             setstate(badbit);</span>
+<span class="lineNum">     237 </span><span class="lineCov">         28 :         __fn_ = fns;</span>
+<span class="lineNum">     238 </span><span class="lineCov">         28 :         int* indxs = static_cast&lt;int *&gt;(realloc(__index_, newcap * sizeof(int)));</span>
+<span class="lineNum">     239 </span><span class="lineCov">         28 :         if (indxs == 0)</span>
+<span class="lineNum">     240 </span><span class="lineNoCov">          0 :             setstate(badbit);</span>
+<span class="lineNum">     241 </span><span class="lineCov">         28 :         __index_ = indxs;</span>
+<span class="lineNum">     242 </span><span class="lineCov">         28 :         __event_cap_ = newcap;</span>
+<span class="lineNum">     243 </span><span class="lineCov">         28 :     }</span>
+<span class="lineNum">     244 </span><span class="lineCov">         28 :     __fn_[__event_size_] = fn;</span>
+<span class="lineNum">     245 </span><span class="lineCov">         28 :     __index_[__event_size_] = index;</span>
+<span class="lineNum">     246 </span><span class="lineCov">         28 :     ++__event_size_;</span>
+<a name="247"><span class="lineNum">     247 </span><span class="lineCov">         28 : }</span></a>
+<span class="lineNum">     248 </span>            : 
+<span class="lineNum">     249 </span>            : ios_base::~ios_base()
+<span class="lineNum">     250 </span><span class="lineCov">       1281 : {</span>
+<span class="lineNum">     251 </span><span class="lineCov">       1281 :     __call_callbacks(erase_event);</span>
+<span class="lineNum">     252 </span><span class="lineCov">       1281 :     locale&amp; loc_storage = *reinterpret_cast&lt;locale*&gt;(&amp;__loc_);</span>
+<span class="lineNum">     253 </span><span class="lineCov">       1281 :     loc_storage.~locale();</span>
+<span class="lineNum">     254 </span><span class="lineCov">       1281 :     free(__fn_);</span>
+<span class="lineNum">     255 </span><span class="lineCov">       1281 :     free(__index_);</span>
+<span class="lineNum">     256 </span><span class="lineCov">       1281 :     free(__iarray_);</span>
+<span class="lineNum">     257 </span><span class="lineCov">       1281 :     free(__parray_);</span>
+<span class="lineNum">     258 </span><span class="lineCov">       1281 : }</span>
+<span class="lineNum">     259 </span>            : 
+<span class="lineNum">     260 </span>            : // iostate
+<a name="261"><span class="lineNum">     261 </span>            : </a>
+<span class="lineNum">     262 </span>            : void
+<span class="lineNum">     263 </span>            : ios_base::clear(iostate state)
+<span class="lineNum">     264 </span>            : {
+<span class="lineNum">     265 </span><span class="lineCov">       2019 :     if (__rdbuf_)</span>
+<span class="lineNum">     266 </span><span class="lineCov">       1987 :         __rdstate_ = state;</span>
+<span class="lineNum">     267 </span>            :     else
+<span class="lineNum">     268 </span><span class="lineCov">         32 :         __rdstate_ = state | badbit;</span>
+<span class="lineNum">     269 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     270 </span><span class="lineCov">       2019 :     if (((state | (__rdbuf_ ? goodbit : badbit)) &amp; __exceptions_) != 0)</span>
+<span class="lineNum">     271 </span><span class="lineCov">         10 :         throw failure(&quot;ios_base::clear&quot;);</span>
+<span class="lineNum">     272 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     273 </span><span class="lineCov">       2009 : }</span>
+<span class="lineNum">     274 </span>            : 
+<span class="lineNum">     275 </span>            : // init
+<a name="276"><span class="lineNum">     276 </span>            : </a>
+<span class="lineNum">     277 </span>            : void
+<span class="lineNum">     278 </span>            : ios_base::init(void* sb)
+<span class="lineNum">     279 </span>            : {
+<span class="lineNum">     280 </span><span class="lineCov">      37609 :     __rdbuf_ = sb;</span>
+<span class="lineNum">     281 </span><span class="lineCov">      37609 :     __rdstate_ = __rdbuf_ ? goodbit : badbit;</span>
+<span class="lineNum">     282 </span><span class="lineCov">      37609 :     __exceptions_ = goodbit;</span>
+<span class="lineNum">     283 </span><span class="lineCov">      37609 :     __fmtflags_ = skipws | dec;</span>
+<span class="lineNum">     284 </span><span class="lineCov">      37609 :     __width_ = 0;</span>
+<span class="lineNum">     285 </span><span class="lineCov">      37609 :     __precision_ = 6;</span>
+<span class="lineNum">     286 </span><span class="lineCov">      37609 :     __fn_ = 0;</span>
+<span class="lineNum">     287 </span><span class="lineCov">      37609 :     __index_ = 0;</span>
+<span class="lineNum">     288 </span><span class="lineCov">      37609 :     __event_size_ = 0;</span>
+<span class="lineNum">     289 </span><span class="lineCov">      37609 :     __event_cap_ = 0;</span>
+<span class="lineNum">     290 </span><span class="lineCov">      37609 :     __iarray_ = 0;</span>
+<span class="lineNum">     291 </span><span class="lineCov">      37609 :     __iarray_size_ = 0;</span>
+<span class="lineNum">     292 </span><span class="lineCov">      37609 :     __iarray_cap_ = 0;</span>
+<span class="lineNum">     293 </span><span class="lineCov">      37609 :     __parray_ = 0;</span>
+<span class="lineNum">     294 </span><span class="lineCov">      37609 :     __parray_size_ = 0;</span>
+<span class="lineNum">     295 </span><span class="lineCov">      37609 :     __parray_cap_ = 0;</span>
+<span class="lineNum">     296 </span><span class="lineCov">      37609 :     ::new(&amp;__loc_) locale;</span>
+<span class="lineNum">     297 </span><span class="lineCov">      37609 : }</span>
+<a name="298"><span class="lineNum">     298 </span>            : </a>
+<span class="lineNum">     299 </span>            : void
+<span class="lineNum">     300 </span>            : ios_base::copyfmt(const ios_base&amp; rhs)
+<span class="lineNum">     301 </span>            : {
+<span class="lineNum">     302 </span>            :     // If we can't acquire the needed resources, throw bad_alloc (can't set badbit)
+<span class="lineNum">     303 </span>            :     // Don't alter *this until all needed resources are acquired
+<span class="lineNum">     304 </span><span class="lineCov">          1 :     unique_ptr&lt;event_callback, void (*)(void*)&gt; new_callbacks(0, free);</span>
+<span class="lineNum">     305 </span><span class="lineCov">          1 :     unique_ptr&lt;int, void (*)(void*)&gt; new_ints(0, free);</span>
+<span class="lineNum">     306 </span><span class="lineCov">          1 :     unique_ptr&lt;long, void (*)(void*)&gt; new_longs(0, free);</span>
+<span class="lineNum">     307 </span><span class="lineCov">          1 :     unique_ptr&lt;void*, void (*)(void*)&gt; new_pointers(0, free);</span>
+<span class="lineNum">     308 </span><span class="lineCov">          1 :     if (__event_cap_ &lt; rhs.__event_size_)</span>
+<span class="lineNum">     309 </span>            :     {
+<span class="lineNum">     310 </span><span class="lineCov">          1 :         size_t newesize = sizeof(event_callback) * rhs.__event_size_;</span>
+<span class="lineNum">     311 </span><span class="lineCov">          1 :         new_callbacks.reset(static_cast&lt;event_callback*&gt;(malloc(newesize)));</span>
+<span class="lineNum">     312 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     313 </span><span class="lineCov">          1 :         if (!new_callbacks)</span>
+<span class="lineNum">     314 </span><span class="lineNoCov">          0 :             throw bad_alloc();</span>
+<span class="lineNum">     315 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     316 </span>            : 
+<span class="lineNum">     317 </span><span class="lineCov">          1 :         size_t newisize = sizeof(int) * rhs.__event_size_;</span>
+<span class="lineNum">     318 </span><span class="lineCov">          1 :         new_ints.reset(static_cast&lt;int *&gt;(malloc(newisize)));</span>
+<span class="lineNum">     319 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     320 </span><span class="lineCov">          1 :         if (!new_ints)</span>
+<span class="lineNum">     321 </span><span class="lineNoCov">          0 :             throw bad_alloc();</span>
+<span class="lineNum">     322 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     323 </span><span class="lineCov">          1 :     }</span>
+<span class="lineNum">     324 </span><span class="lineCov">          1 :     if (__iarray_cap_ &lt; rhs.__iarray_size_)</span>
+<span class="lineNum">     325 </span>            :     {
+<span class="lineNum">     326 </span><span class="lineCov">          1 :         size_t newsize = sizeof(long) * rhs.__iarray_size_;</span>
+<span class="lineNum">     327 </span><span class="lineCov">          1 :         new_longs.reset(static_cast&lt;long*&gt;(malloc(newsize)));</span>
+<span class="lineNum">     328 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     329 </span><span class="lineCov">          1 :         if (!new_longs)</span>
+<span class="lineNum">     330 </span><span class="lineNoCov">          0 :             throw bad_alloc();</span>
+<span class="lineNum">     331 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     332 </span><span class="lineCov">          1 :     }</span>
+<span class="lineNum">     333 </span><span class="lineCov">          1 :     if (__parray_cap_ &lt; rhs.__parray_size_)</span>
+<span class="lineNum">     334 </span>            :     {
+<span class="lineNum">     335 </span><span class="lineNoCov">          0 :         size_t newsize = sizeof(void*) * rhs.__parray_size_;</span>
+<span class="lineNum">     336 </span><span class="lineNoCov">          0 :         new_pointers.reset(static_cast&lt;void**&gt;(malloc(newsize)));</span>
+<span class="lineNum">     337 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     338 </span><span class="lineNoCov">          0 :         if (!new_pointers)</span>
+<span class="lineNum">     339 </span><span class="lineNoCov">          0 :             throw bad_alloc();</span>
+<span class="lineNum">     340 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     341 </span><span class="lineNoCov">          0 :     }</span>
+<span class="lineNum">     342 </span>            :     // Got everything we need.  Copy everything but __rdstate_, __rdbuf_ and __exceptions_
+<span class="lineNum">     343 </span><span class="lineCov">          1 :     __fmtflags_ = rhs.__fmtflags_;</span>
+<span class="lineNum">     344 </span><span class="lineCov">          1 :     __precision_ = rhs.__precision_;</span>
+<span class="lineNum">     345 </span><span class="lineCov">          1 :     __width_ = rhs.__width_;</span>
+<span class="lineNum">     346 </span><span class="lineCov">          1 :     locale&amp; lhs_loc = *reinterpret_cast&lt;locale*&gt;(&amp;__loc_);</span>
+<span class="lineNum">     347 </span><span class="lineCov">          1 :     const locale&amp; rhs_loc = *reinterpret_cast&lt;const locale*&gt;(&amp;rhs.__loc_);</span>
+<span class="lineNum">     348 </span><span class="lineCov">          1 :     lhs_loc = rhs_loc;</span>
+<span class="lineNum">     349 </span><span class="lineCov">          1 :     if (__event_cap_ &lt; rhs.__event_size_)</span>
+<span class="lineNum">     350 </span>            :     {
+<span class="lineNum">     351 </span><span class="lineCov">          1 :         free(__fn_);</span>
+<span class="lineNum">     352 </span><span class="lineCov">          1 :         __fn_ = new_callbacks.release();</span>
+<span class="lineNum">     353 </span><span class="lineCov">          1 :         free(__index_);</span>
+<span class="lineNum">     354 </span><span class="lineCov">          1 :         __index_ = new_ints.release();</span>
+<span class="lineNum">     355 </span><span class="lineCov">          1 :         __event_cap_ = rhs.__event_size_;</span>
+<span class="lineNum">     356 </span><span class="lineCov">          1 :     }</span>
+<span class="lineNum">     357 </span><span class="lineCov">          8 :     for (__event_size_ = 0; __event_size_ &lt; rhs.__event_size_; ++__event_size_)</span>
+<span class="lineNum">     358 </span>            :     {
+<span class="lineNum">     359 </span><span class="lineCov">          3 :         __fn_[__event_size_] = rhs.__fn_[__event_size_];</span>
+<span class="lineNum">     360 </span><span class="lineCov">          3 :         __index_[__event_size_] = rhs.__index_[__event_size_];</span>
+<span class="lineNum">     361 </span><span class="lineCov">          3 :     }</span>
+<span class="lineNum">     362 </span><span class="lineCov">          1 :     if (__iarray_cap_ &lt; rhs.__iarray_size_)</span>
+<span class="lineNum">     363 </span>            :     {
+<span class="lineNum">     364 </span><span class="lineCov">          1 :         free(__iarray_);</span>
+<span class="lineNum">     365 </span><span class="lineCov">          1 :         __iarray_ = new_longs.release();</span>
+<span class="lineNum">     366 </span><span class="lineCov">          1 :         __iarray_cap_ = rhs.__iarray_size_;</span>
+<span class="lineNum">     367 </span><span class="lineCov">          1 :     }</span>
+<span class="lineNum">     368 </span><span class="lineCov">         14 :     for (__iarray_size_ = 0; __iarray_size_ &lt; rhs.__iarray_size_; ++__iarray_size_)</span>
+<span class="lineNum">     369 </span><span class="lineCov">          6 :         __iarray_[__iarray_size_] = rhs.__iarray_[__iarray_size_];</span>
+<span class="lineNum">     370 </span><span class="lineCov">          1 :     if (__parray_cap_ &lt; rhs.__parray_size_)</span>
+<span class="lineNum">     371 </span>            :     {
+<span class="lineNum">     372 </span><span class="lineNoCov">          0 :         free(__parray_);</span>
+<span class="lineNum">     373 </span><span class="lineNoCov">          0 :         __parray_ = new_pointers.release();</span>
+<span class="lineNum">     374 </span><span class="lineNoCov">          0 :         __parray_cap_ = rhs.__parray_size_;</span>
+<span class="lineNum">     375 </span><span class="lineNoCov">          0 :     }</span>
+<span class="lineNum">     376 </span><span class="lineCov">          6 :     for (__parray_size_ = 0; __parray_size_ &lt; rhs.__parray_size_; ++__parray_size_)</span>
+<span class="lineNum">     377 </span><span class="lineCov">          2 :         __parray_[__parray_size_] = rhs.__parray_[__parray_size_];</span>
+<span class="lineNum">     378 </span><span class="lineCov">          1 : }</span>
+<a name="379"><span class="lineNum">     379 </span>            : </a>
+<span class="lineNum">     380 </span>            : void
+<span class="lineNum">     381 </span>            : ios_base::move(ios_base&amp; rhs)
+<span class="lineNum">     382 </span>            : {
+<span class="lineNum">     383 </span>            :     // *this is uninitialized
+<span class="lineNum">     384 </span><span class="lineCov">         24 :     __fmtflags_ = rhs.__fmtflags_;</span>
+<span class="lineNum">     385 </span><span class="lineCov">         24 :     __precision_ = rhs.__precision_;</span>
+<span class="lineNum">     386 </span><span class="lineCov">         24 :     __width_ = rhs.__width_;</span>
+<span class="lineNum">     387 </span><span class="lineCov">         24 :     __rdstate_ = rhs.__rdstate_;</span>
+<span class="lineNum">     388 </span><span class="lineCov">         24 :     __exceptions_ = rhs.__exceptions_;</span>
+<span class="lineNum">     389 </span><span class="lineCov">         24 :     __rdbuf_ = 0;</span>
+<span class="lineNum">     390 </span><span class="lineCov">         24 :     locale&amp; rhs_loc = *reinterpret_cast&lt;locale*&gt;(&amp;rhs.__loc_);</span>
+<span class="lineNum">     391 </span><span class="lineCov">         24 :     ::new(&amp;__loc_) locale(rhs_loc);</span>
+<span class="lineNum">     392 </span><span class="lineCov">         24 :     __fn_ = rhs.__fn_;</span>
+<span class="lineNum">     393 </span><span class="lineCov">         24 :     rhs.__fn_ = 0;</span>
+<span class="lineNum">     394 </span><span class="lineCov">         24 :     __index_ = rhs.__index_;</span>
+<span class="lineNum">     395 </span><span class="lineCov">         24 :     rhs.__index_ = 0;</span>
+<span class="lineNum">     396 </span><span class="lineCov">         24 :     __event_size_ = rhs.__event_size_;</span>
+<span class="lineNum">     397 </span><span class="lineCov">         24 :     rhs.__event_size_ = 0;</span>
+<span class="lineNum">     398 </span><span class="lineCov">         24 :     __event_cap_ = rhs.__event_cap_;</span>
+<span class="lineNum">     399 </span><span class="lineCov">         24 :     rhs.__event_cap_ = 0;</span>
+<span class="lineNum">     400 </span><span class="lineCov">         24 :     __iarray_ = rhs.__iarray_;</span>
+<span class="lineNum">     401 </span><span class="lineCov">         24 :     rhs.__iarray_ = 0;</span>
+<span class="lineNum">     402 </span><span class="lineCov">         24 :     __iarray_size_ = rhs.__iarray_size_;</span>
+<span class="lineNum">     403 </span><span class="lineCov">         24 :     rhs.__iarray_size_ = 0;</span>
+<span class="lineNum">     404 </span><span class="lineCov">         24 :     __iarray_cap_ = rhs.__iarray_cap_;</span>
+<span class="lineNum">     405 </span><span class="lineCov">         24 :     rhs.__iarray_cap_ = 0;</span>
+<span class="lineNum">     406 </span><span class="lineCov">         24 :     __parray_ = rhs.__parray_;</span>
+<span class="lineNum">     407 </span><span class="lineCov">         24 :     rhs.__parray_ = 0;</span>
+<span class="lineNum">     408 </span><span class="lineCov">         24 :     __parray_size_ = rhs.__parray_size_;</span>
+<span class="lineNum">     409 </span><span class="lineCov">         24 :     rhs.__parray_size_ = 0;</span>
+<span class="lineNum">     410 </span><span class="lineCov">         24 :     __parray_cap_ = rhs.__parray_cap_;</span>
+<span class="lineNum">     411 </span><span class="lineCov">         24 :     rhs.__parray_cap_ = 0;</span>
+<span class="lineNum">     412 </span><span class="lineCov">         24 : }</span>
+<a name="413"><span class="lineNum">     413 </span>            : </a>
+<span class="lineNum">     414 </span>            : void
+<span class="lineNum">     415 </span>            : ios_base::swap(ios_base&amp; rhs) _NOEXCEPT
+<span class="lineNum">     416 </span>            : {
+<span class="lineNum">     417 </span><span class="lineCov">         53 :     _VSTD::swap(__fmtflags_, rhs.__fmtflags_);</span>
+<span class="lineNum">     418 </span><span class="lineCov">         53 :     _VSTD::swap(__precision_, rhs.__precision_);</span>
+<span class="lineNum">     419 </span><span class="lineCov">         53 :     _VSTD::swap(__width_, rhs.__width_);</span>
+<span class="lineNum">     420 </span><span class="lineCov">         53 :     _VSTD::swap(__rdstate_, rhs.__rdstate_);</span>
+<span class="lineNum">     421 </span><span class="lineCov">         53 :     _VSTD::swap(__exceptions_, rhs.__exceptions_);</span>
+<span class="lineNum">     422 </span><span class="lineCov">         53 :     locale&amp; lhs_loc = *reinterpret_cast&lt;locale*&gt;(&amp;__loc_);</span>
+<span class="lineNum">     423 </span><span class="lineCov">         53 :     locale&amp; rhs_loc = *reinterpret_cast&lt;locale*&gt;(&amp;rhs.__loc_);</span>
+<span class="lineNum">     424 </span><span class="lineCov">         53 :     _VSTD::swap(lhs_loc, rhs_loc);</span>
+<span class="lineNum">     425 </span><span class="lineCov">         53 :     _VSTD::swap(__fn_, rhs.__fn_);</span>
+<span class="lineNum">     426 </span><span class="lineCov">         53 :     _VSTD::swap(__index_, rhs.__index_);</span>
+<span class="lineNum">     427 </span><span class="lineCov">         53 :     _VSTD::swap(__event_size_, rhs.__event_size_);</span>
+<span class="lineNum">     428 </span><span class="lineCov">         53 :     _VSTD::swap(__event_cap_, rhs.__event_cap_);</span>
+<span class="lineNum">     429 </span><span class="lineCov">         53 :     _VSTD::swap(__iarray_, rhs.__iarray_);</span>
+<span class="lineNum">     430 </span><span class="lineCov">         53 :     _VSTD::swap(__iarray_size_, rhs.__iarray_size_);</span>
+<span class="lineNum">     431 </span><span class="lineCov">         53 :     _VSTD::swap(__iarray_cap_, rhs.__iarray_cap_);</span>
+<span class="lineNum">     432 </span><span class="lineCov">         53 :     _VSTD::swap(__parray_, rhs.__parray_);</span>
+<span class="lineNum">     433 </span><span class="lineCov">         53 :     _VSTD::swap(__parray_size_, rhs.__parray_size_);</span>
+<span class="lineNum">     434 </span><span class="lineCov">         53 :     _VSTD::swap(__parray_cap_, rhs.__parray_cap_);</span>
+<span class="lineNum">     435 </span><span class="lineCov">         53 : }</span>
+<a name="436"><span class="lineNum">     436 </span>            : </a>
+<span class="lineNum">     437 </span>            : void
+<span class="lineNum">     438 </span>            : ios_base::__set_badbit_and_consider_rethrow()
+<span class="lineNum">     439 </span>            : {
+<span class="lineNum">     440 </span><span class="lineNoCov">          0 :     __rdstate_ |= badbit;</span>
+<span class="lineNum">     441 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     442 </span><span class="lineNoCov">          0 :     if (__exceptions_ &amp; badbit)</span>
+<span class="lineNum">     443 </span><span class="lineNoCov">          0 :         throw;</span>
+<span class="lineNum">     444 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     445 </span><span class="lineNoCov">          0 : }</span>
+<a name="446"><span class="lineNum">     446 </span>            : </a>
+<span class="lineNum">     447 </span>            : void
+<span class="lineNum">     448 </span>            : ios_base::__set_failbit_and_consider_rethrow()
+<span class="lineNum">     449 </span>            : {
+<span class="lineNum">     450 </span><span class="lineNoCov">          0 :     __rdstate_ |= failbit;</span>
+<span class="lineNum">     451 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     452 </span><span class="lineNoCov">          0 :     if (__exceptions_ &amp; failbit)</span>
+<span class="lineNum">     453 </span><span class="lineNoCov">          0 :         throw;</span>
+<span class="lineNum">     454 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     455 </span><span class="lineNoCov">          0 : }</span>
+<a name="456"><span class="lineNum">     456 </span>            : </a>
+<span class="lineNum">     457 </span>            : bool
+<span class="lineNum">     458 </span>            : ios_base::sync_with_stdio(bool sync)
+<span class="lineNum">     459 </span>            : {
+<span class="lineNum">     460 </span>            :     static bool previous_state = true;
+<span class="lineNum">     461 </span><span class="lineCov">          8 :     bool r = previous_state;</span>
+<span class="lineNum">     462 </span><span class="lineCov">          8 :     previous_state = sync;</span>
+<span class="lineNum">     463 </span><span class="lineCov">          8 :     return r;</span>
+<span class="lineNum">     464 </span>            : }
+<span class="lineNum">     465 </span>            : 
+<span class="lineNum">     466 </span>            : _LIBCPP_END_NAMESPACE_STD
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

@@ -1,0 +1,368 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - test_coverage.info - include/stack</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">include</a> - stack<span style="font-size: 80%;"> (source / <a href="stack.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">test_coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">31</td>
+            <td class="headerCovTableEntry">31</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2015-06-02</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">51</td>
+            <td class="headerCovTableEntry">51</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : // -*- C++ -*-</a>
+<span class="lineNum">       2 </span>            : //===---------------------------- stack -----------------------------------===//
+<span class="lineNum">       3 </span>            : //
+<span class="lineNum">       4 </span>            : //                     The LLVM Compiler Infrastructure
+<span class="lineNum">       5 </span>            : //
+<span class="lineNum">       6 </span>            : // This file is dual licensed under the MIT and the University of Illinois Open
+<span class="lineNum">       7 </span>            : // Source Licenses. See LICENSE.TXT for details.
+<span class="lineNum">       8 </span>            : //
+<span class="lineNum">       9 </span>            : //===----------------------------------------------------------------------===//
+<span class="lineNum">      10 </span>            : 
+<span class="lineNum">      11 </span>            : #ifndef _LIBCPP_STACK
+<span class="lineNum">      12 </span>            : #define _LIBCPP_STACK
+<span class="lineNum">      13 </span>            : 
+<span class="lineNum">      14 </span>            : /*
+<span class="lineNum">      15 </span>            :     stack synopsis
+<span class="lineNum">      16 </span>            : 
+<span class="lineNum">      17 </span>            : namespace std
+<span class="lineNum">      18 </span>            : {
+<span class="lineNum">      19 </span>            : 
+<span class="lineNum">      20 </span>            : template &lt;class T, class Container = deque&lt;T&gt;&gt;
+<span class="lineNum">      21 </span>            : class stack
+<span class="lineNum">      22 </span>            : {
+<span class="lineNum">      23 </span>            : public:
+<span class="lineNum">      24 </span>            :     typedef Container                                container_type;
+<span class="lineNum">      25 </span>            :     typedef typename container_type::value_type      value_type;
+<span class="lineNum">      26 </span>            :     typedef typename container_type::reference       reference;
+<span class="lineNum">      27 </span>            :     typedef typename container_type::const_reference const_reference;
+<span class="lineNum">      28 </span>            :     typedef typename container_type::size_type       size_type;
+<span class="lineNum">      29 </span>            : 
+<span class="lineNum">      30 </span>            : protected:
+<span class="lineNum">      31 </span>            :     container_type c;
+<span class="lineNum">      32 </span>            : 
+<span class="lineNum">      33 </span>            : public:
+<span class="lineNum">      34 </span>            :     stack() = default;
+<span class="lineNum">      35 </span>            :     ~stack() = default;
+<span class="lineNum">      36 </span>            : 
+<span class="lineNum">      37 </span>            :     stack(const stack&amp; q) = default;
+<span class="lineNum">      38 </span>            :     stack(stack&amp;&amp; q) = default;
+<span class="lineNum">      39 </span>            : 
+<span class="lineNum">      40 </span>            :     stack&amp; operator=(const stack&amp; q) = default;
+<span class="lineNum">      41 </span>            :     stack&amp; operator=(stack&amp;&amp; q) = default;
+<span class="lineNum">      42 </span>            : 
+<span class="lineNum">      43 </span>            :     explicit stack(const container_type&amp; c);
+<span class="lineNum">      44 </span>            :     explicit stack(container_type&amp;&amp; c);
+<span class="lineNum">      45 </span>            :     template &lt;class Alloc&gt; explicit stack(const Alloc&amp; a);
+<span class="lineNum">      46 </span>            :     template &lt;class Alloc&gt; stack(const container_type&amp; c, const Alloc&amp; a);
+<span class="lineNum">      47 </span>            :     template &lt;class Alloc&gt; stack(container_type&amp;&amp; c, const Alloc&amp; a);
+<span class="lineNum">      48 </span>            :     template &lt;class Alloc&gt; stack(const stack&amp; c, const Alloc&amp; a);
+<span class="lineNum">      49 </span>            :     template &lt;class Alloc&gt; stack(stack&amp;&amp; c, const Alloc&amp; a);
+<span class="lineNum">      50 </span>            : 
+<span class="lineNum">      51 </span>            :     bool empty() const;
+<span class="lineNum">      52 </span>            :     size_type size() const;
+<span class="lineNum">      53 </span>            :     reference top();
+<span class="lineNum">      54 </span>            :     const_reference top() const;
+<span class="lineNum">      55 </span>            : 
+<span class="lineNum">      56 </span>            :     void push(const value_type&amp; x);
+<span class="lineNum">      57 </span>            :     void push(value_type&amp;&amp; x);
+<span class="lineNum">      58 </span>            :     template &lt;class... Args&gt; void emplace(Args&amp;&amp;... args);
+<span class="lineNum">      59 </span>            :     void pop();
+<span class="lineNum">      60 </span>            : 
+<span class="lineNum">      61 </span>            :     void swap(stack&amp; c) noexcept(noexcept(swap(c, q.c)));
+<span class="lineNum">      62 </span>            : };
+<span class="lineNum">      63 </span>            : 
+<span class="lineNum">      64 </span>            : template &lt;class T, class Container&gt;
+<span class="lineNum">      65 </span>            :   bool operator==(const stack&lt;T, Container&gt;&amp; x, const stack&lt;T, Container&gt;&amp; y);
+<span class="lineNum">      66 </span>            : template &lt;class T, class Container&gt;
+<span class="lineNum">      67 </span>            :   bool operator&lt; (const stack&lt;T, Container&gt;&amp; x, const stack&lt;T, Container&gt;&amp; y);
+<span class="lineNum">      68 </span>            : template &lt;class T, class Container&gt;
+<span class="lineNum">      69 </span>            :   bool operator!=(const stack&lt;T, Container&gt;&amp; x, const stack&lt;T, Container&gt;&amp; y);
+<span class="lineNum">      70 </span>            : template &lt;class T, class Container&gt;
+<span class="lineNum">      71 </span>            :   bool operator&gt; (const stack&lt;T, Container&gt;&amp; x, const stack&lt;T, Container&gt;&amp; y);
+<span class="lineNum">      72 </span>            : template &lt;class T, class Container&gt;
+<span class="lineNum">      73 </span>            :   bool operator&gt;=(const stack&lt;T, Container&gt;&amp; x, const stack&lt;T, Container&gt;&amp; y);
+<span class="lineNum">      74 </span>            : template &lt;class T, class Container&gt;
+<span class="lineNum">      75 </span>            :   bool operator&lt;=(const stack&lt;T, Container&gt;&amp; x, const stack&lt;T, Container&gt;&amp; y);
+<span class="lineNum">      76 </span>            : 
+<span class="lineNum">      77 </span>            : template &lt;class T, class Container&gt;
+<span class="lineNum">      78 </span>            :   void swap(stack&lt;T, Container&gt;&amp; x, stack&lt;T, Container&gt;&amp; y)
+<span class="lineNum">      79 </span>            :   noexcept(noexcept(x.swap(y)));
+<span class="lineNum">      80 </span>            : 
+<span class="lineNum">      81 </span>            : }  // std
+<span class="lineNum">      82 </span>            : 
+<span class="lineNum">      83 </span>            : */
+<span class="lineNum">      84 </span>            : 
+<span class="lineNum">      85 </span>            : #include &lt;__config&gt;
+<span class="lineNum">      86 </span>            : #include &lt;deque&gt;
+<span class="lineNum">      87 </span>            : 
+<span class="lineNum">      88 </span>            : #if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
+<span class="lineNum">      89 </span>            : #pragma GCC system_header
+<span class="lineNum">      90 </span>            : #endif
+<span class="lineNum">      91 </span>            : 
+<span class="lineNum">      92 </span>            : _LIBCPP_BEGIN_NAMESPACE_STD
+<span class="lineNum">      93 </span>            : 
+<span class="lineNum">      94 </span>            : template &lt;class _Tp, class _Container = deque&lt;_Tp&gt; &gt; class _LIBCPP_TYPE_VIS_ONLY stack;
+<span class="lineNum">      95 </span>            : 
+<span class="lineNum">      96 </span>            : template &lt;class _Tp, class _Container&gt;
+<span class="lineNum">      97 </span>            : _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">      98 </span>            : bool
+<span class="lineNum">      99 </span>            : operator==(const stack&lt;_Tp, _Container&gt;&amp; __x, const stack&lt;_Tp, _Container&gt;&amp; __y);
+<span class="lineNum">     100 </span>            : 
+<span class="lineNum">     101 </span>            : template &lt;class _Tp, class _Container&gt;
+<span class="lineNum">     102 </span>            : _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     103 </span>            : bool
+<span class="lineNum">     104 </span>            : operator&lt; (const stack&lt;_Tp, _Container&gt;&amp; __x, const stack&lt;_Tp, _Container&gt;&amp; __y);
+<a name="105"><span class="lineNum">     105 </span>            : </a>
+<span class="lineNum">     106 </span>            : template &lt;class _Tp, class _Container /*= deque&lt;_Tp&gt;*/&gt;
+<span class="lineNum">     107 </span><span class="lineCov">         43 : class _LIBCPP_TYPE_VIS_ONLY stack</span>
+<span class="lineNum">     108 </span>            : {
+<span class="lineNum">     109 </span>            : public:
+<span class="lineNum">     110 </span>            :     typedef _Container                               container_type;
+<span class="lineNum">     111 </span>            :     typedef typename container_type::value_type      value_type;
+<span class="lineNum">     112 </span>            :     typedef typename container_type::reference       reference;
+<span class="lineNum">     113 </span>            :     typedef typename container_type::const_reference const_reference;
+<span class="lineNum">     114 </span>            :     typedef typename container_type::size_type       size_type;
+<span class="lineNum">     115 </span>            : 
+<span class="lineNum">     116 </span>            : protected:
+<span class="lineNum">     117 </span>            :     container_type c;
+<span class="lineNum">     118 </span>            : 
+<a name="119"><span class="lineNum">     119 </span>            : public:</a>
+<span class="lineNum">     120 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     121 </span>            :     stack()
+<span class="lineNum">     122 </span>            :         _NOEXCEPT_(is_nothrow_default_constructible&lt;container_type&gt;::value)
+<span class="lineNum">     123 </span><span class="lineCov">         22 :         : c() {}</span>
+<a name="124"><span class="lineNum">     124 </span>            : </a>
+<span class="lineNum">     125 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     126 </span><span class="lineCov">          7 :     stack(const stack&amp; __q) : c(__q.c) {}</span>
+<span class="lineNum">     127 </span>            : 
+<a name="128"><span class="lineNum">     128 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES</a>
+<span class="lineNum">     129 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     130 </span>            :     stack(stack&amp;&amp; __q)
+<span class="lineNum">     131 </span>            :         _NOEXCEPT_(is_nothrow_move_constructible&lt;container_type&gt;::value)
+<span class="lineNum">     132 </span><span class="lineCov">          1 :         : c(_VSTD::move(__q.c)) {}</span>
+<span class="lineNum">     133 </span>            : #endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<a name="134"><span class="lineNum">     134 </span>            : </a>
+<span class="lineNum">     135 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     136 </span><span class="lineCov">          1 :     stack&amp; operator=(const stack&amp; __q) {c = __q.c; return *this;}</span>
+<span class="lineNum">     137 </span>            : 
+<a name="138"><span class="lineNum">     138 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES</a>
+<span class="lineNum">     139 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     140 </span>            :     stack&amp; operator=(stack&amp;&amp; __q)
+<span class="lineNum">     141 </span>            :         _NOEXCEPT_(is_nothrow_move_assignable&lt;container_type&gt;::value)
+<span class="lineNum">     142 </span><span class="lineCov">          1 :         {c = _VSTD::move(__q.c); return *this;}</span>
+<span class="lineNum">     143 </span>            : #endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<a name="144"><span class="lineNum">     144 </span>            : </a>
+<span class="lineNum">     145 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     146 </span><span class="lineCov">          1 :     explicit stack(const container_type&amp; __c) : c(__c) {}</span>
+<a name="147"><span class="lineNum">     147 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES</a>
+<span class="lineNum">     148 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     149 </span><span class="lineCov">          5 :     explicit stack(container_type&amp;&amp; __c) : c(_VSTD::move(__c)) {}</span>
+<span class="lineNum">     150 </span>            : #endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<a name="151"><span class="lineNum">     151 </span>            :     template &lt;class _Alloc&gt;</a>
+<span class="lineNum">     152 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     153 </span>            :         explicit stack(const _Alloc&amp; __a,
+<span class="lineNum">     154 </span>            :                        typename enable_if&lt;uses_allocator&lt;container_type,
+<span class="lineNum">     155 </span>            :                                                          _Alloc&gt;::value&gt;::type* = 0)
+<span class="lineNum">     156 </span><span class="lineCov">          1 :             : c(__a) {}</span>
+<a name="157"><span class="lineNum">     157 </span>            :     template &lt;class _Alloc&gt;</a>
+<span class="lineNum">     158 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     159 </span>            :         stack(const container_type&amp; __c, const _Alloc&amp; __a,
+<span class="lineNum">     160 </span>            :               typename enable_if&lt;uses_allocator&lt;container_type,
+<span class="lineNum">     161 </span>            :                                                 _Alloc&gt;::value&gt;::type* = 0)
+<span class="lineNum">     162 </span><span class="lineCov">          2 :             : c(__c, __a) {}</span>
+<a name="163"><span class="lineNum">     163 </span>            :     template &lt;class _Alloc&gt;</a>
+<span class="lineNum">     164 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     165 </span>            :         stack(const stack&amp; __s, const _Alloc&amp; __a,
+<span class="lineNum">     166 </span>            :               typename enable_if&lt;uses_allocator&lt;container_type,
+<span class="lineNum">     167 </span>            :                                                 _Alloc&gt;::value&gt;::type* = 0)
+<span class="lineNum">     168 </span><span class="lineCov">          1 :             : c(__s.c, __a) {}</span>
+<span class="lineNum">     169 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<a name="170"><span class="lineNum">     170 </span>            :     template &lt;class _Alloc&gt;</a>
+<span class="lineNum">     171 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     172 </span>            :         stack(container_type&amp;&amp; __c, const _Alloc&amp; __a,
+<span class="lineNum">     173 </span>            :               typename enable_if&lt;uses_allocator&lt;container_type,
+<span class="lineNum">     174 </span>            :                                                 _Alloc&gt;::value&gt;::type* = 0)
+<span class="lineNum">     175 </span><span class="lineCov">          2 :             : c(_VSTD::move(__c), __a) {}</span>
+<a name="176"><span class="lineNum">     176 </span>            :     template &lt;class _Alloc&gt;</a>
+<span class="lineNum">     177 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     178 </span>            :         stack(stack&amp;&amp; __s, const _Alloc&amp; __a,
+<span class="lineNum">     179 </span>            :               typename enable_if&lt;uses_allocator&lt;container_type,
+<span class="lineNum">     180 </span>            :                                                 _Alloc&gt;::value&gt;::type* = 0)
+<span class="lineNum">     181 </span><span class="lineCov">          1 :             : c(_VSTD::move(__s.c), __a) {}</span>
+<span class="lineNum">     182 </span>            : #endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<a name="183"><span class="lineNum">     183 </span>            : </a>
+<span class="lineNum">     184 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<a name="185"><span class="lineNum">     185 </span><span class="lineCov">          5 :     bool empty()     const      {return c.empty();}</span></a>
+<span class="lineNum">     186 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<a name="187"><span class="lineNum">     187 </span><span class="lineCov">         26 :     size_type size() const      {return c.size();}</span></a>
+<span class="lineNum">     188 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<a name="189"><span class="lineNum">     189 </span><span class="lineCov">         22 :     reference top()             {return c.back();}</span></a>
+<span class="lineNum">     190 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     191 </span><span class="lineCov">          1 :     const_reference top() const {return c.back();}</span>
+<a name="192"><span class="lineNum">     192 </span>            : </a>
+<span class="lineNum">     193 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     194 </span><span class="lineCov">         60 :     void push(const value_type&amp; __v) {c.push_back(__v);}</span>
+<a name="195"><span class="lineNum">     195 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES</a>
+<span class="lineNum">     196 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     197 </span><span class="lineCov">         19 :     void push(value_type&amp;&amp; __v) {c.push_back(_VSTD::move(__v));}</span>
+<span class="lineNum">     198 </span>            : #ifndef _LIBCPP_HAS_NO_VARIADICS
+<a name="199"><span class="lineNum">     199 </span>            :     template &lt;class... _Args&gt;</a>
+<span class="lineNum">     200 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     201 </span>            :         void emplace(_Args&amp;&amp;... __args)
+<span class="lineNum">     202 </span><span class="lineCov">          3 :         {c.emplace_back(_VSTD::forward&lt;_Args&gt;(__args)...);}</span>
+<span class="lineNum">     203 </span>            : #endif  // _LIBCPP_HAS_NO_VARIADICS
+<a name="204"><span class="lineNum">     204 </span>            : #endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES</a>
+<span class="lineNum">     205 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     206 </span><span class="lineCov">         14 :     void pop() {c.pop_back();}</span>
+<a name="207"><span class="lineNum">     207 </span>            : </a>
+<span class="lineNum">     208 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     209 </span>            :     void swap(stack&amp; __s)
+<span class="lineNum">     210 </span>            :         _NOEXCEPT_(__is_nothrow_swappable&lt;container_type&gt;::value)
+<span class="lineNum">     211 </span>            :     {
+<span class="lineNum">     212 </span>            :         using _VSTD::swap;
+<span class="lineNum">     213 </span><span class="lineCov">          2 :         swap(c, __s.c);</span>
+<span class="lineNum">     214 </span><span class="lineCov">          2 :     }</span>
+<span class="lineNum">     215 </span>            : 
+<span class="lineNum">     216 </span>            :     template &lt;class T1, class _C1&gt;
+<span class="lineNum">     217 </span>            :     friend
+<span class="lineNum">     218 </span>            :     bool
+<span class="lineNum">     219 </span>            :     operator==(const stack&lt;T1, _C1&gt;&amp; __x, const stack&lt;T1, _C1&gt;&amp; __y);
+<span class="lineNum">     220 </span>            : 
+<span class="lineNum">     221 </span>            :     template &lt;class T1, class _C1&gt;
+<span class="lineNum">     222 </span>            :     friend
+<span class="lineNum">     223 </span>            :     bool
+<span class="lineNum">     224 </span>            :     operator&lt; (const stack&lt;T1, _C1&gt;&amp; __x, const stack&lt;T1, _C1&gt;&amp; __y);
+<span class="lineNum">     225 </span>            : };
+<span class="lineNum">     226 </span>            : 
+<span class="lineNum">     227 </span>            : template &lt;class _Tp, class _Container&gt;
+<a name="228"><span class="lineNum">     228 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     229 </span>            : bool
+<span class="lineNum">     230 </span>            : operator==(const stack&lt;_Tp, _Container&gt;&amp; __x, const stack&lt;_Tp, _Container&gt;&amp; __y)
+<span class="lineNum">     231 </span>            : {
+<span class="lineNum">     232 </span><span class="lineCov">          9 :     return __x.c == __y.c;</span>
+<span class="lineNum">     233 </span>            : }
+<span class="lineNum">     234 </span>            : 
+<span class="lineNum">     235 </span>            : template &lt;class _Tp, class _Container&gt;
+<a name="236"><span class="lineNum">     236 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     237 </span>            : bool
+<span class="lineNum">     238 </span>            : operator&lt; (const stack&lt;_Tp, _Container&gt;&amp; __x, const stack&lt;_Tp, _Container&gt;&amp; __y)
+<span class="lineNum">     239 </span>            : {
+<span class="lineNum">     240 </span><span class="lineCov">          4 :     return __x.c &lt; __y.c;</span>
+<span class="lineNum">     241 </span>            : }
+<span class="lineNum">     242 </span>            : 
+<span class="lineNum">     243 </span>            : template &lt;class _Tp, class _Container&gt;
+<a name="244"><span class="lineNum">     244 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     245 </span>            : bool
+<span class="lineNum">     246 </span>            : operator!=(const stack&lt;_Tp, _Container&gt;&amp; __x, const stack&lt;_Tp, _Container&gt;&amp; __y)
+<span class="lineNum">     247 </span>            : {
+<span class="lineNum">     248 </span><span class="lineCov">          1 :     return !(__x == __y);</span>
+<span class="lineNum">     249 </span>            : }
+<span class="lineNum">     250 </span>            : 
+<span class="lineNum">     251 </span>            : template &lt;class _Tp, class _Container&gt;
+<a name="252"><span class="lineNum">     252 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     253 </span>            : bool
+<span class="lineNum">     254 </span>            : operator&gt; (const stack&lt;_Tp, _Container&gt;&amp; __x, const stack&lt;_Tp, _Container&gt;&amp; __y)
+<span class="lineNum">     255 </span>            : {
+<span class="lineNum">     256 </span><span class="lineCov">          1 :     return __y &lt; __x;</span>
+<span class="lineNum">     257 </span>            : }
+<span class="lineNum">     258 </span>            : 
+<span class="lineNum">     259 </span>            : template &lt;class _Tp, class _Container&gt;
+<a name="260"><span class="lineNum">     260 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     261 </span>            : bool
+<span class="lineNum">     262 </span>            : operator&gt;=(const stack&lt;_Tp, _Container&gt;&amp; __x, const stack&lt;_Tp, _Container&gt;&amp; __y)
+<span class="lineNum">     263 </span>            : {
+<span class="lineNum">     264 </span><span class="lineCov">          1 :     return !(__x &lt; __y);</span>
+<span class="lineNum">     265 </span>            : }
+<span class="lineNum">     266 </span>            : 
+<span class="lineNum">     267 </span>            : template &lt;class _Tp, class _Container&gt;
+<a name="268"><span class="lineNum">     268 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     269 </span>            : bool
+<span class="lineNum">     270 </span>            : operator&lt;=(const stack&lt;_Tp, _Container&gt;&amp; __x, const stack&lt;_Tp, _Container&gt;&amp; __y)
+<span class="lineNum">     271 </span>            : {
+<span class="lineNum">     272 </span><span class="lineCov">          1 :     return !(__y &lt; __x);</span>
+<span class="lineNum">     273 </span>            : }
+<span class="lineNum">     274 </span>            : 
+<span class="lineNum">     275 </span>            : template &lt;class _Tp, class _Container&gt;
+<a name="276"><span class="lineNum">     276 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     277 </span>            : void
+<span class="lineNum">     278 </span>            : swap(stack&lt;_Tp, _Container&gt;&amp; __x, stack&lt;_Tp, _Container&gt;&amp; __y)
+<span class="lineNum">     279 </span>            :     _NOEXCEPT_(_NOEXCEPT_(__x.swap(__y)))
+<span class="lineNum">     280 </span>            : {
+<span class="lineNum">     281 </span><span class="lineCov">          1 :     __x.swap(__y);</span>
+<span class="lineNum">     282 </span><span class="lineCov">          1 : }</span>
+<span class="lineNum">     283 </span>            : 
+<span class="lineNum">     284 </span>            : template &lt;class _Tp, class _Container, class _Alloc&gt;
+<span class="lineNum">     285 </span>            : struct _LIBCPP_TYPE_VIS_ONLY uses_allocator&lt;stack&lt;_Tp, _Container&gt;, _Alloc&gt;
+<span class="lineNum">     286 </span>            :     : public uses_allocator&lt;_Container, _Alloc&gt;
+<span class="lineNum">     287 </span>            : {
+<span class="lineNum">     288 </span>            : };
+<span class="lineNum">     289 </span>            : 
+<span class="lineNum">     290 </span>            : _LIBCPP_END_NAMESPACE_STD
+<span class="lineNum">     291 </span>            : 
+<span class="lineNum">     292 </span>            : #endif  // _LIBCPP_STACK
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

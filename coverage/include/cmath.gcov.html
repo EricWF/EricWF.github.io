@@ -1,0 +1,1773 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - test_coverage.info - include/cmath</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">include</a> - cmath<span style="font-size: 80%;"> (source / <a href="cmath.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">test_coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">114</td>
+            <td class="headerCovTableEntry">114</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2015-06-02</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">131</td>
+            <td class="headerCovTableEntry">131</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : // -*- C++ -*-</a>
+<span class="lineNum">       2 </span>            : //===---------------------------- cmath -----------------------------------===//
+<span class="lineNum">       3 </span>            : //
+<span class="lineNum">       4 </span>            : //                     The LLVM Compiler Infrastructure
+<span class="lineNum">       5 </span>            : //
+<span class="lineNum">       6 </span>            : // This file is dual licensed under the MIT and the University of Illinois Open
+<span class="lineNum">       7 </span>            : // Source Licenses. See LICENSE.TXT for details.
+<span class="lineNum">       8 </span>            : //
+<span class="lineNum">       9 </span>            : //===----------------------------------------------------------------------===//
+<span class="lineNum">      10 </span>            : 
+<span class="lineNum">      11 </span>            : #ifndef _LIBCPP_CMATH
+<span class="lineNum">      12 </span>            : #define _LIBCPP_CMATH
+<span class="lineNum">      13 </span>            : 
+<span class="lineNum">      14 </span>            : /*
+<span class="lineNum">      15 </span>            :     cmath synopsis
+<span class="lineNum">      16 </span>            : 
+<span class="lineNum">      17 </span>            : Macros:
+<span class="lineNum">      18 </span>            : 
+<span class="lineNum">      19 </span>            :     HUGE_VAL
+<span class="lineNum">      20 </span>            :     HUGE_VALF               // C99
+<span class="lineNum">      21 </span>            :     HUGE_VALL               // C99
+<span class="lineNum">      22 </span>            :     INFINITY                // C99
+<span class="lineNum">      23 </span>            :     NAN                     // C99
+<span class="lineNum">      24 </span>            :     FP_INFINITE             // C99
+<span class="lineNum">      25 </span>            :     FP_NAN                  // C99
+<span class="lineNum">      26 </span>            :     FP_NORMAL               // C99
+<span class="lineNum">      27 </span>            :     FP_SUBNORMAL            // C99
+<span class="lineNum">      28 </span>            :     FP_ZERO                 // C99
+<span class="lineNum">      29 </span>            :     FP_FAST_FMA             // C99
+<span class="lineNum">      30 </span>            :     FP_FAST_FMAF            // C99
+<span class="lineNum">      31 </span>            :     FP_FAST_FMAL            // C99
+<span class="lineNum">      32 </span>            :     FP_ILOGB0               // C99
+<span class="lineNum">      33 </span>            :     FP_ILOGBNAN             // C99
+<span class="lineNum">      34 </span>            :     MATH_ERRNO              // C99
+<span class="lineNum">      35 </span>            :     MATH_ERREXCEPT          // C99
+<span class="lineNum">      36 </span>            :     math_errhandling        // C99
+<span class="lineNum">      37 </span>            : 
+<span class="lineNum">      38 </span>            : namespace std
+<span class="lineNum">      39 </span>            : {
+<span class="lineNum">      40 </span>            : 
+<span class="lineNum">      41 </span>            : Types:
+<span class="lineNum">      42 </span>            : 
+<span class="lineNum">      43 </span>            :     float_t                 // C99
+<span class="lineNum">      44 </span>            :     double_t                // C99
+<span class="lineNum">      45 </span>            : 
+<span class="lineNum">      46 </span>            : // C90
+<span class="lineNum">      47 </span>            : 
+<span class="lineNum">      48 </span>            : floating_point abs(floating_point x);
+<span class="lineNum">      49 </span>            : 
+<span class="lineNum">      50 </span>            : floating_point acos (arithmetic x);
+<span class="lineNum">      51 </span>            : float          acosf(float x);
+<span class="lineNum">      52 </span>            : long double    acosl(long double x);
+<span class="lineNum">      53 </span>            : 
+<span class="lineNum">      54 </span>            : floating_point asin (arithmetic x);
+<span class="lineNum">      55 </span>            : float          asinf(float x);
+<span class="lineNum">      56 </span>            : long double    asinl(long double x);
+<span class="lineNum">      57 </span>            : 
+<span class="lineNum">      58 </span>            : floating_point atan (arithmetic x);
+<span class="lineNum">      59 </span>            : float          atanf(float x);
+<span class="lineNum">      60 </span>            : long double    atanl(long double x);
+<span class="lineNum">      61 </span>            : 
+<span class="lineNum">      62 </span>            : floating_point atan2 (arithmetic y, arithmetic x);
+<span class="lineNum">      63 </span>            : float          atan2f(float y, float x);
+<span class="lineNum">      64 </span>            : long double    atan2l(long double y, long double x);
+<span class="lineNum">      65 </span>            : 
+<span class="lineNum">      66 </span>            : floating_point ceil (arithmetic x);
+<span class="lineNum">      67 </span>            : float          ceilf(float x);
+<span class="lineNum">      68 </span>            : long double    ceill(long double x);
+<span class="lineNum">      69 </span>            : 
+<span class="lineNum">      70 </span>            : floating_point cos (arithmetic x);
+<span class="lineNum">      71 </span>            : float          cosf(float x);
+<span class="lineNum">      72 </span>            : long double    cosl(long double x);
+<span class="lineNum">      73 </span>            : 
+<span class="lineNum">      74 </span>            : floating_point cosh (arithmetic x);
+<span class="lineNum">      75 </span>            : float          coshf(float x);
+<span class="lineNum">      76 </span>            : long double    coshl(long double x);
+<span class="lineNum">      77 </span>            : 
+<span class="lineNum">      78 </span>            : floating_point exp (arithmetic x);
+<span class="lineNum">      79 </span>            : float          expf(float x);
+<span class="lineNum">      80 </span>            : long double    expl(long double x);
+<span class="lineNum">      81 </span>            : 
+<span class="lineNum">      82 </span>            : floating_point fabs (arithmetic x);
+<span class="lineNum">      83 </span>            : float          fabsf(float x);
+<span class="lineNum">      84 </span>            : long double    fabsl(long double x);
+<span class="lineNum">      85 </span>            : 
+<span class="lineNum">      86 </span>            : floating_point floor (arithmetic x);
+<span class="lineNum">      87 </span>            : float          floorf(float x);
+<span class="lineNum">      88 </span>            : long double    floorl(long double x);
+<span class="lineNum">      89 </span>            : 
+<span class="lineNum">      90 </span>            : floating_point fmod (arithmetic x, arithmetic y);
+<span class="lineNum">      91 </span>            : float          fmodf(float x, float y);
+<span class="lineNum">      92 </span>            : long double    fmodl(long double x, long double y);
+<span class="lineNum">      93 </span>            : 
+<span class="lineNum">      94 </span>            : floating_point frexp (arithmetic value, int* exp);
+<span class="lineNum">      95 </span>            : float          frexpf(float value, int* exp);
+<span class="lineNum">      96 </span>            : long double    frexpl(long double value, int* exp);
+<span class="lineNum">      97 </span>            : 
+<span class="lineNum">      98 </span>            : floating_point ldexp (arithmetic value, int exp);
+<span class="lineNum">      99 </span>            : float          ldexpf(float value, int exp);
+<span class="lineNum">     100 </span>            : long double    ldexpl(long double value, int exp);
+<span class="lineNum">     101 </span>            : 
+<span class="lineNum">     102 </span>            : floating_point log (arithmetic x);
+<span class="lineNum">     103 </span>            : float          logf(float x);
+<span class="lineNum">     104 </span>            : long double    logl(long double x);
+<span class="lineNum">     105 </span>            : 
+<span class="lineNum">     106 </span>            : floating_point log10 (arithmetic x);
+<span class="lineNum">     107 </span>            : float          log10f(float x);
+<span class="lineNum">     108 </span>            : long double    log10l(long double x);
+<span class="lineNum">     109 </span>            : 
+<span class="lineNum">     110 </span>            : floating_point modf (floating_point value, floating_point* iptr);
+<span class="lineNum">     111 </span>            : float          modff(float value, float* iptr);
+<span class="lineNum">     112 </span>            : long double    modfl(long double value, long double* iptr);
+<span class="lineNum">     113 </span>            : 
+<span class="lineNum">     114 </span>            : floating_point pow (arithmetic x, arithmetic y);
+<span class="lineNum">     115 </span>            : float          powf(float x, float y);
+<span class="lineNum">     116 </span>            : long double    powl(long double x, long double y);
+<span class="lineNum">     117 </span>            : 
+<span class="lineNum">     118 </span>            : floating_point sin (arithmetic x);
+<span class="lineNum">     119 </span>            : float          sinf(float x);
+<span class="lineNum">     120 </span>            : long double    sinl(long double x);
+<span class="lineNum">     121 </span>            : 
+<span class="lineNum">     122 </span>            : floating_point sinh (arithmetic x);
+<span class="lineNum">     123 </span>            : float          sinhf(float x);
+<span class="lineNum">     124 </span>            : long double    sinhl(long double x);
+<span class="lineNum">     125 </span>            : 
+<span class="lineNum">     126 </span>            : floating_point sqrt (arithmetic x);
+<span class="lineNum">     127 </span>            : float          sqrtf(float x);
+<span class="lineNum">     128 </span>            : long double    sqrtl(long double x);
+<span class="lineNum">     129 </span>            : 
+<span class="lineNum">     130 </span>            : floating_point tan (arithmetic x);
+<span class="lineNum">     131 </span>            : float          tanf(float x);
+<span class="lineNum">     132 </span>            : long double    tanl(long double x);
+<span class="lineNum">     133 </span>            : 
+<span class="lineNum">     134 </span>            : floating_point tanh (arithmetic x);
+<span class="lineNum">     135 </span>            : float          tanhf(float x);
+<span class="lineNum">     136 </span>            : long double    tanhl(long double x);
+<span class="lineNum">     137 </span>            : 
+<span class="lineNum">     138 </span>            : //  C99
+<span class="lineNum">     139 </span>            : 
+<span class="lineNum">     140 </span>            : bool signbit(arithmetic x);
+<span class="lineNum">     141 </span>            : 
+<span class="lineNum">     142 </span>            : int fpclassify(arithmetic x);
+<span class="lineNum">     143 </span>            : 
+<span class="lineNum">     144 </span>            : bool isfinite(arithmetic x);
+<span class="lineNum">     145 </span>            : bool isinf(arithmetic x);
+<span class="lineNum">     146 </span>            : bool isnan(arithmetic x);
+<span class="lineNum">     147 </span>            : bool isnormal(arithmetic x);
+<span class="lineNum">     148 </span>            : 
+<span class="lineNum">     149 </span>            : bool isgreater(arithmetic x, arithmetic y);
+<span class="lineNum">     150 </span>            : bool isgreaterequal(arithmetic x, arithmetic y);
+<span class="lineNum">     151 </span>            : bool isless(arithmetic x, arithmetic y);
+<span class="lineNum">     152 </span>            : bool islessequal(arithmetic x, arithmetic y);
+<span class="lineNum">     153 </span>            : bool islessgreater(arithmetic x, arithmetic y);
+<span class="lineNum">     154 </span>            : bool isunordered(arithmetic x, arithmetic y);
+<span class="lineNum">     155 </span>            : 
+<span class="lineNum">     156 </span>            : floating_point acosh (arithmetic x);
+<span class="lineNum">     157 </span>            : float          acoshf(float x);
+<span class="lineNum">     158 </span>            : long double    acoshl(long double x);
+<span class="lineNum">     159 </span>            : 
+<span class="lineNum">     160 </span>            : floating_point asinh (arithmetic x);
+<span class="lineNum">     161 </span>            : float          asinhf(float x);
+<span class="lineNum">     162 </span>            : long double    asinhl(long double x);
+<span class="lineNum">     163 </span>            : 
+<span class="lineNum">     164 </span>            : floating_point atanh (arithmetic x);
+<span class="lineNum">     165 </span>            : float          atanhf(float x);
+<span class="lineNum">     166 </span>            : long double    atanhl(long double x);
+<span class="lineNum">     167 </span>            : 
+<span class="lineNum">     168 </span>            : floating_point cbrt (arithmetic x);
+<span class="lineNum">     169 </span>            : float          cbrtf(float x);
+<span class="lineNum">     170 </span>            : long double    cbrtl(long double x);
+<span class="lineNum">     171 </span>            : 
+<span class="lineNum">     172 </span>            : floating_point copysign (arithmetic x, arithmetic y);
+<span class="lineNum">     173 </span>            : float          copysignf(float x, float y);
+<span class="lineNum">     174 </span>            : long double    copysignl(long double x, long double y);
+<span class="lineNum">     175 </span>            : 
+<span class="lineNum">     176 </span>            : floating_point erf (arithmetic x);
+<span class="lineNum">     177 </span>            : float          erff(float x);
+<span class="lineNum">     178 </span>            : long double    erfl(long double x);
+<span class="lineNum">     179 </span>            : 
+<span class="lineNum">     180 </span>            : floating_point erfc (arithmetic x);
+<span class="lineNum">     181 </span>            : float          erfcf(float x);
+<span class="lineNum">     182 </span>            : long double    erfcl(long double x);
+<span class="lineNum">     183 </span>            : 
+<span class="lineNum">     184 </span>            : floating_point exp2 (arithmetic x);
+<span class="lineNum">     185 </span>            : float          exp2f(float x);
+<span class="lineNum">     186 </span>            : long double    exp2l(long double x);
+<span class="lineNum">     187 </span>            : 
+<span class="lineNum">     188 </span>            : floating_point expm1 (arithmetic x);
+<span class="lineNum">     189 </span>            : float          expm1f(float x);
+<span class="lineNum">     190 </span>            : long double    expm1l(long double x);
+<span class="lineNum">     191 </span>            : 
+<span class="lineNum">     192 </span>            : floating_point fdim (arithmetic x, arithmetic y);
+<span class="lineNum">     193 </span>            : float          fdimf(float x, float y);
+<span class="lineNum">     194 </span>            : long double    fdiml(long double x, long double y);
+<span class="lineNum">     195 </span>            : 
+<span class="lineNum">     196 </span>            : floating_point fma (arithmetic x, arithmetic y, arithmetic z);
+<span class="lineNum">     197 </span>            : float          fmaf(float x, float y, float z);
+<span class="lineNum">     198 </span>            : long double    fmal(long double x, long double y, long double z);
+<span class="lineNum">     199 </span>            : 
+<span class="lineNum">     200 </span>            : floating_point fmax (arithmetic x, arithmetic y);
+<span class="lineNum">     201 </span>            : float          fmaxf(float x, float y);
+<span class="lineNum">     202 </span>            : long double    fmaxl(long double x, long double y);
+<span class="lineNum">     203 </span>            : 
+<span class="lineNum">     204 </span>            : floating_point fmin (arithmetic x, arithmetic y);
+<span class="lineNum">     205 </span>            : float          fminf(float x, float y);
+<span class="lineNum">     206 </span>            : long double    fminl(long double x, long double y);
+<span class="lineNum">     207 </span>            : 
+<span class="lineNum">     208 </span>            : floating_point hypot (arithmetic x, arithmetic y);
+<span class="lineNum">     209 </span>            : float          hypotf(float x, float y);
+<span class="lineNum">     210 </span>            : long double    hypotl(long double x, long double y);
+<span class="lineNum">     211 </span>            : 
+<span class="lineNum">     212 </span>            : int ilogb (arithmetic x);
+<span class="lineNum">     213 </span>            : int ilogbf(float x);
+<span class="lineNum">     214 </span>            : int ilogbl(long double x);
+<span class="lineNum">     215 </span>            : 
+<span class="lineNum">     216 </span>            : floating_point lgamma (arithmetic x);
+<span class="lineNum">     217 </span>            : float          lgammaf(float x);
+<span class="lineNum">     218 </span>            : long double    lgammal(long double x);
+<span class="lineNum">     219 </span>            : 
+<span class="lineNum">     220 </span>            : long long llrint (arithmetic x);
+<span class="lineNum">     221 </span>            : long long llrintf(float x);
+<span class="lineNum">     222 </span>            : long long llrintl(long double x);
+<span class="lineNum">     223 </span>            : 
+<span class="lineNum">     224 </span>            : long long llround (arithmetic x);
+<span class="lineNum">     225 </span>            : long long llroundf(float x);
+<span class="lineNum">     226 </span>            : long long llroundl(long double x);
+<span class="lineNum">     227 </span>            : 
+<span class="lineNum">     228 </span>            : floating_point log1p (arithmetic x);
+<span class="lineNum">     229 </span>            : float          log1pf(float x);
+<span class="lineNum">     230 </span>            : long double    log1pl(long double x);
+<span class="lineNum">     231 </span>            : 
+<span class="lineNum">     232 </span>            : floating_point log2 (arithmetic x);
+<span class="lineNum">     233 </span>            : float          log2f(float x);
+<span class="lineNum">     234 </span>            : long double    log2l(long double x);
+<span class="lineNum">     235 </span>            : 
+<span class="lineNum">     236 </span>            : floating_point logb (arithmetic x);
+<span class="lineNum">     237 </span>            : float          logbf(float x);
+<span class="lineNum">     238 </span>            : long double    logbl(long double x);
+<span class="lineNum">     239 </span>            : 
+<span class="lineNum">     240 </span>            : long lrint (arithmetic x);
+<span class="lineNum">     241 </span>            : long lrintf(float x);
+<span class="lineNum">     242 </span>            : long lrintl(long double x);
+<span class="lineNum">     243 </span>            : 
+<span class="lineNum">     244 </span>            : long lround (arithmetic x);
+<span class="lineNum">     245 </span>            : long lroundf(float x);
+<span class="lineNum">     246 </span>            : long lroundl(long double x);
+<span class="lineNum">     247 </span>            : 
+<span class="lineNum">     248 </span>            : double      nan (const char* str);
+<span class="lineNum">     249 </span>            : float       nanf(const char* str);
+<span class="lineNum">     250 </span>            : long double nanl(const char* str);
+<span class="lineNum">     251 </span>            : 
+<span class="lineNum">     252 </span>            : floating_point nearbyint (arithmetic x);
+<span class="lineNum">     253 </span>            : float          nearbyintf(float x);
+<span class="lineNum">     254 </span>            : long double    nearbyintl(long double x);
+<span class="lineNum">     255 </span>            : 
+<span class="lineNum">     256 </span>            : floating_point nextafter (arithmetic x, arithmetic y);
+<span class="lineNum">     257 </span>            : float          nextafterf(float x, float y);
+<span class="lineNum">     258 </span>            : long double    nextafterl(long double x, long double y);
+<span class="lineNum">     259 </span>            : 
+<span class="lineNum">     260 </span>            : floating_point nexttoward (arithmetic x, long double y);
+<span class="lineNum">     261 </span>            : float          nexttowardf(float x, long double y);
+<span class="lineNum">     262 </span>            : long double    nexttowardl(long double x, long double y);
+<span class="lineNum">     263 </span>            : 
+<span class="lineNum">     264 </span>            : floating_point remainder (arithmetic x, arithmetic y);
+<span class="lineNum">     265 </span>            : float          remainderf(float x, float y);
+<span class="lineNum">     266 </span>            : long double    remainderl(long double x, long double y);
+<span class="lineNum">     267 </span>            : 
+<span class="lineNum">     268 </span>            : floating_point remquo (arithmetic x, arithmetic y, int* pquo);
+<span class="lineNum">     269 </span>            : float          remquof(float x, float y, int* pquo);
+<span class="lineNum">     270 </span>            : long double    remquol(long double x, long double y, int* pquo);
+<span class="lineNum">     271 </span>            : 
+<span class="lineNum">     272 </span>            : floating_point rint (arithmetic x);
+<span class="lineNum">     273 </span>            : float          rintf(float x);
+<span class="lineNum">     274 </span>            : long double    rintl(long double x);
+<span class="lineNum">     275 </span>            : 
+<span class="lineNum">     276 </span>            : floating_point round (arithmetic x);
+<span class="lineNum">     277 </span>            : float          roundf(float x);
+<span class="lineNum">     278 </span>            : long double    roundl(long double x);
+<span class="lineNum">     279 </span>            : 
+<span class="lineNum">     280 </span>            : floating_point scalbln (arithmetic x, long ex);
+<span class="lineNum">     281 </span>            : float          scalblnf(float x, long ex);
+<span class="lineNum">     282 </span>            : long double    scalblnl(long double x, long ex);
+<span class="lineNum">     283 </span>            : 
+<span class="lineNum">     284 </span>            : floating_point scalbn (arithmetic x, int ex);
+<span class="lineNum">     285 </span>            : float          scalbnf(float x, int ex);
+<span class="lineNum">     286 </span>            : long double    scalbnl(long double x, int ex);
+<span class="lineNum">     287 </span>            : 
+<span class="lineNum">     288 </span>            : floating_point tgamma (arithmetic x);
+<span class="lineNum">     289 </span>            : float          tgammaf(float x);
+<span class="lineNum">     290 </span>            : long double    tgammal(long double x);
+<span class="lineNum">     291 </span>            : 
+<span class="lineNum">     292 </span>            : floating_point trunc (arithmetic x);
+<span class="lineNum">     293 </span>            : float          truncf(float x);
+<span class="lineNum">     294 </span>            : long double    truncl(long double x);
+<span class="lineNum">     295 </span>            : 
+<span class="lineNum">     296 </span>            : }  // std
+<span class="lineNum">     297 </span>            : 
+<span class="lineNum">     298 </span>            : */
+<span class="lineNum">     299 </span>            : 
+<span class="lineNum">     300 </span>            : #include &lt;__config&gt;
+<span class="lineNum">     301 </span>            : #include &lt;math.h&gt;
+<span class="lineNum">     302 </span>            : #include &lt;type_traits&gt;
+<span class="lineNum">     303 </span>            : 
+<span class="lineNum">     304 </span>            : #ifdef _LIBCPP_MSVCRT
+<span class="lineNum">     305 </span>            : #include &quot;support/win32/math_win32.h&quot;
+<span class="lineNum">     306 </span>            : #endif
+<span class="lineNum">     307 </span>            : 
+<span class="lineNum">     308 </span>            : #if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
+<span class="lineNum">     309 </span>            : #pragma GCC system_header
+<span class="lineNum">     310 </span>            : #endif
+<span class="lineNum">     311 </span>            : 
+<span class="lineNum">     312 </span>            : // signbit
+<span class="lineNum">     313 </span>            : 
+<span class="lineNum">     314 </span>            : #ifdef signbit
+<span class="lineNum">     315 </span>            : 
+<span class="lineNum">     316 </span>            : template &lt;class _A1&gt;
+<a name="317"><span class="lineNum">     317 </span>            : _LIBCPP_ALWAYS_INLINE</a>
+<span class="lineNum">     318 </span>            : bool
+<span class="lineNum">     319 </span>            : __libcpp_signbit(_A1 __lcpp_x) _NOEXCEPT
+<span class="lineNum">     320 </span>            : {
+<span class="lineNum">     321 </span><span class="lineCov">      51283 :     return signbit(__lcpp_x);</span>
+<span class="lineNum">     322 </span>            : }
+<span class="lineNum">     323 </span>            : 
+<span class="lineNum">     324 </span>            : #undef signbit
+<span class="lineNum">     325 </span>            : 
+<span class="lineNum">     326 </span>            : template &lt;class _A1&gt;
+<a name="327"><span class="lineNum">     327 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     328 </span>            : typename std::enable_if&lt;std::is_arithmetic&lt;_A1&gt;::value, bool&gt;::type
+<span class="lineNum">     329 </span>            : signbit(_A1 __lcpp_x) _NOEXCEPT
+<span class="lineNum">     330 </span>            : {
+<span class="lineNum">     331 </span><span class="lineCov">      51283 :     return __libcpp_signbit((typename std::__promote&lt;_A1&gt;::type)__lcpp_x);</span>
+<span class="lineNum">     332 </span>            : }
+<span class="lineNum">     333 </span>            : 
+<span class="lineNum">     334 </span>            : #endif  // signbit
+<span class="lineNum">     335 </span>            : 
+<span class="lineNum">     336 </span>            : // fpclassify
+<span class="lineNum">     337 </span>            : 
+<span class="lineNum">     338 </span>            : #ifdef fpclassify
+<span class="lineNum">     339 </span>            : 
+<span class="lineNum">     340 </span>            : template &lt;class _A1&gt;
+<a name="341"><span class="lineNum">     341 </span>            : _LIBCPP_ALWAYS_INLINE</a>
+<span class="lineNum">     342 </span>            : int
+<span class="lineNum">     343 </span>            : __libcpp_fpclassify(_A1 __lcpp_x) _NOEXCEPT
+<span class="lineNum">     344 </span>            : {
+<span class="lineNum">     345 </span><span class="lineCov">          2 :     return fpclassify(__lcpp_x);</span>
+<span class="lineNum">     346 </span>            : }
+<span class="lineNum">     347 </span>            : 
+<span class="lineNum">     348 </span>            : #undef fpclassify
+<span class="lineNum">     349 </span>            : 
+<span class="lineNum">     350 </span>            : template &lt;class _A1&gt;
+<a name="351"><span class="lineNum">     351 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     352 </span>            : typename std::enable_if&lt;std::is_arithmetic&lt;_A1&gt;::value, int&gt;::type
+<span class="lineNum">     353 </span>            : fpclassify(_A1 __lcpp_x) _NOEXCEPT
+<span class="lineNum">     354 </span>            : {
+<span class="lineNum">     355 </span><span class="lineCov">          2 :     return __libcpp_fpclassify((typename std::__promote&lt;_A1&gt;::type)__lcpp_x);</span>
+<span class="lineNum">     356 </span>            : }
+<span class="lineNum">     357 </span>            : 
+<span class="lineNum">     358 </span>            : #endif  // fpclassify
+<span class="lineNum">     359 </span>            : 
+<span class="lineNum">     360 </span>            : // isfinite
+<span class="lineNum">     361 </span>            : 
+<span class="lineNum">     362 </span>            : #ifdef isfinite
+<span class="lineNum">     363 </span>            : 
+<span class="lineNum">     364 </span>            : template &lt;class _A1&gt;
+<a name="365"><span class="lineNum">     365 </span>            : _LIBCPP_ALWAYS_INLINE</a>
+<span class="lineNum">     366 </span>            : bool
+<span class="lineNum">     367 </span>            : __libcpp_isfinite(_A1 __lcpp_x) _NOEXCEPT
+<span class="lineNum">     368 </span>            : {
+<span class="lineNum">     369 </span><span class="lineCov">      74736 :     return isfinite(__lcpp_x);</span>
+<span class="lineNum">     370 </span>            : }
+<span class="lineNum">     371 </span>            : 
+<span class="lineNum">     372 </span>            : #undef isfinite
+<span class="lineNum">     373 </span>            : 
+<span class="lineNum">     374 </span>            : template &lt;class _A1&gt;
+<a name="375"><span class="lineNum">     375 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     376 </span>            : typename std::enable_if&lt;std::is_arithmetic&lt;_A1&gt;::value, bool&gt;::type
+<span class="lineNum">     377 </span>            : isfinite(_A1 __lcpp_x) _NOEXCEPT
+<span class="lineNum">     378 </span>            : {
+<span class="lineNum">     379 </span><span class="lineCov">      74736 :     return __libcpp_isfinite((typename std::__promote&lt;_A1&gt;::type)__lcpp_x);</span>
+<span class="lineNum">     380 </span>            : }
+<span class="lineNum">     381 </span>            : 
+<span class="lineNum">     382 </span>            : #endif  // isfinite
+<span class="lineNum">     383 </span>            : 
+<span class="lineNum">     384 </span>            : // isinf
+<span class="lineNum">     385 </span>            : 
+<span class="lineNum">     386 </span>            : #ifdef isinf
+<span class="lineNum">     387 </span>            : 
+<span class="lineNum">     388 </span>            : template &lt;class _A1&gt;
+<a name="389"><span class="lineNum">     389 </span>            : _LIBCPP_ALWAYS_INLINE</a>
+<span class="lineNum">     390 </span>            : bool
+<span class="lineNum">     391 </span>            : __libcpp_isinf(_A1 __lcpp_x) _NOEXCEPT
+<span class="lineNum">     392 </span>            : {
+<span class="lineNum">     393 </span><span class="lineCov">        174 :     return isinf(__lcpp_x);</span>
+<span class="lineNum">     394 </span>            : }
+<span class="lineNum">     395 </span>            : 
+<span class="lineNum">     396 </span>            : #undef isinf
+<span class="lineNum">     397 </span>            : 
+<span class="lineNum">     398 </span>            : template &lt;class _A1&gt;
+<a name="399"><span class="lineNum">     399 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     400 </span>            : typename std::enable_if&lt;std::is_arithmetic&lt;_A1&gt;::value, bool&gt;::type
+<span class="lineNum">     401 </span>            : isinf(_A1 __lcpp_x) _NOEXCEPT
+<span class="lineNum">     402 </span>            : {
+<span class="lineNum">     403 </span><span class="lineCov">        174 :     return __libcpp_isinf((typename std::__promote&lt;_A1&gt;::type)__lcpp_x);</span>
+<span class="lineNum">     404 </span>            : }
+<span class="lineNum">     405 </span>            : 
+<span class="lineNum">     406 </span>            : #endif  // isinf
+<span class="lineNum">     407 </span>            : 
+<span class="lineNum">     408 </span>            : // isnan
+<span class="lineNum">     409 </span>            : 
+<span class="lineNum">     410 </span>            : #ifdef isnan
+<span class="lineNum">     411 </span>            : 
+<span class="lineNum">     412 </span>            : template &lt;class _A1&gt;
+<a name="413"><span class="lineNum">     413 </span>            : _LIBCPP_ALWAYS_INLINE</a>
+<span class="lineNum">     414 </span>            : bool
+<span class="lineNum">     415 </span>            : __libcpp_isnan(_A1 __lcpp_x) _NOEXCEPT
+<span class="lineNum">     416 </span>            : {
+<span class="lineNum">     417 </span><span class="lineCov">        234 :     return isnan(__lcpp_x);</span>
+<span class="lineNum">     418 </span>            : }
+<span class="lineNum">     419 </span>            : 
+<span class="lineNum">     420 </span>            : #undef isnan
+<span class="lineNum">     421 </span>            : 
+<span class="lineNum">     422 </span>            : template &lt;class _A1&gt;
+<a name="423"><span class="lineNum">     423 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     424 </span>            : typename std::enable_if&lt;std::is_arithmetic&lt;_A1&gt;::value, bool&gt;::type
+<span class="lineNum">     425 </span>            : isnan(_A1 __lcpp_x) _NOEXCEPT
+<span class="lineNum">     426 </span>            : {
+<span class="lineNum">     427 </span><span class="lineCov">        234 :     return __libcpp_isnan((typename std::__promote&lt;_A1&gt;::type)__lcpp_x);</span>
+<span class="lineNum">     428 </span>            : }
+<span class="lineNum">     429 </span>            : 
+<span class="lineNum">     430 </span>            : #endif  // isnan
+<span class="lineNum">     431 </span>            : 
+<span class="lineNum">     432 </span>            : // isnormal
+<span class="lineNum">     433 </span>            : 
+<span class="lineNum">     434 </span>            : #ifdef isnormal
+<span class="lineNum">     435 </span>            : 
+<span class="lineNum">     436 </span>            : template &lt;class _A1&gt;
+<a name="437"><span class="lineNum">     437 </span>            : _LIBCPP_ALWAYS_INLINE</a>
+<span class="lineNum">     438 </span>            : bool
+<span class="lineNum">     439 </span>            : __libcpp_isnormal(_A1 __lcpp_x) _NOEXCEPT
+<span class="lineNum">     440 </span>            : {
+<span class="lineNum">     441 </span><span class="lineCov">          1 :     return isnormal(__lcpp_x);</span>
+<span class="lineNum">     442 </span>            : }
+<span class="lineNum">     443 </span>            : 
+<span class="lineNum">     444 </span>            : #undef isnormal
+<span class="lineNum">     445 </span>            : 
+<span class="lineNum">     446 </span>            : template &lt;class _A1&gt;
+<a name="447"><span class="lineNum">     447 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     448 </span>            : typename std::enable_if&lt;std::is_arithmetic&lt;_A1&gt;::value, bool&gt;::type
+<span class="lineNum">     449 </span>            : isnormal(_A1 __lcpp_x) _NOEXCEPT
+<span class="lineNum">     450 </span>            : {
+<span class="lineNum">     451 </span><span class="lineCov">          1 :     return __libcpp_isnormal((typename std::__promote&lt;_A1&gt;::type)__lcpp_x);</span>
+<span class="lineNum">     452 </span>            : }
+<span class="lineNum">     453 </span>            : 
+<span class="lineNum">     454 </span>            : #endif  // isnormal
+<span class="lineNum">     455 </span>            : 
+<span class="lineNum">     456 </span>            : // isgreater
+<span class="lineNum">     457 </span>            : 
+<span class="lineNum">     458 </span>            : #ifdef isgreater
+<span class="lineNum">     459 </span>            : 
+<span class="lineNum">     460 </span>            : template &lt;class _A1, class _A2&gt;
+<a name="461"><span class="lineNum">     461 </span>            : _LIBCPP_ALWAYS_INLINE</a>
+<span class="lineNum">     462 </span>            : bool
+<span class="lineNum">     463 </span>            : __libcpp_isgreater(_A1 __lcpp_x, _A2 __lcpp_y) _NOEXCEPT
+<span class="lineNum">     464 </span>            : {
+<span class="lineNum">     465 </span><span class="lineCov">          1 :     return isgreater(__lcpp_x, __lcpp_y);</span>
+<span class="lineNum">     466 </span>            : }
+<span class="lineNum">     467 </span>            : 
+<span class="lineNum">     468 </span>            : #undef isgreater
+<span class="lineNum">     469 </span>            : 
+<span class="lineNum">     470 </span>            : template &lt;class _A1, class _A2&gt;
+<span class="lineNum">     471 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     472 </span>            : typename std::enable_if
+<span class="lineNum">     473 </span>            : &lt;
+<span class="lineNum">     474 </span>            :     std::is_arithmetic&lt;_A1&gt;::value &amp;&amp;
+<span class="lineNum">     475 </span>            :     std::is_arithmetic&lt;_A2&gt;::value,
+<a name="476"><span class="lineNum">     476 </span>            :     bool</a>
+<span class="lineNum">     477 </span>            : &gt;::type
+<span class="lineNum">     478 </span>            : isgreater(_A1 __lcpp_x, _A2 __lcpp_y) _NOEXCEPT
+<span class="lineNum">     479 </span>            : {
+<span class="lineNum">     480 </span>            :     typedef typename std::__promote&lt;_A1, _A2&gt;::type type;
+<span class="lineNum">     481 </span><span class="lineCov">          1 :     return __libcpp_isgreater((type)__lcpp_x, (type)__lcpp_y);</span>
+<span class="lineNum">     482 </span>            : }
+<span class="lineNum">     483 </span>            : 
+<span class="lineNum">     484 </span>            : #endif  // isgreater
+<span class="lineNum">     485 </span>            : 
+<span class="lineNum">     486 </span>            : // isgreaterequal
+<span class="lineNum">     487 </span>            : 
+<span class="lineNum">     488 </span>            : #ifdef isgreaterequal
+<span class="lineNum">     489 </span>            : 
+<span class="lineNum">     490 </span>            : template &lt;class _A1, class _A2&gt;
+<a name="491"><span class="lineNum">     491 </span>            : _LIBCPP_ALWAYS_INLINE</a>
+<span class="lineNum">     492 </span>            : bool
+<span class="lineNum">     493 </span>            : __libcpp_isgreaterequal(_A1 __lcpp_x, _A2 __lcpp_y) _NOEXCEPT
+<span class="lineNum">     494 </span>            : {
+<span class="lineNum">     495 </span><span class="lineCov">          1 :     return isgreaterequal(__lcpp_x, __lcpp_y);</span>
+<span class="lineNum">     496 </span>            : }
+<span class="lineNum">     497 </span>            : 
+<span class="lineNum">     498 </span>            : #undef isgreaterequal
+<span class="lineNum">     499 </span>            : 
+<span class="lineNum">     500 </span>            : template &lt;class _A1, class _A2&gt;
+<span class="lineNum">     501 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     502 </span>            : typename std::enable_if
+<span class="lineNum">     503 </span>            : &lt;
+<span class="lineNum">     504 </span>            :     std::is_arithmetic&lt;_A1&gt;::value &amp;&amp;
+<span class="lineNum">     505 </span>            :     std::is_arithmetic&lt;_A2&gt;::value,
+<a name="506"><span class="lineNum">     506 </span>            :     bool</a>
+<span class="lineNum">     507 </span>            : &gt;::type
+<span class="lineNum">     508 </span>            : isgreaterequal(_A1 __lcpp_x, _A2 __lcpp_y) _NOEXCEPT
+<span class="lineNum">     509 </span>            : {
+<span class="lineNum">     510 </span>            :     typedef typename std::__promote&lt;_A1, _A2&gt;::type type;
+<span class="lineNum">     511 </span><span class="lineCov">          1 :     return __libcpp_isgreaterequal((type)__lcpp_x, (type)__lcpp_y);</span>
+<span class="lineNum">     512 </span>            : }
+<span class="lineNum">     513 </span>            : 
+<span class="lineNum">     514 </span>            : #endif  // isgreaterequal
+<span class="lineNum">     515 </span>            : 
+<span class="lineNum">     516 </span>            : // isless
+<span class="lineNum">     517 </span>            : 
+<span class="lineNum">     518 </span>            : #ifdef isless
+<span class="lineNum">     519 </span>            : 
+<span class="lineNum">     520 </span>            : template &lt;class _A1, class _A2&gt;
+<a name="521"><span class="lineNum">     521 </span>            : _LIBCPP_ALWAYS_INLINE</a>
+<span class="lineNum">     522 </span>            : bool
+<span class="lineNum">     523 </span>            : __libcpp_isless(_A1 __lcpp_x, _A2 __lcpp_y) _NOEXCEPT
+<span class="lineNum">     524 </span>            : {
+<span class="lineNum">     525 </span><span class="lineCov">          1 :     return isless(__lcpp_x, __lcpp_y);</span>
+<span class="lineNum">     526 </span>            : }
+<span class="lineNum">     527 </span>            : 
+<span class="lineNum">     528 </span>            : #undef isless
+<span class="lineNum">     529 </span>            : 
+<span class="lineNum">     530 </span>            : template &lt;class _A1, class _A2&gt;
+<span class="lineNum">     531 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     532 </span>            : typename std::enable_if
+<span class="lineNum">     533 </span>            : &lt;
+<span class="lineNum">     534 </span>            :     std::is_arithmetic&lt;_A1&gt;::value &amp;&amp;
+<span class="lineNum">     535 </span>            :     std::is_arithmetic&lt;_A2&gt;::value,
+<a name="536"><span class="lineNum">     536 </span>            :     bool</a>
+<span class="lineNum">     537 </span>            : &gt;::type
+<span class="lineNum">     538 </span>            : isless(_A1 __lcpp_x, _A2 __lcpp_y) _NOEXCEPT
+<span class="lineNum">     539 </span>            : {
+<span class="lineNum">     540 </span>            :     typedef typename std::__promote&lt;_A1, _A2&gt;::type type;
+<span class="lineNum">     541 </span><span class="lineCov">          1 :     return __libcpp_isless((type)__lcpp_x, (type)__lcpp_y);</span>
+<span class="lineNum">     542 </span>            : }
+<span class="lineNum">     543 </span>            : 
+<span class="lineNum">     544 </span>            : #endif  // isless
+<span class="lineNum">     545 </span>            : 
+<span class="lineNum">     546 </span>            : // islessequal
+<span class="lineNum">     547 </span>            : 
+<span class="lineNum">     548 </span>            : #ifdef islessequal
+<span class="lineNum">     549 </span>            : 
+<span class="lineNum">     550 </span>            : template &lt;class _A1, class _A2&gt;
+<a name="551"><span class="lineNum">     551 </span>            : _LIBCPP_ALWAYS_INLINE</a>
+<span class="lineNum">     552 </span>            : bool
+<span class="lineNum">     553 </span>            : __libcpp_islessequal(_A1 __lcpp_x, _A2 __lcpp_y) _NOEXCEPT
+<span class="lineNum">     554 </span>            : {
+<span class="lineNum">     555 </span><span class="lineCov">          1 :     return islessequal(__lcpp_x, __lcpp_y);</span>
+<span class="lineNum">     556 </span>            : }
+<span class="lineNum">     557 </span>            : 
+<span class="lineNum">     558 </span>            : #undef islessequal
+<span class="lineNum">     559 </span>            : 
+<span class="lineNum">     560 </span>            : template &lt;class _A1, class _A2&gt;
+<span class="lineNum">     561 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     562 </span>            : typename std::enable_if
+<span class="lineNum">     563 </span>            : &lt;
+<span class="lineNum">     564 </span>            :     std::is_arithmetic&lt;_A1&gt;::value &amp;&amp;
+<span class="lineNum">     565 </span>            :     std::is_arithmetic&lt;_A2&gt;::value,
+<a name="566"><span class="lineNum">     566 </span>            :     bool</a>
+<span class="lineNum">     567 </span>            : &gt;::type
+<span class="lineNum">     568 </span>            : islessequal(_A1 __lcpp_x, _A2 __lcpp_y) _NOEXCEPT
+<span class="lineNum">     569 </span>            : {
+<span class="lineNum">     570 </span>            :     typedef typename std::__promote&lt;_A1, _A2&gt;::type type;
+<span class="lineNum">     571 </span><span class="lineCov">          1 :     return __libcpp_islessequal((type)__lcpp_x, (type)__lcpp_y);</span>
+<span class="lineNum">     572 </span>            : }
+<span class="lineNum">     573 </span>            : 
+<span class="lineNum">     574 </span>            : #endif  // islessequal
+<span class="lineNum">     575 </span>            : 
+<span class="lineNum">     576 </span>            : // islessgreater
+<span class="lineNum">     577 </span>            : 
+<span class="lineNum">     578 </span>            : #ifdef islessgreater
+<span class="lineNum">     579 </span>            : 
+<span class="lineNum">     580 </span>            : template &lt;class _A1, class _A2&gt;
+<a name="581"><span class="lineNum">     581 </span>            : _LIBCPP_ALWAYS_INLINE</a>
+<span class="lineNum">     582 </span>            : bool
+<span class="lineNum">     583 </span>            : __libcpp_islessgreater(_A1 __lcpp_x, _A2 __lcpp_y) _NOEXCEPT
+<span class="lineNum">     584 </span>            : {
+<span class="lineNum">     585 </span><span class="lineCov">          1 :     return islessgreater(__lcpp_x, __lcpp_y);</span>
+<span class="lineNum">     586 </span>            : }
+<span class="lineNum">     587 </span>            : 
+<span class="lineNum">     588 </span>            : #undef islessgreater
+<span class="lineNum">     589 </span>            : 
+<span class="lineNum">     590 </span>            : template &lt;class _A1, class _A2&gt;
+<span class="lineNum">     591 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     592 </span>            : typename std::enable_if
+<span class="lineNum">     593 </span>            : &lt;
+<span class="lineNum">     594 </span>            :     std::is_arithmetic&lt;_A1&gt;::value &amp;&amp;
+<span class="lineNum">     595 </span>            :     std::is_arithmetic&lt;_A2&gt;::value,
+<a name="596"><span class="lineNum">     596 </span>            :     bool</a>
+<span class="lineNum">     597 </span>            : &gt;::type
+<span class="lineNum">     598 </span>            : islessgreater(_A1 __lcpp_x, _A2 __lcpp_y) _NOEXCEPT
+<span class="lineNum">     599 </span>            : {
+<span class="lineNum">     600 </span>            :     typedef typename std::__promote&lt;_A1, _A2&gt;::type type;
+<span class="lineNum">     601 </span><span class="lineCov">          1 :     return __libcpp_islessgreater((type)__lcpp_x, (type)__lcpp_y);</span>
+<span class="lineNum">     602 </span>            : }
+<span class="lineNum">     603 </span>            : 
+<span class="lineNum">     604 </span>            : #endif  // islessgreater
+<span class="lineNum">     605 </span>            : 
+<span class="lineNum">     606 </span>            : // isunordered
+<span class="lineNum">     607 </span>            : 
+<span class="lineNum">     608 </span>            : #ifdef isunordered
+<span class="lineNum">     609 </span>            : 
+<span class="lineNum">     610 </span>            : template &lt;class _A1, class _A2&gt;
+<a name="611"><span class="lineNum">     611 </span>            : _LIBCPP_ALWAYS_INLINE</a>
+<span class="lineNum">     612 </span>            : bool
+<span class="lineNum">     613 </span>            : __libcpp_isunordered(_A1 __lcpp_x, _A2 __lcpp_y) _NOEXCEPT
+<span class="lineNum">     614 </span>            : {
+<span class="lineNum">     615 </span><span class="lineCov">          1 :     return isunordered(__lcpp_x, __lcpp_y);</span>
+<span class="lineNum">     616 </span>            : }
+<span class="lineNum">     617 </span>            : 
+<span class="lineNum">     618 </span>            : #undef isunordered
+<span class="lineNum">     619 </span>            : 
+<span class="lineNum">     620 </span>            : template &lt;class _A1, class _A2&gt;
+<span class="lineNum">     621 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     622 </span>            : typename std::enable_if
+<span class="lineNum">     623 </span>            : &lt;
+<span class="lineNum">     624 </span>            :     std::is_arithmetic&lt;_A1&gt;::value &amp;&amp;
+<span class="lineNum">     625 </span>            :     std::is_arithmetic&lt;_A2&gt;::value,
+<a name="626"><span class="lineNum">     626 </span>            :     bool</a>
+<span class="lineNum">     627 </span>            : &gt;::type
+<span class="lineNum">     628 </span>            : isunordered(_A1 __lcpp_x, _A2 __lcpp_y) _NOEXCEPT
+<span class="lineNum">     629 </span>            : {
+<span class="lineNum">     630 </span>            :     typedef typename std::__promote&lt;_A1, _A2&gt;::type type;
+<span class="lineNum">     631 </span><span class="lineCov">          1 :     return __libcpp_isunordered((type)__lcpp_x, (type)__lcpp_y);</span>
+<span class="lineNum">     632 </span>            : }
+<span class="lineNum">     633 </span>            : 
+<span class="lineNum">     634 </span>            : #endif  // isunordered
+<span class="lineNum">     635 </span>            : 
+<span class="lineNum">     636 </span>            : _LIBCPP_BEGIN_NAMESPACE_STD
+<span class="lineNum">     637 </span>            : 
+<span class="lineNum">     638 </span>            : using ::signbit;
+<span class="lineNum">     639 </span>            : using ::fpclassify;
+<span class="lineNum">     640 </span>            : using ::isfinite;
+<span class="lineNum">     641 </span>            : using ::isinf;
+<span class="lineNum">     642 </span>            : using ::isnan;
+<span class="lineNum">     643 </span>            : using ::isnormal;
+<span class="lineNum">     644 </span>            : using ::isgreater;
+<span class="lineNum">     645 </span>            : using ::isgreaterequal;
+<span class="lineNum">     646 </span>            : using ::isless;
+<span class="lineNum">     647 </span>            : using ::islessequal;
+<span class="lineNum">     648 </span>            : using ::islessgreater;
+<span class="lineNum">     649 </span>            : using ::isunordered;
+<span class="lineNum">     650 </span>            : using ::isunordered;
+<span class="lineNum">     651 </span>            : 
+<span class="lineNum">     652 </span>            : using ::float_t;
+<span class="lineNum">     653 </span>            : using ::double_t;
+<span class="lineNum">     654 </span>            : 
+<span class="lineNum">     655 </span>            : // abs
+<span class="lineNum">     656 </span>            : 
+<span class="lineNum">     657 </span>            : #if defined(__sun__)
+<span class="lineNum">     658 </span>            : using ::abs;
+<span class="lineNum">     659 </span>            : #endif
+<span class="lineNum">     660 </span>            : 
+<span class="lineNum">     661 </span>            : #if !defined(_AIX) &amp;&amp; !defined(__sun__)
+<a name="662"><span class="lineNum">     662 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     663 </span>            : float
+<span class="lineNum">     664 </span><span class="lineCov">         10 : abs(float __lcpp_x) _NOEXCEPT {return fabsf(__lcpp_x);}</span>
+<span class="lineNum">     665 </span>            : 
+<a name="666"><span class="lineNum">     666 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     667 </span>            : double
+<span class="lineNum">     668 </span><span class="lineCov">   14141259 : abs(double __lcpp_x) _NOEXCEPT {return fabs(__lcpp_x);}</span>
+<span class="lineNum">     669 </span>            : 
+<a name="670"><span class="lineNum">     670 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     671 </span>            : long double
+<span class="lineNum">     672 </span><span class="lineCov">         10 : abs(long double __lcpp_x) _NOEXCEPT {return fabsl(__lcpp_x);}</span>
+<span class="lineNum">     673 </span>            : #endif // !defined(_AIX)
+<span class="lineNum">     674 </span>            : 
+<span class="lineNum">     675 </span>            : #ifndef __sun__
+<span class="lineNum">     676 </span>            : 
+<span class="lineNum">     677 </span>            : // acos
+<span class="lineNum">     678 </span>            : 
+<span class="lineNum">     679 </span>            : using ::acos;
+<span class="lineNum">     680 </span>            : using ::acosf;
+<span class="lineNum">     681 </span>            : 
+<span class="lineNum">     682 </span>            : #if !(defined(_LIBCPP_MSVCRT) || defined(_AIX))
+<span class="lineNum">     683 </span>            : inline _LIBCPP_INLINE_VISIBILITY float       acos(float __lcpp_x) _NOEXCEPT       {return acosf(__lcpp_x);}
+<span class="lineNum">     684 </span>            : inline _LIBCPP_INLINE_VISIBILITY long double acos(long double __lcpp_x) _NOEXCEPT {return acosl(__lcpp_x);}
+<span class="lineNum">     685 </span>            : #endif
+<span class="lineNum">     686 </span>            : 
+<span class="lineNum">     687 </span>            : template &lt;class _A1&gt;
+<a name="688"><span class="lineNum">     688 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     689 </span>            : typename enable_if&lt;is_integral&lt;_A1&gt;::value, double&gt;::type
+<span class="lineNum">     690 </span><span class="lineCov">          1 : acos(_A1 __lcpp_x) _NOEXCEPT {return acos((double)__lcpp_x);}</span>
+<span class="lineNum">     691 </span>            : 
+<span class="lineNum">     692 </span>            : // asin
+<span class="lineNum">     693 </span>            : 
+<span class="lineNum">     694 </span>            : using ::asin;
+<span class="lineNum">     695 </span>            : using ::asinf;
+<span class="lineNum">     696 </span>            : 
+<span class="lineNum">     697 </span>            : #if !(defined(_LIBCPP_MSVCRT) || defined(_AIX))
+<span class="lineNum">     698 </span>            : inline _LIBCPP_INLINE_VISIBILITY float       asin(float __lcpp_x) _NOEXCEPT       {return asinf(__lcpp_x);}
+<span class="lineNum">     699 </span>            : inline _LIBCPP_INLINE_VISIBILITY long double asin(long double __lcpp_x) _NOEXCEPT {return asinl(__lcpp_x);}
+<span class="lineNum">     700 </span>            : #endif
+<span class="lineNum">     701 </span>            : 
+<span class="lineNum">     702 </span>            : template &lt;class _A1&gt;
+<a name="703"><span class="lineNum">     703 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     704 </span>            : typename enable_if&lt;is_integral&lt;_A1&gt;::value, double&gt;::type
+<span class="lineNum">     705 </span><span class="lineCov">          1 : asin(_A1 __lcpp_x) _NOEXCEPT {return asin((double)__lcpp_x);}</span>
+<span class="lineNum">     706 </span>            : 
+<span class="lineNum">     707 </span>            : // atan
+<span class="lineNum">     708 </span>            : 
+<span class="lineNum">     709 </span>            : using ::atan;
+<span class="lineNum">     710 </span>            : using ::atanf;
+<span class="lineNum">     711 </span>            : 
+<span class="lineNum">     712 </span>            : #if !(defined(_LIBCPP_MSVCRT) || defined(_AIX))
+<span class="lineNum">     713 </span>            : inline _LIBCPP_INLINE_VISIBILITY float       atan(float __lcpp_x) _NOEXCEPT       {return atanf(__lcpp_x);}
+<span class="lineNum">     714 </span>            : inline _LIBCPP_INLINE_VISIBILITY long double atan(long double __lcpp_x) _NOEXCEPT {return atanl(__lcpp_x);}
+<span class="lineNum">     715 </span>            : #endif
+<span class="lineNum">     716 </span>            : 
+<span class="lineNum">     717 </span>            : template &lt;class _A1&gt;
+<a name="718"><span class="lineNum">     718 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     719 </span>            : typename enable_if&lt;is_integral&lt;_A1&gt;::value, double&gt;::type
+<span class="lineNum">     720 </span><span class="lineCov">          1 : atan(_A1 __lcpp_x) _NOEXCEPT {return atan((double)__lcpp_x);}</span>
+<span class="lineNum">     721 </span>            : 
+<span class="lineNum">     722 </span>            : // atan2
+<span class="lineNum">     723 </span>            : 
+<span class="lineNum">     724 </span>            : using ::atan2;
+<span class="lineNum">     725 </span>            : using ::atan2f;
+<a name="726"><span class="lineNum">     726 </span>            : </a>
+<a name="727"><span class="lineNum">     727 </span>            : #if !(defined(_LIBCPP_MSVCRT) || defined(_AIX))</a>
+<span class="lineNum">     728 </span><span class="lineCov">         18 : inline _LIBCPP_INLINE_VISIBILITY float       atan2(float __lcpp_y, float __lcpp_x) _NOEXCEPT             {return atan2f(__lcpp_y, __lcpp_x);}</span>
+<span class="lineNum">     729 </span><span class="lineCov">         54 : inline _LIBCPP_INLINE_VISIBILITY long double atan2(long double __lcpp_y, long double __lcpp_x) _NOEXCEPT {return atan2l(__lcpp_y, __lcpp_x);}</span>
+<span class="lineNum">     730 </span>            : #endif
+<span class="lineNum">     731 </span>            : 
+<span class="lineNum">     732 </span>            : template &lt;class _A1, class _A2&gt;
+<span class="lineNum">     733 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     734 </span>            : typename __lazy_enable_if
+<span class="lineNum">     735 </span>            : &lt;
+<span class="lineNum">     736 </span>            :     is_arithmetic&lt;_A1&gt;::value &amp;&amp;
+<span class="lineNum">     737 </span>            :     is_arithmetic&lt;_A2&gt;::value,
+<a name="738"><span class="lineNum">     738 </span>            :     __promote&lt;_A1, _A2&gt;</a>
+<span class="lineNum">     739 </span>            : &gt;::type
+<span class="lineNum">     740 </span>            : atan2(_A1 __lcpp_y, _A2 __lcpp_x) _NOEXCEPT
+<span class="lineNum">     741 </span>            : {
+<span class="lineNum">     742 </span>            :     typedef typename __promote&lt;_A1, _A2&gt;::type __result_type;
+<span class="lineNum">     743 </span>            :     static_assert((!(is_same&lt;_A1, __result_type&gt;::value &amp;&amp;
+<span class="lineNum">     744 </span>            :                       is_same&lt;_A2, __result_type&gt;::value)), &quot;&quot;);
+<span class="lineNum">     745 </span><span class="lineCov">         10 :     return atan2((__result_type)__lcpp_y, (__result_type)__lcpp_x);</span>
+<span class="lineNum">     746 </span>            : }
+<span class="lineNum">     747 </span>            : 
+<span class="lineNum">     748 </span>            : // ceil
+<span class="lineNum">     749 </span>            : 
+<span class="lineNum">     750 </span>            : using ::ceil;
+<span class="lineNum">     751 </span>            : using ::ceilf;
+<a name="752"><span class="lineNum">     752 </span>            : </a>
+<span class="lineNum">     753 </span>            : #if !(defined(_LIBCPP_MSVCRT) || defined(_AIX))
+<span class="lineNum">     754 </span><span class="lineCov">       1141 : inline _LIBCPP_INLINE_VISIBILITY float       ceil(float __lcpp_x) _NOEXCEPT       {return ceilf(__lcpp_x);}</span>
+<span class="lineNum">     755 </span>            : inline _LIBCPP_INLINE_VISIBILITY long double ceil(long double __lcpp_x) _NOEXCEPT {return ceill(__lcpp_x);}
+<span class="lineNum">     756 </span>            : #endif
+<span class="lineNum">     757 </span>            : 
+<span class="lineNum">     758 </span>            : template &lt;class _A1&gt;
+<a name="759"><span class="lineNum">     759 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     760 </span>            : typename enable_if&lt;is_integral&lt;_A1&gt;::value, double&gt;::type
+<span class="lineNum">     761 </span><span class="lineCov">          1 : ceil(_A1 __lcpp_x) _NOEXCEPT {return ceil((double)__lcpp_x);}</span>
+<span class="lineNum">     762 </span>            : 
+<span class="lineNum">     763 </span>            : // cos
+<span class="lineNum">     764 </span>            : 
+<span class="lineNum">     765 </span>            : using ::cos;
+<span class="lineNum">     766 </span>            : using ::cosf;
+<a name="767"><span class="lineNum">     767 </span>            : </a>
+<a name="768"><span class="lineNum">     768 </span>            : #if !(defined(_LIBCPP_MSVCRT) || defined(_AIX))</a>
+<span class="lineNum">     769 </span><span class="lineCov">         20 : inline _LIBCPP_INLINE_VISIBILITY float       cos(float __lcpp_x) _NOEXCEPT       {return cosf(__lcpp_x);}</span>
+<span class="lineNum">     770 </span><span class="lineCov">         56 : inline _LIBCPP_INLINE_VISIBILITY long double cos(long double __lcpp_x) _NOEXCEPT {return cosl(__lcpp_x);}</span>
+<span class="lineNum">     771 </span>            : #endif
+<span class="lineNum">     772 </span>            : 
+<span class="lineNum">     773 </span>            : template &lt;class _A1&gt;
+<a name="774"><span class="lineNum">     774 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     775 </span>            : typename enable_if&lt;is_integral&lt;_A1&gt;::value, double&gt;::type
+<span class="lineNum">     776 </span><span class="lineCov">          1 : cos(_A1 __lcpp_x) _NOEXCEPT {return cos((double)__lcpp_x);}</span>
+<span class="lineNum">     777 </span>            : 
+<span class="lineNum">     778 </span>            : // cosh
+<span class="lineNum">     779 </span>            : 
+<span class="lineNum">     780 </span>            : using ::cosh;
+<span class="lineNum">     781 </span>            : using ::coshf;
+<a name="782"><span class="lineNum">     782 </span>            : </a>
+<a name="783"><span class="lineNum">     783 </span>            : #if !(defined(_LIBCPP_MSVCRT) || defined(_AIX))</a>
+<span class="lineNum">     784 </span><span class="lineCov">          5 : inline _LIBCPP_INLINE_VISIBILITY float       cosh(float __lcpp_x) _NOEXCEPT       {return coshf(__lcpp_x);}</span>
+<span class="lineNum">     785 </span><span class="lineCov">          5 : inline _LIBCPP_INLINE_VISIBILITY long double cosh(long double __lcpp_x) _NOEXCEPT {return coshl(__lcpp_x);}</span>
+<span class="lineNum">     786 </span>            : #endif
+<span class="lineNum">     787 </span>            : 
+<span class="lineNum">     788 </span>            : template &lt;class _A1&gt;
+<a name="789"><span class="lineNum">     789 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     790 </span>            : typename enable_if&lt;is_integral&lt;_A1&gt;::value, double&gt;::type
+<span class="lineNum">     791 </span><span class="lineCov">          1 : cosh(_A1 __lcpp_x) _NOEXCEPT {return cosh((double)__lcpp_x);}</span>
+<span class="lineNum">     792 </span>            : 
+<span class="lineNum">     793 </span>            : #endif // __sun__
+<span class="lineNum">     794 </span>            : // exp
+<span class="lineNum">     795 </span>            : 
+<span class="lineNum">     796 </span>            : using ::exp;
+<span class="lineNum">     797 </span>            : using ::expf;
+<span class="lineNum">     798 </span>            : 
+<span class="lineNum">     799 </span>            : #ifndef __sun__
+<a name="800"><span class="lineNum">     800 </span>            : </a>
+<a name="801"><span class="lineNum">     801 </span>            : #if !(defined(_LIBCPP_MSVCRT) || defined(_AIX))</a>
+<span class="lineNum">     802 </span><span class="lineCov">          6 : inline _LIBCPP_INLINE_VISIBILITY float       exp(float __lcpp_x) _NOEXCEPT       {return expf(__lcpp_x);}</span>
+<span class="lineNum">     803 </span><span class="lineCov">         42 : inline _LIBCPP_INLINE_VISIBILITY long double exp(long double __lcpp_x) _NOEXCEPT {return expl(__lcpp_x);}</span>
+<span class="lineNum">     804 </span>            : #endif
+<span class="lineNum">     805 </span>            : 
+<span class="lineNum">     806 </span>            : 
+<span class="lineNum">     807 </span>            : template &lt;class _A1&gt;
+<a name="808"><span class="lineNum">     808 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     809 </span>            : typename enable_if&lt;is_integral&lt;_A1&gt;::value, double&gt;::type
+<span class="lineNum">     810 </span><span class="lineCov">          1 : exp(_A1 __lcpp_x) _NOEXCEPT {return exp((double)__lcpp_x);}</span>
+<span class="lineNum">     811 </span>            : 
+<span class="lineNum">     812 </span>            : // fabs
+<span class="lineNum">     813 </span>            : 
+<span class="lineNum">     814 </span>            : using ::fabs;
+<span class="lineNum">     815 </span>            : using ::fabsf;
+<a name="816"><span class="lineNum">     816 </span>            : </a>
+<a name="817"><span class="lineNum">     817 </span>            : #if !(defined(_LIBCPP_MSVCRT) || defined(_AIX))</a>
+<span class="lineNum">     818 </span><span class="lineCov">         16 : inline _LIBCPP_INLINE_VISIBILITY float       fabs(float __lcpp_x) _NOEXCEPT       {return fabsf(__lcpp_x);}</span>
+<span class="lineNum">     819 </span><span class="lineCov">         16 : inline _LIBCPP_INLINE_VISIBILITY long double fabs(long double __lcpp_x) _NOEXCEPT {return fabsl(__lcpp_x);}</span>
+<span class="lineNum">     820 </span>            : #endif
+<span class="lineNum">     821 </span>            : 
+<span class="lineNum">     822 </span>            : template &lt;class _A1&gt;
+<a name="823"><span class="lineNum">     823 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     824 </span>            : typename enable_if&lt;is_integral&lt;_A1&gt;::value, double&gt;::type
+<span class="lineNum">     825 </span><span class="lineCov">          1 : fabs(_A1 __lcpp_x) _NOEXCEPT {return fabs((double)__lcpp_x);}</span>
+<span class="lineNum">     826 </span>            : 
+<span class="lineNum">     827 </span>            : // floor
+<span class="lineNum">     828 </span>            : 
+<span class="lineNum">     829 </span>            : using ::floor;
+<span class="lineNum">     830 </span>            : using ::floorf;
+<span class="lineNum">     831 </span>            : 
+<span class="lineNum">     832 </span>            : #if !(defined(_LIBCPP_MSVCRT) || defined(_AIX))
+<span class="lineNum">     833 </span>            : inline _LIBCPP_INLINE_VISIBILITY float       floor(float __lcpp_x) _NOEXCEPT       {return floorf(__lcpp_x);}
+<span class="lineNum">     834 </span>            : inline _LIBCPP_INLINE_VISIBILITY long double floor(long double __lcpp_x) _NOEXCEPT {return floorl(__lcpp_x);}
+<span class="lineNum">     835 </span>            : #endif
+<span class="lineNum">     836 </span>            : 
+<span class="lineNum">     837 </span>            : template &lt;class _A1&gt;
+<a name="838"><span class="lineNum">     838 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     839 </span>            : typename enable_if&lt;is_integral&lt;_A1&gt;::value, double&gt;::type
+<span class="lineNum">     840 </span><span class="lineCov">          1 : floor(_A1 __lcpp_x) _NOEXCEPT {return floor((double)__lcpp_x);}</span>
+<span class="lineNum">     841 </span>            : 
+<span class="lineNum">     842 </span>            : // fmod
+<span class="lineNum">     843 </span>            : 
+<span class="lineNum">     844 </span>            : #endif //__sun__
+<span class="lineNum">     845 </span>            : using ::fmod;
+<span class="lineNum">     846 </span>            : using ::fmodf;
+<span class="lineNum">     847 </span>            : #ifndef __sun__
+<span class="lineNum">     848 </span>            : 
+<span class="lineNum">     849 </span>            : #if !(defined(_LIBCPP_MSVCRT) || defined(_AIX))
+<span class="lineNum">     850 </span>            : inline _LIBCPP_INLINE_VISIBILITY float       fmod(float __lcpp_x, float __lcpp_y) _NOEXCEPT             {return fmodf(__lcpp_x, __lcpp_y);}
+<span class="lineNum">     851 </span>            : inline _LIBCPP_INLINE_VISIBILITY long double fmod(long double __lcpp_x, long double __lcpp_y) _NOEXCEPT {return fmodl(__lcpp_x, __lcpp_y);}
+<span class="lineNum">     852 </span>            : #endif
+<span class="lineNum">     853 </span>            : 
+<span class="lineNum">     854 </span>            : template &lt;class _A1, class _A2&gt;
+<span class="lineNum">     855 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     856 </span>            : typename __lazy_enable_if
+<span class="lineNum">     857 </span>            : &lt;
+<span class="lineNum">     858 </span>            :     is_arithmetic&lt;_A1&gt;::value &amp;&amp;
+<span class="lineNum">     859 </span>            :     is_arithmetic&lt;_A2&gt;::value,
+<a name="860"><span class="lineNum">     860 </span>            :     __promote&lt;_A1, _A2&gt;</a>
+<span class="lineNum">     861 </span>            : &gt;::type
+<span class="lineNum">     862 </span>            : fmod(_A1 __lcpp_x, _A2 __lcpp_y) _NOEXCEPT
+<span class="lineNum">     863 </span>            : {
+<span class="lineNum">     864 </span>            :     typedef typename __promote&lt;_A1, _A2&gt;::type __result_type;
+<span class="lineNum">     865 </span>            :     static_assert((!(is_same&lt;_A1, __result_type&gt;::value &amp;&amp;
+<span class="lineNum">     866 </span>            :                       is_same&lt;_A2, __result_type&gt;::value)), &quot;&quot;);
+<span class="lineNum">     867 </span><span class="lineCov">          1 :     return fmod((__result_type)__lcpp_x, (__result_type)__lcpp_y);</span>
+<span class="lineNum">     868 </span>            : }
+<span class="lineNum">     869 </span>            : 
+<span class="lineNum">     870 </span>            : 
+<span class="lineNum">     871 </span>            : // frexp
+<span class="lineNum">     872 </span>            : 
+<span class="lineNum">     873 </span>            : using ::frexp;
+<span class="lineNum">     874 </span>            : using ::frexpf;
+<span class="lineNum">     875 </span>            : 
+<span class="lineNum">     876 </span>            : #if !(defined(_LIBCPP_MSVCRT) || defined(_AIX))
+<span class="lineNum">     877 </span>            : inline _LIBCPP_INLINE_VISIBILITY float       frexp(float __lcpp_x, int* __lcpp_e) _NOEXCEPT       {return frexpf(__lcpp_x, __lcpp_e);}
+<span class="lineNum">     878 </span>            : inline _LIBCPP_INLINE_VISIBILITY long double frexp(long double __lcpp_x, int* __lcpp_e) _NOEXCEPT {return frexpl(__lcpp_x, __lcpp_e);}
+<span class="lineNum">     879 </span>            : #endif
+<span class="lineNum">     880 </span>            : 
+<span class="lineNum">     881 </span>            : template &lt;class _A1&gt;
+<a name="882"><span class="lineNum">     882 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     883 </span>            : typename enable_if&lt;is_integral&lt;_A1&gt;::value, double&gt;::type
+<span class="lineNum">     884 </span><span class="lineCov">          1 : frexp(_A1 __lcpp_x, int* __lcpp_e) _NOEXCEPT {return frexp((double)__lcpp_x, __lcpp_e);}</span>
+<span class="lineNum">     885 </span>            : 
+<span class="lineNum">     886 </span>            : // ldexp
+<span class="lineNum">     887 </span>            : 
+<span class="lineNum">     888 </span>            : using ::ldexp;
+<span class="lineNum">     889 </span>            : using ::ldexpf;
+<a name="890"><span class="lineNum">     890 </span>            : </a>
+<a name="891"><span class="lineNum">     891 </span>            : #if !(defined(_LIBCPP_MSVCRT) || defined(_AIX))</a>
+<span class="lineNum">     892 </span><span class="lineCov">          2 : inline _LIBCPP_INLINE_VISIBILITY float       ldexp(float __lcpp_x, int __lcpp_e) _NOEXCEPT       {return ldexpf(__lcpp_x, __lcpp_e);}</span>
+<span class="lineNum">     893 </span><span class="lineCov">          2 : inline _LIBCPP_INLINE_VISIBILITY long double ldexp(long double __lcpp_x, int __lcpp_e) _NOEXCEPT {return ldexpl(__lcpp_x, __lcpp_e);}</span>
+<span class="lineNum">     894 </span>            : #endif
+<span class="lineNum">     895 </span>            : 
+<span class="lineNum">     896 </span>            : template &lt;class _A1&gt;
+<a name="897"><span class="lineNum">     897 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     898 </span>            : typename enable_if&lt;is_integral&lt;_A1&gt;::value, double&gt;::type
+<span class="lineNum">     899 </span><span class="lineCov">          1 : ldexp(_A1 __lcpp_x, int __lcpp_e) _NOEXCEPT {return ldexp((double)__lcpp_x, __lcpp_e);}</span>
+<span class="lineNum">     900 </span>            : 
+<span class="lineNum">     901 </span>            : // log
+<span class="lineNum">     902 </span>            : 
+<span class="lineNum">     903 </span>            : #endif // __sun__
+<span class="lineNum">     904 </span>            : using ::log;
+<span class="lineNum">     905 </span>            : using ::logf;
+<span class="lineNum">     906 </span>            : #ifndef __sun__
+<a name="907"><span class="lineNum">     907 </span>            : </a>
+<a name="908"><span class="lineNum">     908 </span>            : #if !(defined(_LIBCPP_MSVCRT) || defined(_AIX))</a>
+<span class="lineNum">     909 </span><span class="lineCov">         12 : inline _LIBCPP_INLINE_VISIBILITY float       log(float __lcpp_x) _NOEXCEPT       {return logf(__lcpp_x);}</span>
+<span class="lineNum">     910 </span><span class="lineCov">         48 : inline _LIBCPP_INLINE_VISIBILITY long double log(long double __lcpp_x) _NOEXCEPT {return logl(__lcpp_x);}</span>
+<span class="lineNum">     911 </span>            : #endif
+<span class="lineNum">     912 </span>            : 
+<span class="lineNum">     913 </span>            : template &lt;class _A1&gt;
+<a name="914"><span class="lineNum">     914 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     915 </span>            : typename enable_if&lt;is_integral&lt;_A1&gt;::value, double&gt;::type
+<span class="lineNum">     916 </span><span class="lineCov">        138 : log(_A1 __lcpp_x) _NOEXCEPT {return log((double)__lcpp_x);}</span>
+<span class="lineNum">     917 </span>            : 
+<span class="lineNum">     918 </span>            : 
+<span class="lineNum">     919 </span>            : // log10
+<span class="lineNum">     920 </span>            : 
+<span class="lineNum">     921 </span>            : using ::log10;
+<span class="lineNum">     922 </span>            : using ::log10f;
+<span class="lineNum">     923 </span>            : 
+<span class="lineNum">     924 </span>            : #if !(defined(_LIBCPP_MSVCRT) || defined(_AIX))
+<span class="lineNum">     925 </span>            : inline _LIBCPP_INLINE_VISIBILITY float       log10(float __lcpp_x) _NOEXCEPT       {return log10f(__lcpp_x);}
+<span class="lineNum">     926 </span>            : inline _LIBCPP_INLINE_VISIBILITY long double log10(long double __lcpp_x) _NOEXCEPT {return log10l(__lcpp_x);}
+<span class="lineNum">     927 </span>            : #endif
+<span class="lineNum">     928 </span>            : 
+<span class="lineNum">     929 </span>            : template &lt;class _A1&gt;
+<a name="930"><span class="lineNum">     930 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     931 </span>            : typename enable_if&lt;is_integral&lt;_A1&gt;::value, double&gt;::type
+<span class="lineNum">     932 </span><span class="lineCov">          1 : log10(_A1 __lcpp_x) _NOEXCEPT {return log10((double)__lcpp_x);}</span>
+<span class="lineNum">     933 </span>            : 
+<span class="lineNum">     934 </span>            : // modf
+<span class="lineNum">     935 </span>            : 
+<span class="lineNum">     936 </span>            : using ::modf;
+<span class="lineNum">     937 </span>            : using ::modff;
+<span class="lineNum">     938 </span>            : 
+<span class="lineNum">     939 </span>            : #if !(defined(_LIBCPP_MSVCRT) || defined(_AIX))
+<span class="lineNum">     940 </span>            : inline _LIBCPP_INLINE_VISIBILITY float       modf(float __lcpp_x, float* __lcpp_y) _NOEXCEPT             {return modff(__lcpp_x, __lcpp_y);}
+<span class="lineNum">     941 </span>            : inline _LIBCPP_INLINE_VISIBILITY long double modf(long double __lcpp_x, long double* __lcpp_y) _NOEXCEPT {return modfl(__lcpp_x, __lcpp_y);}
+<span class="lineNum">     942 </span>            : #endif
+<span class="lineNum">     943 </span>            : 
+<span class="lineNum">     944 </span>            : // pow
+<span class="lineNum">     945 </span>            : 
+<span class="lineNum">     946 </span>            : #endif // __sun__ 
+<span class="lineNum">     947 </span>            : using ::pow;
+<span class="lineNum">     948 </span>            : using ::powf;
+<span class="lineNum">     949 </span>            : 
+<span class="lineNum">     950 </span>            : #ifndef __sun__
+<a name="951"><span class="lineNum">     951 </span>            : </a>
+<span class="lineNum">     952 </span>            : #if !(defined(_LIBCPP_MSVCRT) || defined(_AIX))
+<span class="lineNum">     953 </span><span class="lineCov">          2 : inline _LIBCPP_INLINE_VISIBILITY float       pow(float __lcpp_x, float __lcpp_y) _NOEXCEPT             {return powf(__lcpp_x, __lcpp_y);}</span>
+<span class="lineNum">     954 </span>            : inline _LIBCPP_INLINE_VISIBILITY long double pow(long double __lcpp_x, long double __lcpp_y) _NOEXCEPT {return powl(__lcpp_x, __lcpp_y);}
+<span class="lineNum">     955 </span>            : #endif
+<span class="lineNum">     956 </span>            : 
+<span class="lineNum">     957 </span>            : template &lt;class _A1, class _A2&gt;
+<span class="lineNum">     958 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     959 </span>            : typename __lazy_enable_if
+<span class="lineNum">     960 </span>            : &lt;
+<span class="lineNum">     961 </span>            :     is_arithmetic&lt;_A1&gt;::value &amp;&amp;
+<span class="lineNum">     962 </span>            :     is_arithmetic&lt;_A2&gt;::value,
+<a name="963"><span class="lineNum">     963 </span>            :     __promote&lt;_A1, _A2&gt;</a>
+<span class="lineNum">     964 </span>            : &gt;::type
+<span class="lineNum">     965 </span>            : pow(_A1 __lcpp_x, _A2 __lcpp_y) _NOEXCEPT
+<span class="lineNum">     966 </span>            : {
+<span class="lineNum">     967 </span>            :     typedef typename __promote&lt;_A1, _A2&gt;::type __result_type;
+<span class="lineNum">     968 </span>            :     static_assert((!(is_same&lt;_A1, __result_type&gt;::value &amp;&amp;
+<span class="lineNum">     969 </span>            :                       is_same&lt;_A2, __result_type&gt;::value)), &quot;&quot;);
+<span class="lineNum">     970 </span><span class="lineCov">    5000003 :     return pow((__result_type)__lcpp_x, (__result_type)__lcpp_y);</span>
+<span class="lineNum">     971 </span>            : }
+<span class="lineNum">     972 </span>            : 
+<span class="lineNum">     973 </span>            : // sin
+<span class="lineNum">     974 </span>            : 
+<span class="lineNum">     975 </span>            : using ::sin;
+<span class="lineNum">     976 </span>            : using ::sinf;
+<a name="977"><span class="lineNum">     977 </span>            : </a>
+<a name="978"><span class="lineNum">     978 </span>            : #if !(defined(_LIBCPP_MSVCRT) || defined(_AIX))</a>
+<span class="lineNum">     979 </span><span class="lineCov">         19 : inline _LIBCPP_INLINE_VISIBILITY float       sin(float __lcpp_x) _NOEXCEPT       {return sinf(__lcpp_x);}</span>
+<span class="lineNum">     980 </span><span class="lineCov">         55 : inline _LIBCPP_INLINE_VISIBILITY long double sin(long double __lcpp_x) _NOEXCEPT {return sinl(__lcpp_x);}</span>
+<span class="lineNum">     981 </span>            : #endif
+<span class="lineNum">     982 </span>            : 
+<span class="lineNum">     983 </span>            : template &lt;class _A1&gt;
+<a name="984"><span class="lineNum">     984 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     985 </span>            : typename enable_if&lt;is_integral&lt;_A1&gt;::value, double&gt;::type
+<span class="lineNum">     986 </span><span class="lineCov">          2 : sin(_A1 __lcpp_x) _NOEXCEPT {return sin((double)__lcpp_x);}</span>
+<span class="lineNum">     987 </span>            : 
+<span class="lineNum">     988 </span>            : // sinh
+<span class="lineNum">     989 </span>            : 
+<span class="lineNum">     990 </span>            : using ::sinh;
+<span class="lineNum">     991 </span>            : using ::sinhf;
+<a name="992"><span class="lineNum">     992 </span>            : </a>
+<a name="993"><span class="lineNum">     993 </span>            : #if !(defined(_LIBCPP_MSVCRT) || defined(_AIX))</a>
+<span class="lineNum">     994 </span><span class="lineCov">          5 : inline _LIBCPP_INLINE_VISIBILITY float       sinh(float __lcpp_x) _NOEXCEPT       {return sinhf(__lcpp_x);}</span>
+<span class="lineNum">     995 </span><span class="lineCov">          5 : inline _LIBCPP_INLINE_VISIBILITY long double sinh(long double __lcpp_x) _NOEXCEPT {return sinhl(__lcpp_x);}</span>
+<span class="lineNum">     996 </span>            : #endif
+<span class="lineNum">     997 </span>            : 
+<span class="lineNum">     998 </span>            : template &lt;class _A1&gt;
+<a name="999"><span class="lineNum">     999 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">    1000 </span>            : typename enable_if&lt;is_integral&lt;_A1&gt;::value, double&gt;::type
+<span class="lineNum">    1001 </span><span class="lineCov">          1 : sinh(_A1 __lcpp_x) _NOEXCEPT {return sinh((double)__lcpp_x);}</span>
+<span class="lineNum">    1002 </span>            : 
+<span class="lineNum">    1003 </span>            : // sqrt
+<span class="lineNum">    1004 </span>            : 
+<span class="lineNum">    1005 </span>            : #endif // __sun__
+<span class="lineNum">    1006 </span>            : using ::sqrt;
+<span class="lineNum">    1007 </span>            : using ::sqrtf;
+<span class="lineNum">    1008 </span>            : 
+<a name="1009"><span class="lineNum">    1009 </span>            : </a>
+<a name="1010"><span class="lineNum">    1010 </span>            : #if !(defined(_LIBCPP_MSVCRT) || defined(__sun__) || defined(_AIX))</a>
+<span class="lineNum">    1011 </span><span class="lineCov">          3 : inline _LIBCPP_INLINE_VISIBILITY float       sqrt(float __lcpp_x) _NOEXCEPT       {return sqrtf(__lcpp_x);}</span>
+<span class="lineNum">    1012 </span><span class="lineCov">          3 : inline _LIBCPP_INLINE_VISIBILITY long double sqrt(long double __lcpp_x) _NOEXCEPT {return sqrtl(__lcpp_x);}</span>
+<span class="lineNum">    1013 </span>            : #endif
+<span class="lineNum">    1014 </span>            : 
+<span class="lineNum">    1015 </span>            : template &lt;class _A1&gt;
+<a name="1016"><span class="lineNum">    1016 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">    1017 </span>            : typename enable_if&lt;is_integral&lt;_A1&gt;::value, double&gt;::type
+<span class="lineNum">    1018 </span><span class="lineCov">     331899 : sqrt(_A1 __lcpp_x) _NOEXCEPT {return sqrt((double)__lcpp_x);}</span>
+<span class="lineNum">    1019 </span>            : 
+<span class="lineNum">    1020 </span>            : // tan
+<span class="lineNum">    1021 </span>            : 
+<span class="lineNum">    1022 </span>            : using ::tan;
+<span class="lineNum">    1023 </span>            : using ::tanf;
+<span class="lineNum">    1024 </span>            : #ifndef __sun__
+<span class="lineNum">    1025 </span>            : 
+<span class="lineNum">    1026 </span>            : #if !(defined(_LIBCPP_MSVCRT) || defined(_AIX))
+<span class="lineNum">    1027 </span>            : inline _LIBCPP_INLINE_VISIBILITY float       tan(float __lcpp_x) _NOEXCEPT       {return tanf(__lcpp_x);}
+<span class="lineNum">    1028 </span>            : inline _LIBCPP_INLINE_VISIBILITY long double tan(long double __lcpp_x) _NOEXCEPT {return tanl(__lcpp_x);}
+<span class="lineNum">    1029 </span>            : #endif
+<span class="lineNum">    1030 </span>            : 
+<span class="lineNum">    1031 </span>            : template &lt;class _A1&gt;
+<a name="1032"><span class="lineNum">    1032 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">    1033 </span>            : typename enable_if&lt;is_integral&lt;_A1&gt;::value, double&gt;::type
+<span class="lineNum">    1034 </span><span class="lineCov">          1 : tan(_A1 __lcpp_x) _NOEXCEPT {return tan((double)__lcpp_x);}</span>
+<span class="lineNum">    1035 </span>            : 
+<span class="lineNum">    1036 </span>            : // tanh
+<span class="lineNum">    1037 </span>            : 
+<span class="lineNum">    1038 </span>            : using ::tanh;
+<span class="lineNum">    1039 </span>            : using ::tanhf;
+<span class="lineNum">    1040 </span>            : 
+<span class="lineNum">    1041 </span>            : #if !(defined(_LIBCPP_MSVCRT) || defined(_AIX))
+<span class="lineNum">    1042 </span>            : inline _LIBCPP_INLINE_VISIBILITY float       tanh(float __lcpp_x) _NOEXCEPT       {return tanhf(__lcpp_x);}
+<span class="lineNum">    1043 </span>            : inline _LIBCPP_INLINE_VISIBILITY long double tanh(long double __lcpp_x) _NOEXCEPT {return tanhl(__lcpp_x);}
+<span class="lineNum">    1044 </span>            : #endif
+<span class="lineNum">    1045 </span>            : 
+<span class="lineNum">    1046 </span>            : template &lt;class _A1&gt;
+<a name="1047"><span class="lineNum">    1047 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">    1048 </span>            : typename enable_if&lt;is_integral&lt;_A1&gt;::value, double&gt;::type
+<span class="lineNum">    1049 </span><span class="lineCov">          1 : tanh(_A1 __lcpp_x) _NOEXCEPT {return tanh((double)__lcpp_x);}</span>
+<span class="lineNum">    1050 </span>            : 
+<span class="lineNum">    1051 </span>            : // acosh
+<span class="lineNum">    1052 </span>            : 
+<span class="lineNum">    1053 </span>            : #ifndef _LIBCPP_MSVCRT
+<span class="lineNum">    1054 </span>            : using ::acosh;
+<span class="lineNum">    1055 </span>            : using ::acoshf;
+<span class="lineNum">    1056 </span>            : 
+<span class="lineNum">    1057 </span>            : inline _LIBCPP_INLINE_VISIBILITY float       acosh(float __lcpp_x) _NOEXCEPT       {return acoshf(__lcpp_x);}
+<span class="lineNum">    1058 </span>            : inline _LIBCPP_INLINE_VISIBILITY long double acosh(long double __lcpp_x) _NOEXCEPT {return acoshl(__lcpp_x);}
+<span class="lineNum">    1059 </span>            : 
+<span class="lineNum">    1060 </span>            : template &lt;class _A1&gt;
+<a name="1061"><span class="lineNum">    1061 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">    1062 </span>            : typename enable_if&lt;is_integral&lt;_A1&gt;::value, double&gt;::type
+<span class="lineNum">    1063 </span><span class="lineCov">          1 : acosh(_A1 __lcpp_x) _NOEXCEPT {return acosh((double)__lcpp_x);}</span>
+<span class="lineNum">    1064 </span>            : #endif
+<span class="lineNum">    1065 </span>            : 
+<span class="lineNum">    1066 </span>            : // asinh
+<span class="lineNum">    1067 </span>            : 
+<span class="lineNum">    1068 </span>            : #ifndef _LIBCPP_MSVCRT
+<span class="lineNum">    1069 </span>            : using ::asinh;
+<span class="lineNum">    1070 </span>            : using ::asinhf;
+<span class="lineNum">    1071 </span>            : 
+<span class="lineNum">    1072 </span>            : inline _LIBCPP_INLINE_VISIBILITY float       asinh(float __lcpp_x) _NOEXCEPT       {return asinhf(__lcpp_x);}
+<span class="lineNum">    1073 </span>            : inline _LIBCPP_INLINE_VISIBILITY long double asinh(long double __lcpp_x) _NOEXCEPT {return asinhl(__lcpp_x);}
+<span class="lineNum">    1074 </span>            : 
+<span class="lineNum">    1075 </span>            : template &lt;class _A1&gt;
+<a name="1076"><span class="lineNum">    1076 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">    1077 </span>            : typename enable_if&lt;is_integral&lt;_A1&gt;::value, double&gt;::type
+<span class="lineNum">    1078 </span><span class="lineCov">          1 : asinh(_A1 __lcpp_x) _NOEXCEPT {return asinh((double)__lcpp_x);}</span>
+<span class="lineNum">    1079 </span>            : #endif
+<span class="lineNum">    1080 </span>            : 
+<span class="lineNum">    1081 </span>            : // atanh
+<span class="lineNum">    1082 </span>            : 
+<span class="lineNum">    1083 </span>            : #ifndef _LIBCPP_MSVCRT
+<span class="lineNum">    1084 </span>            : using ::atanh;
+<span class="lineNum">    1085 </span>            : using ::atanhf;
+<span class="lineNum">    1086 </span>            : 
+<span class="lineNum">    1087 </span>            : inline _LIBCPP_INLINE_VISIBILITY float       atanh(float __lcpp_x) _NOEXCEPT       {return atanhf(__lcpp_x);}
+<span class="lineNum">    1088 </span>            : inline _LIBCPP_INLINE_VISIBILITY long double atanh(long double __lcpp_x) _NOEXCEPT {return atanhl(__lcpp_x);}
+<span class="lineNum">    1089 </span>            : 
+<span class="lineNum">    1090 </span>            : template &lt;class _A1&gt;
+<a name="1091"><span class="lineNum">    1091 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">    1092 </span>            : typename enable_if&lt;is_integral&lt;_A1&gt;::value, double&gt;::type
+<span class="lineNum">    1093 </span><span class="lineCov">          1 : atanh(_A1 __lcpp_x) _NOEXCEPT {return atanh((double)__lcpp_x);}</span>
+<span class="lineNum">    1094 </span>            : #endif
+<span class="lineNum">    1095 </span>            : 
+<span class="lineNum">    1096 </span>            : // cbrt
+<span class="lineNum">    1097 </span>            : 
+<span class="lineNum">    1098 </span>            : #ifndef _LIBCPP_MSVCRT
+<span class="lineNum">    1099 </span>            : using ::cbrt;
+<span class="lineNum">    1100 </span>            : using ::cbrtf;
+<span class="lineNum">    1101 </span>            : 
+<span class="lineNum">    1102 </span>            : inline _LIBCPP_INLINE_VISIBILITY float       cbrt(float __lcpp_x) _NOEXCEPT       {return cbrtf(__lcpp_x);}
+<span class="lineNum">    1103 </span>            : inline _LIBCPP_INLINE_VISIBILITY long double cbrt(long double __lcpp_x) _NOEXCEPT {return cbrtl(__lcpp_x);}
+<span class="lineNum">    1104 </span>            : 
+<span class="lineNum">    1105 </span>            : template &lt;class _A1&gt;
+<a name="1106"><span class="lineNum">    1106 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">    1107 </span>            : typename enable_if&lt;is_integral&lt;_A1&gt;::value, double&gt;::type
+<span class="lineNum">    1108 </span><span class="lineCov">          1 : cbrt(_A1 __lcpp_x) _NOEXCEPT {return cbrt((double)__lcpp_x);}</span>
+<span class="lineNum">    1109 </span>            : #endif
+<span class="lineNum">    1110 </span>            : 
+<span class="lineNum">    1111 </span>            : // copysign
+<span class="lineNum">    1112 </span>            : 
+<span class="lineNum">    1113 </span>            : using ::copysign;
+<span class="lineNum">    1114 </span>            : using ::copysignf;
+<a name="1115"><span class="lineNum">    1115 </span>            : </a>
+<span class="lineNum">    1116 </span>            : #if !defined(_VC_CRT_MAJOR_VERSION) || (_VC_CRT_MAJOR_VERSION &lt; 12)
+<span class="lineNum">    1117 </span>            : inline _LIBCPP_INLINE_VISIBILITY float copysign(float __lcpp_x,
+<span class="lineNum">    1118 </span>            :                                                 float __lcpp_y) _NOEXCEPT {
+<span class="lineNum">    1119 </span><span class="lineCov">          9 :   return copysignf(__lcpp_x, __lcpp_y);</span>
+<a name="1120"><span class="lineNum">    1120 </span>            : }</a>
+<span class="lineNum">    1121 </span>            : inline _LIBCPP_INLINE_VISIBILITY long double
+<span class="lineNum">    1122 </span>            : copysign(long double __lcpp_x, long double __lcpp_y) _NOEXCEPT {
+<span class="lineNum">    1123 </span><span class="lineCov">          9 :   return copysignl(__lcpp_x, __lcpp_y);</span>
+<span class="lineNum">    1124 </span>            : }
+<span class="lineNum">    1125 </span>            : #endif
+<span class="lineNum">    1126 </span>            : 
+<span class="lineNum">    1127 </span>            : template &lt;class _A1, class _A2&gt;
+<span class="lineNum">    1128 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1129 </span>            : typename __lazy_enable_if
+<span class="lineNum">    1130 </span>            : &lt;
+<span class="lineNum">    1131 </span>            :     is_arithmetic&lt;_A1&gt;::value &amp;&amp;
+<span class="lineNum">    1132 </span>            :     is_arithmetic&lt;_A2&gt;::value,
+<a name="1133"><span class="lineNum">    1133 </span>            :     __promote&lt;_A1, _A2&gt;</a>
+<span class="lineNum">    1134 </span>            : &gt;::type
+<span class="lineNum">    1135 </span>            : copysign(_A1 __lcpp_x, _A2 __lcpp_y) _NOEXCEPT
+<span class="lineNum">    1136 </span>            : {
+<span class="lineNum">    1137 </span>            :     typedef typename __promote&lt;_A1, _A2&gt;::type __result_type;
+<span class="lineNum">    1138 </span>            :     static_assert((!(is_same&lt;_A1, __result_type&gt;::value &amp;&amp;
+<span class="lineNum">    1139 </span>            :                       is_same&lt;_A2, __result_type&gt;::value)), &quot;&quot;);
+<span class="lineNum">    1140 </span><span class="lineCov">          1 :     return copysign((__result_type)__lcpp_x, (__result_type)__lcpp_y);</span>
+<span class="lineNum">    1141 </span>            : }
+<span class="lineNum">    1142 </span>            : 
+<span class="lineNum">    1143 </span>            : #ifndef _LIBCPP_MSVCRT
+<span class="lineNum">    1144 </span>            : 
+<span class="lineNum">    1145 </span>            : // erf
+<span class="lineNum">    1146 </span>            : 
+<span class="lineNum">    1147 </span>            : using ::erf;
+<span class="lineNum">    1148 </span>            : using ::erff;
+<span class="lineNum">    1149 </span>            : 
+<span class="lineNum">    1150 </span>            : inline _LIBCPP_INLINE_VISIBILITY float       erf(float __lcpp_x) _NOEXCEPT       {return erff(__lcpp_x);}
+<span class="lineNum">    1151 </span>            : inline _LIBCPP_INLINE_VISIBILITY long double erf(long double __lcpp_x) _NOEXCEPT {return erfl(__lcpp_x);}
+<span class="lineNum">    1152 </span>            : 
+<span class="lineNum">    1153 </span>            : template &lt;class _A1&gt;
+<a name="1154"><span class="lineNum">    1154 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">    1155 </span>            : typename enable_if&lt;is_integral&lt;_A1&gt;::value, double&gt;::type
+<span class="lineNum">    1156 </span><span class="lineCov">          1 : erf(_A1 __lcpp_x) _NOEXCEPT {return erf((double)__lcpp_x);}</span>
+<span class="lineNum">    1157 </span>            : 
+<span class="lineNum">    1158 </span>            : // erfc
+<span class="lineNum">    1159 </span>            : 
+<span class="lineNum">    1160 </span>            : using ::erfc;
+<span class="lineNum">    1161 </span>            : using ::erfcf;
+<span class="lineNum">    1162 </span>            : 
+<span class="lineNum">    1163 </span>            : inline _LIBCPP_INLINE_VISIBILITY float       erfc(float __lcpp_x) _NOEXCEPT       {return erfcf(__lcpp_x);}
+<span class="lineNum">    1164 </span>            : inline _LIBCPP_INLINE_VISIBILITY long double erfc(long double __lcpp_x) _NOEXCEPT {return erfcl(__lcpp_x);}
+<span class="lineNum">    1165 </span>            : 
+<span class="lineNum">    1166 </span>            : template &lt;class _A1&gt;
+<a name="1167"><span class="lineNum">    1167 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">    1168 </span>            : typename enable_if&lt;is_integral&lt;_A1&gt;::value, double&gt;::type
+<span class="lineNum">    1169 </span><span class="lineCov">          1 : erfc(_A1 __lcpp_x) _NOEXCEPT {return erfc((double)__lcpp_x);}</span>
+<span class="lineNum">    1170 </span>            : 
+<span class="lineNum">    1171 </span>            : // exp2
+<span class="lineNum">    1172 </span>            : 
+<span class="lineNum">    1173 </span>            : using ::exp2;
+<span class="lineNum">    1174 </span>            : using ::exp2f;
+<span class="lineNum">    1175 </span>            : 
+<span class="lineNum">    1176 </span>            : inline _LIBCPP_INLINE_VISIBILITY float       exp2(float __lcpp_x) _NOEXCEPT       {return exp2f(__lcpp_x);}
+<span class="lineNum">    1177 </span>            : inline _LIBCPP_INLINE_VISIBILITY long double exp2(long double __lcpp_x) _NOEXCEPT {return exp2l(__lcpp_x);}
+<span class="lineNum">    1178 </span>            : 
+<span class="lineNum">    1179 </span>            : template &lt;class _A1&gt;
+<a name="1180"><span class="lineNum">    1180 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">    1181 </span>            : typename enable_if&lt;is_integral&lt;_A1&gt;::value, double&gt;::type
+<span class="lineNum">    1182 </span><span class="lineCov">          1 : exp2(_A1 __lcpp_x) _NOEXCEPT {return exp2((double)__lcpp_x);}</span>
+<span class="lineNum">    1183 </span>            : 
+<span class="lineNum">    1184 </span>            : // expm1
+<span class="lineNum">    1185 </span>            : 
+<span class="lineNum">    1186 </span>            : using ::expm1;
+<span class="lineNum">    1187 </span>            : using ::expm1f;
+<span class="lineNum">    1188 </span>            : 
+<span class="lineNum">    1189 </span>            : inline _LIBCPP_INLINE_VISIBILITY float       expm1(float __lcpp_x) _NOEXCEPT       {return expm1f(__lcpp_x);}
+<span class="lineNum">    1190 </span>            : inline _LIBCPP_INLINE_VISIBILITY long double expm1(long double __lcpp_x) _NOEXCEPT {return expm1l(__lcpp_x);}
+<span class="lineNum">    1191 </span>            : 
+<span class="lineNum">    1192 </span>            : template &lt;class _A1&gt;
+<a name="1193"><span class="lineNum">    1193 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">    1194 </span>            : typename enable_if&lt;is_integral&lt;_A1&gt;::value, double&gt;::type
+<span class="lineNum">    1195 </span><span class="lineCov">          1 : expm1(_A1 __lcpp_x) _NOEXCEPT {return expm1((double)__lcpp_x);}</span>
+<span class="lineNum">    1196 </span>            : 
+<span class="lineNum">    1197 </span>            : // fdim
+<span class="lineNum">    1198 </span>            : 
+<span class="lineNum">    1199 </span>            : using ::fdim;
+<span class="lineNum">    1200 </span>            : using ::fdimf;
+<span class="lineNum">    1201 </span>            : 
+<span class="lineNum">    1202 </span>            : inline _LIBCPP_INLINE_VISIBILITY float       fdim(float __lcpp_x, float __lcpp_y) _NOEXCEPT             {return fdimf(__lcpp_x, __lcpp_y);}
+<span class="lineNum">    1203 </span>            : inline _LIBCPP_INLINE_VISIBILITY long double fdim(long double __lcpp_x, long double __lcpp_y) _NOEXCEPT {return fdiml(__lcpp_x, __lcpp_y);}
+<span class="lineNum">    1204 </span>            : 
+<span class="lineNum">    1205 </span>            : template &lt;class _A1, class _A2&gt;
+<span class="lineNum">    1206 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1207 </span>            : typename __lazy_enable_if
+<span class="lineNum">    1208 </span>            : &lt;
+<span class="lineNum">    1209 </span>            :     is_arithmetic&lt;_A1&gt;::value &amp;&amp;
+<span class="lineNum">    1210 </span>            :     is_arithmetic&lt;_A2&gt;::value,
+<a name="1211"><span class="lineNum">    1211 </span>            :     __promote&lt;_A1, _A2&gt;</a>
+<span class="lineNum">    1212 </span>            : &gt;::type
+<span class="lineNum">    1213 </span>            : fdim(_A1 __lcpp_x, _A2 __lcpp_y) _NOEXCEPT
+<span class="lineNum">    1214 </span>            : {
+<span class="lineNum">    1215 </span>            :     typedef typename __promote&lt;_A1, _A2&gt;::type __result_type;
+<span class="lineNum">    1216 </span>            :     static_assert((!(is_same&lt;_A1, __result_type&gt;::value &amp;&amp;
+<span class="lineNum">    1217 </span>            :                       is_same&lt;_A2, __result_type&gt;::value)), &quot;&quot;);
+<span class="lineNum">    1218 </span><span class="lineCov">          1 :     return fdim((__result_type)__lcpp_x, (__result_type)__lcpp_y);</span>
+<span class="lineNum">    1219 </span>            : }
+<span class="lineNum">    1220 </span>            : 
+<span class="lineNum">    1221 </span>            : // fma
+<span class="lineNum">    1222 </span>            : 
+<span class="lineNum">    1223 </span>            : using ::fmaf;
+<span class="lineNum">    1224 </span>            : using ::fma;
+<span class="lineNum">    1225 </span>            : 
+<span class="lineNum">    1226 </span>            : inline _LIBCPP_INLINE_VISIBILITY float       fma(float __lcpp_x, float __lcpp_y, float __lcpp_z) _NOEXCEPT                   {return fmaf(__lcpp_x, __lcpp_y, __lcpp_z);}
+<span class="lineNum">    1227 </span>            : inline _LIBCPP_INLINE_VISIBILITY long double fma(long double __lcpp_x, long double __lcpp_y, long double __lcpp_z) _NOEXCEPT {return fmal(__lcpp_x, __lcpp_y, __lcpp_z);}
+<span class="lineNum">    1228 </span>            : 
+<span class="lineNum">    1229 </span>            : template &lt;class _A1, class _A2, class _A3&gt;
+<span class="lineNum">    1230 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1231 </span>            : typename __lazy_enable_if
+<span class="lineNum">    1232 </span>            : &lt;
+<span class="lineNum">    1233 </span>            :     is_arithmetic&lt;_A1&gt;::value &amp;&amp;
+<span class="lineNum">    1234 </span>            :     is_arithmetic&lt;_A2&gt;::value &amp;&amp;
+<span class="lineNum">    1235 </span>            :     is_arithmetic&lt;_A3&gt;::value,
+<a name="1236"><span class="lineNum">    1236 </span>            :     __promote&lt;_A1, _A2, _A3&gt;</a>
+<span class="lineNum">    1237 </span>            : &gt;::type
+<span class="lineNum">    1238 </span>            : fma(_A1 __lcpp_x, _A2 __lcpp_y, _A3 __lcpp_z) _NOEXCEPT
+<span class="lineNum">    1239 </span>            : {
+<span class="lineNum">    1240 </span>            :     typedef typename __promote&lt;_A1, _A2, _A3&gt;::type __result_type;
+<span class="lineNum">    1241 </span>            :     static_assert((!(is_same&lt;_A1, __result_type&gt;::value &amp;&amp;
+<span class="lineNum">    1242 </span>            :                       is_same&lt;_A2, __result_type&gt;::value &amp;&amp;
+<span class="lineNum">    1243 </span>            :                       is_same&lt;_A3, __result_type&gt;::value)), &quot;&quot;);
+<span class="lineNum">    1244 </span><span class="lineCov">          1 :     return fma((__result_type)__lcpp_x, (__result_type)__lcpp_y, (__result_type)__lcpp_z);</span>
+<span class="lineNum">    1245 </span>            : }
+<span class="lineNum">    1246 </span>            : 
+<span class="lineNum">    1247 </span>            : // fmax
+<span class="lineNum">    1248 </span>            : 
+<span class="lineNum">    1249 </span>            : using ::fmax;
+<a name="1250"><span class="lineNum">    1250 </span>            : using ::fmaxf;</a>
+<a name="1251"><span class="lineNum">    1251 </span>            : </a>
+<span class="lineNum">    1252 </span><span class="lineCov">          8 : inline _LIBCPP_INLINE_VISIBILITY float       fmax(float __lcpp_x, float __lcpp_y) _NOEXCEPT             {return fmaxf(__lcpp_x, __lcpp_y);}</span>
+<span class="lineNum">    1253 </span><span class="lineCov">          8 : inline _LIBCPP_INLINE_VISIBILITY long double fmax(long double __lcpp_x, long double __lcpp_y) _NOEXCEPT {return fmaxl(__lcpp_x, __lcpp_y);}</span>
+<span class="lineNum">    1254 </span>            : 
+<span class="lineNum">    1255 </span>            : template &lt;class _A1, class _A2&gt;
+<span class="lineNum">    1256 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1257 </span>            : typename __lazy_enable_if
+<span class="lineNum">    1258 </span>            : &lt;
+<span class="lineNum">    1259 </span>            :     is_arithmetic&lt;_A1&gt;::value &amp;&amp;
+<span class="lineNum">    1260 </span>            :     is_arithmetic&lt;_A2&gt;::value,
+<a name="1261"><span class="lineNum">    1261 </span>            :     __promote&lt;_A1, _A2&gt;</a>
+<span class="lineNum">    1262 </span>            : &gt;::type
+<span class="lineNum">    1263 </span>            : fmax(_A1 __lcpp_x, _A2 __lcpp_y) _NOEXCEPT
+<span class="lineNum">    1264 </span>            : {
+<span class="lineNum">    1265 </span>            :     typedef typename __promote&lt;_A1, _A2&gt;::type __result_type;
+<span class="lineNum">    1266 </span>            :     static_assert((!(is_same&lt;_A1, __result_type&gt;::value &amp;&amp;
+<span class="lineNum">    1267 </span>            :                       is_same&lt;_A2, __result_type&gt;::value)), &quot;&quot;);
+<span class="lineNum">    1268 </span><span class="lineCov">          1 :     return fmax((__result_type)__lcpp_x, (__result_type)__lcpp_y);</span>
+<span class="lineNum">    1269 </span>            : }
+<span class="lineNum">    1270 </span>            : 
+<span class="lineNum">    1271 </span>            : // fmin
+<span class="lineNum">    1272 </span>            : 
+<span class="lineNum">    1273 </span>            : using ::fmin;
+<span class="lineNum">    1274 </span>            : using ::fminf;
+<span class="lineNum">    1275 </span>            : 
+<span class="lineNum">    1276 </span>            : inline _LIBCPP_INLINE_VISIBILITY float       fmin(float __lcpp_x, float __lcpp_y) _NOEXCEPT             {return fminf(__lcpp_x, __lcpp_y);}
+<span class="lineNum">    1277 </span>            : inline _LIBCPP_INLINE_VISIBILITY long double fmin(long double __lcpp_x, long double __lcpp_y) _NOEXCEPT {return fminl(__lcpp_x, __lcpp_y);}
+<span class="lineNum">    1278 </span>            : 
+<span class="lineNum">    1279 </span>            : template &lt;class _A1, class _A2&gt;
+<span class="lineNum">    1280 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1281 </span>            : typename __lazy_enable_if
+<span class="lineNum">    1282 </span>            : &lt;
+<span class="lineNum">    1283 </span>            :     is_arithmetic&lt;_A1&gt;::value &amp;&amp;
+<span class="lineNum">    1284 </span>            :     is_arithmetic&lt;_A2&gt;::value,
+<a name="1285"><span class="lineNum">    1285 </span>            :     __promote&lt;_A1, _A2&gt;</a>
+<span class="lineNum">    1286 </span>            : &gt;::type
+<span class="lineNum">    1287 </span>            : fmin(_A1 __lcpp_x, _A2 __lcpp_y) _NOEXCEPT
+<span class="lineNum">    1288 </span>            : {
+<span class="lineNum">    1289 </span>            :     typedef typename __promote&lt;_A1, _A2&gt;::type __result_type;
+<span class="lineNum">    1290 </span>            :     static_assert((!(is_same&lt;_A1, __result_type&gt;::value &amp;&amp;
+<span class="lineNum">    1291 </span>            :                       is_same&lt;_A2, __result_type&gt;::value)), &quot;&quot;);
+<span class="lineNum">    1292 </span><span class="lineCov">          1 :     return fmin((__result_type)__lcpp_x, (__result_type)__lcpp_y);</span>
+<span class="lineNum">    1293 </span>            : }
+<span class="lineNum">    1294 </span>            : 
+<span class="lineNum">    1295 </span>            : // hypot
+<span class="lineNum">    1296 </span>            : 
+<span class="lineNum">    1297 </span>            : using ::hypot;
+<a name="1298"><span class="lineNum">    1298 </span>            : using ::hypotf;</a>
+<a name="1299"><span class="lineNum">    1299 </span>            : </a>
+<span class="lineNum">    1300 </span><span class="lineCov">         15 : inline _LIBCPP_INLINE_VISIBILITY float       hypot(float __lcpp_x, float __lcpp_y) _NOEXCEPT             {return hypotf(__lcpp_x, __lcpp_y);}</span>
+<span class="lineNum">    1301 </span><span class="lineCov">         51 : inline _LIBCPP_INLINE_VISIBILITY long double hypot(long double __lcpp_x, long double __lcpp_y) _NOEXCEPT {return hypotl(__lcpp_x, __lcpp_y);}</span>
+<span class="lineNum">    1302 </span>            : 
+<span class="lineNum">    1303 </span>            : template &lt;class _A1, class _A2&gt;
+<span class="lineNum">    1304 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1305 </span>            : typename __lazy_enable_if
+<span class="lineNum">    1306 </span>            : &lt;
+<span class="lineNum">    1307 </span>            :     is_arithmetic&lt;_A1&gt;::value &amp;&amp;
+<span class="lineNum">    1308 </span>            :     is_arithmetic&lt;_A2&gt;::value,
+<a name="1309"><span class="lineNum">    1309 </span>            :     __promote&lt;_A1, _A2&gt;</a>
+<span class="lineNum">    1310 </span>            : &gt;::type
+<span class="lineNum">    1311 </span>            : hypot(_A1 __lcpp_x, _A2 __lcpp_y) _NOEXCEPT
+<span class="lineNum">    1312 </span>            : {
+<span class="lineNum">    1313 </span>            :     typedef typename __promote&lt;_A1, _A2&gt;::type __result_type;
+<span class="lineNum">    1314 </span>            :     static_assert((!(is_same&lt;_A1, __result_type&gt;::value &amp;&amp;
+<span class="lineNum">    1315 </span>            :                       is_same&lt;_A2, __result_type&gt;::value)), &quot;&quot;);
+<span class="lineNum">    1316 </span><span class="lineCov">          1 :     return hypot((__result_type)__lcpp_x, (__result_type)__lcpp_y);</span>
+<span class="lineNum">    1317 </span>            : }
+<span class="lineNum">    1318 </span>            : 
+<span class="lineNum">    1319 </span>            : // ilogb
+<span class="lineNum">    1320 </span>            : 
+<span class="lineNum">    1321 </span>            : using ::ilogb;
+<span class="lineNum">    1322 </span>            : using ::ilogbf;
+<span class="lineNum">    1323 </span>            : 
+<span class="lineNum">    1324 </span>            : inline _LIBCPP_INLINE_VISIBILITY int ilogb(float __lcpp_x) _NOEXCEPT       {return ilogbf(__lcpp_x);}
+<span class="lineNum">    1325 </span>            : inline _LIBCPP_INLINE_VISIBILITY int ilogb(long double __lcpp_x) _NOEXCEPT {return ilogbl(__lcpp_x);}
+<span class="lineNum">    1326 </span>            : 
+<span class="lineNum">    1327 </span>            : template &lt;class _A1&gt;
+<a name="1328"><span class="lineNum">    1328 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">    1329 </span>            : typename enable_if&lt;is_integral&lt;_A1&gt;::value, int&gt;::type
+<span class="lineNum">    1330 </span><span class="lineCov">          1 : ilogb(_A1 __lcpp_x) _NOEXCEPT {return ilogb((double)__lcpp_x);}</span>
+<span class="lineNum">    1331 </span>            : 
+<span class="lineNum">    1332 </span>            : // lgamma
+<span class="lineNum">    1333 </span>            : 
+<span class="lineNum">    1334 </span>            : using ::lgamma;
+<span class="lineNum">    1335 </span>            : using ::lgammaf;
+<span class="lineNum">    1336 </span>            : 
+<span class="lineNum">    1337 </span>            : inline _LIBCPP_INLINE_VISIBILITY float       lgamma(float __lcpp_x) _NOEXCEPT       {return lgammaf(__lcpp_x);}
+<span class="lineNum">    1338 </span>            : inline _LIBCPP_INLINE_VISIBILITY long double lgamma(long double __lcpp_x) _NOEXCEPT {return lgammal(__lcpp_x);}
+<span class="lineNum">    1339 </span>            : 
+<span class="lineNum">    1340 </span>            : 
+<span class="lineNum">    1341 </span>            : template &lt;class _A1&gt;
+<a name="1342"><span class="lineNum">    1342 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">    1343 </span>            : typename enable_if&lt;is_integral&lt;_A1&gt;::value, double&gt;::type
+<span class="lineNum">    1344 </span><span class="lineCov">          1 : lgamma(_A1 __lcpp_x) _NOEXCEPT {return lgamma((double)__lcpp_x);}</span>
+<span class="lineNum">    1345 </span>            : 
+<span class="lineNum">    1346 </span>            : 
+<span class="lineNum">    1347 </span>            : // llrint
+<span class="lineNum">    1348 </span>            : 
+<span class="lineNum">    1349 </span>            : using ::llrint;
+<span class="lineNum">    1350 </span>            : using ::llrintf;
+<span class="lineNum">    1351 </span>            : 
+<span class="lineNum">    1352 </span>            : inline _LIBCPP_INLINE_VISIBILITY long long llrint(float __lcpp_x) _NOEXCEPT       {return llrintf(__lcpp_x);}
+<span class="lineNum">    1353 </span>            : inline _LIBCPP_INLINE_VISIBILITY long long llrint(long double __lcpp_x) _NOEXCEPT {return llrintl(__lcpp_x);}
+<span class="lineNum">    1354 </span>            : 
+<span class="lineNum">    1355 </span>            : template &lt;class _A1&gt;
+<a name="1356"><span class="lineNum">    1356 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">    1357 </span>            : typename enable_if&lt;is_integral&lt;_A1&gt;::value, long long&gt;::type
+<span class="lineNum">    1358 </span><span class="lineCov">          1 : llrint(_A1 __lcpp_x) _NOEXCEPT {return llrint((double)__lcpp_x);}</span>
+<span class="lineNum">    1359 </span>            : 
+<span class="lineNum">    1360 </span>            : // llround
+<span class="lineNum">    1361 </span>            : 
+<span class="lineNum">    1362 </span>            : using ::llround;
+<span class="lineNum">    1363 </span>            : using ::llroundf;
+<span class="lineNum">    1364 </span>            : 
+<span class="lineNum">    1365 </span>            : inline _LIBCPP_INLINE_VISIBILITY long long llround(float __lcpp_x) _NOEXCEPT       {return llroundf(__lcpp_x);}
+<span class="lineNum">    1366 </span>            : inline _LIBCPP_INLINE_VISIBILITY long long llround(long double __lcpp_x) _NOEXCEPT {return llroundl(__lcpp_x);}
+<span class="lineNum">    1367 </span>            : 
+<span class="lineNum">    1368 </span>            : template &lt;class _A1&gt;
+<a name="1369"><span class="lineNum">    1369 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">    1370 </span>            : typename enable_if&lt;is_integral&lt;_A1&gt;::value, long long&gt;::type
+<span class="lineNum">    1371 </span><span class="lineCov">          1 : llround(_A1 __lcpp_x) _NOEXCEPT {return llround((double)__lcpp_x);}</span>
+<span class="lineNum">    1372 </span>            : 
+<span class="lineNum">    1373 </span>            : // log1p
+<span class="lineNum">    1374 </span>            : 
+<span class="lineNum">    1375 </span>            : using ::log1p;
+<span class="lineNum">    1376 </span>            : using ::log1pf;
+<span class="lineNum">    1377 </span>            : 
+<span class="lineNum">    1378 </span>            : inline _LIBCPP_INLINE_VISIBILITY float       log1p(float __lcpp_x) _NOEXCEPT       {return log1pf(__lcpp_x);}
+<span class="lineNum">    1379 </span>            : inline _LIBCPP_INLINE_VISIBILITY long double log1p(long double __lcpp_x) _NOEXCEPT {return log1pl(__lcpp_x);}
+<span class="lineNum">    1380 </span>            : 
+<span class="lineNum">    1381 </span>            : template &lt;class _A1&gt;
+<a name="1382"><span class="lineNum">    1382 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">    1383 </span>            : typename enable_if&lt;is_integral&lt;_A1&gt;::value, double&gt;::type
+<span class="lineNum">    1384 </span><span class="lineCov">          1 : log1p(_A1 __lcpp_x) _NOEXCEPT {return log1p((double)__lcpp_x);}</span>
+<span class="lineNum">    1385 </span>            : 
+<span class="lineNum">    1386 </span>            : // log2
+<span class="lineNum">    1387 </span>            : 
+<span class="lineNum">    1388 </span>            : using ::log2;
+<span class="lineNum">    1389 </span>            : using ::log2f;
+<span class="lineNum">    1390 </span>            : 
+<span class="lineNum">    1391 </span>            : inline _LIBCPP_INLINE_VISIBILITY float       log2(float __lcpp_x) _NOEXCEPT       {return log2f(__lcpp_x);}
+<span class="lineNum">    1392 </span>            : inline _LIBCPP_INLINE_VISIBILITY long double log2(long double __lcpp_x) _NOEXCEPT {return log2l(__lcpp_x);}
+<span class="lineNum">    1393 </span>            : 
+<span class="lineNum">    1394 </span>            : template &lt;class _A1&gt;
+<a name="1395"><span class="lineNum">    1395 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">    1396 </span>            : typename enable_if&lt;is_integral&lt;_A1&gt;::value, double&gt;::type
+<span class="lineNum">    1397 </span><span class="lineCov">          1 : log2(_A1 __lcpp_x) _NOEXCEPT {return log2((double)__lcpp_x);}</span>
+<span class="lineNum">    1398 </span>            : 
+<span class="lineNum">    1399 </span>            : // logb
+<span class="lineNum">    1400 </span>            : 
+<span class="lineNum">    1401 </span>            : using ::logb;
+<a name="1402"><span class="lineNum">    1402 </span>            : using ::logbf;</a>
+<a name="1403"><span class="lineNum">    1403 </span>            : </a>
+<span class="lineNum">    1404 </span><span class="lineCov">          8 : inline _LIBCPP_INLINE_VISIBILITY float       logb(float __lcpp_x) _NOEXCEPT       {return logbf(__lcpp_x);}</span>
+<span class="lineNum">    1405 </span><span class="lineCov">          8 : inline _LIBCPP_INLINE_VISIBILITY long double logb(long double __lcpp_x) _NOEXCEPT {return logbl(__lcpp_x);}</span>
+<span class="lineNum">    1406 </span>            : 
+<span class="lineNum">    1407 </span>            : template &lt;class _A1&gt;
+<a name="1408"><span class="lineNum">    1408 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">    1409 </span>            : typename enable_if&lt;is_integral&lt;_A1&gt;::value, double&gt;::type
+<span class="lineNum">    1410 </span><span class="lineCov">          1 : logb(_A1 __lcpp_x) _NOEXCEPT {return logb((double)__lcpp_x);}</span>
+<span class="lineNum">    1411 </span>            : 
+<span class="lineNum">    1412 </span>            : // lrint
+<span class="lineNum">    1413 </span>            : 
+<span class="lineNum">    1414 </span>            : using ::lrint;
+<span class="lineNum">    1415 </span>            : using ::lrintf;
+<span class="lineNum">    1416 </span>            : 
+<span class="lineNum">    1417 </span>            : inline _LIBCPP_INLINE_VISIBILITY long lrint(float __lcpp_x) _NOEXCEPT       {return lrintf(__lcpp_x);}
+<span class="lineNum">    1418 </span>            : inline _LIBCPP_INLINE_VISIBILITY long lrint(long double __lcpp_x) _NOEXCEPT {return lrintl(__lcpp_x);}
+<span class="lineNum">    1419 </span>            : 
+<span class="lineNum">    1420 </span>            : template &lt;class _A1&gt;
+<a name="1421"><span class="lineNum">    1421 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">    1422 </span>            : typename enable_if&lt;is_integral&lt;_A1&gt;::value, long&gt;::type
+<span class="lineNum">    1423 </span><span class="lineCov">          1 : lrint(_A1 __lcpp_x) _NOEXCEPT {return lrint((double)__lcpp_x);}</span>
+<span class="lineNum">    1424 </span>            : 
+<span class="lineNum">    1425 </span>            : // lround
+<span class="lineNum">    1426 </span>            : 
+<span class="lineNum">    1427 </span>            : using ::lround;
+<span class="lineNum">    1428 </span>            : using ::lroundf;
+<span class="lineNum">    1429 </span>            : 
+<span class="lineNum">    1430 </span>            : inline _LIBCPP_INLINE_VISIBILITY long lround(float __lcpp_x) _NOEXCEPT       {return lroundf(__lcpp_x);}
+<span class="lineNum">    1431 </span>            : inline _LIBCPP_INLINE_VISIBILITY long lround(long double __lcpp_x) _NOEXCEPT {return lroundl(__lcpp_x);}
+<span class="lineNum">    1432 </span>            : 
+<span class="lineNum">    1433 </span>            : template &lt;class _A1&gt;
+<a name="1434"><span class="lineNum">    1434 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">    1435 </span>            : typename enable_if&lt;is_integral&lt;_A1&gt;::value, long&gt;::type
+<span class="lineNum">    1436 </span><span class="lineCov">          1 : lround(_A1 __lcpp_x) _NOEXCEPT {return lround((double)__lcpp_x);}</span>
+<span class="lineNum">    1437 </span>            : 
+<span class="lineNum">    1438 </span>            : #endif // _LIBCPP_MSVCRT
+<span class="lineNum">    1439 </span>            : #endif // __sun__
+<span class="lineNum">    1440 </span>            : 
+<span class="lineNum">    1441 </span>            : // nan
+<span class="lineNum">    1442 </span>            : 
+<span class="lineNum">    1443 </span>            : #ifndef _LIBCPP_MSVCRT
+<span class="lineNum">    1444 </span>            : using ::nan;
+<span class="lineNum">    1445 </span>            : using ::nanf;
+<span class="lineNum">    1446 </span>            : #endif // _LIBCPP_MSVCRT
+<span class="lineNum">    1447 </span>            : 
+<span class="lineNum">    1448 </span>            : #ifndef __sun__
+<span class="lineNum">    1449 </span>            : #ifndef _LIBCPP_MSVCRT
+<span class="lineNum">    1450 </span>            : 
+<span class="lineNum">    1451 </span>            : // nearbyint
+<span class="lineNum">    1452 </span>            : 
+<span class="lineNum">    1453 </span>            : using ::nearbyint;
+<span class="lineNum">    1454 </span>            : using ::nearbyintf;
+<span class="lineNum">    1455 </span>            : 
+<span class="lineNum">    1456 </span>            : inline _LIBCPP_INLINE_VISIBILITY float       nearbyint(float __lcpp_x) _NOEXCEPT       {return nearbyintf(__lcpp_x);}
+<span class="lineNum">    1457 </span>            : inline _LIBCPP_INLINE_VISIBILITY long double nearbyint(long double __lcpp_x) _NOEXCEPT {return nearbyintl(__lcpp_x);}
+<span class="lineNum">    1458 </span>            : 
+<span class="lineNum">    1459 </span>            : template &lt;class _A1&gt;
+<a name="1460"><span class="lineNum">    1460 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">    1461 </span>            : typename enable_if&lt;is_integral&lt;_A1&gt;::value, double&gt;::type
+<span class="lineNum">    1462 </span><span class="lineCov">          1 : nearbyint(_A1 __lcpp_x) _NOEXCEPT {return nearbyint((double)__lcpp_x);}</span>
+<span class="lineNum">    1463 </span>            : 
+<span class="lineNum">    1464 </span>            : // nextafter
+<span class="lineNum">    1465 </span>            : 
+<span class="lineNum">    1466 </span>            : using ::nextafter;
+<span class="lineNum">    1467 </span>            : using ::nextafterf;
+<span class="lineNum">    1468 </span>            : 
+<span class="lineNum">    1469 </span>            : inline _LIBCPP_INLINE_VISIBILITY float       nextafter(float __lcpp_x, float __lcpp_y) _NOEXCEPT             {return nextafterf(__lcpp_x, __lcpp_y);}
+<span class="lineNum">    1470 </span>            : inline _LIBCPP_INLINE_VISIBILITY long double nextafter(long double __lcpp_x, long double __lcpp_y) _NOEXCEPT {return nextafterl(__lcpp_x, __lcpp_y);}
+<span class="lineNum">    1471 </span>            : 
+<span class="lineNum">    1472 </span>            : template &lt;class _A1, class _A2&gt;
+<span class="lineNum">    1473 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1474 </span>            : typename __lazy_enable_if
+<span class="lineNum">    1475 </span>            : &lt;
+<span class="lineNum">    1476 </span>            :     is_arithmetic&lt;_A1&gt;::value &amp;&amp;
+<span class="lineNum">    1477 </span>            :     is_arithmetic&lt;_A2&gt;::value,
+<a name="1478"><span class="lineNum">    1478 </span>            :     __promote&lt;_A1, _A2&gt;</a>
+<span class="lineNum">    1479 </span>            : &gt;::type
+<span class="lineNum">    1480 </span>            : nextafter(_A1 __lcpp_x, _A2 __lcpp_y) _NOEXCEPT
+<span class="lineNum">    1481 </span>            : {
+<span class="lineNum">    1482 </span>            :     typedef typename __promote&lt;_A1, _A2&gt;::type __result_type;
+<span class="lineNum">    1483 </span>            :     static_assert((!(is_same&lt;_A1, __result_type&gt;::value &amp;&amp;
+<span class="lineNum">    1484 </span>            :                       is_same&lt;_A2, __result_type&gt;::value)), &quot;&quot;);
+<span class="lineNum">    1485 </span><span class="lineCov">          1 :     return nextafter((__result_type)__lcpp_x, (__result_type)__lcpp_y);</span>
+<span class="lineNum">    1486 </span>            : }
+<span class="lineNum">    1487 </span>            : 
+<span class="lineNum">    1488 </span>            : // nexttoward
+<span class="lineNum">    1489 </span>            : 
+<span class="lineNum">    1490 </span>            : using ::nexttoward;
+<span class="lineNum">    1491 </span>            : using ::nexttowardf;
+<span class="lineNum">    1492 </span>            : 
+<span class="lineNum">    1493 </span>            : inline _LIBCPP_INLINE_VISIBILITY float       nexttoward(float __lcpp_x, long double __lcpp_y) _NOEXCEPT       {return nexttowardf(__lcpp_x, __lcpp_y);}
+<span class="lineNum">    1494 </span>            : inline _LIBCPP_INLINE_VISIBILITY long double nexttoward(long double __lcpp_x, long double __lcpp_y) _NOEXCEPT {return nexttowardl(__lcpp_x, __lcpp_y);}
+<span class="lineNum">    1495 </span>            : 
+<span class="lineNum">    1496 </span>            : template &lt;class _A1&gt;
+<a name="1497"><span class="lineNum">    1497 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">    1498 </span>            : typename enable_if&lt;is_integral&lt;_A1&gt;::value, double&gt;::type
+<span class="lineNum">    1499 </span><span class="lineCov">          1 : nexttoward(_A1 __lcpp_x, long double __lcpp_y) _NOEXCEPT {return nexttoward((double)__lcpp_x, __lcpp_y);}</span>
+<span class="lineNum">    1500 </span>            : 
+<span class="lineNum">    1501 </span>            : // remainder
+<span class="lineNum">    1502 </span>            : 
+<span class="lineNum">    1503 </span>            : using ::remainder;
+<span class="lineNum">    1504 </span>            : using ::remainderf;
+<span class="lineNum">    1505 </span>            : 
+<span class="lineNum">    1506 </span>            : inline _LIBCPP_INLINE_VISIBILITY float       remainder(float __lcpp_x, float __lcpp_y) _NOEXCEPT             {return remainderf(__lcpp_x, __lcpp_y);}
+<span class="lineNum">    1507 </span>            : inline _LIBCPP_INLINE_VISIBILITY long double remainder(long double __lcpp_x, long double __lcpp_y) _NOEXCEPT {return remainderl(__lcpp_x, __lcpp_y);}
+<span class="lineNum">    1508 </span>            : 
+<span class="lineNum">    1509 </span>            : template &lt;class _A1, class _A2&gt;
+<span class="lineNum">    1510 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1511 </span>            : typename __lazy_enable_if
+<span class="lineNum">    1512 </span>            : &lt;
+<span class="lineNum">    1513 </span>            :     is_arithmetic&lt;_A1&gt;::value &amp;&amp;
+<span class="lineNum">    1514 </span>            :     is_arithmetic&lt;_A2&gt;::value,
+<a name="1515"><span class="lineNum">    1515 </span>            :     __promote&lt;_A1, _A2&gt;</a>
+<span class="lineNum">    1516 </span>            : &gt;::type
+<span class="lineNum">    1517 </span>            : remainder(_A1 __lcpp_x, _A2 __lcpp_y) _NOEXCEPT
+<span class="lineNum">    1518 </span>            : {
+<span class="lineNum">    1519 </span>            :     typedef typename __promote&lt;_A1, _A2&gt;::type __result_type;
+<span class="lineNum">    1520 </span>            :     static_assert((!(is_same&lt;_A1, __result_type&gt;::value &amp;&amp;
+<span class="lineNum">    1521 </span>            :                       is_same&lt;_A2, __result_type&gt;::value)), &quot;&quot;);
+<span class="lineNum">    1522 </span><span class="lineCov">          1 :     return remainder((__result_type)__lcpp_x, (__result_type)__lcpp_y);</span>
+<span class="lineNum">    1523 </span>            : }
+<span class="lineNum">    1524 </span>            : 
+<span class="lineNum">    1525 </span>            : // remquo
+<span class="lineNum">    1526 </span>            : 
+<span class="lineNum">    1527 </span>            : using ::remquo;
+<span class="lineNum">    1528 </span>            : using ::remquof;
+<span class="lineNum">    1529 </span>            : 
+<span class="lineNum">    1530 </span>            : inline _LIBCPP_INLINE_VISIBILITY float       remquo(float __lcpp_x, float __lcpp_y, int* __lcpp_z) _NOEXCEPT             {return remquof(__lcpp_x, __lcpp_y, __lcpp_z);}
+<span class="lineNum">    1531 </span>            : inline _LIBCPP_INLINE_VISIBILITY long double remquo(long double __lcpp_x, long double __lcpp_y, int* __lcpp_z) _NOEXCEPT {return remquol(__lcpp_x, __lcpp_y, __lcpp_z);}
+<span class="lineNum">    1532 </span>            : 
+<span class="lineNum">    1533 </span>            : template &lt;class _A1, class _A2&gt;
+<span class="lineNum">    1534 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1535 </span>            : typename __lazy_enable_if
+<span class="lineNum">    1536 </span>            : &lt;
+<span class="lineNum">    1537 </span>            :     is_arithmetic&lt;_A1&gt;::value &amp;&amp;
+<span class="lineNum">    1538 </span>            :     is_arithmetic&lt;_A2&gt;::value,
+<a name="1539"><span class="lineNum">    1539 </span>            :     __promote&lt;_A1, _A2&gt;</a>
+<span class="lineNum">    1540 </span>            : &gt;::type
+<span class="lineNum">    1541 </span>            : remquo(_A1 __lcpp_x, _A2 __lcpp_y, int* __lcpp_z) _NOEXCEPT
+<span class="lineNum">    1542 </span>            : {
+<span class="lineNum">    1543 </span>            :     typedef typename __promote&lt;_A1, _A2&gt;::type __result_type;
+<span class="lineNum">    1544 </span>            :     static_assert((!(is_same&lt;_A1, __result_type&gt;::value &amp;&amp;
+<span class="lineNum">    1545 </span>            :                       is_same&lt;_A2, __result_type&gt;::value)), &quot;&quot;);
+<span class="lineNum">    1546 </span><span class="lineCov">          1 :     return remquo((__result_type)__lcpp_x, (__result_type)__lcpp_y, __lcpp_z);</span>
+<span class="lineNum">    1547 </span>            : }
+<span class="lineNum">    1548 </span>            : 
+<span class="lineNum">    1549 </span>            : // rint
+<span class="lineNum">    1550 </span>            : 
+<span class="lineNum">    1551 </span>            : using ::rint;
+<span class="lineNum">    1552 </span>            : using ::rintf;
+<span class="lineNum">    1553 </span>            : 
+<span class="lineNum">    1554 </span>            : inline _LIBCPP_INLINE_VISIBILITY float       rint(float __lcpp_x) _NOEXCEPT       {return rintf(__lcpp_x);}
+<span class="lineNum">    1555 </span>            : inline _LIBCPP_INLINE_VISIBILITY long double rint(long double __lcpp_x) _NOEXCEPT {return rintl(__lcpp_x);}
+<span class="lineNum">    1556 </span>            : 
+<span class="lineNum">    1557 </span>            : template &lt;class _A1&gt;
+<a name="1558"><span class="lineNum">    1558 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">    1559 </span>            : typename enable_if&lt;is_integral&lt;_A1&gt;::value, double&gt;::type
+<span class="lineNum">    1560 </span><span class="lineCov">          1 : rint(_A1 __lcpp_x) _NOEXCEPT {return rint((double)__lcpp_x);}</span>
+<span class="lineNum">    1561 </span>            : 
+<span class="lineNum">    1562 </span>            : // round
+<span class="lineNum">    1563 </span>            : 
+<span class="lineNum">    1564 </span>            : using ::round;
+<span class="lineNum">    1565 </span>            : using ::roundf;
+<span class="lineNum">    1566 </span>            : 
+<span class="lineNum">    1567 </span>            : inline _LIBCPP_INLINE_VISIBILITY float       round(float __lcpp_x) _NOEXCEPT       {return roundf(__lcpp_x);}
+<span class="lineNum">    1568 </span>            : inline _LIBCPP_INLINE_VISIBILITY long double round(long double __lcpp_x) _NOEXCEPT {return roundl(__lcpp_x);}
+<span class="lineNum">    1569 </span>            : 
+<span class="lineNum">    1570 </span>            : template &lt;class _A1&gt;
+<a name="1571"><span class="lineNum">    1571 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">    1572 </span>            : typename enable_if&lt;is_integral&lt;_A1&gt;::value, double&gt;::type
+<span class="lineNum">    1573 </span><span class="lineCov">          1 : round(_A1 __lcpp_x) _NOEXCEPT {return round((double)__lcpp_x);}</span>
+<span class="lineNum">    1574 </span>            : 
+<span class="lineNum">    1575 </span>            : // scalbln
+<span class="lineNum">    1576 </span>            : 
+<span class="lineNum">    1577 </span>            : using ::scalbln;
+<span class="lineNum">    1578 </span>            : using ::scalblnf;
+<span class="lineNum">    1579 </span>            : 
+<span class="lineNum">    1580 </span>            : inline _LIBCPP_INLINE_VISIBILITY float       scalbln(float __lcpp_x, long __lcpp_y) _NOEXCEPT       {return scalblnf(__lcpp_x, __lcpp_y);}
+<span class="lineNum">    1581 </span>            : inline _LIBCPP_INLINE_VISIBILITY long double scalbln(long double __lcpp_x, long __lcpp_y) _NOEXCEPT {return scalblnl(__lcpp_x, __lcpp_y);}
+<span class="lineNum">    1582 </span>            : 
+<span class="lineNum">    1583 </span>            : template &lt;class _A1&gt;
+<a name="1584"><span class="lineNum">    1584 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">    1585 </span>            : typename enable_if&lt;is_integral&lt;_A1&gt;::value, double&gt;::type
+<span class="lineNum">    1586 </span><span class="lineCov">          1 : scalbln(_A1 __lcpp_x, long __lcpp_y) _NOEXCEPT {return scalbln((double)__lcpp_x, __lcpp_y);}</span>
+<span class="lineNum">    1587 </span>            : 
+<span class="lineNum">    1588 </span>            : // scalbn
+<span class="lineNum">    1589 </span>            : 
+<span class="lineNum">    1590 </span>            : using ::scalbn;
+<a name="1591"><span class="lineNum">    1591 </span>            : using ::scalbnf;</a>
+<a name="1592"><span class="lineNum">    1592 </span>            : </a>
+<span class="lineNum">    1593 </span><span class="lineCov">         32 : inline _LIBCPP_INLINE_VISIBILITY float       scalbn(float __lcpp_x, int __lcpp_y) _NOEXCEPT       {return scalbnf(__lcpp_x, __lcpp_y);}</span>
+<span class="lineNum">    1594 </span><span class="lineCov">         32 : inline _LIBCPP_INLINE_VISIBILITY long double scalbn(long double __lcpp_x, int __lcpp_y) _NOEXCEPT {return scalbnl(__lcpp_x, __lcpp_y);}</span>
+<span class="lineNum">    1595 </span>            : 
+<span class="lineNum">    1596 </span>            : template &lt;class _A1&gt;
+<a name="1597"><span class="lineNum">    1597 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">    1598 </span>            : typename enable_if&lt;is_integral&lt;_A1&gt;::value, double&gt;::type
+<span class="lineNum">    1599 </span><span class="lineCov">          1 : scalbn(_A1 __lcpp_x, int __lcpp_y) _NOEXCEPT {return scalbn((double)__lcpp_x, __lcpp_y);}</span>
+<span class="lineNum">    1600 </span>            : 
+<span class="lineNum">    1601 </span>            : // tgamma
+<span class="lineNum">    1602 </span>            : 
+<span class="lineNum">    1603 </span>            : using ::tgamma;
+<span class="lineNum">    1604 </span>            : using ::tgammaf;
+<span class="lineNum">    1605 </span>            : 
+<span class="lineNum">    1606 </span>            : inline _LIBCPP_INLINE_VISIBILITY float       tgamma(float __lcpp_x) _NOEXCEPT       {return tgammaf(__lcpp_x);}
+<span class="lineNum">    1607 </span>            : inline _LIBCPP_INLINE_VISIBILITY long double tgamma(long double __lcpp_x) _NOEXCEPT {return tgammal(__lcpp_x);}
+<span class="lineNum">    1608 </span>            : 
+<span class="lineNum">    1609 </span>            : template &lt;class _A1&gt;
+<a name="1610"><span class="lineNum">    1610 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">    1611 </span>            : typename enable_if&lt;is_integral&lt;_A1&gt;::value, double&gt;::type
+<span class="lineNum">    1612 </span><span class="lineCov">          1 : tgamma(_A1 __lcpp_x) _NOEXCEPT {return tgamma((double)__lcpp_x);}</span>
+<span class="lineNum">    1613 </span>            : 
+<span class="lineNum">    1614 </span>            : // trunc
+<span class="lineNum">    1615 </span>            : 
+<span class="lineNum">    1616 </span>            : using ::trunc;
+<span class="lineNum">    1617 </span>            : using ::truncf;
+<span class="lineNum">    1618 </span>            : 
+<span class="lineNum">    1619 </span>            : inline _LIBCPP_INLINE_VISIBILITY float       trunc(float __lcpp_x) _NOEXCEPT       {return truncf(__lcpp_x);}
+<span class="lineNum">    1620 </span>            : inline _LIBCPP_INLINE_VISIBILITY long double trunc(long double __lcpp_x) _NOEXCEPT {return truncl(__lcpp_x);}
+<span class="lineNum">    1621 </span>            : 
+<span class="lineNum">    1622 </span>            : template &lt;class _A1&gt;
+<a name="1623"><span class="lineNum">    1623 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">    1624 </span>            : typename enable_if&lt;is_integral&lt;_A1&gt;::value, double&gt;::type
+<span class="lineNum">    1625 </span><span class="lineCov">          1 : trunc(_A1 __lcpp_x) _NOEXCEPT {return trunc((double)__lcpp_x);}</span>
+<span class="lineNum">    1626 </span>            : 
+<span class="lineNum">    1627 </span>            : #endif // !_LIBCPP_MSVCRT
+<span class="lineNum">    1628 </span>            : 
+<span class="lineNum">    1629 </span>            : using ::acosl;
+<span class="lineNum">    1630 </span>            : using ::asinl;
+<span class="lineNum">    1631 </span>            : using ::atanl;
+<span class="lineNum">    1632 </span>            : using ::atan2l;
+<span class="lineNum">    1633 </span>            : using ::ceill;
+<span class="lineNum">    1634 </span>            : using ::cosl;
+<span class="lineNum">    1635 </span>            : using ::coshl;
+<span class="lineNum">    1636 </span>            : using ::expl;
+<span class="lineNum">    1637 </span>            : using ::fabsl;
+<span class="lineNum">    1638 </span>            : using ::floorl;
+<span class="lineNum">    1639 </span>            : using ::fmodl;
+<span class="lineNum">    1640 </span>            : using ::frexpl;
+<span class="lineNum">    1641 </span>            : using ::ldexpl;
+<span class="lineNum">    1642 </span>            : using ::logl;
+<span class="lineNum">    1643 </span>            : using ::log10l;
+<span class="lineNum">    1644 </span>            : using ::modfl;
+<span class="lineNum">    1645 </span>            : using ::powl;
+<span class="lineNum">    1646 </span>            : using ::sinl;
+<span class="lineNum">    1647 </span>            : using ::sinhl;
+<span class="lineNum">    1648 </span>            : using ::sqrtl;
+<span class="lineNum">    1649 </span>            : using ::tanl;
+<span class="lineNum">    1650 </span>            : #ifndef _LIBCPP_MSVCRT
+<span class="lineNum">    1651 </span>            : using ::tanhl;
+<span class="lineNum">    1652 </span>            : using ::acoshl;
+<span class="lineNum">    1653 </span>            : using ::asinhl;
+<span class="lineNum">    1654 </span>            : using ::atanhl;
+<span class="lineNum">    1655 </span>            : using ::cbrtl;
+<span class="lineNum">    1656 </span>            : #endif  // !_LIBCPP_MSVCRT
+<span class="lineNum">    1657 </span>            : using ::copysignl;
+<span class="lineNum">    1658 </span>            : #ifndef _LIBCPP_MSVCRT
+<span class="lineNum">    1659 </span>            : using ::erfl;
+<span class="lineNum">    1660 </span>            : using ::erfcl;
+<span class="lineNum">    1661 </span>            : using ::exp2l;
+<span class="lineNum">    1662 </span>            : using ::expm1l;
+<span class="lineNum">    1663 </span>            : using ::fdiml;
+<span class="lineNum">    1664 </span>            : using ::fmal;
+<span class="lineNum">    1665 </span>            : using ::fmaxl;
+<span class="lineNum">    1666 </span>            : using ::fminl;
+<span class="lineNum">    1667 </span>            : using ::hypotl;
+<span class="lineNum">    1668 </span>            : using ::ilogbl;
+<span class="lineNum">    1669 </span>            : using ::lgammal;
+<span class="lineNum">    1670 </span>            : using ::llrintl;
+<span class="lineNum">    1671 </span>            : using ::llroundl;
+<span class="lineNum">    1672 </span>            : using ::log1pl;
+<span class="lineNum">    1673 </span>            : using ::log2l;
+<span class="lineNum">    1674 </span>            : using ::logbl;
+<span class="lineNum">    1675 </span>            : using ::lrintl;
+<span class="lineNum">    1676 </span>            : using ::lroundl;
+<span class="lineNum">    1677 </span>            : using ::nanl;
+<span class="lineNum">    1678 </span>            : using ::nearbyintl;
+<span class="lineNum">    1679 </span>            : using ::nextafterl;
+<span class="lineNum">    1680 </span>            : using ::nexttowardl;
+<span class="lineNum">    1681 </span>            : using ::remainderl;
+<span class="lineNum">    1682 </span>            : using ::remquol;
+<span class="lineNum">    1683 </span>            : using ::rintl;
+<span class="lineNum">    1684 </span>            : using ::roundl;
+<span class="lineNum">    1685 </span>            : using ::scalblnl;
+<span class="lineNum">    1686 </span>            : using ::scalbnl;
+<span class="lineNum">    1687 </span>            : using ::tgammal;
+<span class="lineNum">    1688 </span>            : using ::truncl;
+<span class="lineNum">    1689 </span>            : #endif // !_LIBCPP_MSVCRT
+<span class="lineNum">    1690 </span>            : 
+<span class="lineNum">    1691 </span>            : #else 
+<span class="lineNum">    1692 </span>            : using ::lgamma;
+<span class="lineNum">    1693 </span>            : using ::lgammaf;
+<span class="lineNum">    1694 </span>            : #endif // __sun__
+<span class="lineNum">    1695 </span>            : _LIBCPP_END_NAMESPACE_STD
+<span class="lineNum">    1696 </span>            : 
+<span class="lineNum">    1697 </span>            : #endif  // _LIBCPP_CMATH
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

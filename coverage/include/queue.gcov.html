@@ -1,0 +1,793 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - test_coverage.info - include/queue</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">include</a> - queue<span style="font-size: 80%;"> (source / <a href="queue.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">test_coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">101</td>
+            <td class="headerCovTableEntry">101</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2015-06-02</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">107</td>
+            <td class="headerCovTableEntry">107</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : // -*- C++ -*-</a>
+<span class="lineNum">       2 </span>            : //===--------------------------- queue ------------------------------------===//
+<span class="lineNum">       3 </span>            : //
+<span class="lineNum">       4 </span>            : //                     The LLVM Compiler Infrastructure
+<span class="lineNum">       5 </span>            : //
+<span class="lineNum">       6 </span>            : // This file is dual licensed under the MIT and the University of Illinois Open
+<span class="lineNum">       7 </span>            : // Source Licenses. See LICENSE.TXT for details.
+<span class="lineNum">       8 </span>            : //
+<span class="lineNum">       9 </span>            : //===----------------------------------------------------------------------===//
+<span class="lineNum">      10 </span>            : 
+<span class="lineNum">      11 </span>            : #ifndef _LIBCPP_QUEUE
+<span class="lineNum">      12 </span>            : #define _LIBCPP_QUEUE
+<span class="lineNum">      13 </span>            : 
+<span class="lineNum">      14 </span>            : /*
+<span class="lineNum">      15 </span>            :     queue synopsis
+<span class="lineNum">      16 </span>            : 
+<span class="lineNum">      17 </span>            : namespace std
+<span class="lineNum">      18 </span>            : {
+<span class="lineNum">      19 </span>            : 
+<span class="lineNum">      20 </span>            : template &lt;class T, class Container = deque&lt;T&gt;&gt;
+<span class="lineNum">      21 </span>            : class queue
+<span class="lineNum">      22 </span>            : {
+<span class="lineNum">      23 </span>            : public:
+<span class="lineNum">      24 </span>            :     typedef Container                                container_type;
+<span class="lineNum">      25 </span>            :     typedef typename container_type::value_type      value_type;
+<span class="lineNum">      26 </span>            :     typedef typename container_type::reference       reference;
+<span class="lineNum">      27 </span>            :     typedef typename container_type::const_reference const_reference;
+<span class="lineNum">      28 </span>            :     typedef typename container_type::size_type       size_type;
+<span class="lineNum">      29 </span>            : 
+<span class="lineNum">      30 </span>            : protected:
+<span class="lineNum">      31 </span>            :     container_type c;
+<span class="lineNum">      32 </span>            : 
+<span class="lineNum">      33 </span>            : public:
+<span class="lineNum">      34 </span>            :     queue() = default;
+<span class="lineNum">      35 </span>            :     ~queue() = default;
+<span class="lineNum">      36 </span>            : 
+<span class="lineNum">      37 </span>            :     queue(const queue&amp; q) = default;
+<span class="lineNum">      38 </span>            :     queue(queue&amp;&amp; q) = default;
+<span class="lineNum">      39 </span>            : 
+<span class="lineNum">      40 </span>            :     queue&amp; operator=(const queue&amp; q) = default;
+<span class="lineNum">      41 </span>            :     queue&amp; operator=(queue&amp;&amp; q) = default;
+<span class="lineNum">      42 </span>            : 
+<span class="lineNum">      43 </span>            :     explicit queue(const container_type&amp; c);
+<span class="lineNum">      44 </span>            :     explicit queue(container_type&amp;&amp; c)
+<span class="lineNum">      45 </span>            :     template &lt;class Alloc&gt;
+<span class="lineNum">      46 </span>            :         explicit queue(const Alloc&amp; a);
+<span class="lineNum">      47 </span>            :     template &lt;class Alloc&gt;
+<span class="lineNum">      48 </span>            :         queue(const container_type&amp; c, const Alloc&amp; a);
+<span class="lineNum">      49 </span>            :     template &lt;class Alloc&gt;
+<span class="lineNum">      50 </span>            :         queue(container_type&amp;&amp; c, const Alloc&amp; a);
+<span class="lineNum">      51 </span>            :     template &lt;class Alloc&gt;
+<span class="lineNum">      52 </span>            :         queue(const queue&amp; q, const Alloc&amp; a);
+<span class="lineNum">      53 </span>            :     template &lt;class Alloc&gt;
+<span class="lineNum">      54 </span>            :         queue(queue&amp;&amp; q, const Alloc&amp; a);
+<span class="lineNum">      55 </span>            : 
+<span class="lineNum">      56 </span>            :     bool      empty() const;
+<span class="lineNum">      57 </span>            :     size_type size() const;
+<span class="lineNum">      58 </span>            : 
+<span class="lineNum">      59 </span>            :     reference       front();
+<span class="lineNum">      60 </span>            :     const_reference front() const;
+<span class="lineNum">      61 </span>            :     reference       back();
+<span class="lineNum">      62 </span>            :     const_reference back() const;
+<span class="lineNum">      63 </span>            : 
+<span class="lineNum">      64 </span>            :     void push(const value_type&amp; v);
+<span class="lineNum">      65 </span>            :     void push(value_type&amp;&amp; v);
+<span class="lineNum">      66 </span>            :     template &lt;class... Args&gt; void emplace(Args&amp;&amp;... args);
+<span class="lineNum">      67 </span>            :     void pop();
+<span class="lineNum">      68 </span>            : 
+<span class="lineNum">      69 </span>            :     void swap(queue&amp; q) noexcept(noexcept(swap(c, q.c)));
+<span class="lineNum">      70 </span>            : };
+<span class="lineNum">      71 </span>            : 
+<span class="lineNum">      72 </span>            : template &lt;class T, class Container&gt;
+<span class="lineNum">      73 </span>            :   bool operator==(const queue&lt;T, Container&gt;&amp; x,const queue&lt;T, Container&gt;&amp; y);
+<span class="lineNum">      74 </span>            : 
+<span class="lineNum">      75 </span>            : template &lt;class T, class Container&gt;
+<span class="lineNum">      76 </span>            :   bool operator&lt; (const queue&lt;T, Container&gt;&amp; x,const queue&lt;T, Container&gt;&amp; y);
+<span class="lineNum">      77 </span>            : 
+<span class="lineNum">      78 </span>            : template &lt;class T, class Container&gt;
+<span class="lineNum">      79 </span>            :   bool operator!=(const queue&lt;T, Container&gt;&amp; x,const queue&lt;T, Container&gt;&amp; y);
+<span class="lineNum">      80 </span>            : 
+<span class="lineNum">      81 </span>            : template &lt;class T, class Container&gt;
+<span class="lineNum">      82 </span>            :   bool operator&gt; (const queue&lt;T, Container&gt;&amp; x,const queue&lt;T, Container&gt;&amp; y);
+<span class="lineNum">      83 </span>            : 
+<span class="lineNum">      84 </span>            : template &lt;class T, class Container&gt;
+<span class="lineNum">      85 </span>            :   bool operator&gt;=(const queue&lt;T, Container&gt;&amp; x,const queue&lt;T, Container&gt;&amp; y);
+<span class="lineNum">      86 </span>            : 
+<span class="lineNum">      87 </span>            : template &lt;class T, class Container&gt;
+<span class="lineNum">      88 </span>            :   bool operator&lt;=(const queue&lt;T, Container&gt;&amp; x,const queue&lt;T, Container&gt;&amp; y);
+<span class="lineNum">      89 </span>            : 
+<span class="lineNum">      90 </span>            : template &lt;class T, class Container&gt;
+<span class="lineNum">      91 </span>            :   void swap(queue&lt;T, Container&gt;&amp; x, queue&lt;T, Container&gt;&amp; y)
+<span class="lineNum">      92 </span>            :   noexcept(noexcept(x.swap(y)));
+<span class="lineNum">      93 </span>            : 
+<span class="lineNum">      94 </span>            : template &lt;class T, class Container = vector&lt;T&gt;,
+<span class="lineNum">      95 </span>            :           class Compare = less&lt;typename Container::value_type&gt;&gt;
+<span class="lineNum">      96 </span>            : class priority_queue
+<span class="lineNum">      97 </span>            : {
+<span class="lineNum">      98 </span>            : public:
+<span class="lineNum">      99 </span>            :     typedef Container                                container_type;
+<span class="lineNum">     100 </span>            :     typedef typename container_type::value_type      value_type;
+<span class="lineNum">     101 </span>            :     typedef typename container_type::reference       reference;
+<span class="lineNum">     102 </span>            :     typedef typename container_type::const_reference const_reference;
+<span class="lineNum">     103 </span>            :     typedef typename container_type::size_type       size_type;
+<span class="lineNum">     104 </span>            : 
+<span class="lineNum">     105 </span>            : protected:
+<span class="lineNum">     106 </span>            :     container_type c;
+<span class="lineNum">     107 </span>            :     Compare comp;
+<span class="lineNum">     108 </span>            : 
+<span class="lineNum">     109 </span>            : public:
+<span class="lineNum">     110 </span>            :     priority_queue() = default;
+<span class="lineNum">     111 </span>            :     ~priority_queue() = default;
+<span class="lineNum">     112 </span>            : 
+<span class="lineNum">     113 </span>            :     priority_queue(const priority_queue&amp; q) = default;
+<span class="lineNum">     114 </span>            :     priority_queue(priority_queue&amp;&amp; q) = default;
+<span class="lineNum">     115 </span>            : 
+<span class="lineNum">     116 </span>            :     priority_queue&amp; operator=(const priority_queue&amp; q) = default;
+<span class="lineNum">     117 </span>            :     priority_queue&amp; operator=(priority_queue&amp;&amp; q) = default;
+<span class="lineNum">     118 </span>            : 
+<span class="lineNum">     119 </span>            :     explicit priority_queue(const Compare&amp; comp);
+<span class="lineNum">     120 </span>            :     priority_queue(const Compare&amp; comp, const container_type&amp; c);
+<span class="lineNum">     121 </span>            :     explicit priority_queue(const Compare&amp; comp, container_type&amp;&amp; c);
+<span class="lineNum">     122 </span>            :     template &lt;class InputIterator&gt;
+<span class="lineNum">     123 </span>            :         priority_queue(InputIterator first, InputIterator last,
+<span class="lineNum">     124 </span>            :                        const Compare&amp; comp = Compare());
+<span class="lineNum">     125 </span>            :     template &lt;class InputIterator&gt;
+<span class="lineNum">     126 </span>            :         priority_queue(InputIterator first, InputIterator last,
+<span class="lineNum">     127 </span>            :                        const Compare&amp; comp, const container_type&amp; c);
+<span class="lineNum">     128 </span>            :     template &lt;class InputIterator&gt;
+<span class="lineNum">     129 </span>            :         priority_queue(InputIterator first, InputIterator last,
+<span class="lineNum">     130 </span>            :                        const Compare&amp; comp, container_type&amp;&amp; c);
+<span class="lineNum">     131 </span>            :     template &lt;class Alloc&gt;
+<span class="lineNum">     132 </span>            :         explicit priority_queue(const Alloc&amp; a);
+<span class="lineNum">     133 </span>            :     template &lt;class Alloc&gt;
+<span class="lineNum">     134 </span>            :         priority_queue(const Compare&amp; comp, const Alloc&amp; a);
+<span class="lineNum">     135 </span>            :     template &lt;class Alloc&gt;
+<span class="lineNum">     136 </span>            :         priority_queue(const Compare&amp; comp, const container_type&amp; c,
+<span class="lineNum">     137 </span>            :                        const Alloc&amp; a);
+<span class="lineNum">     138 </span>            :     template &lt;class Alloc&gt;
+<span class="lineNum">     139 </span>            :         priority_queue(const Compare&amp; comp, container_type&amp;&amp; c,
+<span class="lineNum">     140 </span>            :                        const Alloc&amp; a);
+<span class="lineNum">     141 </span>            :     template &lt;class Alloc&gt;
+<span class="lineNum">     142 </span>            :         priority_queue(const priority_queue&amp; q, const Alloc&amp; a);
+<span class="lineNum">     143 </span>            :     template &lt;class Alloc&gt;
+<span class="lineNum">     144 </span>            :         priority_queue(priority_queue&amp;&amp; q, const Alloc&amp; a);
+<span class="lineNum">     145 </span>            : 
+<span class="lineNum">     146 </span>            :     bool            empty() const;
+<span class="lineNum">     147 </span>            :     size_type       size() const;
+<span class="lineNum">     148 </span>            :     const_reference top() const;
+<span class="lineNum">     149 </span>            : 
+<span class="lineNum">     150 </span>            :     void push(const value_type&amp; v);
+<span class="lineNum">     151 </span>            :     void push(value_type&amp;&amp; v);
+<span class="lineNum">     152 </span>            :     template &lt;class... Args&gt; void emplace(Args&amp;&amp;... args);
+<span class="lineNum">     153 </span>            :     void pop();
+<span class="lineNum">     154 </span>            : 
+<span class="lineNum">     155 </span>            :     void swap(priority_queue&amp; q)
+<span class="lineNum">     156 </span>            :         noexcept(noexcept(swap(c, q.c)) &amp;&amp; noexcept(swap(comp.q.comp)));
+<span class="lineNum">     157 </span>            : };
+<span class="lineNum">     158 </span>            : 
+<span class="lineNum">     159 </span>            : template &lt;class T, class Container, class Compare&gt;
+<span class="lineNum">     160 </span>            :   void swap(priority_queue&lt;T, Container, Compare&gt;&amp; x,
+<span class="lineNum">     161 </span>            :             priority_queue&lt;T, Container, Compare&gt;&amp; y)
+<span class="lineNum">     162 </span>            :             noexcept(noexcept(x.swap(y)));
+<span class="lineNum">     163 </span>            : 
+<span class="lineNum">     164 </span>            : }  // std
+<span class="lineNum">     165 </span>            : 
+<span class="lineNum">     166 </span>            : */
+<span class="lineNum">     167 </span>            : 
+<span class="lineNum">     168 </span>            : #include &lt;__config&gt;
+<span class="lineNum">     169 </span>            : #include &lt;deque&gt;
+<span class="lineNum">     170 </span>            : #include &lt;vector&gt;
+<span class="lineNum">     171 </span>            : #include &lt;functional&gt;
+<span class="lineNum">     172 </span>            : #include &lt;algorithm&gt;
+<span class="lineNum">     173 </span>            : 
+<span class="lineNum">     174 </span>            : #if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
+<span class="lineNum">     175 </span>            : #pragma GCC system_header
+<span class="lineNum">     176 </span>            : #endif
+<span class="lineNum">     177 </span>            : 
+<span class="lineNum">     178 </span>            : _LIBCPP_BEGIN_NAMESPACE_STD
+<span class="lineNum">     179 </span>            : 
+<span class="lineNum">     180 </span>            : template &lt;class _Tp, class _Container = deque&lt;_Tp&gt; &gt; class _LIBCPP_TYPE_VIS_ONLY queue;
+<span class="lineNum">     181 </span>            : 
+<span class="lineNum">     182 </span>            : template &lt;class _Tp, class _Container&gt;
+<span class="lineNum">     183 </span>            : _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     184 </span>            : bool
+<span class="lineNum">     185 </span>            : operator==(const queue&lt;_Tp, _Container&gt;&amp; __x,const queue&lt;_Tp, _Container&gt;&amp; __y);
+<span class="lineNum">     186 </span>            : 
+<span class="lineNum">     187 </span>            : template &lt;class _Tp, class _Container&gt;
+<span class="lineNum">     188 </span>            : _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     189 </span>            : bool
+<span class="lineNum">     190 </span>            : operator&lt; (const queue&lt;_Tp, _Container&gt;&amp; __x,const queue&lt;_Tp, _Container&gt;&amp; __y);
+<a name="191"><span class="lineNum">     191 </span>            : </a>
+<span class="lineNum">     192 </span>            : template &lt;class _Tp, class _Container /*= deque&lt;_Tp&gt;*/&gt;
+<span class="lineNum">     193 </span><span class="lineCov">         45 : class _LIBCPP_TYPE_VIS_ONLY queue</span>
+<span class="lineNum">     194 </span>            : {
+<span class="lineNum">     195 </span>            : public:
+<span class="lineNum">     196 </span>            :     typedef _Container                               container_type;
+<span class="lineNum">     197 </span>            :     typedef typename container_type::value_type      value_type;
+<span class="lineNum">     198 </span>            :     typedef typename container_type::reference       reference;
+<span class="lineNum">     199 </span>            :     typedef typename container_type::const_reference const_reference;
+<span class="lineNum">     200 </span>            :     typedef typename container_type::size_type       size_type;
+<span class="lineNum">     201 </span>            : 
+<span class="lineNum">     202 </span>            : protected:
+<span class="lineNum">     203 </span>            :     container_type c;
+<span class="lineNum">     204 </span>            : 
+<a name="205"><span class="lineNum">     205 </span>            : public:</a>
+<span class="lineNum">     206 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     207 </span>            :     queue()
+<span class="lineNum">     208 </span>            :         _NOEXCEPT_(is_nothrow_default_constructible&lt;container_type&gt;::value)
+<span class="lineNum">     209 </span><span class="lineCov">         24 :         : c() {}</span>
+<a name="210"><span class="lineNum">     210 </span>            : </a>
+<span class="lineNum">     211 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     212 </span><span class="lineCov">          7 :     queue(const queue&amp; __q) : c(__q.c) {}</span>
+<span class="lineNum">     213 </span>            : 
+<a name="214"><span class="lineNum">     214 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES</a>
+<span class="lineNum">     215 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     216 </span>            :     queue(queue&amp;&amp; __q)
+<span class="lineNum">     217 </span>            :         _NOEXCEPT_(is_nothrow_move_constructible&lt;container_type&gt;::value)
+<span class="lineNum">     218 </span><span class="lineCov">          1 :         : c(_VSTD::move(__q.c)) {}</span>
+<span class="lineNum">     219 </span>            : #endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<a name="220"><span class="lineNum">     220 </span>            : </a>
+<span class="lineNum">     221 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     222 </span><span class="lineCov">          1 :     queue&amp; operator=(const queue&amp; __q) {c = __q.c; return *this;}</span>
+<span class="lineNum">     223 </span>            : 
+<a name="224"><span class="lineNum">     224 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES</a>
+<span class="lineNum">     225 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     226 </span>            :     queue&amp; operator=(queue&amp;&amp; __q)
+<span class="lineNum">     227 </span>            :         _NOEXCEPT_(is_nothrow_move_assignable&lt;container_type&gt;::value)
+<span class="lineNum">     228 </span><span class="lineCov">          1 :         {c = _VSTD::move(__q.c); return *this;}</span>
+<span class="lineNum">     229 </span>            : #endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<a name="230"><span class="lineNum">     230 </span>            : </a>
+<span class="lineNum">     231 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     232 </span><span class="lineCov">          1 :     explicit queue(const container_type&amp; __c)  : c(__c) {}</span>
+<a name="233"><span class="lineNum">     233 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES</a>
+<span class="lineNum">     234 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     235 </span><span class="lineCov">          5 :     explicit queue(container_type&amp;&amp; __c) : c(_VSTD::move(__c)) {}</span>
+<span class="lineNum">     236 </span>            : #endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<a name="237"><span class="lineNum">     237 </span>            :     template &lt;class _Alloc&gt;</a>
+<span class="lineNum">     238 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     239 </span>            :         explicit queue(const _Alloc&amp; __a,
+<span class="lineNum">     240 </span>            :                        typename enable_if&lt;uses_allocator&lt;container_type,
+<span class="lineNum">     241 </span>            :                                                          _Alloc&gt;::value&gt;::type* = 0)
+<span class="lineNum">     242 </span><span class="lineCov">          1 :             : c(__a) {}</span>
+<a name="243"><span class="lineNum">     243 </span>            :     template &lt;class _Alloc&gt;</a>
+<span class="lineNum">     244 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     245 </span>            :         queue(const queue&amp; __q, const _Alloc&amp; __a,
+<span class="lineNum">     246 </span>            :                        typename enable_if&lt;uses_allocator&lt;container_type,
+<span class="lineNum">     247 </span>            :                                                          _Alloc&gt;::value&gt;::type* = 0)
+<span class="lineNum">     248 </span><span class="lineCov">          1 :             : c(__q.c, __a) {}</span>
+<a name="249"><span class="lineNum">     249 </span>            :     template &lt;class _Alloc&gt;</a>
+<span class="lineNum">     250 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     251 </span>            :         queue(const container_type&amp; __c, const _Alloc&amp; __a,
+<span class="lineNum">     252 </span>            :                        typename enable_if&lt;uses_allocator&lt;container_type,
+<span class="lineNum">     253 </span>            :                                                          _Alloc&gt;::value&gt;::type* = 0)
+<span class="lineNum">     254 </span><span class="lineCov">          2 :             : c(__c, __a) {}</span>
+<span class="lineNum">     255 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<a name="256"><span class="lineNum">     256 </span>            :     template &lt;class _Alloc&gt;</a>
+<span class="lineNum">     257 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     258 </span>            :         queue(container_type&amp;&amp; __c, const _Alloc&amp; __a,
+<span class="lineNum">     259 </span>            :                        typename enable_if&lt;uses_allocator&lt;container_type,
+<span class="lineNum">     260 </span>            :                                                          _Alloc&gt;::value&gt;::type* = 0)
+<span class="lineNum">     261 </span><span class="lineCov">          2 :             : c(_VSTD::move(__c), __a) {}</span>
+<a name="262"><span class="lineNum">     262 </span>            :     template &lt;class _Alloc&gt;</a>
+<span class="lineNum">     263 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     264 </span>            :         queue(queue&amp;&amp; __q, const _Alloc&amp; __a,
+<span class="lineNum">     265 </span>            :                        typename enable_if&lt;uses_allocator&lt;container_type,
+<span class="lineNum">     266 </span>            :                                                          _Alloc&gt;::value&gt;::type* = 0)
+<span class="lineNum">     267 </span><span class="lineCov">          1 :             : c(_VSTD::move(__q.c), __a) {}</span>
+<span class="lineNum">     268 </span>            : 
+<span class="lineNum">     269 </span>            : #endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<a name="270"><span class="lineNum">     270 </span>            : </a>
+<span class="lineNum">     271 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<a name="272"><span class="lineNum">     272 </span><span class="lineCov">          5 :     bool      empty() const {return c.empty();}</span></a>
+<span class="lineNum">     273 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     274 </span><span class="lineCov">         28 :     size_type size() const  {return c.size();}</span>
+<a name="275"><span class="lineNum">     275 </span>            : </a>
+<span class="lineNum">     276 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<a name="277"><span class="lineNum">     277 </span><span class="lineCov">         22 :     reference       front()       {return c.front();}</span></a>
+<span class="lineNum">     278 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<a name="279"><span class="lineNum">     279 </span><span class="lineCov">          1 :     const_reference front() const {return c.front();}</span></a>
+<span class="lineNum">     280 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<a name="281"><span class="lineNum">     281 </span><span class="lineCov">         12 :     reference       back()        {return c.back();}</span></a>
+<span class="lineNum">     282 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     283 </span><span class="lineCov">          1 :     const_reference back() const  {return c.back();}</span>
+<a name="284"><span class="lineNum">     284 </span>            : </a>
+<span class="lineNum">     285 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     286 </span><span class="lineCov">         60 :     void push(const value_type&amp; __v) {c.push_back(__v);}</span>
+<a name="287"><span class="lineNum">     287 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES</a>
+<span class="lineNum">     288 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     289 </span><span class="lineCov">         25 :     void push(value_type&amp;&amp; __v)      {c.push_back(_VSTD::move(__v));}</span>
+<span class="lineNum">     290 </span>            : #ifndef _LIBCPP_HAS_NO_VARIADICS
+<a name="291"><span class="lineNum">     291 </span>            :     template &lt;class... _Args&gt;</a>
+<span class="lineNum">     292 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     293 </span>            :         void emplace(_Args&amp;&amp;... __args)
+<span class="lineNum">     294 </span><span class="lineCov">          3 :             {c.emplace_back(_VSTD::forward&lt;_Args&gt;(__args)...);}</span>
+<span class="lineNum">     295 </span>            : #endif  // _LIBCPP_HAS_NO_VARIADICS
+<a name="296"><span class="lineNum">     296 </span>            : #endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES</a>
+<span class="lineNum">     297 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     298 </span><span class="lineCov">         14 :     void pop() {c.pop_front();}</span>
+<a name="299"><span class="lineNum">     299 </span>            : </a>
+<span class="lineNum">     300 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     301 </span>            :     void swap(queue&amp; __q)
+<span class="lineNum">     302 </span>            :         _NOEXCEPT_(__is_nothrow_swappable&lt;container_type&gt;::value)
+<span class="lineNum">     303 </span>            :     {
+<span class="lineNum">     304 </span>            :         using _VSTD::swap;
+<span class="lineNum">     305 </span><span class="lineCov">          2 :         swap(c, __q.c);</span>
+<span class="lineNum">     306 </span><span class="lineCov">          2 :     }</span>
+<span class="lineNum">     307 </span>            : 
+<span class="lineNum">     308 </span>            :     template &lt;class _T1, class _C1&gt;
+<span class="lineNum">     309 </span>            :     friend
+<span class="lineNum">     310 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     311 </span>            :     bool
+<span class="lineNum">     312 </span>            :     operator==(const queue&lt;_T1, _C1&gt;&amp; __x,const queue&lt;_T1, _C1&gt;&amp; __y);
+<span class="lineNum">     313 </span>            : 
+<span class="lineNum">     314 </span>            :     template &lt;class _T1, class _C1&gt;
+<span class="lineNum">     315 </span>            :     friend
+<span class="lineNum">     316 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     317 </span>            :     bool
+<span class="lineNum">     318 </span>            :     operator&lt; (const queue&lt;_T1, _C1&gt;&amp; __x,const queue&lt;_T1, _C1&gt;&amp; __y);
+<span class="lineNum">     319 </span>            : };
+<span class="lineNum">     320 </span>            : 
+<span class="lineNum">     321 </span>            : template &lt;class _Tp, class _Container&gt;
+<a name="322"><span class="lineNum">     322 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     323 </span>            : bool
+<span class="lineNum">     324 </span>            : operator==(const queue&lt;_Tp, _Container&gt;&amp; __x,const queue&lt;_Tp, _Container&gt;&amp; __y)
+<span class="lineNum">     325 </span>            : {
+<span class="lineNum">     326 </span><span class="lineCov">          9 :     return __x.c == __y.c;</span>
+<span class="lineNum">     327 </span>            : }
+<span class="lineNum">     328 </span>            : 
+<span class="lineNum">     329 </span>            : template &lt;class _Tp, class _Container&gt;
+<a name="330"><span class="lineNum">     330 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     331 </span>            : bool
+<span class="lineNum">     332 </span>            : operator&lt; (const queue&lt;_Tp, _Container&gt;&amp; __x,const queue&lt;_Tp, _Container&gt;&amp; __y)
+<span class="lineNum">     333 </span>            : {
+<span class="lineNum">     334 </span><span class="lineCov">          4 :     return __x.c &lt; __y.c;</span>
+<span class="lineNum">     335 </span>            : }
+<span class="lineNum">     336 </span>            : 
+<span class="lineNum">     337 </span>            : template &lt;class _Tp, class _Container&gt;
+<a name="338"><span class="lineNum">     338 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     339 </span>            : bool
+<span class="lineNum">     340 </span>            : operator!=(const queue&lt;_Tp, _Container&gt;&amp; __x,const queue&lt;_Tp, _Container&gt;&amp; __y)
+<span class="lineNum">     341 </span>            : {
+<span class="lineNum">     342 </span><span class="lineCov">          1 :     return !(__x == __y);</span>
+<span class="lineNum">     343 </span>            : }
+<span class="lineNum">     344 </span>            : 
+<span class="lineNum">     345 </span>            : template &lt;class _Tp, class _Container&gt;
+<a name="346"><span class="lineNum">     346 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     347 </span>            : bool
+<span class="lineNum">     348 </span>            : operator&gt; (const queue&lt;_Tp, _Container&gt;&amp; __x,const queue&lt;_Tp, _Container&gt;&amp; __y)
+<span class="lineNum">     349 </span>            : {
+<span class="lineNum">     350 </span><span class="lineCov">          1 :     return __y &lt; __x;</span>
+<span class="lineNum">     351 </span>            : }
+<span class="lineNum">     352 </span>            : 
+<span class="lineNum">     353 </span>            : template &lt;class _Tp, class _Container&gt;
+<a name="354"><span class="lineNum">     354 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     355 </span>            : bool
+<span class="lineNum">     356 </span>            : operator&gt;=(const queue&lt;_Tp, _Container&gt;&amp; __x,const queue&lt;_Tp, _Container&gt;&amp; __y)
+<span class="lineNum">     357 </span>            : {
+<span class="lineNum">     358 </span><span class="lineCov">          1 :     return !(__x &lt; __y);</span>
+<span class="lineNum">     359 </span>            : }
+<span class="lineNum">     360 </span>            : 
+<span class="lineNum">     361 </span>            : template &lt;class _Tp, class _Container&gt;
+<a name="362"><span class="lineNum">     362 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     363 </span>            : bool
+<span class="lineNum">     364 </span>            : operator&lt;=(const queue&lt;_Tp, _Container&gt;&amp; __x,const queue&lt;_Tp, _Container&gt;&amp; __y)
+<span class="lineNum">     365 </span>            : {
+<span class="lineNum">     366 </span><span class="lineCov">          1 :     return !(__y &lt; __x);</span>
+<span class="lineNum">     367 </span>            : }
+<span class="lineNum">     368 </span>            : 
+<span class="lineNum">     369 </span>            : template &lt;class _Tp, class _Container&gt;
+<a name="370"><span class="lineNum">     370 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     371 </span>            : void
+<span class="lineNum">     372 </span>            : swap(queue&lt;_Tp, _Container&gt;&amp; __x, queue&lt;_Tp, _Container&gt;&amp; __y)
+<span class="lineNum">     373 </span>            :     _NOEXCEPT_(_NOEXCEPT_(__x.swap(__y)))
+<span class="lineNum">     374 </span>            : {
+<span class="lineNum">     375 </span><span class="lineCov">          1 :     __x.swap(__y);</span>
+<span class="lineNum">     376 </span><span class="lineCov">          1 : }</span>
+<span class="lineNum">     377 </span>            : 
+<span class="lineNum">     378 </span>            : template &lt;class _Tp, class _Container, class _Alloc&gt;
+<span class="lineNum">     379 </span>            : struct _LIBCPP_TYPE_VIS_ONLY uses_allocator&lt;queue&lt;_Tp, _Container&gt;, _Alloc&gt;
+<span class="lineNum">     380 </span>            :     : public uses_allocator&lt;_Container, _Alloc&gt;
+<span class="lineNum">     381 </span>            : {
+<span class="lineNum">     382 </span>            : };
+<span class="lineNum">     383 </span>            : 
+<a name="384"><span class="lineNum">     384 </span>            : template &lt;class _Tp, class _Container = vector&lt;_Tp&gt;,</a>
+<span class="lineNum">     385 </span>            :           class _Compare = less&lt;typename _Container::value_type&gt; &gt;
+<span class="lineNum">     386 </span><span class="lineCov">         38 : class _LIBCPP_TYPE_VIS_ONLY priority_queue</span>
+<span class="lineNum">     387 </span>            : {
+<span class="lineNum">     388 </span>            : public:
+<span class="lineNum">     389 </span>            :     typedef _Container                               container_type;
+<span class="lineNum">     390 </span>            :     typedef _Compare                                 value_compare;
+<span class="lineNum">     391 </span>            :     typedef typename container_type::value_type      value_type;
+<span class="lineNum">     392 </span>            :     typedef typename container_type::reference       reference;
+<span class="lineNum">     393 </span>            :     typedef typename container_type::const_reference const_reference;
+<span class="lineNum">     394 </span>            :     typedef typename container_type::size_type       size_type;
+<span class="lineNum">     395 </span>            : 
+<span class="lineNum">     396 </span>            : protected:
+<span class="lineNum">     397 </span>            :     container_type c;
+<span class="lineNum">     398 </span>            :     value_compare comp;
+<span class="lineNum">     399 </span>            : 
+<a name="400"><span class="lineNum">     400 </span>            : public:</a>
+<span class="lineNum">     401 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     402 </span>            :     priority_queue()
+<span class="lineNum">     403 </span>            :         _NOEXCEPT_(is_nothrow_default_constructible&lt;container_type&gt;::value &amp;&amp;
+<span class="lineNum">     404 </span>            :                    is_nothrow_default_constructible&lt;value_compare&gt;::value)
+<span class="lineNum">     405 </span><span class="lineCov">         17 :         : c(), comp() {}</span>
+<a name="406"><span class="lineNum">     406 </span>            : </a>
+<span class="lineNum">     407 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     408 </span><span class="lineCov">          1 :     priority_queue(const priority_queue&amp; __q) : c(__q.c), comp(__q.comp) {}</span>
+<span class="lineNum">     409 </span>            : 
+<a name="410"><span class="lineNum">     410 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES</a>
+<span class="lineNum">     411 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     412 </span>            :     priority_queue(priority_queue&amp;&amp; __q)
+<span class="lineNum">     413 </span>            :         _NOEXCEPT_(is_nothrow_move_constructible&lt;container_type&gt;::value &amp;&amp;
+<span class="lineNum">     414 </span>            :                    is_nothrow_move_constructible&lt;value_compare&gt;::value)
+<span class="lineNum">     415 </span><span class="lineCov">          1 :         : c(_VSTD::move(__q.c)), comp(_VSTD::move(__q.comp)) {}</span>
+<span class="lineNum">     416 </span>            : #endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<a name="417"><span class="lineNum">     417 </span>            : </a>
+<span class="lineNum">     418 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     419 </span>            :     priority_queue&amp; operator=(const priority_queue&amp; __q)
+<span class="lineNum">     420 </span><span class="lineCov">          1 :         {c = __q.c; comp = __q.comp; return *this;}</span>
+<span class="lineNum">     421 </span>            : 
+<a name="422"><span class="lineNum">     422 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES</a>
+<span class="lineNum">     423 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     424 </span>            :     priority_queue&amp; operator=(priority_queue&amp;&amp; __q)
+<span class="lineNum">     425 </span>            :         _NOEXCEPT_(is_nothrow_move_assignable&lt;container_type&gt;::value &amp;&amp;
+<span class="lineNum">     426 </span>            :                    is_nothrow_move_assignable&lt;value_compare&gt;::value)
+<span class="lineNum">     427 </span><span class="lineCov">          1 :         {c = _VSTD::move(__q.c); comp = _VSTD::move(__q.comp); return *this;}</span>
+<span class="lineNum">     428 </span>            : #endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<a name="429"><span class="lineNum">     429 </span>            : </a>
+<span class="lineNum">     430 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     431 </span>            :     explicit priority_queue(const value_compare&amp; __comp)
+<span class="lineNum">     432 </span><span class="lineCov">          1 :         : c(), comp(__comp) {}</span>
+<span class="lineNum">     433 </span>            :     priority_queue(const value_compare&amp; __comp, const container_type&amp; __c);
+<span class="lineNum">     434 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">     435 </span>            :     explicit priority_queue(const value_compare&amp; __comp, container_type&amp;&amp; __c);
+<span class="lineNum">     436 </span>            : #endif
+<span class="lineNum">     437 </span>            :     template &lt;class _InputIter&gt;
+<span class="lineNum">     438 </span>            :         priority_queue(_InputIter __f, _InputIter __l,
+<span class="lineNum">     439 </span>            :                        const value_compare&amp; __comp = value_compare());
+<span class="lineNum">     440 </span>            :     template &lt;class _InputIter&gt;
+<span class="lineNum">     441 </span>            :         priority_queue(_InputIter __f, _InputIter __l,
+<span class="lineNum">     442 </span>            :                        const value_compare&amp; __comp, const container_type&amp; __c);
+<span class="lineNum">     443 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">     444 </span>            :     template &lt;class _InputIter&gt;
+<span class="lineNum">     445 </span>            :         priority_queue(_InputIter __f, _InputIter __l,
+<span class="lineNum">     446 </span>            :                        const value_compare&amp; __comp, container_type&amp;&amp; __c);
+<a name="447"><span class="lineNum">     447 </span>            : #endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES</a>
+<span class="lineNum">     448 </span>            :     template &lt;class _Alloc&gt;
+<span class="lineNum">     449 </span><span class="lineCov">          1 :         explicit priority_queue(const _Alloc&amp; __a,</span>
+<span class="lineNum">     450 </span>            :                        typename enable_if&lt;uses_allocator&lt;container_type,
+<span class="lineNum">     451 </span>            :                                                          _Alloc&gt;::value&gt;::type* = 0);
+<span class="lineNum">     452 </span>            :     template &lt;class _Alloc&gt;
+<span class="lineNum">     453 </span>            :         priority_queue(const value_compare&amp; __comp, const _Alloc&amp; __a,
+<span class="lineNum">     454 </span>            :                        typename enable_if&lt;uses_allocator&lt;container_type,
+<span class="lineNum">     455 </span>            :                                                          _Alloc&gt;::value&gt;::type* = 0);
+<span class="lineNum">     456 </span>            :     template &lt;class _Alloc&gt;
+<span class="lineNum">     457 </span>            :         priority_queue(const value_compare&amp; __comp, const container_type&amp; __c,
+<span class="lineNum">     458 </span>            :                        const _Alloc&amp; __a,
+<span class="lineNum">     459 </span>            :                        typename enable_if&lt;uses_allocator&lt;container_type,
+<span class="lineNum">     460 </span>            :                                                          _Alloc&gt;::value&gt;::type* = 0);
+<span class="lineNum">     461 </span>            :     template &lt;class _Alloc&gt;
+<span class="lineNum">     462 </span>            :         priority_queue(const priority_queue&amp; __q, const _Alloc&amp; __a,
+<span class="lineNum">     463 </span>            :                        typename enable_if&lt;uses_allocator&lt;container_type,
+<span class="lineNum">     464 </span>            :                                                          _Alloc&gt;::value&gt;::type* = 0);
+<span class="lineNum">     465 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">     466 </span>            :     template &lt;class _Alloc&gt;
+<span class="lineNum">     467 </span>            :         priority_queue(const value_compare&amp; __comp, container_type&amp;&amp; __c,
+<span class="lineNum">     468 </span>            :                        const _Alloc&amp; __a,
+<span class="lineNum">     469 </span>            :                        typename enable_if&lt;uses_allocator&lt;container_type,
+<span class="lineNum">     470 </span>            :                                                          _Alloc&gt;::value&gt;::type* = 0);
+<span class="lineNum">     471 </span>            :     template &lt;class _Alloc&gt;
+<span class="lineNum">     472 </span>            :         priority_queue(priority_queue&amp;&amp; __q, const _Alloc&amp; __a,
+<span class="lineNum">     473 </span>            :                        typename enable_if&lt;uses_allocator&lt;container_type,
+<span class="lineNum">     474 </span>            :                                                          _Alloc&gt;::value&gt;::type* = 0);
+<span class="lineNum">     475 </span>            : #endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<a name="476"><span class="lineNum">     476 </span>            : </a>
+<span class="lineNum">     477 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<a name="478"><span class="lineNum">     478 </span><span class="lineCov">          6 :     bool            empty() const {return c.empty();}</span></a>
+<span class="lineNum">     479 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<a name="480"><span class="lineNum">     480 </span><span class="lineCov">         23 :     size_type       size() const  {return c.size();}</span></a>
+<span class="lineNum">     481 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     482 </span><span class="lineCov">         35 :     const_reference top() const   {return c.front();}</span>
+<span class="lineNum">     483 </span>            : 
+<span class="lineNum">     484 </span>            :     void push(const value_type&amp; __v);
+<span class="lineNum">     485 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">     486 </span>            :     void push(value_type&amp;&amp; __v);
+<span class="lineNum">     487 </span>            : #ifndef _LIBCPP_HAS_NO_VARIADICS
+<span class="lineNum">     488 </span>            :     template &lt;class... _Args&gt; void emplace(_Args&amp;&amp;... __args);
+<span class="lineNum">     489 </span>            : #endif
+<span class="lineNum">     490 </span>            : #endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">     491 </span>            :     void pop();
+<span class="lineNum">     492 </span>            : 
+<span class="lineNum">     493 </span>            :     void swap(priority_queue&amp; __q)
+<span class="lineNum">     494 </span>            :         _NOEXCEPT_(__is_nothrow_swappable&lt;container_type&gt;::value &amp;&amp;
+<span class="lineNum">     495 </span>            :                    __is_nothrow_swappable&lt;value_compare&gt;::value);
+<span class="lineNum">     496 </span>            : };
+<span class="lineNum">     497 </span>            : 
+<a name="498"><span class="lineNum">     498 </span>            : template &lt;class _Tp, class _Container, class _Compare&gt;</a>
+<span class="lineNum">     499 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     500 </span>            : priority_queue&lt;_Tp, _Container, _Compare&gt;::priority_queue(const _Compare&amp; __comp,
+<span class="lineNum">     501 </span>            :                                                           const container_type&amp; __c)
+<span class="lineNum">     502 </span><span class="lineCov">          3 :     : c(__c),</span>
+<span class="lineNum">     503 </span><span class="lineCov">          3 :       comp(__comp)</span>
+<span class="lineNum">     504 </span>            : {
+<span class="lineNum">     505 </span><span class="lineCov">          3 :     _VSTD::make_heap(c.begin(), c.end(), comp);</span>
+<span class="lineNum">     506 </span><span class="lineCov">          3 : }</span>
+<span class="lineNum">     507 </span>            : 
+<span class="lineNum">     508 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">     509 </span>            : 
+<a name="510"><span class="lineNum">     510 </span>            : template &lt;class _Tp, class _Container, class _Compare&gt;</a>
+<span class="lineNum">     511 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     512 </span>            : priority_queue&lt;_Tp, _Container, _Compare&gt;::priority_queue(const value_compare&amp; __comp,
+<span class="lineNum">     513 </span>            :                                                           container_type&amp;&amp; __c)
+<span class="lineNum">     514 </span><span class="lineCov">          3 :     : c(_VSTD::move(__c)),</span>
+<span class="lineNum">     515 </span><span class="lineCov">          3 :       comp(__comp)</span>
+<span class="lineNum">     516 </span>            : {
+<span class="lineNum">     517 </span><span class="lineCov">          3 :     _VSTD::make_heap(c.begin(), c.end(), comp);</span>
+<span class="lineNum">     518 </span><span class="lineCov">          3 : }</span>
+<span class="lineNum">     519 </span>            : 
+<span class="lineNum">     520 </span>            : #endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">     521 </span>            : 
+<span class="lineNum">     522 </span>            : template &lt;class _Tp, class _Container, class _Compare&gt;
+<a name="523"><span class="lineNum">     523 </span>            : template &lt;class _InputIter&gt;</a>
+<span class="lineNum">     524 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     525 </span>            : priority_queue&lt;_Tp, _Container, _Compare&gt;::priority_queue(_InputIter __f, _InputIter __l,
+<span class="lineNum">     526 </span>            :                                                           const value_compare&amp; __comp)
+<span class="lineNum">     527 </span><span class="lineCov">          2 :     : c(__f, __l),</span>
+<span class="lineNum">     528 </span><span class="lineCov">          2 :       comp(__comp)</span>
+<span class="lineNum">     529 </span>            : {
+<span class="lineNum">     530 </span><span class="lineCov">          2 :     _VSTD::make_heap(c.begin(), c.end(), comp);</span>
+<span class="lineNum">     531 </span><span class="lineCov">          2 : }</span>
+<span class="lineNum">     532 </span>            : 
+<span class="lineNum">     533 </span>            : template &lt;class _Tp, class _Container, class _Compare&gt;
+<a name="534"><span class="lineNum">     534 </span>            : template &lt;class _InputIter&gt;</a>
+<span class="lineNum">     535 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     536 </span>            : priority_queue&lt;_Tp, _Container, _Compare&gt;::priority_queue(_InputIter __f, _InputIter __l,
+<span class="lineNum">     537 </span>            :                                                           const value_compare&amp; __comp,
+<span class="lineNum">     538 </span>            :                                                           const container_type&amp; __c)
+<span class="lineNum">     539 </span><span class="lineCov">          1 :     : c(__c),</span>
+<span class="lineNum">     540 </span><span class="lineCov">          1 :       comp(__comp)</span>
+<span class="lineNum">     541 </span>            : {
+<span class="lineNum">     542 </span><span class="lineCov">          2 :     c.insert(c.end(), __f, __l);</span>
+<span class="lineNum">     543 </span><span class="lineCov">          1 :     _VSTD::make_heap(c.begin(), c.end(), comp);</span>
+<span class="lineNum">     544 </span><span class="lineCov">          1 : }</span>
+<span class="lineNum">     545 </span>            : 
+<span class="lineNum">     546 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">     547 </span>            : 
+<span class="lineNum">     548 </span>            : template &lt;class _Tp, class _Container, class _Compare&gt;
+<a name="549"><span class="lineNum">     549 </span>            : template &lt;class _InputIter&gt;</a>
+<span class="lineNum">     550 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     551 </span>            : priority_queue&lt;_Tp, _Container, _Compare&gt;::priority_queue(_InputIter __f, _InputIter __l,
+<span class="lineNum">     552 </span>            :                                                           const value_compare&amp; __comp,
+<span class="lineNum">     553 </span>            :                                                           container_type&amp;&amp; __c)
+<span class="lineNum">     554 </span><span class="lineCov">          1 :     : c(_VSTD::move(__c)),</span>
+<span class="lineNum">     555 </span><span class="lineCov">          1 :       comp(__comp)</span>
+<span class="lineNum">     556 </span>            : {
+<span class="lineNum">     557 </span><span class="lineCov">          2 :     c.insert(c.end(), __f, __l);</span>
+<span class="lineNum">     558 </span><span class="lineCov">          1 :     _VSTD::make_heap(c.begin(), c.end(), comp);</span>
+<span class="lineNum">     559 </span><span class="lineCov">          1 : }</span>
+<span class="lineNum">     560 </span>            : 
+<span class="lineNum">     561 </span>            : #endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">     562 </span>            : 
+<span class="lineNum">     563 </span>            : template &lt;class _Tp, class _Container, class _Compare&gt;
+<span class="lineNum">     564 </span>            : template &lt;class _Alloc&gt;
+<span class="lineNum">     565 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     566 </span>            : priority_queue&lt;_Tp, _Container, _Compare&gt;::priority_queue(const _Alloc&amp; __a,
+<span class="lineNum">     567 </span>            :                        typename enable_if&lt;uses_allocator&lt;container_type,
+<span class="lineNum">     568 </span>            :                                                          _Alloc&gt;::value&gt;::type*)
+<span class="lineNum">     569 </span><span class="lineCov">          1 :     : c(__a)</span>
+<span class="lineNum">     570 </span>            : {
+<span class="lineNum">     571 </span><span class="lineCov">          1 : }</span>
+<span class="lineNum">     572 </span>            : 
+<span class="lineNum">     573 </span>            : template &lt;class _Tp, class _Container, class _Compare&gt;
+<a name="574"><span class="lineNum">     574 </span>            : template &lt;class _Alloc&gt;</a>
+<span class="lineNum">     575 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     576 </span>            : priority_queue&lt;_Tp, _Container, _Compare&gt;::priority_queue(const value_compare&amp; __comp,
+<span class="lineNum">     577 </span>            :                                                           const _Alloc&amp; __a,
+<span class="lineNum">     578 </span>            :                        typename enable_if&lt;uses_allocator&lt;container_type,
+<span class="lineNum">     579 </span>            :                                                          _Alloc&gt;::value&gt;::type*)
+<span class="lineNum">     580 </span><span class="lineCov">          1 :     : c(__a),</span>
+<span class="lineNum">     581 </span><span class="lineCov">          1 :       comp(__comp)</span>
+<span class="lineNum">     582 </span>            : {
+<span class="lineNum">     583 </span><span class="lineCov">          1 : }</span>
+<span class="lineNum">     584 </span>            : 
+<span class="lineNum">     585 </span>            : template &lt;class _Tp, class _Container, class _Compare&gt;
+<a name="586"><span class="lineNum">     586 </span>            : template &lt;class _Alloc&gt;</a>
+<span class="lineNum">     587 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     588 </span>            : priority_queue&lt;_Tp, _Container, _Compare&gt;::priority_queue(const value_compare&amp; __comp,
+<span class="lineNum">     589 </span>            :                                                           const container_type&amp; __c,
+<span class="lineNum">     590 </span>            :                                                           const _Alloc&amp; __a,
+<span class="lineNum">     591 </span>            :                        typename enable_if&lt;uses_allocator&lt;container_type,
+<span class="lineNum">     592 </span>            :                                                          _Alloc&gt;::value&gt;::type*)
+<span class="lineNum">     593 </span><span class="lineCov">          2 :     : c(__c, __a),</span>
+<span class="lineNum">     594 </span><span class="lineCov">          2 :       comp(__comp)</span>
+<span class="lineNum">     595 </span>            : {
+<span class="lineNum">     596 </span><span class="lineCov">          2 :     _VSTD::make_heap(c.begin(), c.end(), comp);</span>
+<span class="lineNum">     597 </span><span class="lineCov">          2 : }</span>
+<span class="lineNum">     598 </span>            : 
+<span class="lineNum">     599 </span>            : template &lt;class _Tp, class _Container, class _Compare&gt;
+<a name="600"><span class="lineNum">     600 </span>            : template &lt;class _Alloc&gt;</a>
+<span class="lineNum">     601 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     602 </span>            : priority_queue&lt;_Tp, _Container, _Compare&gt;::priority_queue(const priority_queue&amp; __q,
+<span class="lineNum">     603 </span>            :                                                           const _Alloc&amp; __a,
+<span class="lineNum">     604 </span>            :                        typename enable_if&lt;uses_allocator&lt;container_type,
+<span class="lineNum">     605 </span>            :                                                          _Alloc&gt;::value&gt;::type*)
+<span class="lineNum">     606 </span><span class="lineCov">          1 :     : c(__q.c, __a),</span>
+<span class="lineNum">     607 </span><span class="lineCov">          1 :       comp(__q.comp)</span>
+<span class="lineNum">     608 </span>            : {
+<span class="lineNum">     609 </span><span class="lineCov">          1 :     _VSTD::make_heap(c.begin(), c.end(), comp);</span>
+<span class="lineNum">     610 </span><span class="lineCov">          1 : }</span>
+<span class="lineNum">     611 </span>            : 
+<span class="lineNum">     612 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">     613 </span>            : 
+<span class="lineNum">     614 </span>            : template &lt;class _Tp, class _Container, class _Compare&gt;
+<a name="615"><span class="lineNum">     615 </span>            : template &lt;class _Alloc&gt;</a>
+<span class="lineNum">     616 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     617 </span>            : priority_queue&lt;_Tp, _Container, _Compare&gt;::priority_queue(const value_compare&amp; __comp,
+<span class="lineNum">     618 </span>            :                                                           container_type&amp;&amp; __c,
+<span class="lineNum">     619 </span>            :                                                           const _Alloc&amp; __a,
+<span class="lineNum">     620 </span>            :                        typename enable_if&lt;uses_allocator&lt;container_type,
+<span class="lineNum">     621 </span>            :                                                          _Alloc&gt;::value&gt;::type*)
+<span class="lineNum">     622 </span><span class="lineCov">          3 :     : c(_VSTD::move(__c), __a),</span>
+<span class="lineNum">     623 </span><span class="lineCov">          2 :       comp(__comp)</span>
+<span class="lineNum">     624 </span>            : {
+<span class="lineNum">     625 </span><span class="lineCov">          2 :     _VSTD::make_heap(c.begin(), c.end(), comp);</span>
+<span class="lineNum">     626 </span><span class="lineCov">          2 : }</span>
+<span class="lineNum">     627 </span>            : 
+<span class="lineNum">     628 </span>            : template &lt;class _Tp, class _Container, class _Compare&gt;
+<a name="629"><span class="lineNum">     629 </span>            : template &lt;class _Alloc&gt;</a>
+<span class="lineNum">     630 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     631 </span>            : priority_queue&lt;_Tp, _Container, _Compare&gt;::priority_queue(priority_queue&amp;&amp; __q,
+<span class="lineNum">     632 </span>            :                                                           const _Alloc&amp; __a,
+<span class="lineNum">     633 </span>            :                        typename enable_if&lt;uses_allocator&lt;container_type,
+<span class="lineNum">     634 </span>            :                                                          _Alloc&gt;::value&gt;::type*)
+<span class="lineNum">     635 </span><span class="lineCov">          2 :     : c(_VSTD::move(__q.c), __a),</span>
+<span class="lineNum">     636 </span><span class="lineCov">          1 :       comp(_VSTD::move(__q.comp))</span>
+<span class="lineNum">     637 </span>            : {
+<span class="lineNum">     638 </span><span class="lineCov">          1 :     _VSTD::make_heap(c.begin(), c.end(), comp);</span>
+<span class="lineNum">     639 </span><span class="lineCov">          1 : }</span>
+<span class="lineNum">     640 </span>            : 
+<span class="lineNum">     641 </span>            : #endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">     642 </span>            : 
+<span class="lineNum">     643 </span>            : template &lt;class _Tp, class _Container, class _Compare&gt;
+<span class="lineNum">     644 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     645 </span>            : void
+<span class="lineNum">     646 </span>            : priority_queue&lt;_Tp, _Container, _Compare&gt;::push(const value_type&amp; __v)
+<span class="lineNum">     647 </span>            : {
+<span class="lineNum">     648 </span>            :     c.push_back(__v);
+<span class="lineNum">     649 </span>            :     _VSTD::push_heap(c.begin(), c.end(), comp);
+<span class="lineNum">     650 </span>            : }
+<span class="lineNum">     651 </span>            : 
+<span class="lineNum">     652 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">     653 </span>            : 
+<span class="lineNum">     654 </span>            : template &lt;class _Tp, class _Container, class _Compare&gt;
+<a name="655"><span class="lineNum">     655 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     656 </span>            : void
+<span class="lineNum">     657 </span>            : priority_queue&lt;_Tp, _Container, _Compare&gt;::push(value_type&amp;&amp; __v)
+<span class="lineNum">     658 </span>            : {
+<span class="lineNum">     659 </span><span class="lineCov">         24 :     c.push_back(_VSTD::move(__v));</span>
+<span class="lineNum">     660 </span><span class="lineCov">         24 :     _VSTD::push_heap(c.begin(), c.end(), comp);</span>
+<span class="lineNum">     661 </span><span class="lineCov">         24 : }</span>
+<span class="lineNum">     662 </span>            : 
+<span class="lineNum">     663 </span>            : #ifndef _LIBCPP_HAS_NO_VARIADICS
+<span class="lineNum">     664 </span>            : 
+<span class="lineNum">     665 </span>            : template &lt;class _Tp, class _Container, class _Compare&gt;
+<span class="lineNum">     666 </span>            : template &lt;class... _Args&gt;
+<a name="667"><span class="lineNum">     667 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     668 </span>            : void
+<span class="lineNum">     669 </span>            : priority_queue&lt;_Tp, _Container, _Compare&gt;::emplace(_Args&amp;&amp;... __args)
+<span class="lineNum">     670 </span>            : {
+<span class="lineNum">     671 </span><span class="lineCov">          3 :     c.emplace_back(_VSTD::forward&lt;_Args&gt;(__args)...);</span>
+<span class="lineNum">     672 </span><span class="lineCov">          3 :     _VSTD::push_heap(c.begin(), c.end(), comp);</span>
+<span class="lineNum">     673 </span><span class="lineCov">          3 : }</span>
+<span class="lineNum">     674 </span>            : 
+<span class="lineNum">     675 </span>            : #endif  // _LIBCPP_HAS_NO_VARIADICS
+<span class="lineNum">     676 </span>            : #endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">     677 </span>            : 
+<span class="lineNum">     678 </span>            : template &lt;class _Tp, class _Container, class _Compare&gt;
+<a name="679"><span class="lineNum">     679 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     680 </span>            : void
+<span class="lineNum">     681 </span>            : priority_queue&lt;_Tp, _Container, _Compare&gt;::pop()
+<span class="lineNum">     682 </span>            : {
+<span class="lineNum">     683 </span><span class="lineCov">          5 :     _VSTD::pop_heap(c.begin(), c.end(), comp);</span>
+<span class="lineNum">     684 </span><span class="lineCov">          5 :     c.pop_back();</span>
+<span class="lineNum">     685 </span><span class="lineCov">          5 : }</span>
+<span class="lineNum">     686 </span>            : 
+<span class="lineNum">     687 </span>            : template &lt;class _Tp, class _Container, class _Compare&gt;
+<a name="688"><span class="lineNum">     688 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     689 </span>            : void
+<span class="lineNum">     690 </span>            : priority_queue&lt;_Tp, _Container, _Compare&gt;::swap(priority_queue&amp; __q)
+<span class="lineNum">     691 </span>            :         _NOEXCEPT_(__is_nothrow_swappable&lt;container_type&gt;::value &amp;&amp;
+<span class="lineNum">     692 </span>            :                    __is_nothrow_swappable&lt;value_compare&gt;::value)
+<span class="lineNum">     693 </span>            : {
+<span class="lineNum">     694 </span>            :     using _VSTD::swap;
+<span class="lineNum">     695 </span><span class="lineCov">          2 :     swap(c, __q.c);</span>
+<span class="lineNum">     696 </span><span class="lineCov">          2 :     swap(comp, __q.comp);</span>
+<span class="lineNum">     697 </span><span class="lineCov">          2 : }</span>
+<span class="lineNum">     698 </span>            : 
+<span class="lineNum">     699 </span>            : template &lt;class _Tp, class _Container, class _Compare&gt;
+<a name="700"><span class="lineNum">     700 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     701 </span>            : void
+<span class="lineNum">     702 </span>            : swap(priority_queue&lt;_Tp, _Container, _Compare&gt;&amp; __x,
+<span class="lineNum">     703 </span>            :      priority_queue&lt;_Tp, _Container, _Compare&gt;&amp; __y)
+<span class="lineNum">     704 </span>            :     _NOEXCEPT_(_NOEXCEPT_(__x.swap(__y)))
+<span class="lineNum">     705 </span>            : {
+<span class="lineNum">     706 </span><span class="lineCov">          1 :     __x.swap(__y);</span>
+<span class="lineNum">     707 </span><span class="lineCov">          1 : }</span>
+<span class="lineNum">     708 </span>            : 
+<span class="lineNum">     709 </span>            : template &lt;class _Tp, class _Container, class _Compare, class _Alloc&gt;
+<span class="lineNum">     710 </span>            : struct _LIBCPP_TYPE_VIS_ONLY uses_allocator&lt;priority_queue&lt;_Tp, _Container, _Compare&gt;, _Alloc&gt;
+<span class="lineNum">     711 </span>            :     : public uses_allocator&lt;_Container, _Alloc&gt;
+<span class="lineNum">     712 </span>            : {
+<span class="lineNum">     713 </span>            : };
+<span class="lineNum">     714 </span>            : 
+<span class="lineNum">     715 </span>            : _LIBCPP_END_NAMESPACE_STD
+<span class="lineNum">     716 </span>            : 
+<span class="lineNum">     717 </span>            : #endif  // _LIBCPP_QUEUE
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

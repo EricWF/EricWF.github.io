@@ -1,0 +1,476 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - test_coverage.info - include/strstream</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">include</a> - strstream<span style="font-size: 80%;"> (source / <a href="strstream.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">test_coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">30</td>
+            <td class="headerCovTableEntry">30</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2015-06-02</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">18</td>
+            <td class="headerCovTableEntry">18</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : // -*- C++ -*-</a>
+<span class="lineNum">       2 </span>            : //===--------------------------- strstream --------------------------------===//
+<span class="lineNum">       3 </span>            : //
+<span class="lineNum">       4 </span>            : //                     The LLVM Compiler Infrastructure
+<span class="lineNum">       5 </span>            : //
+<span class="lineNum">       6 </span>            : // This file is dual licensed under the MIT and the University of Illinois Open
+<span class="lineNum">       7 </span>            : // Source Licenses. See LICENSE.TXT for details.
+<span class="lineNum">       8 </span>            : //
+<span class="lineNum">       9 </span>            : //===----------------------------------------------------------------------===//
+<span class="lineNum">      10 </span>            : 
+<span class="lineNum">      11 </span>            : #ifndef _LIBCPP_STRSTREAM
+<span class="lineNum">      12 </span>            : #define _LIBCPP_STRSTREAM
+<span class="lineNum">      13 </span>            : 
+<span class="lineNum">      14 </span>            : /*
+<span class="lineNum">      15 </span>            :     strstream synopsis
+<span class="lineNum">      16 </span>            : 
+<span class="lineNum">      17 </span>            : class strstreambuf
+<span class="lineNum">      18 </span>            :     : public basic_streambuf&lt;char&gt;
+<span class="lineNum">      19 </span>            : {
+<span class="lineNum">      20 </span>            : public:
+<span class="lineNum">      21 </span>            :     explicit strstreambuf(streamsize alsize_arg = 0);
+<span class="lineNum">      22 </span>            :     strstreambuf(void* (*palloc_arg)(size_t), void (*pfree_arg)(void*));
+<span class="lineNum">      23 </span>            :     strstreambuf(char* gnext_arg, streamsize n, char* pbeg_arg = 0);
+<span class="lineNum">      24 </span>            :     strstreambuf(const char* gnext_arg, streamsize n);
+<span class="lineNum">      25 </span>            : 
+<span class="lineNum">      26 </span>            :     strstreambuf(signed char* gnext_arg, streamsize n, signed char* pbeg_arg = 0);
+<span class="lineNum">      27 </span>            :     strstreambuf(const signed char* gnext_arg, streamsize n);
+<span class="lineNum">      28 </span>            :     strstreambuf(unsigned char* gnext_arg, streamsize n, unsigned char* pbeg_arg = 0);
+<span class="lineNum">      29 </span>            :     strstreambuf(const unsigned char* gnext_arg, streamsize n);
+<span class="lineNum">      30 </span>            : 
+<span class="lineNum">      31 </span>            :     strstreambuf(strstreambuf&amp;&amp; rhs);
+<span class="lineNum">      32 </span>            :     strstreambuf&amp; operator=(strstreambuf&amp;&amp; rhs);
+<span class="lineNum">      33 </span>            : 
+<span class="lineNum">      34 </span>            :     virtual ~strstreambuf();
+<span class="lineNum">      35 </span>            : 
+<span class="lineNum">      36 </span>            :     void swap(strstreambuf&amp; rhs);
+<span class="lineNum">      37 </span>            : 
+<span class="lineNum">      38 </span>            :     void freeze(bool freezefl = true);
+<span class="lineNum">      39 </span>            :     char* str();
+<span class="lineNum">      40 </span>            :     int pcount() const;
+<span class="lineNum">      41 </span>            : 
+<span class="lineNum">      42 </span>            : protected:
+<span class="lineNum">      43 </span>            :     virtual int_type overflow (int_type c = EOF);
+<span class="lineNum">      44 </span>            :     virtual int_type pbackfail(int_type c = EOF);
+<span class="lineNum">      45 </span>            :     virtual int_type underflow();
+<span class="lineNum">      46 </span>            :     virtual pos_type seekoff(off_type off, ios_base::seekdir way,
+<span class="lineNum">      47 </span>            :                              ios_base::openmode which = ios_base::in | ios_base::out);
+<span class="lineNum">      48 </span>            :     virtual pos_type seekpos(pos_type sp,
+<span class="lineNum">      49 </span>            :                              ios_base::openmode which = ios_base::in | ios_base::out);
+<span class="lineNum">      50 </span>            :     virtual streambuf* setbuf(char* s, streamsize n);
+<span class="lineNum">      51 </span>            : 
+<span class="lineNum">      52 </span>            : private:
+<span class="lineNum">      53 </span>            :     typedef T1 strstate;                // exposition only
+<span class="lineNum">      54 </span>            :     static const strstate allocated;    // exposition only
+<span class="lineNum">      55 </span>            :     static const strstate constant;     // exposition only
+<span class="lineNum">      56 </span>            :     static const strstate dynamic;      // exposition only
+<span class="lineNum">      57 </span>            :     static const strstate frozen;       // exposition only
+<span class="lineNum">      58 </span>            :     strstate strmode;                   // exposition only
+<span class="lineNum">      59 </span>            :     streamsize alsize;                  // exposition only
+<span class="lineNum">      60 </span>            :     void* (*palloc)(size_t);            // exposition only
+<span class="lineNum">      61 </span>            :     void (*pfree)(void*);               // exposition only
+<span class="lineNum">      62 </span>            : };
+<span class="lineNum">      63 </span>            : 
+<span class="lineNum">      64 </span>            : class istrstream
+<span class="lineNum">      65 </span>            :     : public basic_istream&lt;char&gt;
+<span class="lineNum">      66 </span>            : {
+<span class="lineNum">      67 </span>            : public:
+<span class="lineNum">      68 </span>            :     explicit istrstream(const char* s);
+<span class="lineNum">      69 </span>            :     explicit istrstream(char* s);
+<span class="lineNum">      70 </span>            :     istrstream(const char* s, streamsize n);
+<span class="lineNum">      71 </span>            :     istrstream(char* s, streamsize n);
+<span class="lineNum">      72 </span>            : 
+<span class="lineNum">      73 </span>            :     virtual ~istrstream();
+<span class="lineNum">      74 </span>            : 
+<span class="lineNum">      75 </span>            :     strstreambuf* rdbuf() const;
+<span class="lineNum">      76 </span>            :     char *str();
+<span class="lineNum">      77 </span>            : 
+<span class="lineNum">      78 </span>            : private:
+<span class="lineNum">      79 </span>            :     strstreambuf sb; // exposition only
+<span class="lineNum">      80 </span>            : };
+<span class="lineNum">      81 </span>            : 
+<span class="lineNum">      82 </span>            : class ostrstream
+<span class="lineNum">      83 </span>            :     : public basic_ostream&lt;char&gt;
+<span class="lineNum">      84 </span>            : {
+<span class="lineNum">      85 </span>            : public:
+<span class="lineNum">      86 </span>            :     ostrstream();
+<span class="lineNum">      87 </span>            :     ostrstream(char* s, int n, ios_base::openmode mode = ios_base::out);
+<span class="lineNum">      88 </span>            : 
+<span class="lineNum">      89 </span>            :     virtual ~ostrstream();
+<span class="lineNum">      90 </span>            : 
+<span class="lineNum">      91 </span>            :     strstreambuf* rdbuf() const;
+<span class="lineNum">      92 </span>            :     void freeze(bool freezefl = true);
+<span class="lineNum">      93 </span>            :     char* str();
+<span class="lineNum">      94 </span>            :     int pcount() const;
+<span class="lineNum">      95 </span>            : 
+<span class="lineNum">      96 </span>            : private:
+<span class="lineNum">      97 </span>            :     strstreambuf sb; // exposition only
+<span class="lineNum">      98 </span>            : };
+<span class="lineNum">      99 </span>            : 
+<span class="lineNum">     100 </span>            : class strstream
+<span class="lineNum">     101 </span>            :     : public basic_iostream&lt;char&gt;
+<span class="lineNum">     102 </span>            : {
+<span class="lineNum">     103 </span>            : public:
+<span class="lineNum">     104 </span>            :     // Types
+<span class="lineNum">     105 </span>            :     typedef char                        char_type;
+<span class="lineNum">     106 </span>            :     typedef char_traits&lt;char&gt;::int_type int_type;
+<span class="lineNum">     107 </span>            :     typedef char_traits&lt;char&gt;::pos_type pos_type;
+<span class="lineNum">     108 </span>            :     typedef char_traits&lt;char&gt;::off_type off_type;
+<span class="lineNum">     109 </span>            : 
+<span class="lineNum">     110 </span>            :     // constructors/destructor
+<span class="lineNum">     111 </span>            :     strstream();
+<span class="lineNum">     112 </span>            :     strstream(char* s, int n, ios_base::openmode mode = ios_base::in | ios_base::out);
+<span class="lineNum">     113 </span>            : 
+<span class="lineNum">     114 </span>            :     virtual ~strstream();
+<span class="lineNum">     115 </span>            : 
+<span class="lineNum">     116 </span>            :     // Members:
+<span class="lineNum">     117 </span>            :     strstreambuf* rdbuf() const;
+<span class="lineNum">     118 </span>            :     void freeze(bool freezefl = true);
+<span class="lineNum">     119 </span>            :     int pcount() const;
+<span class="lineNum">     120 </span>            :     char* str();
+<span class="lineNum">     121 </span>            : 
+<span class="lineNum">     122 </span>            : private:
+<span class="lineNum">     123 </span>            :     strstreambuf sb; // exposition only
+<span class="lineNum">     124 </span>            : };
+<span class="lineNum">     125 </span>            : 
+<span class="lineNum">     126 </span>            : }  // std
+<span class="lineNum">     127 </span>            : 
+<span class="lineNum">     128 </span>            : */
+<span class="lineNum">     129 </span>            : 
+<span class="lineNum">     130 </span>            : #include &lt;__config&gt;
+<span class="lineNum">     131 </span>            : #include &lt;ostream&gt;
+<span class="lineNum">     132 </span>            : #include &lt;istream&gt;
+<span class="lineNum">     133 </span>            : 
+<span class="lineNum">     134 </span>            : #if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
+<span class="lineNum">     135 </span>            : #pragma GCC system_header
+<span class="lineNum">     136 </span>            : #endif
+<span class="lineNum">     137 </span>            : 
+<span class="lineNum">     138 </span>            : _LIBCPP_BEGIN_NAMESPACE_STD
+<span class="lineNum">     139 </span>            : 
+<span class="lineNum">     140 </span>            : class _LIBCPP_TYPE_VIS strstreambuf
+<span class="lineNum">     141 </span>            :     : public streambuf
+<span class="lineNum">     142 </span>            : {
+<span class="lineNum">     143 </span>            : public:
+<span class="lineNum">     144 </span>            :     explicit strstreambuf(streamsize __alsize = 0);
+<span class="lineNum">     145 </span>            :     strstreambuf(void* (*__palloc)(size_t), void (*__pfree)(void*));
+<span class="lineNum">     146 </span>            :     strstreambuf(char* __gnext, streamsize __n, char* __pbeg = 0);
+<span class="lineNum">     147 </span>            :     strstreambuf(const char* __gnext, streamsize __n);
+<span class="lineNum">     148 </span>            : 
+<span class="lineNum">     149 </span>            :     strstreambuf(signed char* __gnext, streamsize __n, signed char* __pbeg = 0);
+<span class="lineNum">     150 </span>            :     strstreambuf(const signed char* __gnext, streamsize __n);
+<span class="lineNum">     151 </span>            :     strstreambuf(unsigned char* __gnext, streamsize __n, unsigned char* __pbeg = 0);
+<span class="lineNum">     152 </span>            :     strstreambuf(const unsigned char* __gnext, streamsize __n);
+<span class="lineNum">     153 </span>            : 
+<span class="lineNum">     154 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">     155 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     156 </span>            :     strstreambuf(strstreambuf&amp;&amp; __rhs);
+<span class="lineNum">     157 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     158 </span>            :     strstreambuf&amp; operator=(strstreambuf&amp;&amp; __rhs);
+<span class="lineNum">     159 </span>            : #endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">     160 </span>            : 
+<span class="lineNum">     161 </span>            :     virtual ~strstreambuf();
+<span class="lineNum">     162 </span>            : 
+<span class="lineNum">     163 </span>            :     void swap(strstreambuf&amp; __rhs);
+<span class="lineNum">     164 </span>            : 
+<span class="lineNum">     165 </span>            :     void freeze(bool __freezefl = true);
+<span class="lineNum">     166 </span>            :     char* str();
+<span class="lineNum">     167 </span>            :     int pcount() const;
+<span class="lineNum">     168 </span>            : 
+<span class="lineNum">     169 </span>            : protected:
+<span class="lineNum">     170 </span>            :     virtual int_type overflow (int_type __c = EOF);
+<span class="lineNum">     171 </span>            :     virtual int_type pbackfail(int_type __c = EOF);
+<span class="lineNum">     172 </span>            :     virtual int_type underflow();
+<span class="lineNum">     173 </span>            :     virtual pos_type seekoff(off_type __off, ios_base::seekdir __way,
+<span class="lineNum">     174 </span>            :                              ios_base::openmode __which = ios_base::in | ios_base::out);
+<span class="lineNum">     175 </span>            :     virtual pos_type seekpos(pos_type __sp,
+<span class="lineNum">     176 </span>            :                              ios_base::openmode __which = ios_base::in | ios_base::out);
+<span class="lineNum">     177 </span>            : 
+<span class="lineNum">     178 </span>            : private:
+<span class="lineNum">     179 </span>            :     typedef unsigned __mode_type;
+<span class="lineNum">     180 </span>            :     static const __mode_type __allocated = 0x01;
+<span class="lineNum">     181 </span>            :     static const __mode_type __constant  = 0x02;
+<span class="lineNum">     182 </span>            :     static const __mode_type __dynamic   = 0x04;
+<span class="lineNum">     183 </span>            :     static const __mode_type __frozen    = 0x08;
+<span class="lineNum">     184 </span>            :     static const streamsize    __default_alsize = 4096;
+<span class="lineNum">     185 </span>            : 
+<span class="lineNum">     186 </span>            :     __mode_type __strmode_;
+<span class="lineNum">     187 </span>            :     streamsize __alsize_;
+<span class="lineNum">     188 </span>            :     void* (*__palloc_)(size_t);
+<span class="lineNum">     189 </span>            :     void (*__pfree_)(void*);
+<span class="lineNum">     190 </span>            : 
+<span class="lineNum">     191 </span>            :     void __init(char* __gnext, streamsize __n, char* __pbeg);
+<span class="lineNum">     192 </span>            : };
+<span class="lineNum">     193 </span>            : 
+<span class="lineNum">     194 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">     195 </span>            : 
+<span class="lineNum">     196 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     197 </span>            : strstreambuf::strstreambuf(strstreambuf&amp;&amp; __rhs)
+<span class="lineNum">     198 </span>            :     : streambuf(__rhs),
+<span class="lineNum">     199 </span>            :       __strmode_(__rhs.__strmode_),
+<span class="lineNum">     200 </span>            :       __alsize_(__rhs.__alsize_),
+<span class="lineNum">     201 </span>            :       __palloc_(__rhs.__palloc_),
+<span class="lineNum">     202 </span>            :       __pfree_(__rhs.__pfree_)
+<span class="lineNum">     203 </span>            : {
+<span class="lineNum">     204 </span>            :     __rhs.setg(nullptr, nullptr, nullptr);
+<span class="lineNum">     205 </span>            :     __rhs.setp(nullptr, nullptr);
+<span class="lineNum">     206 </span>            : }
+<span class="lineNum">     207 </span>            : 
+<span class="lineNum">     208 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     209 </span>            : strstreambuf&amp;
+<span class="lineNum">     210 </span>            : strstreambuf::operator=(strstreambuf&amp;&amp; __rhs)
+<span class="lineNum">     211 </span>            : {
+<span class="lineNum">     212 </span>            :     if (eback() &amp;&amp; (__strmode_ &amp; __allocated) != 0 &amp;&amp; (__strmode_ &amp; __frozen) == 0)
+<span class="lineNum">     213 </span>            :     {
+<span class="lineNum">     214 </span>            :         if (__pfree_)
+<span class="lineNum">     215 </span>            :             __pfree_(eback());
+<span class="lineNum">     216 </span>            :         else
+<span class="lineNum">     217 </span>            :             delete [] eback();
+<span class="lineNum">     218 </span>            :     }
+<span class="lineNum">     219 </span>            :     streambuf::operator=(__rhs);
+<span class="lineNum">     220 </span>            :     __strmode_ = __rhs.__strmode_;
+<span class="lineNum">     221 </span>            :     __alsize_ = __rhs.__alsize_;
+<span class="lineNum">     222 </span>            :     __palloc_ = __rhs.__palloc_;
+<span class="lineNum">     223 </span>            :     __pfree_ = __rhs.__pfree_;
+<span class="lineNum">     224 </span>            :     __rhs.setg(nullptr, nullptr, nullptr);
+<span class="lineNum">     225 </span>            :     __rhs.setp(nullptr, nullptr);
+<span class="lineNum">     226 </span>            :     return *this;
+<span class="lineNum">     227 </span>            : }
+<span class="lineNum">     228 </span>            : 
+<span class="lineNum">     229 </span>            : #endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">     230 </span>            : 
+<span class="lineNum">     231 </span>            : class _LIBCPP_TYPE_VIS istrstream
+<span class="lineNum">     232 </span>            :     : public istream
+<span class="lineNum">     233 </span>            : {
+<a name="234"><span class="lineNum">     234 </span>            : public:</a>
+<span class="lineNum">     235 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     236 </span><span class="lineCov">          3 :     explicit istrstream(const char* __s)</span>
+<a name="237"><span class="lineNum">     237 </span><span class="lineCov">         12 :         : istream(&amp;__sb_), __sb_(__s, 0) {}</span></a>
+<span class="lineNum">     238 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     239 </span><span class="lineCov">          1 :     explicit istrstream(char* __s)</span>
+<a name="240"><span class="lineNum">     240 </span><span class="lineCov">          4 :         : istream(&amp;__sb_), __sb_(__s, 0) {}</span></a>
+<span class="lineNum">     241 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     242 </span><span class="lineCov">          1 :     istrstream(const char* __s, streamsize __n)</span>
+<a name="243"><span class="lineNum">     243 </span><span class="lineCov">          4 :         : istream(&amp;__sb_), __sb_(__s, __n) {}</span></a>
+<span class="lineNum">     244 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     245 </span><span class="lineCov">          1 :     istrstream(char* __s, streamsize __n)</span>
+<span class="lineNum">     246 </span><span class="lineCov">          4 :         : istream(&amp;__sb_), __sb_(__s, __n) {}</span>
+<span class="lineNum">     247 </span>            : 
+<span class="lineNum">     248 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">     249 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     250 </span>            :     istrstream(istrstream&amp;&amp; __rhs)
+<span class="lineNum">     251 </span>            :         : istream(_VSTD::move(__rhs)),
+<span class="lineNum">     252 </span>            :           __sb_(_VSTD::move(__rhs.__sb_))
+<span class="lineNum">     253 </span>            :     {
+<span class="lineNum">     254 </span>            :         istream::set_rdbuf(&amp;__sb_);
+<span class="lineNum">     255 </span>            :     }
+<span class="lineNum">     256 </span>            : 
+<span class="lineNum">     257 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     258 </span>            :     istrstream&amp; operator=(istrstream&amp;&amp; __rhs)
+<span class="lineNum">     259 </span>            :     {
+<span class="lineNum">     260 </span>            :         istream::operator=(_VSTD::move(__rhs));
+<span class="lineNum">     261 </span>            :         __sb_ = _VSTD::move(__rhs.__sb_);
+<span class="lineNum">     262 </span>            :         return *this;
+<span class="lineNum">     263 </span>            :     }
+<span class="lineNum">     264 </span>            : #endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">     265 </span>            : 
+<span class="lineNum">     266 </span>            :     virtual ~istrstream();
+<span class="lineNum">     267 </span>            : 
+<span class="lineNum">     268 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     269 </span>            :     void swap(istrstream&amp; __rhs)
+<span class="lineNum">     270 </span>            :     {
+<span class="lineNum">     271 </span>            :         istream::swap(__rhs);
+<span class="lineNum">     272 </span>            :         __sb_.swap(__rhs.__sb_);
+<span class="lineNum">     273 </span>            :     }
+<a name="274"><span class="lineNum">     274 </span>            : </a>
+<span class="lineNum">     275 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<a name="276"><span class="lineNum">     276 </span><span class="lineCov">          1 :     strstreambuf* rdbuf() const {return const_cast&lt;strstreambuf*&gt;(&amp;__sb_);}</span></a>
+<span class="lineNum">     277 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     278 </span><span class="lineCov">          1 :     char *str() {return __sb_.str();}</span>
+<span class="lineNum">     279 </span>            : 
+<span class="lineNum">     280 </span>            : private:
+<span class="lineNum">     281 </span>            :     strstreambuf __sb_;
+<span class="lineNum">     282 </span>            : };
+<span class="lineNum">     283 </span>            : 
+<span class="lineNum">     284 </span>            : class _LIBCPP_TYPE_VIS ostrstream
+<span class="lineNum">     285 </span>            :     : public ostream
+<span class="lineNum">     286 </span>            : {
+<a name="287"><span class="lineNum">     287 </span>            : public:</a>
+<span class="lineNum">     288 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     289 </span><span class="lineCov">          8 :     ostrstream()</span>
+<a name="290"><span class="lineNum">     290 </span><span class="lineCov">         16 :         : ostream(&amp;__sb_) {}</span></a>
+<span class="lineNum">     291 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     292 </span><span class="lineCov">          3 :     ostrstream(char* __s, int __n, ios_base::openmode __mode = ios_base::out)</span>
+<span class="lineNum">     293 </span><span class="lineCov">          3 :         : ostream(&amp;__sb_),</span>
+<span class="lineNum">     294 </span><span class="lineCov">          9 :           __sb_(__s, __n, __s + (__mode &amp; ios::app ? strlen(__s) : 0))</span>
+<span class="lineNum">     295 </span><span class="lineCov">         12 :         {}</span>
+<span class="lineNum">     296 </span>            : 
+<span class="lineNum">     297 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">     298 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     299 </span>            :     ostrstream(ostrstream&amp;&amp; __rhs)
+<span class="lineNum">     300 </span>            :         : ostream(_VSTD::move(__rhs)),
+<span class="lineNum">     301 </span>            :           __sb_(_VSTD::move(__rhs.__sb_))
+<span class="lineNum">     302 </span>            :     {
+<span class="lineNum">     303 </span>            :         ostream::set_rdbuf(&amp;__sb_);
+<span class="lineNum">     304 </span>            :     }
+<span class="lineNum">     305 </span>            : 
+<span class="lineNum">     306 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     307 </span>            :     ostrstream&amp; operator=(ostrstream&amp;&amp; __rhs)
+<span class="lineNum">     308 </span>            :     {
+<span class="lineNum">     309 </span>            :         ostream::operator=(_VSTD::move(__rhs));
+<span class="lineNum">     310 </span>            :         __sb_ = _VSTD::move(__rhs.__sb_);
+<span class="lineNum">     311 </span>            :         return *this;
+<span class="lineNum">     312 </span>            :     }
+<span class="lineNum">     313 </span>            : #endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">     314 </span>            : 
+<span class="lineNum">     315 </span>            :     virtual ~ostrstream();
+<span class="lineNum">     316 </span>            : 
+<span class="lineNum">     317 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     318 </span>            :     void swap(ostrstream&amp; __rhs)
+<span class="lineNum">     319 </span>            :     {
+<span class="lineNum">     320 </span>            :         ostream::swap(__rhs);
+<span class="lineNum">     321 </span>            :         __sb_.swap(__rhs.__sb_);
+<span class="lineNum">     322 </span>            :     }
+<a name="323"><span class="lineNum">     323 </span>            : </a>
+<span class="lineNum">     324 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<a name="325"><span class="lineNum">     325 </span><span class="lineCov">          1 :     strstreambuf* rdbuf() const {return const_cast&lt;strstreambuf*&gt;(&amp;__sb_);}</span></a>
+<span class="lineNum">     326 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<a name="327"><span class="lineNum">     327 </span><span class="lineCov">          5 :     void freeze(bool __freezefl = true) {__sb_.freeze(__freezefl);}</span></a>
+<span class="lineNum">     328 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<a name="329"><span class="lineNum">     329 </span><span class="lineCov">          7 :     char* str()         {return __sb_.str();}</span></a>
+<span class="lineNum">     330 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     331 </span><span class="lineCov">          2 :     int pcount() const  {return __sb_.pcount();}</span>
+<span class="lineNum">     332 </span>            : 
+<span class="lineNum">     333 </span>            : private:
+<span class="lineNum">     334 </span>            :     strstreambuf __sb_; // exposition only
+<span class="lineNum">     335 </span>            : };
+<span class="lineNum">     336 </span>            : 
+<span class="lineNum">     337 </span>            : class _LIBCPP_TYPE_VIS strstream
+<span class="lineNum">     338 </span>            :     : public iostream
+<span class="lineNum">     339 </span>            : {
+<span class="lineNum">     340 </span>            : public:
+<span class="lineNum">     341 </span>            :     // Types
+<span class="lineNum">     342 </span>            :     typedef char                        char_type;
+<span class="lineNum">     343 </span>            :     typedef char_traits&lt;char&gt;::int_type int_type;
+<span class="lineNum">     344 </span>            :     typedef char_traits&lt;char&gt;::pos_type pos_type;
+<span class="lineNum">     345 </span>            :     typedef char_traits&lt;char&gt;::off_type off_type;
+<span class="lineNum">     346 </span>            : 
+<a name="347"><span class="lineNum">     347 </span>            :     // constructors/destructor</a>
+<span class="lineNum">     348 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     349 </span><span class="lineCov">          8 :     strstream()</span>
+<a name="350"><span class="lineNum">     350 </span><span class="lineCov">         16 :         : iostream(&amp;__sb_) {}</span></a>
+<span class="lineNum">     351 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     352 </span><span class="lineCov">          3 :     strstream(char* __s, int __n, ios_base::openmode __mode = ios_base::in | ios_base::out)</span>
+<span class="lineNum">     353 </span><span class="lineCov">          3 :         : iostream(&amp;__sb_),</span>
+<span class="lineNum">     354 </span><span class="lineCov">          9 :           __sb_(__s, __n, __s + (__mode &amp; ios::app ? strlen(__s) : 0))</span>
+<span class="lineNum">     355 </span><span class="lineCov">         12 :         {}</span>
+<span class="lineNum">     356 </span>            : 
+<span class="lineNum">     357 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">     358 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     359 </span>            :     strstream(strstream&amp;&amp; __rhs)
+<span class="lineNum">     360 </span>            :         : iostream(_VSTD::move(__rhs)),
+<span class="lineNum">     361 </span>            :           __sb_(_VSTD::move(__rhs.__sb_))
+<span class="lineNum">     362 </span>            :     {
+<span class="lineNum">     363 </span>            :         iostream::set_rdbuf(&amp;__sb_);
+<span class="lineNum">     364 </span>            :     }
+<span class="lineNum">     365 </span>            : 
+<span class="lineNum">     366 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     367 </span>            :     strstream&amp; operator=(strstream&amp;&amp; __rhs)
+<span class="lineNum">     368 </span>            :     {
+<span class="lineNum">     369 </span>            :         iostream::operator=(_VSTD::move(__rhs));
+<span class="lineNum">     370 </span>            :         __sb_ = _VSTD::move(__rhs.__sb_);
+<span class="lineNum">     371 </span>            :         return *this;
+<span class="lineNum">     372 </span>            :     }
+<span class="lineNum">     373 </span>            : #endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">     374 </span>            : 
+<span class="lineNum">     375 </span>            :     virtual ~strstream();
+<span class="lineNum">     376 </span>            : 
+<span class="lineNum">     377 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     378 </span>            :     void swap(strstream&amp; __rhs)
+<span class="lineNum">     379 </span>            :     {
+<span class="lineNum">     380 </span>            :         iostream::swap(__rhs);
+<span class="lineNum">     381 </span>            :         __sb_.swap(__rhs.__sb_);
+<span class="lineNum">     382 </span>            :     }
+<span class="lineNum">     383 </span>            : 
+<a name="384"><span class="lineNum">     384 </span>            :     // Members:</a>
+<span class="lineNum">     385 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<a name="386"><span class="lineNum">     386 </span><span class="lineCov">          1 :     strstreambuf* rdbuf() const {return const_cast&lt;strstreambuf*&gt;(&amp;__sb_);}</span></a>
+<span class="lineNum">     387 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<a name="388"><span class="lineNum">     388 </span><span class="lineCov">          5 :     void freeze(bool __freezefl = true) {__sb_.freeze(__freezefl);}</span></a>
+<span class="lineNum">     389 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<a name="390"><span class="lineNum">     390 </span><span class="lineCov">          2 :     int pcount() const {return __sb_.pcount();}</span></a>
+<span class="lineNum">     391 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     392 </span><span class="lineCov">          7 :     char* str()        {return __sb_.str();}</span>
+<span class="lineNum">     393 </span>            : 
+<span class="lineNum">     394 </span>            : private:
+<span class="lineNum">     395 </span>            :     strstreambuf __sb_; // exposition only
+<span class="lineNum">     396 </span>            : };
+<span class="lineNum">     397 </span>            : 
+<span class="lineNum">     398 </span>            : _LIBCPP_END_NAMESPACE_STD
+<span class="lineNum">     399 </span>            : 
+<span class="lineNum">     400 </span>            : #endif  // _LIBCPP_STRSTREAM
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

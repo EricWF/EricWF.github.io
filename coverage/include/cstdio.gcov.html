@@ -1,0 +1,285 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - test_coverage.info - include/cstdio</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">include</a> - cstdio<span style="font-size: 80%;"> (source / <a href="cstdio.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">test_coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntryLo">0.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2015-06-02</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntryLo">0.0 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : // -*- C++ -*-</a>
+<span class="lineNum">       2 </span>            : //===---------------------------- cstdio ----------------------------------===//
+<span class="lineNum">       3 </span>            : //
+<span class="lineNum">       4 </span>            : //                     The LLVM Compiler Infrastructure
+<span class="lineNum">       5 </span>            : //
+<span class="lineNum">       6 </span>            : // This file is dual licensed under the MIT and the University of Illinois Open
+<span class="lineNum">       7 </span>            : // Source Licenses. See LICENSE.TXT for details.
+<span class="lineNum">       8 </span>            : //
+<span class="lineNum">       9 </span>            : //===----------------------------------------------------------------------===//
+<span class="lineNum">      10 </span>            : 
+<span class="lineNum">      11 </span>            : #ifndef _LIBCPP_CSTDIO
+<span class="lineNum">      12 </span>            : #define _LIBCPP_CSTDIO
+<span class="lineNum">      13 </span>            : 
+<span class="lineNum">      14 </span>            : /*
+<span class="lineNum">      15 </span>            :     cstdio synopsis
+<span class="lineNum">      16 </span>            : 
+<span class="lineNum">      17 </span>            : Macros:
+<span class="lineNum">      18 </span>            : 
+<span class="lineNum">      19 </span>            :     BUFSIZ
+<span class="lineNum">      20 </span>            :     EOF
+<span class="lineNum">      21 </span>            :     FILENAME_MAX
+<span class="lineNum">      22 </span>            :     FOPEN_MAX
+<span class="lineNum">      23 </span>            :     L_tmpnam
+<span class="lineNum">      24 </span>            :     NULL
+<span class="lineNum">      25 </span>            :     SEEK_CUR
+<span class="lineNum">      26 </span>            :     SEEK_END
+<span class="lineNum">      27 </span>            :     SEEK_SET
+<span class="lineNum">      28 </span>            :     TMP_MAX
+<span class="lineNum">      29 </span>            :     _IOFBF
+<span class="lineNum">      30 </span>            :     _IOLBF
+<span class="lineNum">      31 </span>            :     _IONBF
+<span class="lineNum">      32 </span>            :     stderr
+<span class="lineNum">      33 </span>            :     stdin
+<span class="lineNum">      34 </span>            :     stdout
+<span class="lineNum">      35 </span>            : 
+<span class="lineNum">      36 </span>            : namespace std
+<span class="lineNum">      37 </span>            : {
+<span class="lineNum">      38 </span>            : 
+<span class="lineNum">      39 </span>            : Types:
+<span class="lineNum">      40 </span>            : 
+<span class="lineNum">      41 </span>            : FILE
+<span class="lineNum">      42 </span>            : fpos_t
+<span class="lineNum">      43 </span>            : size_t
+<span class="lineNum">      44 </span>            : 
+<span class="lineNum">      45 </span>            : int remove(const char* filename);
+<span class="lineNum">      46 </span>            : int rename(const char* old, const char* new);
+<span class="lineNum">      47 </span>            : FILE* tmpfile(void);
+<span class="lineNum">      48 </span>            : char* tmpnam(char* s);
+<span class="lineNum">      49 </span>            : int fclose(FILE* stream);
+<span class="lineNum">      50 </span>            : int fflush(FILE* stream);
+<span class="lineNum">      51 </span>            : FILE* fopen(const char* restrict filename, const char* restrict mode);
+<span class="lineNum">      52 </span>            : FILE* freopen(const char* restrict filename, const char * restrict mode,
+<span class="lineNum">      53 </span>            :               FILE * restrict stream);
+<span class="lineNum">      54 </span>            : void setbuf(FILE* restrict stream, char* restrict buf);
+<span class="lineNum">      55 </span>            : int setvbuf(FILE* restrict stream, char* restrict buf, int mode, size_t size);
+<span class="lineNum">      56 </span>            : int fprintf(FILE* restrict stream, const char* restrict format, ...);
+<span class="lineNum">      57 </span>            : int fscanf(FILE* restrict stream, const char * restrict format, ...);
+<span class="lineNum">      58 </span>            : int printf(const char* restrict format, ...);
+<span class="lineNum">      59 </span>            : int scanf(const char* restrict format, ...);
+<span class="lineNum">      60 </span>            : int snprintf(char* restrict s, size_t n, const char* restrict format, ...);    // C99
+<span class="lineNum">      61 </span>            : int sprintf(char* restrict s, const char* restrict format, ...);
+<span class="lineNum">      62 </span>            : int sscanf(const char* restrict s, const char* restrict format, ...);
+<span class="lineNum">      63 </span>            : int vfprintf(FILE* restrict stream, const char* restrict format, va_list arg);
+<span class="lineNum">      64 </span>            : int vfscanf(FILE* restrict stream, const char* restrict format, va_list arg);  // C99
+<span class="lineNum">      65 </span>            : int vprintf(const char* restrict format, va_list arg);
+<span class="lineNum">      66 </span>            : int vscanf(const char* restrict format, va_list arg);                          // C99
+<span class="lineNum">      67 </span>            : int vsnprintf(char* restrict s, size_t n, const char* restrict format,         // C99
+<span class="lineNum">      68 </span>            :               va_list arg);
+<span class="lineNum">      69 </span>            : int vsprintf(char* restrict s, const char* restrict format, va_list arg);
+<span class="lineNum">      70 </span>            : int vsscanf(const char* restrict s, const char* restrict format, va_list arg); // C99
+<span class="lineNum">      71 </span>            : int fgetc(FILE* stream);
+<span class="lineNum">      72 </span>            : char* fgets(char* restrict s, int n, FILE* restrict stream);
+<span class="lineNum">      73 </span>            : int fputc(int c, FILE* stream);
+<span class="lineNum">      74 </span>            : int fputs(const char* restrict s, FILE* restrict stream);
+<span class="lineNum">      75 </span>            : int getc(FILE* stream);
+<span class="lineNum">      76 </span>            : int getchar(void);
+<span class="lineNum">      77 </span>            : char* gets(char* s);  // removed in C++14
+<span class="lineNum">      78 </span>            : int putc(int c, FILE* stream);
+<span class="lineNum">      79 </span>            : int putchar(int c);
+<span class="lineNum">      80 </span>            : int puts(const char* s);
+<span class="lineNum">      81 </span>            : int ungetc(int c, FILE* stream);
+<span class="lineNum">      82 </span>            : size_t fread(void* restrict ptr, size_t size, size_t nmemb,
+<span class="lineNum">      83 </span>            :              FILE* restrict stream);
+<span class="lineNum">      84 </span>            : size_t fwrite(const void* restrict ptr, size_t size, size_t nmemb,
+<span class="lineNum">      85 </span>            :               FILE* restrict stream);
+<span class="lineNum">      86 </span>            : int fgetpos(FILE* restrict stream, fpos_t* restrict pos);
+<span class="lineNum">      87 </span>            : int fseek(FILE* stream, long offset, int whence);
+<span class="lineNum">      88 </span>            : int fsetpos(FILE*stream, const fpos_t* pos);
+<span class="lineNum">      89 </span>            : long ftell(FILE* stream);
+<span class="lineNum">      90 </span>            : void rewind(FILE* stream);
+<span class="lineNum">      91 </span>            : void clearerr(FILE* stream);
+<span class="lineNum">      92 </span>            : int feof(FILE* stream);
+<span class="lineNum">      93 </span>            : int ferror(FILE* stream);
+<span class="lineNum">      94 </span>            : void perror(const char* s);
+<span class="lineNum">      95 </span>            : 
+<span class="lineNum">      96 </span>            : }  // std
+<span class="lineNum">      97 </span>            : */
+<span class="lineNum">      98 </span>            : 
+<span class="lineNum">      99 </span>            : #include &lt;__config&gt;
+<span class="lineNum">     100 </span>            : #include &lt;stdio.h&gt;
+<span class="lineNum">     101 </span>            : 
+<span class="lineNum">     102 </span>            : #if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
+<span class="lineNum">     103 </span>            : #pragma GCC system_header
+<span class="lineNum">     104 </span>            : #endif
+<span class="lineNum">     105 </span>            : 
+<span class="lineNum">     106 </span>            : // snprintf
+<span class="lineNum">     107 </span>            : #if defined(_LIBCPP_MSVCRT)
+<span class="lineNum">     108 </span>            : #include &quot;support/win32/support.h&quot;
+<span class="lineNum">     109 </span>            : #endif
+<a name="110"><span class="lineNum">     110 </span>            : </a>
+<span class="lineNum">     111 </span>            : #ifdef getc
+<a name="112"><span class="lineNum">     112 </span><span class="lineNoCov">          0 : inline _LIBCPP_INLINE_VISIBILITY int __libcpp_getc(FILE* __stream) {return getc(__stream);}</span></a>
+<span class="lineNum">     113 </span>            : #undef getc
+<span class="lineNum">     114 </span><span class="lineNoCov">          0 : inline _LIBCPP_INLINE_VISIBILITY int getc(FILE* __stream) {return __libcpp_getc(__stream);}</span>
+<span class="lineNum">     115 </span>            : #endif  // getc
+<span class="lineNum">     116 </span>            : 
+<span class="lineNum">     117 </span>            : #ifdef putc
+<span class="lineNum">     118 </span>            : inline _LIBCPP_INLINE_VISIBILITY int __libcpp_putc(int __c, FILE* __stream) {return putc(__c, __stream);}
+<span class="lineNum">     119 </span>            : #undef putc
+<span class="lineNum">     120 </span>            : inline _LIBCPP_INLINE_VISIBILITY int putc(int __c, FILE* __stream) {return __libcpp_putc(__c, __stream);}
+<span class="lineNum">     121 </span>            : #endif  // putc
+<span class="lineNum">     122 </span>            : 
+<span class="lineNum">     123 </span>            : #ifdef clearerr
+<span class="lineNum">     124 </span>            : inline _LIBCPP_INLINE_VISIBILITY void __libcpp_clearerr(FILE* __stream) { return clearerr(__stream); }
+<span class="lineNum">     125 </span>            : #undef clearerr
+<span class="lineNum">     126 </span>            : inline _LIBCPP_INLINE_VISIBILITY void clearerr(FILE* __stream) { return __libcpp_clearerr(__stream); }
+<span class="lineNum">     127 </span>            : #endif  // clearerr
+<span class="lineNum">     128 </span>            : 
+<span class="lineNum">     129 </span>            : #ifdef feof
+<span class="lineNum">     130 </span>            : inline _LIBCPP_INLINE_VISIBILITY int __libcpp_feof(FILE* __stream) { return feof(__stream); }
+<span class="lineNum">     131 </span>            : #undef feof
+<span class="lineNum">     132 </span>            : inline _LIBCPP_INLINE_VISIBILITY int feof(FILE* __stream) { return __libcpp_feof(__stream); }
+<span class="lineNum">     133 </span>            : #endif  // feof
+<span class="lineNum">     134 </span>            : 
+<span class="lineNum">     135 </span>            : #ifdef ferror
+<span class="lineNum">     136 </span>            : inline _LIBCPP_INLINE_VISIBILITY int __libcpp_ferror(FILE* __stream) { return ferror(__stream); }
+<span class="lineNum">     137 </span>            : #undef ferror
+<span class="lineNum">     138 </span>            : inline _LIBCPP_INLINE_VISIBILITY int ferror(FILE* __stream) { return __libcpp_ferror(__stream); }
+<span class="lineNum">     139 </span>            : #endif  // ferror
+<span class="lineNum">     140 </span>            : 
+<span class="lineNum">     141 </span>            : _LIBCPP_BEGIN_NAMESPACE_STD
+<span class="lineNum">     142 </span>            : 
+<span class="lineNum">     143 </span>            : using ::FILE;
+<span class="lineNum">     144 </span>            : using ::fpos_t;
+<span class="lineNum">     145 </span>            : using ::size_t;
+<span class="lineNum">     146 </span>            : 
+<span class="lineNum">     147 </span>            : using ::fclose;
+<span class="lineNum">     148 </span>            : using ::fflush;
+<span class="lineNum">     149 </span>            : using ::setbuf;
+<span class="lineNum">     150 </span>            : using ::setvbuf;
+<span class="lineNum">     151 </span>            : using ::fprintf;
+<span class="lineNum">     152 </span>            : using ::fscanf;
+<span class="lineNum">     153 </span>            : using ::snprintf;
+<span class="lineNum">     154 </span>            : using ::sprintf;
+<span class="lineNum">     155 </span>            : using ::sscanf;
+<span class="lineNum">     156 </span>            : #ifndef _LIBCPP_MSVCRT
+<span class="lineNum">     157 </span>            : using ::vfprintf;
+<span class="lineNum">     158 </span>            : using ::vfscanf;
+<span class="lineNum">     159 </span>            : using ::vsscanf;
+<span class="lineNum">     160 </span>            : #endif // _LIBCPP_MSVCRT
+<span class="lineNum">     161 </span>            : using ::vsnprintf;
+<span class="lineNum">     162 </span>            : using ::vsprintf;
+<span class="lineNum">     163 </span>            : using ::fgetc;
+<span class="lineNum">     164 </span>            : using ::fgets;
+<span class="lineNum">     165 </span>            : using ::fputc;
+<span class="lineNum">     166 </span>            : using ::fputs;
+<span class="lineNum">     167 </span>            : using ::getc;
+<span class="lineNum">     168 </span>            : using ::putc;
+<span class="lineNum">     169 </span>            : using ::ungetc;
+<span class="lineNum">     170 </span>            : using ::fread;
+<span class="lineNum">     171 </span>            : using ::fwrite;
+<span class="lineNum">     172 </span>            : using ::fgetpos;
+<span class="lineNum">     173 </span>            : using ::fseek;
+<span class="lineNum">     174 </span>            : using ::fsetpos;
+<span class="lineNum">     175 </span>            : using ::ftell;
+<span class="lineNum">     176 </span>            : using ::rewind;
+<span class="lineNum">     177 </span>            : using ::clearerr;
+<span class="lineNum">     178 </span>            : using ::feof;
+<span class="lineNum">     179 </span>            : using ::ferror;
+<span class="lineNum">     180 </span>            : using ::perror;
+<span class="lineNum">     181 </span>            : 
+<span class="lineNum">     182 </span>            : #ifndef _LIBCPP_HAS_NO_GLOBAL_FILESYSTEM_NAMESPACE
+<span class="lineNum">     183 </span>            : using ::fopen;
+<span class="lineNum">     184 </span>            : using ::freopen;
+<span class="lineNum">     185 </span>            : using ::remove;
+<span class="lineNum">     186 </span>            : using ::rename;
+<span class="lineNum">     187 </span>            : using ::tmpfile;
+<span class="lineNum">     188 </span>            : using ::tmpnam;
+<span class="lineNum">     189 </span>            : #endif
+<span class="lineNum">     190 </span>            : 
+<span class="lineNum">     191 </span>            : #ifndef _LIBCPP_HAS_NO_STDIN
+<span class="lineNum">     192 </span>            : using ::getchar;
+<span class="lineNum">     193 </span>            : #if _LIBCPP_STD_VER &lt;= 11
+<span class="lineNum">     194 </span>            : using ::gets;
+<span class="lineNum">     195 </span>            : #endif
+<span class="lineNum">     196 </span>            : using ::scanf;
+<span class="lineNum">     197 </span>            : using ::vscanf;
+<span class="lineNum">     198 </span>            : #endif
+<span class="lineNum">     199 </span>            : 
+<span class="lineNum">     200 </span>            : #ifndef _LIBCPP_HAS_NO_STDOUT
+<span class="lineNum">     201 </span>            : using ::printf;
+<span class="lineNum">     202 </span>            : using ::putchar;
+<span class="lineNum">     203 </span>            : using ::puts;
+<span class="lineNum">     204 </span>            : using ::vprintf;
+<span class="lineNum">     205 </span>            : #endif
+<span class="lineNum">     206 </span>            : 
+<span class="lineNum">     207 </span>            : _LIBCPP_END_NAMESPACE_STD
+<span class="lineNum">     208 </span>            : 
+<span class="lineNum">     209 </span>            : #endif  // _LIBCPP_CSTDIO
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>
