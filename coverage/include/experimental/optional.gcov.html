@@ -1,0 +1,970 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - test_coverage.info - include/experimental/optional</title>
+  <link rel="stylesheet" type="text/css" href="../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../index.html">top level</a> - <a href="index.html">include/experimental</a> - optional<span style="font-size: 80%;"> (source / <a href="optional.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">test_coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">113</td>
+            <td class="headerCovTableEntry">116</td>
+            <td class="headerCovTableEntryHi">97.4 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2015-06-02</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">156</td>
+            <td class="headerCovTableEntry">157</td>
+            <td class="headerCovTableEntryHi">99.4 %</td>
+          </tr>
+          <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : // -*- C++ -*-</a>
+<span class="lineNum">       2 </span>            : //===-------------------------- optional ----------------------------------===//
+<span class="lineNum">       3 </span>            : //
+<span class="lineNum">       4 </span>            : //                     The LLVM Compiler Infrastructure
+<span class="lineNum">       5 </span>            : //
+<span class="lineNum">       6 </span>            : // This file is dual licensed under the MIT and the University of Illinois Open
+<span class="lineNum">       7 </span>            : // Source Licenses. See LICENSE.TXT for details.
+<span class="lineNum">       8 </span>            : //
+<span class="lineNum">       9 </span>            : //===----------------------------------------------------------------------===//
+<span class="lineNum">      10 </span>            : 
+<span class="lineNum">      11 </span>            : #ifndef _LIBCPP_OPTIONAL
+<span class="lineNum">      12 </span>            : #define _LIBCPP_OPTIONAL
+<span class="lineNum">      13 </span>            : 
+<span class="lineNum">      14 </span>            : /*
+<span class="lineNum">      15 </span>            :     optional synopsis
+<span class="lineNum">      16 </span>            : 
+<span class="lineNum">      17 </span>            : // C++1y
+<span class="lineNum">      18 </span>            : 
+<span class="lineNum">      19 </span>            : namespace std { namespace experimental { inline namespace fundamentals_v1 {
+<span class="lineNum">      20 </span>            : 
+<span class="lineNum">      21 </span>            :     // 5.3, optional for object types
+<span class="lineNum">      22 </span>            :     template &lt;class T&gt; class optional;
+<span class="lineNum">      23 </span>            : 
+<span class="lineNum">      24 </span>            :     // 5.4, In-place construction
+<span class="lineNum">      25 </span>            :     struct in_place_t{};
+<span class="lineNum">      26 </span>            :     constexpr in_place_t in_place{};
+<span class="lineNum">      27 </span>            : 
+<span class="lineNum">      28 </span>            :     // 5.5, No-value state indicator
+<span class="lineNum">      29 </span>            :     struct nullopt_t{see below};
+<span class="lineNum">      30 </span>            :     constexpr nullopt_t nullopt(unspecified);
+<span class="lineNum">      31 </span>            : 
+<span class="lineNum">      32 </span>            :     // 5.6, Class bad_optional_access
+<span class="lineNum">      33 </span>            :     class bad_optional_access;
+<span class="lineNum">      34 </span>            : 
+<span class="lineNum">      35 </span>            :     // 5.7, Relational operators
+<span class="lineNum">      36 </span>            :     template &lt;class T&gt;
+<span class="lineNum">      37 </span>            :       constexpr bool operator==(const optional&lt;T&gt;&amp;, const optional&lt;T&gt;&amp;);
+<span class="lineNum">      38 </span>            :     template &lt;class T&gt;
+<span class="lineNum">      39 </span>            :       constexpr bool operator!=(const optional&lt;T&gt;&amp;, const optional&lt;T&gt;&amp;);
+<span class="lineNum">      40 </span>            :     template &lt;class T&gt;
+<span class="lineNum">      41 </span>            :       constexpr bool operator&lt;(const optional&lt;T&gt;&amp;, const optional&lt;T&gt;&amp;);
+<span class="lineNum">      42 </span>            :     template &lt;class T&gt;
+<span class="lineNum">      43 </span>            :       constexpr bool operator&gt;(const optional&lt;T&gt;&amp;, const optional&lt;T&gt;&amp;);
+<span class="lineNum">      44 </span>            :     template &lt;class T&gt;
+<span class="lineNum">      45 </span>            :       constexpr bool operator&lt;=(const optional&lt;T&gt;&amp;, const optional&lt;T&gt;&amp;);
+<span class="lineNum">      46 </span>            :     template &lt;class T&gt;
+<span class="lineNum">      47 </span>            :       constexpr bool operator&gt;=(const optional&lt;T&gt;&amp;, const optional&lt;T&gt;&amp;);
+<span class="lineNum">      48 </span>            : 
+<span class="lineNum">      49 </span>            :     // 5.8, Comparison with nullopt
+<span class="lineNum">      50 </span>            :     template &lt;class T&gt; constexpr bool operator==(const optional&lt;T&gt;&amp;, nullopt_t) noexcept;
+<span class="lineNum">      51 </span>            :     template &lt;class T&gt; constexpr bool operator==(nullopt_t, const optional&lt;T&gt;&amp;) noexcept;
+<span class="lineNum">      52 </span>            :     template &lt;class T&gt; constexpr bool operator!=(const optional&lt;T&gt;&amp;, nullopt_t) noexcept;
+<span class="lineNum">      53 </span>            :     template &lt;class T&gt; constexpr bool operator!=(nullopt_t, const optional&lt;T&gt;&amp;) noexcept;
+<span class="lineNum">      54 </span>            :     template &lt;class T&gt; constexpr bool operator&lt;(const optional&lt;T&gt;&amp;, nullopt_t) noexcept;
+<span class="lineNum">      55 </span>            :     template &lt;class T&gt; constexpr bool operator&lt;(nullopt_t, const optional&lt;T&gt;&amp;) noexcept;
+<span class="lineNum">      56 </span>            :     template &lt;class T&gt; constexpr bool operator&lt;=(const optional&lt;T&gt;&amp;, nullopt_t) noexcept;
+<span class="lineNum">      57 </span>            :     template &lt;class T&gt; constexpr bool operator&lt;=(nullopt_t, const optional&lt;T&gt;&amp;) noexcept;
+<span class="lineNum">      58 </span>            :     template &lt;class T&gt; constexpr bool operator&gt;(const optional&lt;T&gt;&amp;, nullopt_t) noexcept;
+<span class="lineNum">      59 </span>            :     template &lt;class T&gt; constexpr bool operator&gt;(nullopt_t, const optional&lt;T&gt;&amp;) noexcept;
+<span class="lineNum">      60 </span>            :     template &lt;class T&gt; constexpr bool operator&gt;=(const optional&lt;T&gt;&amp;, nullopt_t) noexcept;
+<span class="lineNum">      61 </span>            :     template &lt;class T&gt; constexpr bool operator&gt;=(nullopt_t, const optional&lt;T&gt;&amp;) noexcept;
+<span class="lineNum">      62 </span>            : 
+<span class="lineNum">      63 </span>            :     // 5.9, Comparison with T
+<span class="lineNum">      64 </span>            :     template &lt;class T&gt; constexpr bool operator==(const optional&lt;T&gt;&amp;, const T&amp;);
+<span class="lineNum">      65 </span>            :     template &lt;class T&gt; constexpr bool operator==(const T&amp;, const optional&lt;T&gt;&amp;);
+<span class="lineNum">      66 </span>            :     template &lt;class T&gt; constexpr bool operator!=(const optional&lt;T&gt;&amp;, const T&amp;);
+<span class="lineNum">      67 </span>            :     template &lt;class T&gt; constexpr bool operator!=(const T&amp;, const optional&lt;T&gt;&amp;);
+<span class="lineNum">      68 </span>            :     template &lt;class T&gt; constexpr bool operator&lt;(const optional&lt;T&gt;&amp;, const T&amp;);
+<span class="lineNum">      69 </span>            :     template &lt;class T&gt; constexpr bool operator&lt;(const T&amp;, const optional&lt;T&gt;&amp;);
+<span class="lineNum">      70 </span>            :     template &lt;class T&gt; constexpr bool operator&lt;=(const optional&lt;T&gt;&amp;, const T&amp;);
+<span class="lineNum">      71 </span>            :     template &lt;class T&gt; constexpr bool operator&lt;=(const T&amp;, const optional&lt;T&gt;&amp;);
+<span class="lineNum">      72 </span>            :     template &lt;class T&gt; constexpr bool operator&gt;(const optional&lt;T&gt;&amp;, const T&amp;);
+<span class="lineNum">      73 </span>            :     template &lt;class T&gt; constexpr bool operator&gt;(const T&amp;, const optional&lt;T&gt;&amp;);
+<span class="lineNum">      74 </span>            :     template &lt;class T&gt; constexpr bool operator&gt;=(const optional&lt;T&gt;&amp;, const T&amp;);
+<span class="lineNum">      75 </span>            :     template &lt;class T&gt; constexpr bool operator&gt;=(const T&amp;, const optional&lt;T&gt;&amp;);
+<span class="lineNum">      76 </span>            : 
+<span class="lineNum">      77 </span>            :     // 5.10, Specialized algorithms
+<span class="lineNum">      78 </span>            :     template &lt;class T&gt; void swap(optional&lt;T&gt;&amp;, optional&lt;T&gt;&amp;) noexcept(see below);
+<span class="lineNum">      79 </span>            :     template &lt;class T&gt; constexpr optional&lt;see below&gt; make_optional(T&amp;&amp;);
+<span class="lineNum">      80 </span>            : 
+<span class="lineNum">      81 </span>            :         template &lt;class T&gt;
+<span class="lineNum">      82 </span>            :         class optional
+<span class="lineNum">      83 </span>            :         {
+<span class="lineNum">      84 </span>            :         public:
+<span class="lineNum">      85 </span>            :           typedef T value_type;
+<span class="lineNum">      86 </span>            : 
+<span class="lineNum">      87 </span>            :           // 5.3.1, Constructors
+<span class="lineNum">      88 </span>            :           constexpr optional() noexcept;
+<span class="lineNum">      89 </span>            :           constexpr optional(nullopt_t) noexcept;
+<span class="lineNum">      90 </span>            :           optional(const optional&amp;);
+<span class="lineNum">      91 </span>            :           optional(optional&amp;&amp;) noexcept(see below);
+<span class="lineNum">      92 </span>            :           constexpr optional(const T&amp;);
+<span class="lineNum">      93 </span>            :           constexpr optional(T&amp;&amp;);
+<span class="lineNum">      94 </span>            :           template &lt;class... Args&gt; constexpr explicit optional(in_place_t, Args&amp;&amp;...);
+<span class="lineNum">      95 </span>            :           template &lt;class U, class... Args&gt;
+<span class="lineNum">      96 </span>            :                 constexpr explicit optional(in_place_t, initializer_list&lt;U&gt;, Args&amp;&amp;...);
+<span class="lineNum">      97 </span>            : 
+<span class="lineNum">      98 </span>            :           // 5.3.2, Destructor
+<span class="lineNum">      99 </span>            :           ~optional();
+<span class="lineNum">     100 </span>            : 
+<span class="lineNum">     101 </span>            :           // 5.3.3, Assignment
+<span class="lineNum">     102 </span>            :           optional&amp; operator=(nullopt_t) noexcept;
+<span class="lineNum">     103 </span>            :           optional&amp; operator=(const optional&amp;);
+<span class="lineNum">     104 </span>            :           optional&amp; operator=(optional&amp;&amp;) noexcept(see below);
+<span class="lineNum">     105 </span>            :           template &lt;class U&gt; optional&amp; operator=(U&amp;&amp;);
+<span class="lineNum">     106 </span>            :           template &lt;class... Args&gt; void emplace(Args&amp;&amp;...);
+<span class="lineNum">     107 </span>            :           template &lt;class U, class... Args&gt;
+<span class="lineNum">     108 </span>            :                 void emplace(initializer_list&lt;U&gt;, Args&amp;&amp;...);
+<span class="lineNum">     109 </span>            : 
+<span class="lineNum">     110 </span>            :           // 5.3.4, Swap
+<span class="lineNum">     111 </span>            :           void swap(optional&amp;) noexcept(see below);
+<span class="lineNum">     112 </span>            : 
+<span class="lineNum">     113 </span>            :           // 5.3.5, Observers
+<span class="lineNum">     114 </span>            :           constexpr T const* operator -&gt;() const;
+<span class="lineNum">     115 </span>            :           constexpr T* operator -&gt;();
+<span class="lineNum">     116 </span>            :           constexpr T const&amp; operator *() const &amp;;
+<span class="lineNum">     117 </span>            :           constexpr T&amp; operator *() &amp;;
+<span class="lineNum">     118 </span>            :           constexpr T&amp;&amp; operator *() &amp;&amp;;
+<span class="lineNum">     119 </span>            :           constexpr const T&amp;&amp; operator *() const &amp;&amp;;
+<span class="lineNum">     120 </span>            :           constexpr explicit operator bool() const noexcept;
+<span class="lineNum">     121 </span>            :           constexpr T const&amp; value() const &amp;;
+<span class="lineNum">     122 </span>            :           constexpr T&amp; value() &amp;;
+<span class="lineNum">     123 </span>            :           constexpr T&amp;&amp; value() &amp;&amp;;
+<span class="lineNum">     124 </span>            :           constexpr const T&amp;&amp; value() const &amp;&amp;;
+<span class="lineNum">     125 </span>            :           template &lt;class U&gt; constexpr T value_or(U&amp;&amp;) const &amp;;
+<span class="lineNum">     126 </span>            :           template &lt;class U&gt; constexpr T value_or(U&amp;&amp;) &amp;&amp;;
+<span class="lineNum">     127 </span>            : 
+<span class="lineNum">     128 </span>            :         private:
+<span class="lineNum">     129 </span>            :           T*   val;  // exposition only
+<span class="lineNum">     130 </span>            :         };
+<span class="lineNum">     131 </span>            : 
+<span class="lineNum">     132 </span>            :   } // namespace fundamentals_v1
+<span class="lineNum">     133 </span>            :   } // namespace experimental
+<span class="lineNum">     134 </span>            : 
+<span class="lineNum">     135 </span>            :   // 5.11, Hash support
+<span class="lineNum">     136 </span>            :   template &lt;class T&gt; struct hash;
+<span class="lineNum">     137 </span>            :   template &lt;class T&gt; struct hash&lt;experimental::optional&lt;T&gt;&gt;;
+<span class="lineNum">     138 </span>            : 
+<span class="lineNum">     139 </span>            : } // namespace std
+<span class="lineNum">     140 </span>            : 
+<span class="lineNum">     141 </span>            : */
+<span class="lineNum">     142 </span>            : 
+<span class="lineNum">     143 </span>            : #include &lt;experimental/__config&gt;
+<span class="lineNum">     144 </span>            : #include &lt;functional&gt;
+<span class="lineNum">     145 </span>            : #include &lt;stdexcept&gt;
+<span class="lineNum">     146 </span>            : 
+<span class="lineNum">     147 </span>            : _LIBCPP_BEGIN_NAMESPACE_EXPERIMENTAL
+<span class="lineNum">     148 </span>            : class _LIBCPP_EXCEPTION_ABI bad_optional_access
+<span class="lineNum">     149 </span>            :     : public std::logic_error
+<a name="150"><span class="lineNum">     150 </span>            : {</a>
+<span class="lineNum">     151 </span>            : public:
+<span class="lineNum">     152 </span><span class="lineCov">          3 :         bad_optional_access() : std::logic_error(&quot;Bad optional Access&quot;) {}</span>
+<span class="lineNum">     153 </span>            : 
+<span class="lineNum">     154 </span>            : //      Get the key function ~bad_optional_access() into the dylib
+<span class="lineNum">     155 </span>            :     virtual ~bad_optional_access() _NOEXCEPT;
+<span class="lineNum">     156 </span>            : };
+<span class="lineNum">     157 </span>            : 
+<span class="lineNum">     158 </span>            : _LIBCPP_END_NAMESPACE_EXPERIMENTAL
+<span class="lineNum">     159 </span>            : 
+<span class="lineNum">     160 </span>            : 
+<span class="lineNum">     161 </span>            : #if _LIBCPP_STD_VER &gt; 11
+<span class="lineNum">     162 </span>            : 
+<span class="lineNum">     163 </span>            : #include &lt;initializer_list&gt;
+<span class="lineNum">     164 </span>            : #include &lt;type_traits&gt;
+<span class="lineNum">     165 </span>            : #include &lt;new&gt;
+<span class="lineNum">     166 </span>            : #include &lt;__functional_base&gt;
+<span class="lineNum">     167 </span>            : #include &lt;__undef_min_max&gt;
+<span class="lineNum">     168 </span>            : #include &lt;__debug&gt;
+<span class="lineNum">     169 </span>            : 
+<span class="lineNum">     170 </span>            : #if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
+<span class="lineNum">     171 </span>            : #pragma GCC system_header
+<span class="lineNum">     172 </span>            : #endif
+<span class="lineNum">     173 </span>            : 
+<span class="lineNum">     174 </span>            : _LIBCPP_BEGIN_NAMESPACE_LFTS
+<span class="lineNum">     175 </span>            : 
+<span class="lineNum">     176 </span>            : struct in_place_t {};
+<span class="lineNum">     177 </span>            : constexpr in_place_t in_place{};
+<span class="lineNum">     178 </span>            : 
+<span class="lineNum">     179 </span>            : struct nullopt_t
+<span class="lineNum">     180 </span>            : {
+<span class="lineNum">     181 </span>            :     explicit constexpr nullopt_t(int) noexcept {}
+<span class="lineNum">     182 </span>            : };
+<span class="lineNum">     183 </span>            : 
+<span class="lineNum">     184 </span>            : constexpr nullopt_t nullopt{0};
+<span class="lineNum">     185 </span>            : 
+<span class="lineNum">     186 </span>            : template &lt;class _Tp, bool = is_trivially_destructible&lt;_Tp&gt;::value&gt;
+<span class="lineNum">     187 </span>            : class __optional_storage
+<span class="lineNum">     188 </span>            : {
+<span class="lineNum">     189 </span>            : protected:
+<span class="lineNum">     190 </span>            :     typedef _Tp value_type;
+<span class="lineNum">     191 </span>            :     union
+<span class="lineNum">     192 </span>            :     {
+<span class="lineNum">     193 </span>            :         char __null_state_;
+<a name="194"><span class="lineNum">     194 </span>            :         value_type __val_;</a>
+<span class="lineNum">     195 </span>            :     };
+<span class="lineNum">     196 </span><span class="lineCov">         23 :     bool __engaged_ = false;</span>
+<a name="197"><span class="lineNum">     197 </span>            : </a>
+<span class="lineNum">     198 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     199 </span>            :     ~__optional_storage()
+<span class="lineNum">     200 </span>            :     {
+<span class="lineNum">     201 </span><span class="lineCov">         60 :         if (__engaged_)</span>
+<span class="lineNum">     202 </span><span class="lineCov">         36 :             __val_.~value_type();</span>
+<span class="lineNum">     203 </span><span class="lineCov">         60 :     }</span>
+<span class="lineNum">     204 </span>            : 
+<span class="lineNum">     205 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     206 </span>            :     constexpr __optional_storage() noexcept
+<span class="lineNum">     207 </span><span class="lineCov">         46 :         :  __null_state_('\0') {}</span>
+<a name="208"><span class="lineNum">     208 </span>            : </a>
+<span class="lineNum">     209 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     210 </span>            :     __optional_storage(const __optional_storage&amp; __x)
+<span class="lineNum">     211 </span><span class="lineCov">          2 :         :  __engaged_(__x.__engaged_)</span>
+<span class="lineNum">     212 </span>            :         {
+<span class="lineNum">     213 </span><span class="lineCov">          2 :             if (__engaged_)</span>
+<span class="lineNum">     214 </span><span class="lineCov">          1 :                 ::new(_VSTD::addressof(__val_)) value_type(__x.__val_);</span>
+<span class="lineNum">     215 </span><span class="lineCov">          2 :         }</span>
+<a name="216"><span class="lineNum">     216 </span>            : </a>
+<span class="lineNum">     217 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     218 </span>            :     __optional_storage(__optional_storage&amp;&amp; __x)
+<span class="lineNum">     219 </span>            :                       noexcept(is_nothrow_move_constructible&lt;value_type&gt;::value)
+<span class="lineNum">     220 </span><span class="lineCov">          2 :         :  __engaged_(__x.__engaged_)</span>
+<span class="lineNum">     221 </span>            :         {
+<span class="lineNum">     222 </span><span class="lineCov">          2 :             if (__engaged_)</span>
+<span class="lineNum">     223 </span><span class="lineCov">          1 :                 ::new(_VSTD::addressof(__val_)) value_type(_VSTD::move(__x.__val_));</span>
+<span class="lineNum">     224 </span><span class="lineCov">          2 :         }</span>
+<a name="225"><span class="lineNum">     225 </span>            : </a>
+<span class="lineNum">     226 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     227 </span>            :     constexpr __optional_storage(const value_type&amp; __v)
+<span class="lineNum">     228 </span><span class="lineCov">          7 :         :  __val_(__v),</span>
+<span class="lineNum">     229 </span><span class="lineCov">          7 :            __engaged_(true) {}</span>
+<a name="230"><span class="lineNum">     230 </span>            : </a>
+<span class="lineNum">     231 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     232 </span>            :     constexpr __optional_storage(value_type&amp;&amp; __v)
+<span class="lineNum">     233 </span><span class="lineCov">         21 :         :  __val_(_VSTD::move(__v)),</span>
+<span class="lineNum">     234 </span><span class="lineCov">         21 :            __engaged_(true) {}</span>
+<span class="lineNum">     235 </span>            : 
+<span class="lineNum">     236 </span>            :     template &lt;class... _Args&gt;
+<a name="237"><span class="lineNum">     237 </span>            :     _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     238 </span>            :     constexpr
+<span class="lineNum">     239 </span>            :     explicit __optional_storage(in_place_t, _Args&amp;&amp;... __args)
+<span class="lineNum">     240 </span><span class="lineCov">          5 :        :  __val_(_VSTD::forward&lt;_Args&gt;(__args)...),</span>
+<span class="lineNum">     241 </span><span class="lineCov">          5 :            __engaged_(true) {}</span>
+<span class="lineNum">     242 </span>            : };
+<span class="lineNum">     243 </span>            : 
+<span class="lineNum">     244 </span>            : template &lt;class _Tp&gt;
+<span class="lineNum">     245 </span>            : class __optional_storage&lt;_Tp, true&gt;
+<span class="lineNum">     246 </span>            : {
+<span class="lineNum">     247 </span>            : protected:
+<span class="lineNum">     248 </span>            :     typedef _Tp value_type;
+<span class="lineNum">     249 </span>            :     union
+<span class="lineNum">     250 </span>            :     {
+<span class="lineNum">     251 </span>            :         char __null_state_;
+<a name="252"><span class="lineNum">     252 </span>            :         value_type __val_;</a>
+<span class="lineNum">     253 </span>            :     };
+<span class="lineNum">     254 </span><span class="lineCov">         55 :     bool __engaged_ = false;</span>
+<span class="lineNum">     255 </span>            : 
+<span class="lineNum">     256 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     257 </span>            :     constexpr __optional_storage() noexcept
+<span class="lineNum">     258 </span><span class="lineCov">        110 :         :  __null_state_('\0') {}</span>
+<a name="259"><span class="lineNum">     259 </span>            : </a>
+<span class="lineNum">     260 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     261 </span>            :     __optional_storage(const __optional_storage&amp; __x)
+<span class="lineNum">     262 </span><span class="lineCov">          6 :         :  __engaged_(__x.__engaged_)</span>
+<span class="lineNum">     263 </span>            :         {
+<span class="lineNum">     264 </span><span class="lineCov">          6 :             if (__engaged_)</span>
+<span class="lineNum">     265 </span><span class="lineCov">          3 :                 ::new(_VSTD::addressof(__val_)) value_type(__x.__val_);</span>
+<span class="lineNum">     266 </span><span class="lineCov">          5 :         }</span>
+<a name="267"><span class="lineNum">     267 </span>            : </a>
+<span class="lineNum">     268 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     269 </span>            :     __optional_storage(__optional_storage&amp;&amp; __x)
+<span class="lineNum">     270 </span>            :                       noexcept(is_nothrow_move_constructible&lt;value_type&gt;::value)
+<span class="lineNum">     271 </span><span class="lineCov">          6 :         :  __engaged_(__x.__engaged_)</span>
+<span class="lineNum">     272 </span>            :         {
+<span class="lineNum">     273 </span><span class="lineCov">          6 :             if (__engaged_)</span>
+<span class="lineNum">     274 </span><span class="lineCov">          3 :                 ::new(_VSTD::addressof(__val_)) value_type(_VSTD::move(__x.__val_));</span>
+<span class="lineNum">     275 </span><span class="lineCov">          5 :         }</span>
+<a name="276"><span class="lineNum">     276 </span>            : </a>
+<span class="lineNum">     277 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     278 </span>            :     constexpr __optional_storage(const value_type&amp; __v)
+<span class="lineNum">     279 </span><span class="lineCov">          4 :         :  __val_(__v),</span>
+<span class="lineNum">     280 </span><span class="lineCov">          4 :            __engaged_(true) {}</span>
+<a name="281"><span class="lineNum">     281 </span>            : </a>
+<span class="lineNum">     282 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     283 </span>            :     constexpr __optional_storage(value_type&amp;&amp; __v)
+<span class="lineNum">     284 </span><span class="lineCov">         33 :         :  __val_(_VSTD::move(__v)),</span>
+<span class="lineNum">     285 </span><span class="lineCov">         33 :            __engaged_(true) {}</span>
+<span class="lineNum">     286 </span>            : 
+<span class="lineNum">     287 </span>            :     template &lt;class... _Args&gt;
+<a name="288"><span class="lineNum">     288 </span>            :     _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     289 </span>            :     constexpr
+<span class="lineNum">     290 </span>            :     explicit __optional_storage(in_place_t, _Args&amp;&amp;... __args)
+<span class="lineNum">     291 </span><span class="lineCov">          5 :        :  __val_(_VSTD::forward&lt;_Args&gt;(__args)...),</span>
+<span class="lineNum">     292 </span><span class="lineCov">          5 :            __engaged_(true) {}</span>
+<span class="lineNum">     293 </span>            : };
+<span class="lineNum">     294 </span>            : 
+<span class="lineNum">     295 </span>            : template &lt;class _Tp&gt;
+<span class="lineNum">     296 </span>            : class optional
+<span class="lineNum">     297 </span>            :     : private __optional_storage&lt;_Tp&gt;
+<span class="lineNum">     298 </span>            : {
+<span class="lineNum">     299 </span>            :     typedef __optional_storage&lt;_Tp&gt; __base;
+<span class="lineNum">     300 </span>            : public:
+<span class="lineNum">     301 </span>            :     typedef _Tp value_type;
+<span class="lineNum">     302 </span>            : 
+<span class="lineNum">     303 </span>            :     static_assert(!is_reference&lt;value_type&gt;::value,
+<span class="lineNum">     304 </span>            :               &quot;Instantiation of optional with a reference type is ill-formed.&quot;);
+<span class="lineNum">     305 </span>            :     static_assert(!is_same&lt;typename remove_cv&lt;value_type&gt;::type, in_place_t&gt;::value,
+<span class="lineNum">     306 </span>            :               &quot;Instantiation of optional with a in_place_t type is ill-formed.&quot;);
+<span class="lineNum">     307 </span>            :     static_assert(!is_same&lt;typename remove_cv&lt;value_type&gt;::type, nullopt_t&gt;::value,
+<span class="lineNum">     308 </span>            :               &quot;Instantiation of optional with a nullopt_t type is ill-formed.&quot;);
+<span class="lineNum">     309 </span>            :     static_assert(is_object&lt;value_type&gt;::value,
+<span class="lineNum">     310 </span>            :         &quot;Instantiation of optional with a non-object type is undefined behavior.&quot;);
+<span class="lineNum">     311 </span>            :     static_assert(is_nothrow_destructible&lt;value_type&gt;::value,
+<a name="312"><span class="lineNum">     312 </span>            :         &quot;Instantiation of optional with an object type that is not noexcept destructible is undefined behavior.&quot;);</a>
+<a name="313"><span class="lineNum">     313 </span>            : </a>
+<a name="314"><span class="lineNum">     314 </span><span class="lineCov">         77 :     _LIBCPP_INLINE_VISIBILITY constexpr optional() noexcept {}</span></a>
+<a name="315"><span class="lineNum">     315 </span><span class="lineCov">          8 :     _LIBCPP_INLINE_VISIBILITY optional(const optional&amp;) = default;</span></a>
+<a name="316"><span class="lineNum">     316 </span><span class="lineCov">          8 :     _LIBCPP_INLINE_VISIBILITY optional(optional&amp;&amp;) = default;</span></a>
+<a name="317"><span class="lineNum">     317 </span><span class="lineCov">         60 :     _LIBCPP_INLINE_VISIBILITY ~optional() = default;</span></a>
+<span class="lineNum">     318 </span><span class="lineCov">          1 :     _LIBCPP_INLINE_VISIBILITY constexpr optional(nullopt_t) noexcept {}</span>
+<a name="319"><span class="lineNum">     319 </span>            :     _LIBCPP_INLINE_VISIBILITY constexpr optional(const value_type&amp; __v)</a>
+<span class="lineNum">     320 </span><span class="lineCov">         11 :         : __base(__v) {}</span>
+<span class="lineNum">     321 </span>            :     _LIBCPP_INLINE_VISIBILITY constexpr optional(value_type&amp;&amp; __v)
+<span class="lineNum">     322 </span><span class="lineCov">         54 :         : __base(_VSTD::move(__v)) {}</span>
+<span class="lineNum">     323 </span>            : 
+<span class="lineNum">     324 </span>            :     template &lt;class... _Args,
+<span class="lineNum">     325 </span>            :               class = typename enable_if
+<span class="lineNum">     326 </span>            :                       &lt;
+<span class="lineNum">     327 </span>            :                            is_constructible&lt;value_type, _Args...&gt;::value
+<span class="lineNum">     328 </span>            :                       &gt;::type
+<span class="lineNum">     329 </span>            :              &gt;
+<a name="330"><span class="lineNum">     330 </span>            :     _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     331 </span>            :     constexpr
+<span class="lineNum">     332 </span>            :     explicit optional(in_place_t, _Args&amp;&amp;... __args)
+<span class="lineNum">     333 </span><span class="lineCov">          7 :         : __base(in_place, _VSTD::forward&lt;_Args&gt;(__args)...) {}</span>
+<span class="lineNum">     334 </span>            : 
+<span class="lineNum">     335 </span>            :     template &lt;class _Up, class... _Args,
+<span class="lineNum">     336 </span>            :               class = typename enable_if
+<span class="lineNum">     337 </span>            :                       &lt;
+<span class="lineNum">     338 </span>            :                            is_constructible&lt;value_type, initializer_list&lt;_Up&gt;&amp;, _Args...&gt;::value
+<span class="lineNum">     339 </span>            :                       &gt;::type
+<span class="lineNum">     340 </span>            :              &gt;
+<a name="341"><span class="lineNum">     341 </span>            :     _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     342 </span>            :     constexpr
+<span class="lineNum">     343 </span>            :     explicit optional(in_place_t, initializer_list&lt;_Up&gt; __il, _Args&amp;&amp;... __args)
+<span class="lineNum">     344 </span><span class="lineCov">          3 :         : __base(in_place, __il, _VSTD::forward&lt;_Args&gt;(__args)...) {}</span>
+<a name="345"><span class="lineNum">     345 </span>            : </a>
+<span class="lineNum">     346 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     347 </span>            :     optional&amp; operator=(nullopt_t) noexcept
+<span class="lineNum">     348 </span>            :     {
+<span class="lineNum">     349 </span><span class="lineCov">         29 :         if (this-&gt;__engaged_)</span>
+<span class="lineNum">     350 </span>            :         {
+<span class="lineNum">     351 </span><span class="lineCov">         11 :             this-&gt;__val_.~value_type();</span>
+<span class="lineNum">     352 </span><span class="lineCov">         11 :             this-&gt;__engaged_ = false;</span>
+<span class="lineNum">     353 </span><span class="lineCov">         11 :         }</span>
+<span class="lineNum">     354 </span><span class="lineCov">         29 :         return *this;</span>
+<span class="lineNum">     355 </span>            :     }
+<span class="lineNum">     356 </span>            : 
+<a name="357"><span class="lineNum">     357 </span>            :     _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     358 </span>            :     optional&amp;
+<span class="lineNum">     359 </span>            :     operator=(const optional&amp; __opt)
+<span class="lineNum">     360 </span>            :     {
+<span class="lineNum">     361 </span><span class="lineCov">          9 :         if (this-&gt;__engaged_ == __opt.__engaged_)</span>
+<span class="lineNum">     362 </span>            :         {
+<span class="lineNum">     363 </span><span class="lineCov">          4 :             if (this-&gt;__engaged_)</span>
+<span class="lineNum">     364 </span><span class="lineCov">          2 :                 this-&gt;__val_ = __opt.__val_;</span>
+<span class="lineNum">     365 </span><span class="lineCov">          4 :         }</span>
+<span class="lineNum">     366 </span>            :         else
+<span class="lineNum">     367 </span>            :         {
+<span class="lineNum">     368 </span><span class="lineCov">          5 :             if (this-&gt;__engaged_)</span>
+<span class="lineNum">     369 </span><span class="lineCov">          2 :                 this-&gt;__val_.~value_type();</span>
+<span class="lineNum">     370 </span>            :             else
+<span class="lineNum">     371 </span><span class="lineCov">          3 :                 ::new(_VSTD::addressof(this-&gt;__val_)) value_type(__opt.__val_);</span>
+<span class="lineNum">     372 </span><span class="lineCov">          4 :             this-&gt;__engaged_ = __opt.__engaged_;</span>
+<span class="lineNum">     373 </span>            :         }
+<span class="lineNum">     374 </span><span class="lineCov">          8 :         return *this;</span>
+<span class="lineNum">     375 </span>            :     }
+<span class="lineNum">     376 </span>            : 
+<a name="377"><span class="lineNum">     377 </span>            :     _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     378 </span>            :     optional&amp;
+<span class="lineNum">     379 </span>            :     operator=(optional&amp;&amp; __opt)
+<span class="lineNum">     380 </span>            :         noexcept(is_nothrow_move_assignable&lt;value_type&gt;::value &amp;&amp;
+<span class="lineNum">     381 </span>            :                  is_nothrow_move_constructible&lt;value_type&gt;::value)
+<span class="lineNum">     382 </span>            :     {
+<span class="lineNum">     383 </span><span class="lineCov">          3 :         if (this-&gt;__engaged_ == __opt.__engaged_)</span>
+<span class="lineNum">     384 </span>            :         {
+<span class="lineNum">     385 </span><span class="lineCov">          1 :             if (this-&gt;__engaged_)</span>
+<span class="lineNum">     386 </span><span class="lineCov">          1 :                 this-&gt;__val_ = _VSTD::move(__opt.__val_);</span>
+<span class="lineNum">     387 </span><span class="lineCov">          1 :         }</span>
+<span class="lineNum">     388 </span>            :         else
+<span class="lineNum">     389 </span>            :         {
+<span class="lineNum">     390 </span><span class="lineCov">          2 :             if (this-&gt;__engaged_)</span>
+<span class="lineNum">     391 </span><span class="lineNoCov">          0 :                 this-&gt;__val_.~value_type();</span>
+<span class="lineNum">     392 </span>            :             else
+<span class="lineNum">     393 </span><span class="lineCov">          2 :                 ::new(_VSTD::addressof(this-&gt;__val_)) value_type(_VSTD::move(__opt.__val_));</span>
+<span class="lineNum">     394 </span><span class="lineCov">          1 :             this-&gt;__engaged_ = __opt.__engaged_;</span>
+<span class="lineNum">     395 </span>            :         }
+<span class="lineNum">     396 </span><span class="lineCov">          2 :         return *this;</span>
+<span class="lineNum">     397 </span>            :     }
+<span class="lineNum">     398 </span>            : 
+<span class="lineNum">     399 </span>            :     template &lt;class _Up,
+<span class="lineNum">     400 </span>            :               class = typename enable_if
+<span class="lineNum">     401 </span>            :                       &lt;
+<span class="lineNum">     402 </span>            :                           is_same&lt;typename remove_reference&lt;_Up&gt;::type, value_type&gt;::value &amp;&amp;
+<span class="lineNum">     403 </span>            :                           is_constructible&lt;value_type, _Up&gt;::value &amp;&amp;
+<span class="lineNum">     404 </span>            :                           is_assignable&lt;value_type&amp;, _Up&gt;::value
+<span class="lineNum">     405 </span>            :                       &gt;::type
+<span class="lineNum">     406 </span>            :              &gt;
+<a name="407"><span class="lineNum">     407 </span>            :     _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     408 </span>            :     optional&amp;
+<span class="lineNum">     409 </span>            :     operator=(_Up&amp;&amp; __v)
+<span class="lineNum">     410 </span>            :     {
+<span class="lineNum">     411 </span><span class="lineCov">          6 :         if (this-&gt;__engaged_)</span>
+<span class="lineNum">     412 </span><span class="lineCov">          1 :             this-&gt;__val_ = _VSTD::forward&lt;_Up&gt;(__v);</span>
+<span class="lineNum">     413 </span>            :         else
+<span class="lineNum">     414 </span>            :         {
+<span class="lineNum">     415 </span><span class="lineCov">          5 :             ::new(_VSTD::addressof(this-&gt;__val_)) value_type(_VSTD::forward&lt;_Up&gt;(__v));</span>
+<span class="lineNum">     416 </span><span class="lineCov">          5 :             this-&gt;__engaged_ = true;</span>
+<span class="lineNum">     417 </span>            :         }
+<span class="lineNum">     418 </span><span class="lineCov">          6 :         return *this;</span>
+<span class="lineNum">     419 </span>            :     }
+<span class="lineNum">     420 </span>            : 
+<span class="lineNum">     421 </span>            :     template &lt;class... _Args,
+<span class="lineNum">     422 </span>            :               class = typename enable_if
+<span class="lineNum">     423 </span>            :                       &lt;
+<span class="lineNum">     424 </span>            :                           is_constructible&lt;value_type, _Args...&gt;::value
+<span class="lineNum">     425 </span>            :                       &gt;::type
+<span class="lineNum">     426 </span>            :              &gt;
+<a name="427"><span class="lineNum">     427 </span>            :     _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     428 </span>            :     void
+<span class="lineNum">     429 </span>            :     emplace(_Args&amp;&amp;... __args)
+<span class="lineNum">     430 </span>            :     {
+<span class="lineNum">     431 </span><span class="lineCov">         21 :         *this = nullopt;</span>
+<span class="lineNum">     432 </span><span class="lineCov">         21 :         ::new(_VSTD::addressof(this-&gt;__val_)) value_type(_VSTD::forward&lt;_Args&gt;(__args)...);</span>
+<span class="lineNum">     433 </span><span class="lineCov">         21 :         this-&gt;__engaged_ = true;</span>
+<span class="lineNum">     434 </span><span class="lineCov">         21 :     }</span>
+<span class="lineNum">     435 </span>            : 
+<span class="lineNum">     436 </span>            :     template &lt;class _Up, class... _Args,
+<span class="lineNum">     437 </span>            :               class = typename enable_if
+<span class="lineNum">     438 </span>            :                       &lt;
+<span class="lineNum">     439 </span>            :                           is_constructible&lt;value_type, initializer_list&lt;_Up&gt;&amp;, _Args...&gt;::value
+<span class="lineNum">     440 </span>            :                       &gt;::type
+<span class="lineNum">     441 </span>            :              &gt;
+<a name="442"><span class="lineNum">     442 </span>            :     _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     443 </span>            :     void
+<span class="lineNum">     444 </span>            :     emplace(initializer_list&lt;_Up&gt; __il, _Args&amp;&amp;... __args)
+<span class="lineNum">     445 </span>            :     {
+<span class="lineNum">     446 </span><span class="lineCov">          4 :         *this = nullopt;</span>
+<span class="lineNum">     447 </span><span class="lineCov">          4 :         ::new(_VSTD::addressof(this-&gt;__val_)) value_type(__il, _VSTD::forward&lt;_Args&gt;(__args)...);</span>
+<span class="lineNum">     448 </span><span class="lineCov">          4 :         this-&gt;__engaged_ = true;</span>
+<span class="lineNum">     449 </span><span class="lineCov">          4 :     }</span>
+<span class="lineNum">     450 </span>            : 
+<a name="451"><span class="lineNum">     451 </span>            :     _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     452 </span>            :     void
+<span class="lineNum">     453 </span>            :     swap(optional&amp; __opt)
+<span class="lineNum">     454 </span>            :         noexcept(is_nothrow_move_constructible&lt;value_type&gt;::value &amp;&amp;
+<span class="lineNum">     455 </span>            :                  __is_nothrow_swappable&lt;value_type&gt;::value)
+<span class="lineNum">     456 </span>            :     {
+<span class="lineNum">     457 </span>            :         using _VSTD::swap;
+<span class="lineNum">     458 </span><span class="lineCov">         32 :         if (this-&gt;__engaged_ == __opt.__engaged_)</span>
+<span class="lineNum">     459 </span>            :         {
+<span class="lineNum">     460 </span><span class="lineCov">         16 :             if (this-&gt;__engaged_)</span>
+<span class="lineNum">     461 </span><span class="lineCov">          8 :                 swap(this-&gt;__val_, __opt.__val_);</span>
+<span class="lineNum">     462 </span><span class="lineCov">         14 :         }</span>
+<span class="lineNum">     463 </span>            :         else
+<span class="lineNum">     464 </span>            :         {
+<span class="lineNum">     465 </span><span class="lineCov">         16 :             if (this-&gt;__engaged_)</span>
+<span class="lineNum">     466 </span>            :             {
+<span class="lineNum">     467 </span><span class="lineCov">          8 :                 ::new(_VSTD::addressof(__opt.__val_)) value_type(_VSTD::move(this-&gt;__val_));</span>
+<span class="lineNum">     468 </span><span class="lineCov">          8 :                 this-&gt;__val_.~value_type();</span>
+<span class="lineNum">     469 </span><span class="lineCov">          8 :             }</span>
+<span class="lineNum">     470 </span>            :             else
+<span class="lineNum">     471 </span>            :             {
+<span class="lineNum">     472 </span><span class="lineCov">          8 :                 ::new(_VSTD::addressof(this-&gt;__val_)) value_type(_VSTD::move(__opt.__val_));</span>
+<span class="lineNum">     473 </span><span class="lineCov">          8 :                 __opt.__val_.~value_type();</span>
+<span class="lineNum">     474 </span>            :             }
+<span class="lineNum">     475 </span><span class="lineCov">         12 :             swap(this-&gt;__engaged_, __opt.__engaged_);</span>
+<span class="lineNum">     476 </span>            :         }
+<span class="lineNum">     477 </span><span class="lineCov">         26 :     }</span>
+<span class="lineNum">     478 </span>            : 
+<span class="lineNum">     479 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<a name="480"><span class="lineNum">     480 </span>            :     constexpr</a>
+<span class="lineNum">     481 </span>            :     value_type const*
+<span class="lineNum">     482 </span>            :     operator-&gt;() const
+<span class="lineNum">     483 </span>            :     {
+<span class="lineNum">     484 </span>            :         _LIBCPP_ASSERT(this-&gt;__engaged_, &quot;optional operator-&gt; called for disengaged value&quot;);
+<span class="lineNum">     485 </span><span class="lineCov">          2 :         return __operator_arrow(__has_operator_addressof&lt;value_type&gt;{});</span>
+<span class="lineNum">     486 </span>            :     }
+<span class="lineNum">     487 </span>            : 
+<a name="488"><span class="lineNum">     488 </span>            :     _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     489 </span>            :     value_type*
+<span class="lineNum">     490 </span>            :     operator-&gt;()
+<span class="lineNum">     491 </span>            :     {
+<span class="lineNum">     492 </span>            :         _LIBCPP_ASSERT(this-&gt;__engaged_, &quot;optional operator-&gt; called for disengaged value&quot;);
+<span class="lineNum">     493 </span><span class="lineCov">          2 :         return _VSTD::addressof(this-&gt;__val_);</span>
+<span class="lineNum">     494 </span>            :     }
+<span class="lineNum">     495 </span>            : 
+<span class="lineNum">     496 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<a name="497"><span class="lineNum">     497 </span>            :     constexpr</a>
+<span class="lineNum">     498 </span>            :     const value_type&amp;
+<span class="lineNum">     499 </span>            :     operator*() const
+<span class="lineNum">     500 </span>            :     {
+<span class="lineNum">     501 </span>            :         _LIBCPP_ASSERT(this-&gt;__engaged_, &quot;optional operator* called for disengaged value&quot;);
+<span class="lineNum">     502 </span><span class="lineCov">         14 :         return this-&gt;__val_;</span>
+<span class="lineNum">     503 </span>            :     }
+<span class="lineNum">     504 </span>            : 
+<a name="505"><span class="lineNum">     505 </span>            :     _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     506 </span>            :     value_type&amp;
+<span class="lineNum">     507 </span>            :     operator*()
+<span class="lineNum">     508 </span>            :     {
+<span class="lineNum">     509 </span>            :         _LIBCPP_ASSERT(this-&gt;__engaged_, &quot;optional operator* called for disengaged value&quot;);
+<span class="lineNum">     510 </span><span class="lineCov">        103 :         return this-&gt;__val_;</span>
+<span class="lineNum">     511 </span>            :     }
+<a name="512"><span class="lineNum">     512 </span>            : </a>
+<span class="lineNum">     513 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     514 </span><span class="lineCov">        220 :     constexpr explicit operator bool() const noexcept {return this-&gt;__engaged_;}</span>
+<a name="515"><span class="lineNum">     515 </span>            : </a>
+<span class="lineNum">     516 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     517 </span>            :     constexpr value_type const&amp; value() const
+<span class="lineNum">     518 </span>            :     {
+<span class="lineNum">     519 </span><span class="lineCov">          2 :         if (!this-&gt;__engaged_)</span>
+<span class="lineNum">     520 </span><span class="lineCov">          1 :             throw bad_optional_access();</span>
+<span class="lineNum">     521 </span><span class="lineCov">          1 :         return this-&gt;__val_;</span>
+<span class="lineNum">     522 </span><span class="lineNoCov">          0 :     }</span>
+<a name="523"><span class="lineNum">     523 </span>            : </a>
+<span class="lineNum">     524 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     525 </span>            :     value_type&amp; value()
+<span class="lineNum">     526 </span>            :     {
+<span class="lineNum">     527 </span><span class="lineCov">          2 :         if (!this-&gt;__engaged_)</span>
+<span class="lineNum">     528 </span><span class="lineCov">          1 :             throw bad_optional_access();</span>
+<span class="lineNum">     529 </span><span class="lineCov">          1 :         return this-&gt;__val_;</span>
+<span class="lineNum">     530 </span><span class="lineNoCov">          0 :     }</span>
+<span class="lineNum">     531 </span>            : 
+<a name="532"><span class="lineNum">     532 </span>            :     template &lt;class _Up&gt;</a>
+<span class="lineNum">     533 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     534 </span>            :     constexpr value_type value_or(_Up&amp;&amp; __v) const&amp;
+<span class="lineNum">     535 </span>            :     {
+<span class="lineNum">     536 </span>            :         static_assert(is_copy_constructible&lt;value_type&gt;::value,
+<span class="lineNum">     537 </span>            :                       &quot;optional&lt;T&gt;::value_or: T must be copy constructible&quot;);
+<span class="lineNum">     538 </span>            :         static_assert(is_convertible&lt;_Up, value_type&gt;::value,
+<span class="lineNum">     539 </span>            :                       &quot;optional&lt;T&gt;::value_or: U must be convertible to T&quot;);
+<span class="lineNum">     540 </span><span class="lineCov">         12 :         return this-&gt;__engaged_ ? this-&gt;__val_ :</span>
+<span class="lineNum">     541 </span><span class="lineCov">          2 :                                   static_cast&lt;value_type&gt;(_VSTD::forward&lt;_Up&gt;(__v));</span>
+<span class="lineNum">     542 </span>            :     }
+<span class="lineNum">     543 </span>            : 
+<a name="544"><span class="lineNum">     544 </span>            :     template &lt;class _Up&gt;</a>
+<span class="lineNum">     545 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     546 </span>            :     value_type value_or(_Up&amp;&amp; __v) &amp;&amp;
+<span class="lineNum">     547 </span>            :     {
+<span class="lineNum">     548 </span>            :         static_assert(is_move_constructible&lt;value_type&gt;::value,
+<span class="lineNum">     549 </span>            :                       &quot;optional&lt;T&gt;::value_or: T must be move constructible&quot;);
+<span class="lineNum">     550 </span>            :         static_assert(is_convertible&lt;_Up, value_type&gt;::value,
+<span class="lineNum">     551 </span>            :                       &quot;optional&lt;T&gt;::value_or: U must be convertible to T&quot;);
+<span class="lineNum">     552 </span><span class="lineCov">         12 :         return this-&gt;__engaged_ ? _VSTD::move(this-&gt;__val_) :</span>
+<span class="lineNum">     553 </span><span class="lineCov">          2 :                                   static_cast&lt;value_type&gt;(_VSTD::forward&lt;_Up&gt;(__v));</span>
+<span class="lineNum">     554 </span>            :     }
+<span class="lineNum">     555 </span>            : 
+<span class="lineNum">     556 </span>            : private:
+<a name="557"><span class="lineNum">     557 </span>            :     _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     558 </span>            :     value_type const*
+<span class="lineNum">     559 </span>            :     __operator_arrow(true_type) const
+<span class="lineNum">     560 </span>            :     {
+<span class="lineNum">     561 </span><span class="lineCov">          1 :         return _VSTD::addressof(this-&gt;__val_);</span>
+<span class="lineNum">     562 </span>            :     }
+<span class="lineNum">     563 </span>            : 
+<span class="lineNum">     564 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<a name="565"><span class="lineNum">     565 </span>            :     constexpr</a>
+<span class="lineNum">     566 </span>            :     value_type const*
+<span class="lineNum">     567 </span>            :     __operator_arrow(false_type) const
+<span class="lineNum">     568 </span>            :     {
+<span class="lineNum">     569 </span><span class="lineCov">          1 :         return &amp;this-&gt;__val_;</span>
+<span class="lineNum">     570 </span>            :     }
+<span class="lineNum">     571 </span>            : };
+<span class="lineNum">     572 </span>            : 
+<span class="lineNum">     573 </span>            : // Comparisons between optionals
+<span class="lineNum">     574 </span>            : template &lt;class _Tp&gt;
+<span class="lineNum">     575 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     576 </span>            : constexpr
+<span class="lineNum">     577 </span>            : bool
+<span class="lineNum">     578 </span>            : operator==(const optional&lt;_Tp&gt;&amp; __x, const optional&lt;_Tp&gt;&amp; __y)
+<span class="lineNum">     579 </span>            : {
+<span class="lineNum">     580 </span>            :     if (static_cast&lt;bool&gt;(__x) != static_cast&lt;bool&gt;(__y))
+<span class="lineNum">     581 </span>            :         return false;
+<span class="lineNum">     582 </span>            :     if (!static_cast&lt;bool&gt;(__x))
+<span class="lineNum">     583 </span>            :         return true;
+<span class="lineNum">     584 </span>            :     return *__x == *__y;
+<span class="lineNum">     585 </span>            : }
+<span class="lineNum">     586 </span>            : 
+<span class="lineNum">     587 </span>            : template &lt;class _Tp&gt;
+<span class="lineNum">     588 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     589 </span>            : constexpr
+<span class="lineNum">     590 </span>            : bool
+<span class="lineNum">     591 </span>            : operator!=(const optional&lt;_Tp&gt;&amp; __x, const optional&lt;_Tp&gt;&amp; __y)
+<span class="lineNum">     592 </span>            : {
+<span class="lineNum">     593 </span>            :     return !(__x == __y);
+<span class="lineNum">     594 </span>            : }
+<span class="lineNum">     595 </span>            : 
+<span class="lineNum">     596 </span>            : template &lt;class _Tp&gt;
+<span class="lineNum">     597 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     598 </span>            : constexpr
+<span class="lineNum">     599 </span>            : bool
+<span class="lineNum">     600 </span>            : operator&lt;(const optional&lt;_Tp&gt;&amp; __x, const optional&lt;_Tp&gt;&amp; __y)
+<span class="lineNum">     601 </span>            : {
+<span class="lineNum">     602 </span>            :     if (!static_cast&lt;bool&gt;(__y))
+<span class="lineNum">     603 </span>            :         return false;
+<span class="lineNum">     604 </span>            :     if (!static_cast&lt;bool&gt;(__x))
+<span class="lineNum">     605 </span>            :         return true;
+<span class="lineNum">     606 </span>            :     return *__x &lt; *__y;
+<span class="lineNum">     607 </span>            : }
+<span class="lineNum">     608 </span>            : 
+<span class="lineNum">     609 </span>            : template &lt;class _Tp&gt;
+<span class="lineNum">     610 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     611 </span>            : constexpr
+<span class="lineNum">     612 </span>            : bool
+<span class="lineNum">     613 </span>            : operator&gt;(const optional&lt;_Tp&gt;&amp; __x, const optional&lt;_Tp&gt;&amp; __y)
+<span class="lineNum">     614 </span>            : {
+<span class="lineNum">     615 </span>            :     return __y &lt; __x;
+<span class="lineNum">     616 </span>            : }
+<span class="lineNum">     617 </span>            : 
+<span class="lineNum">     618 </span>            : template &lt;class _Tp&gt;
+<span class="lineNum">     619 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     620 </span>            : constexpr
+<span class="lineNum">     621 </span>            : bool
+<span class="lineNum">     622 </span>            : operator&lt;=(const optional&lt;_Tp&gt;&amp; __x, const optional&lt;_Tp&gt;&amp; __y)
+<span class="lineNum">     623 </span>            : {
+<span class="lineNum">     624 </span>            :     return !(__y &lt; __x);
+<span class="lineNum">     625 </span>            : }
+<span class="lineNum">     626 </span>            : 
+<span class="lineNum">     627 </span>            : template &lt;class _Tp&gt;
+<span class="lineNum">     628 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     629 </span>            : constexpr
+<span class="lineNum">     630 </span>            : bool
+<span class="lineNum">     631 </span>            : operator&gt;=(const optional&lt;_Tp&gt;&amp; __x, const optional&lt;_Tp&gt;&amp; __y)
+<span class="lineNum">     632 </span>            : {
+<span class="lineNum">     633 </span>            :     return !(__x &lt; __y);
+<span class="lineNum">     634 </span>            : }
+<span class="lineNum">     635 </span>            : 
+<span class="lineNum">     636 </span>            : 
+<span class="lineNum">     637 </span>            : // Comparisons with nullopt
+<span class="lineNum">     638 </span>            : template &lt;class _Tp&gt;
+<span class="lineNum">     639 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     640 </span>            : constexpr
+<span class="lineNum">     641 </span>            : bool
+<span class="lineNum">     642 </span>            : operator==(const optional&lt;_Tp&gt;&amp; __x, nullopt_t) noexcept
+<span class="lineNum">     643 </span>            : {
+<span class="lineNum">     644 </span>            :     return !static_cast&lt;bool&gt;(__x);
+<span class="lineNum">     645 </span>            : }
+<span class="lineNum">     646 </span>            : 
+<span class="lineNum">     647 </span>            : template &lt;class _Tp&gt;
+<span class="lineNum">     648 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     649 </span>            : constexpr
+<span class="lineNum">     650 </span>            : bool
+<span class="lineNum">     651 </span>            : operator==(nullopt_t, const optional&lt;_Tp&gt;&amp; __x) noexcept
+<span class="lineNum">     652 </span>            : {
+<span class="lineNum">     653 </span>            :     return !static_cast&lt;bool&gt;(__x);
+<span class="lineNum">     654 </span>            : }
+<span class="lineNum">     655 </span>            : 
+<span class="lineNum">     656 </span>            : template &lt;class _Tp&gt;
+<span class="lineNum">     657 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     658 </span>            : constexpr
+<span class="lineNum">     659 </span>            : bool
+<span class="lineNum">     660 </span>            : operator!=(const optional&lt;_Tp&gt;&amp; __x, nullopt_t) noexcept
+<span class="lineNum">     661 </span>            : {
+<span class="lineNum">     662 </span>            :     return static_cast&lt;bool&gt;(__x);
+<span class="lineNum">     663 </span>            : }
+<span class="lineNum">     664 </span>            : 
+<span class="lineNum">     665 </span>            : template &lt;class _Tp&gt;
+<span class="lineNum">     666 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     667 </span>            : constexpr
+<span class="lineNum">     668 </span>            : bool
+<span class="lineNum">     669 </span>            : operator!=(nullopt_t, const optional&lt;_Tp&gt;&amp; __x) noexcept
+<span class="lineNum">     670 </span>            : {
+<span class="lineNum">     671 </span>            :     return static_cast&lt;bool&gt;(__x);
+<span class="lineNum">     672 </span>            : }
+<span class="lineNum">     673 </span>            : 
+<span class="lineNum">     674 </span>            : template &lt;class _Tp&gt;
+<span class="lineNum">     675 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     676 </span>            : constexpr
+<span class="lineNum">     677 </span>            : bool
+<span class="lineNum">     678 </span>            : operator&lt;(const optional&lt;_Tp&gt;&amp;, nullopt_t) noexcept
+<span class="lineNum">     679 </span>            : {
+<span class="lineNum">     680 </span>            :     return false;
+<span class="lineNum">     681 </span>            : }
+<span class="lineNum">     682 </span>            : 
+<span class="lineNum">     683 </span>            : template &lt;class _Tp&gt;
+<span class="lineNum">     684 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     685 </span>            : constexpr
+<span class="lineNum">     686 </span>            : bool
+<span class="lineNum">     687 </span>            : operator&lt;(nullopt_t, const optional&lt;_Tp&gt;&amp; __x) noexcept
+<span class="lineNum">     688 </span>            : {
+<span class="lineNum">     689 </span>            :     return static_cast&lt;bool&gt;(__x);
+<span class="lineNum">     690 </span>            : }
+<span class="lineNum">     691 </span>            : 
+<span class="lineNum">     692 </span>            : template &lt;class _Tp&gt;
+<span class="lineNum">     693 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     694 </span>            : constexpr
+<span class="lineNum">     695 </span>            : bool
+<span class="lineNum">     696 </span>            : operator&lt;=(const optional&lt;_Tp&gt;&amp; __x, nullopt_t) noexcept
+<span class="lineNum">     697 </span>            : {
+<span class="lineNum">     698 </span>            :     return !static_cast&lt;bool&gt;(__x);
+<span class="lineNum">     699 </span>            : }
+<span class="lineNum">     700 </span>            : 
+<span class="lineNum">     701 </span>            : template &lt;class _Tp&gt;
+<span class="lineNum">     702 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     703 </span>            : constexpr
+<span class="lineNum">     704 </span>            : bool
+<span class="lineNum">     705 </span>            : operator&lt;=(nullopt_t, const optional&lt;_Tp&gt;&amp; __x) noexcept
+<span class="lineNum">     706 </span>            : {
+<span class="lineNum">     707 </span>            :     return true;
+<span class="lineNum">     708 </span>            : }
+<span class="lineNum">     709 </span>            : 
+<span class="lineNum">     710 </span>            : template &lt;class _Tp&gt;
+<span class="lineNum">     711 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     712 </span>            : constexpr
+<span class="lineNum">     713 </span>            : bool
+<span class="lineNum">     714 </span>            : operator&gt;(const optional&lt;_Tp&gt;&amp; __x, nullopt_t) noexcept
+<span class="lineNum">     715 </span>            : {
+<span class="lineNum">     716 </span>            :     return static_cast&lt;bool&gt;(__x);
+<span class="lineNum">     717 </span>            : }
+<span class="lineNum">     718 </span>            : 
+<span class="lineNum">     719 </span>            : template &lt;class _Tp&gt;
+<span class="lineNum">     720 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     721 </span>            : constexpr
+<span class="lineNum">     722 </span>            : bool
+<span class="lineNum">     723 </span>            : operator&gt;(nullopt_t, const optional&lt;_Tp&gt;&amp; __x) noexcept
+<span class="lineNum">     724 </span>            : {
+<span class="lineNum">     725 </span>            :     return false;
+<span class="lineNum">     726 </span>            : }
+<span class="lineNum">     727 </span>            : 
+<span class="lineNum">     728 </span>            : template &lt;class _Tp&gt;
+<span class="lineNum">     729 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     730 </span>            : constexpr
+<span class="lineNum">     731 </span>            : bool
+<span class="lineNum">     732 </span>            : operator&gt;=(const optional&lt;_Tp&gt;&amp;, nullopt_t) noexcept
+<span class="lineNum">     733 </span>            : {
+<span class="lineNum">     734 </span>            :     return true;
+<span class="lineNum">     735 </span>            : }
+<span class="lineNum">     736 </span>            : 
+<span class="lineNum">     737 </span>            : template &lt;class _Tp&gt;
+<span class="lineNum">     738 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     739 </span>            : constexpr
+<span class="lineNum">     740 </span>            : bool
+<span class="lineNum">     741 </span>            : operator&gt;=(nullopt_t, const optional&lt;_Tp&gt;&amp; __x) noexcept
+<span class="lineNum">     742 </span>            : {
+<span class="lineNum">     743 </span>            :     return !static_cast&lt;bool&gt;(__x);
+<span class="lineNum">     744 </span>            : }
+<span class="lineNum">     745 </span>            : 
+<span class="lineNum">     746 </span>            : // Comparisons with T
+<span class="lineNum">     747 </span>            : template &lt;class _Tp&gt;
+<span class="lineNum">     748 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     749 </span>            : constexpr
+<span class="lineNum">     750 </span>            : bool
+<span class="lineNum">     751 </span>            : operator==(const optional&lt;_Tp&gt;&amp; __x, const _Tp&amp; __v)
+<span class="lineNum">     752 </span>            : {
+<span class="lineNum">     753 </span>            :     return static_cast&lt;bool&gt;(__x) ? *__x == __v : false;
+<span class="lineNum">     754 </span>            : }
+<span class="lineNum">     755 </span>            : 
+<span class="lineNum">     756 </span>            : template &lt;class _Tp&gt;
+<span class="lineNum">     757 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     758 </span>            : constexpr
+<span class="lineNum">     759 </span>            : bool
+<span class="lineNum">     760 </span>            : operator==(const _Tp&amp; __v, const optional&lt;_Tp&gt;&amp; __x)
+<span class="lineNum">     761 </span>            : {
+<span class="lineNum">     762 </span>            :     return static_cast&lt;bool&gt;(__x) ? *__x == __v : false;
+<span class="lineNum">     763 </span>            : }
+<span class="lineNum">     764 </span>            : 
+<span class="lineNum">     765 </span>            : template &lt;class _Tp&gt;
+<span class="lineNum">     766 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     767 </span>            : constexpr
+<span class="lineNum">     768 </span>            : bool
+<span class="lineNum">     769 </span>            : operator!=(const optional&lt;_Tp&gt;&amp; __x, const _Tp&amp; __v)
+<span class="lineNum">     770 </span>            : {
+<span class="lineNum">     771 </span>            :     return static_cast&lt;bool&gt;(__x) ? !(*__x == __v) : true;
+<span class="lineNum">     772 </span>            : }
+<span class="lineNum">     773 </span>            : 
+<span class="lineNum">     774 </span>            : template &lt;class _Tp&gt;
+<span class="lineNum">     775 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     776 </span>            : constexpr
+<span class="lineNum">     777 </span>            : bool
+<span class="lineNum">     778 </span>            : operator!=(const _Tp&amp; __v, const optional&lt;_Tp&gt;&amp; __x)
+<span class="lineNum">     779 </span>            : {
+<span class="lineNum">     780 </span>            :     return static_cast&lt;bool&gt;(__x) ? !(*__x == __v) : true;
+<span class="lineNum">     781 </span>            : }
+<span class="lineNum">     782 </span>            : 
+<span class="lineNum">     783 </span>            : template &lt;class _Tp&gt;
+<span class="lineNum">     784 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     785 </span>            : constexpr
+<span class="lineNum">     786 </span>            : bool
+<span class="lineNum">     787 </span>            : operator&lt;(const optional&lt;_Tp&gt;&amp; __x, const _Tp&amp; __v)
+<span class="lineNum">     788 </span>            : {
+<span class="lineNum">     789 </span>            :     return static_cast&lt;bool&gt;(__x) ? less&lt;_Tp&gt;{}(*__x, __v) : true;
+<span class="lineNum">     790 </span>            : }
+<span class="lineNum">     791 </span>            : 
+<span class="lineNum">     792 </span>            : template &lt;class _Tp&gt;
+<span class="lineNum">     793 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     794 </span>            : constexpr
+<span class="lineNum">     795 </span>            : bool
+<span class="lineNum">     796 </span>            : operator&lt;(const _Tp&amp; __v, const optional&lt;_Tp&gt;&amp; __x)
+<span class="lineNum">     797 </span>            : {
+<span class="lineNum">     798 </span>            :     return static_cast&lt;bool&gt;(__x) ? less&lt;_Tp&gt;{}(__v, *__x) : false;
+<span class="lineNum">     799 </span>            : }
+<span class="lineNum">     800 </span>            : 
+<span class="lineNum">     801 </span>            : template &lt;class _Tp&gt;
+<span class="lineNum">     802 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     803 </span>            : constexpr
+<span class="lineNum">     804 </span>            : bool
+<span class="lineNum">     805 </span>            : operator&lt;=(const optional&lt;_Tp&gt;&amp; __x, const _Tp&amp; __v)
+<span class="lineNum">     806 </span>            : {
+<span class="lineNum">     807 </span>            :     return !(__x &gt; __v);
+<span class="lineNum">     808 </span>            : }
+<span class="lineNum">     809 </span>            : 
+<span class="lineNum">     810 </span>            : template &lt;class _Tp&gt;
+<span class="lineNum">     811 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     812 </span>            : constexpr
+<span class="lineNum">     813 </span>            : bool
+<span class="lineNum">     814 </span>            : operator&lt;=(const _Tp&amp; __v, const optional&lt;_Tp&gt;&amp; __x)
+<span class="lineNum">     815 </span>            : {
+<span class="lineNum">     816 </span>            :     return !(__v &gt; __x);
+<span class="lineNum">     817 </span>            : }
+<span class="lineNum">     818 </span>            : 
+<span class="lineNum">     819 </span>            : template &lt;class _Tp&gt;
+<span class="lineNum">     820 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     821 </span>            : constexpr
+<span class="lineNum">     822 </span>            : bool
+<span class="lineNum">     823 </span>            : operator&gt;(const optional&lt;_Tp&gt;&amp; __x, const _Tp&amp; __v)
+<span class="lineNum">     824 </span>            : {
+<span class="lineNum">     825 </span>            :     return static_cast&lt;bool&gt;(__x) ? __v &lt; __x : false;
+<span class="lineNum">     826 </span>            : }
+<span class="lineNum">     827 </span>            : 
+<span class="lineNum">     828 </span>            : template &lt;class _Tp&gt;
+<span class="lineNum">     829 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     830 </span>            : constexpr
+<span class="lineNum">     831 </span>            : bool
+<span class="lineNum">     832 </span>            : operator&gt;(const _Tp&amp; __v, const optional&lt;_Tp&gt;&amp; __x)
+<span class="lineNum">     833 </span>            : {
+<span class="lineNum">     834 </span>            :     return static_cast&lt;bool&gt;(__x) ? __x &lt; __v : true;
+<span class="lineNum">     835 </span>            : }
+<span class="lineNum">     836 </span>            : 
+<span class="lineNum">     837 </span>            : template &lt;class _Tp&gt;
+<span class="lineNum">     838 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     839 </span>            : constexpr
+<span class="lineNum">     840 </span>            : bool
+<span class="lineNum">     841 </span>            : operator&gt;=(const optional&lt;_Tp&gt;&amp; __x, const _Tp&amp; __v)
+<span class="lineNum">     842 </span>            : {
+<span class="lineNum">     843 </span>            :     return !(__x &lt; __v);
+<span class="lineNum">     844 </span>            : }
+<span class="lineNum">     845 </span>            : 
+<span class="lineNum">     846 </span>            : template &lt;class _Tp&gt;
+<span class="lineNum">     847 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     848 </span>            : constexpr
+<span class="lineNum">     849 </span>            : bool
+<span class="lineNum">     850 </span>            : operator&gt;=(const _Tp&amp; __v, const optional&lt;_Tp&gt;&amp; __x)
+<span class="lineNum">     851 </span>            : {
+<span class="lineNum">     852 </span>            :     return !(__v &lt; __x);
+<span class="lineNum">     853 </span>            : }
+<span class="lineNum">     854 </span>            : 
+<span class="lineNum">     855 </span>            : 
+<span class="lineNum">     856 </span>            : template &lt;class _Tp&gt;
+<a name="857"><span class="lineNum">     857 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     858 </span>            : void
+<span class="lineNum">     859 </span>            : swap(optional&lt;_Tp&gt;&amp; __x, optional&lt;_Tp&gt;&amp; __y) noexcept(noexcept(__x.swap(__y)))
+<span class="lineNum">     860 </span>            : {
+<span class="lineNum">     861 </span><span class="lineCov">         16 :     __x.swap(__y);</span>
+<span class="lineNum">     862 </span><span class="lineCov">         16 : }</span>
+<span class="lineNum">     863 </span>            : 
+<span class="lineNum">     864 </span>            : template &lt;class _Tp&gt;
+<span class="lineNum">     865 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<a name="866"><span class="lineNum">     866 </span>            : constexpr</a>
+<span class="lineNum">     867 </span>            : optional&lt;typename decay&lt;_Tp&gt;::type&gt;
+<span class="lineNum">     868 </span>            : make_optional(_Tp&amp;&amp; __v)
+<span class="lineNum">     869 </span>            : {
+<span class="lineNum">     870 </span><span class="lineCov">          4 :     return optional&lt;typename decay&lt;_Tp&gt;::type&gt;(_VSTD::forward&lt;_Tp&gt;(__v));</span>
+<span class="lineNum">     871 </span>            : }
+<span class="lineNum">     872 </span>            : 
+<span class="lineNum">     873 </span>            : _LIBCPP_END_NAMESPACE_LFTS
+<span class="lineNum">     874 </span>            : 
+<span class="lineNum">     875 </span>            : _LIBCPP_BEGIN_NAMESPACE_STD
+<span class="lineNum">     876 </span>            : 
+<span class="lineNum">     877 </span>            : template &lt;class _Tp&gt;
+<span class="lineNum">     878 </span>            : struct _LIBCPP_TYPE_VIS_ONLY hash&lt;std::experimental::optional&lt;_Tp&gt; &gt;
+<span class="lineNum">     879 </span>            : {
+<span class="lineNum">     880 </span>            :     typedef std::experimental::optional&lt;_Tp&gt; argument_type;
+<span class="lineNum">     881 </span>            :     typedef size_t        result_type;
+<a name="882"><span class="lineNum">     882 </span>            : </a>
+<span class="lineNum">     883 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     884 </span>            :     result_type operator()(const argument_type&amp; __opt) const _NOEXCEPT
+<span class="lineNum">     885 </span>            :     {
+<span class="lineNum">     886 </span><span class="lineCov">         21 :         return static_cast&lt;bool&gt;(__opt) ? hash&lt;_Tp&gt;()(*__opt) : 0;</span>
+<span class="lineNum">     887 </span>            :     }
+<span class="lineNum">     888 </span>            : };
+<span class="lineNum">     889 </span>            : 
+<span class="lineNum">     890 </span>            : _LIBCPP_END_NAMESPACE_STD
+<span class="lineNum">     891 </span>            : 
+<span class="lineNum">     892 </span>            : #endif  // _LIBCPP_STD_VER &gt; 11
+<span class="lineNum">     893 </span>            : 
+<span class="lineNum">     894 </span>            : #endif  // _LIBCPP_OPTIONAL
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - test_coverage.info - include/typeindex</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">include</a> - typeindex<span style="font-size: 80%;"> (source / <a href="typeindex.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">test_coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">10</td>
+            <td class="headerCovTableEntry">10</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2015-06-02</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">10</td>
+            <td class="headerCovTableEntry">10</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : // -*- C++ -*-</a>
+<span class="lineNum">       2 </span>            : //===-------------------------- typeindex ---------------------------------===//
+<span class="lineNum">       3 </span>            : //
+<span class="lineNum">       4 </span>            : //                     The LLVM Compiler Infrastructure
+<span class="lineNum">       5 </span>            : //
+<span class="lineNum">       6 </span>            : // This file is dual licensed under the MIT and the University of Illinois Open
+<span class="lineNum">       7 </span>            : // Source Licenses. See LICENSE.TXT for details.
+<span class="lineNum">       8 </span>            : //
+<span class="lineNum">       9 </span>            : //===----------------------------------------------------------------------===//
+<span class="lineNum">      10 </span>            : 
+<span class="lineNum">      11 </span>            : #ifndef _LIBCPP_TYPEINDEX
+<span class="lineNum">      12 </span>            : #define _LIBCPP_TYPEINDEX
+<span class="lineNum">      13 </span>            : 
+<span class="lineNum">      14 </span>            : /*
+<span class="lineNum">      15 </span>            : 
+<span class="lineNum">      16 </span>            :     typeindex synopsis
+<span class="lineNum">      17 </span>            : 
+<span class="lineNum">      18 </span>            : namespace std
+<span class="lineNum">      19 </span>            : {
+<span class="lineNum">      20 </span>            : 
+<span class="lineNum">      21 </span>            : class type_index
+<span class="lineNum">      22 </span>            : {
+<span class="lineNum">      23 </span>            : public:
+<span class="lineNum">      24 </span>            :     type_index(const type_info&amp; rhs) noexcept;
+<span class="lineNum">      25 </span>            : 
+<span class="lineNum">      26 </span>            :     bool operator==(const type_index&amp; rhs) const noexcept;
+<span class="lineNum">      27 </span>            :     bool operator!=(const type_index&amp; rhs) const noexcept;
+<span class="lineNum">      28 </span>            :     bool operator&lt; (const type_index&amp; rhs) const noexcept;
+<span class="lineNum">      29 </span>            :     bool operator&lt;=(const type_index&amp; rhs) const noexcept;
+<span class="lineNum">      30 </span>            :     bool operator&gt; (const type_index&amp; rhs) const noexcept;
+<span class="lineNum">      31 </span>            :     bool operator&gt;=(const type_index&amp; rhs) const noexcept;
+<span class="lineNum">      32 </span>            : 
+<span class="lineNum">      33 </span>            :     size_t hash_code() const noexcept;
+<span class="lineNum">      34 </span>            :     const char* name() const noexcept;
+<span class="lineNum">      35 </span>            : };
+<span class="lineNum">      36 </span>            : 
+<span class="lineNum">      37 </span>            : template &lt;&gt;
+<span class="lineNum">      38 </span>            : struct hash&lt;type_index&gt;
+<span class="lineNum">      39 </span>            :     : public unary_function&lt;type_index, size_t&gt;
+<span class="lineNum">      40 </span>            : {
+<span class="lineNum">      41 </span>            :     size_t operator()(type_index index) const noexcept;
+<span class="lineNum">      42 </span>            : };
+<span class="lineNum">      43 </span>            : 
+<span class="lineNum">      44 </span>            : }  // std
+<span class="lineNum">      45 </span>            : 
+<span class="lineNum">      46 </span>            : */
+<span class="lineNum">      47 </span>            : 
+<span class="lineNum">      48 </span>            : #include &lt;__config&gt;
+<span class="lineNum">      49 </span>            : #include &lt;typeinfo&gt;
+<span class="lineNum">      50 </span>            : #include &lt;__functional_base&gt;
+<span class="lineNum">      51 </span>            : 
+<span class="lineNum">      52 </span>            : #if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
+<span class="lineNum">      53 </span>            : #pragma GCC system_header
+<span class="lineNum">      54 </span>            : #endif
+<span class="lineNum">      55 </span>            : 
+<span class="lineNum">      56 </span>            : _LIBCPP_BEGIN_NAMESPACE_STD
+<span class="lineNum">      57 </span>            : 
+<span class="lineNum">      58 </span>            : class _LIBCPP_TYPE_VIS_ONLY type_index
+<span class="lineNum">      59 </span>            : {
+<span class="lineNum">      60 </span>            :     const type_info* __t_;
+<a name="61"><span class="lineNum">      61 </span>            : public:</a>
+<span class="lineNum">      62 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">      63 </span><span class="lineCov">         13 :     type_index(const type_info&amp; __y) _NOEXCEPT : __t_(&amp;__y) {}</span>
+<a name="64"><span class="lineNum">      64 </span>            : </a>
+<span class="lineNum">      65 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">      66 </span>            :     bool operator==(const type_index&amp; __y) const _NOEXCEPT
+<a name="67"><span class="lineNum">      67 </span><span class="lineCov">          3 :         {return *__t_ == *__y.__t_;}</span></a>
+<span class="lineNum">      68 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">      69 </span>            :     bool operator!=(const type_index&amp; __y) const _NOEXCEPT
+<a name="70"><span class="lineNum">      70 </span><span class="lineCov">          2 :         {return *__t_ != *__y.__t_;}</span></a>
+<span class="lineNum">      71 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">      72 </span>            :     bool operator&lt; (const type_index&amp; __y) const _NOEXCEPT
+<a name="73"><span class="lineNum">      73 </span><span class="lineCov">          3 :         {return  __t_-&gt;before(*__y.__t_);}</span></a>
+<span class="lineNum">      74 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">      75 </span>            :     bool operator&lt;=(const type_index&amp; __y) const _NOEXCEPT
+<a name="76"><span class="lineNum">      76 </span><span class="lineCov">          2 :         {return !__y.__t_-&gt;before(*__t_);}</span></a>
+<span class="lineNum">      77 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">      78 </span>            :     bool operator&gt; (const type_index&amp; __y) const _NOEXCEPT
+<a name="79"><span class="lineNum">      79 </span><span class="lineCov">          2 :         {return  __y.__t_-&gt;before(*__t_);}</span></a>
+<span class="lineNum">      80 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">      81 </span>            :     bool operator&gt;=(const type_index&amp; __y) const _NOEXCEPT
+<span class="lineNum">      82 </span><span class="lineCov">          2 :         {return !__t_-&gt;before(*__y.__t_);}</span>
+<a name="83"><span class="lineNum">      83 </span>            : </a>
+<span class="lineNum">      84 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<a name="85"><span class="lineNum">      85 </span><span class="lineCov">          3 :     size_t hash_code() const _NOEXCEPT {return __t_-&gt;hash_code();}</span></a>
+<span class="lineNum">      86 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">      87 </span><span class="lineCov">          2 :     const char* name() const _NOEXCEPT {return __t_-&gt;name();}</span>
+<span class="lineNum">      88 </span>            : };
+<span class="lineNum">      89 </span>            : 
+<span class="lineNum">      90 </span>            : template &lt;class _Tp&gt; struct _LIBCPP_TYPE_VIS_ONLY hash;
+<span class="lineNum">      91 </span>            : 
+<span class="lineNum">      92 </span>            : template &lt;&gt;
+<span class="lineNum">      93 </span>            : struct _LIBCPP_TYPE_VIS_ONLY hash&lt;type_index&gt;
+<span class="lineNum">      94 </span>            :     : public unary_function&lt;type_index, size_t&gt;
+<a name="95"><span class="lineNum">      95 </span>            : {</a>
+<span class="lineNum">      96 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">      97 </span>            :     size_t operator()(type_index __index) const _NOEXCEPT
+<span class="lineNum">      98 </span><span class="lineCov">          1 :         {return __index.hash_code();}</span>
+<span class="lineNum">      99 </span>            : };
+<span class="lineNum">     100 </span>            : 
+<span class="lineNum">     101 </span>            : _LIBCPP_END_NAMESPACE_STD
+<span class="lineNum">     102 </span>            : 
+<span class="lineNum">     103 </span>            : #endif  // _LIBCPP_TYPEINDEX
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

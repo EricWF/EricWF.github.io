@@ -1,0 +1,654 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - test_coverage.info - include/scoped_allocator</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">include</a> - scoped_allocator<span style="font-size: 80%;"> (source / <a href="scoped_allocator.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">test_coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">77</td>
+            <td class="headerCovTableEntry">77</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2015-06-02</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">263</td>
+            <td class="headerCovTableEntry">263</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : // -*- C++ -*-</a>
+<span class="lineNum">       2 </span>            : //===-------------------------- scoped_allocator --------------------------===//
+<span class="lineNum">       3 </span>            : //
+<span class="lineNum">       4 </span>            : //                     The LLVM Compiler Infrastructure
+<span class="lineNum">       5 </span>            : //
+<span class="lineNum">       6 </span>            : // This file is dual licensed under the MIT and the University of Illinois Open
+<span class="lineNum">       7 </span>            : // Source Licenses. See LICENSE.TXT for details.
+<span class="lineNum">       8 </span>            : //
+<span class="lineNum">       9 </span>            : //===----------------------------------------------------------------------===//
+<span class="lineNum">      10 </span>            : 
+<span class="lineNum">      11 </span>            : #ifndef _LIBCPP_SCOPED_ALLOCATOR
+<span class="lineNum">      12 </span>            : #define _LIBCPP_SCOPED_ALLOCATOR
+<span class="lineNum">      13 </span>            : 
+<span class="lineNum">      14 </span>            : /*
+<span class="lineNum">      15 </span>            :     scoped_allocator synopsis
+<span class="lineNum">      16 </span>            : 
+<span class="lineNum">      17 </span>            : namespace std
+<span class="lineNum">      18 </span>            : {
+<span class="lineNum">      19 </span>            : 
+<span class="lineNum">      20 </span>            : template &lt;class OuterAlloc, class... InnerAllocs&gt;
+<span class="lineNum">      21 </span>            : class scoped_allocator_adaptor : public OuterAlloc
+<span class="lineNum">      22 </span>            : {
+<span class="lineNum">      23 </span>            :     typedef allocator_traits&lt;OuterAlloc&gt; OuterTraits; // exposition only
+<span class="lineNum">      24 </span>            :     scoped_allocator_adaptor&lt;InnerAllocs...&gt; inner;   // exposition only
+<span class="lineNum">      25 </span>            : public:
+<span class="lineNum">      26 </span>            : 
+<span class="lineNum">      27 </span>            :     typedef OuterAlloc outer_allocator_type;
+<span class="lineNum">      28 </span>            :     typedef see below inner_allocator_type;
+<span class="lineNum">      29 </span>            : 
+<span class="lineNum">      30 </span>            :     typedef typename OuterTraits::value_type value_type;
+<span class="lineNum">      31 </span>            :     typedef typename OuterTraits::size_type size_type;
+<span class="lineNum">      32 </span>            :     typedef typename OuterTraits::difference_type difference_type;
+<span class="lineNum">      33 </span>            :     typedef typename OuterTraits::pointer pointer;
+<span class="lineNum">      34 </span>            :     typedef typename OuterTraits::const_pointer const_pointer;
+<span class="lineNum">      35 </span>            :     typedef typename OuterTraits::void_pointer void_pointer;
+<span class="lineNum">      36 </span>            :     typedef typename OuterTraits::const_void_pointer const_void_pointer;
+<span class="lineNum">      37 </span>            : 
+<span class="lineNum">      38 </span>            :     typedef see below propagate_on_container_copy_assignment;
+<span class="lineNum">      39 </span>            :     typedef see below propagate_on_container_move_assignment;
+<span class="lineNum">      40 </span>            :     typedef see below propagate_on_container_swap;
+<span class="lineNum">      41 </span>            : 
+<span class="lineNum">      42 </span>            :     template &lt;class Tp&gt;
+<span class="lineNum">      43 </span>            :         struct rebind
+<span class="lineNum">      44 </span>            :         {
+<span class="lineNum">      45 </span>            :             typedef scoped_allocator_adaptor&lt;
+<span class="lineNum">      46 </span>            :                 OuterTraits::template rebind_alloc&lt;Tp&gt;, InnerAllocs...&gt; other;
+<span class="lineNum">      47 </span>            :         };
+<span class="lineNum">      48 </span>            : 
+<span class="lineNum">      49 </span>            :     scoped_allocator_adaptor();
+<span class="lineNum">      50 </span>            :     template &lt;class OuterA2&gt;
+<span class="lineNum">      51 </span>            :         scoped_allocator_adaptor(OuterA2&amp;&amp; outerAlloc,
+<span class="lineNum">      52 </span>            :                                  const InnerAllocs&amp;... innerAllocs) noexcept;
+<span class="lineNum">      53 </span>            :     scoped_allocator_adaptor(const scoped_allocator_adaptor&amp; other) noexcept;
+<span class="lineNum">      54 </span>            :     scoped_allocator_adaptor(scoped_allocator_adaptor&amp;&amp; other) noexcept;
+<span class="lineNum">      55 </span>            :     template &lt;class OuterA2&gt;
+<span class="lineNum">      56 </span>            :         scoped_allocator_adaptor(const scoped_allocator_adaptor&lt;OuterA2, InnerAllocs...&gt;&amp; other) noexcept;
+<span class="lineNum">      57 </span>            :     template &lt;class OuterA2&gt;
+<span class="lineNum">      58 </span>            :         scoped_allocator_adaptor(const scoped_allocator_adaptor&lt;OuterA2, InnerAllocs...&gt;&amp;&amp; other) noexcept;
+<span class="lineNum">      59 </span>            : 
+<span class="lineNum">      60 </span>            :     ~scoped_allocator_adaptor();
+<span class="lineNum">      61 </span>            : 
+<span class="lineNum">      62 </span>            :     inner_allocator_type&amp; inner_allocator() noexcept;
+<span class="lineNum">      63 </span>            :     const inner_allocator_type&amp; inner_allocator() const noexcept;
+<span class="lineNum">      64 </span>            : 
+<span class="lineNum">      65 </span>            :     outer_allocator_type&amp; outer_allocator() noexcept;
+<span class="lineNum">      66 </span>            :     const outer_allocator_type&amp; outer_allocator() const noexcept;
+<span class="lineNum">      67 </span>            : 
+<span class="lineNum">      68 </span>            :     pointer allocate(size_type n);
+<span class="lineNum">      69 </span>            :     pointer allocate(size_type n, const_void_pointer hint);
+<span class="lineNum">      70 </span>            :     void deallocate(pointer p, size_type n) noexcept;
+<span class="lineNum">      71 </span>            : 
+<span class="lineNum">      72 </span>            :     size_type max_size() const;
+<span class="lineNum">      73 </span>            :     template &lt;class T, class... Args&gt; void construct(T* p, Args&amp;&amp; args);
+<span class="lineNum">      74 </span>            :     template &lt;class T1, class T2, class... Args1, class... Args2&gt;
+<span class="lineNum">      75 </span>            :         void construct(pair&lt;T1, T2&gt;* p, piecewise_construct t, tuple&lt;Args1...&gt; x,
+<span class="lineNum">      76 </span>            :                        tuple&lt;Args2...&gt; y);
+<span class="lineNum">      77 </span>            :     template &lt;class T1, class T2&gt;
+<span class="lineNum">      78 </span>            :         void construct(pair&lt;T1, T2&gt;* p);
+<span class="lineNum">      79 </span>            :     template &lt;class T1, class T2, class U, class V&gt;
+<span class="lineNum">      80 </span>            :         void construct(pair&lt;T1, T2&gt;* p, U&amp;&amp; x, V&amp;&amp; y);
+<span class="lineNum">      81 </span>            :     template &lt;class T1, class T2, class U, class V&gt;
+<span class="lineNum">      82 </span>            :         void construct(pair&lt;T1, T2&gt;* p, const pair&lt;U, V&gt;&amp; x);
+<span class="lineNum">      83 </span>            :     template &lt;class T1, class T2, class U, class V&gt;
+<span class="lineNum">      84 </span>            :         void construct(pair&lt;T1, T2&gt;* p, pair&lt;U, V&gt;&amp;&amp; x);
+<span class="lineNum">      85 </span>            :     template &lt;class T&gt; void destroy(T* p);
+<span class="lineNum">      86 </span>            : 
+<span class="lineNum">      87 </span>            :     template &lt;class T&gt; void destroy(T* p) noexcept;
+<span class="lineNum">      88 </span>            : 
+<span class="lineNum">      89 </span>            :     scoped_allocator_adaptor select_on_container_copy_construction() const noexcept;
+<span class="lineNum">      90 </span>            : };
+<span class="lineNum">      91 </span>            : 
+<span class="lineNum">      92 </span>            : template &lt;class OuterA1, class OuterA2, class... InnerAllocs&gt;
+<span class="lineNum">      93 </span>            :     bool
+<span class="lineNum">      94 </span>            :     operator==(const scoped_allocator_adaptor&lt;OuterA1, InnerAllocs...&gt;&amp; a,
+<span class="lineNum">      95 </span>            :                const scoped_allocator_adaptor&lt;OuterA2, InnerAllocs...&gt;&amp; b) noexcept;
+<span class="lineNum">      96 </span>            : 
+<span class="lineNum">      97 </span>            : template &lt;class OuterA1, class OuterA2, class... InnerAllocs&gt;
+<span class="lineNum">      98 </span>            :     bool
+<span class="lineNum">      99 </span>            :     operator!=(const scoped_allocator_adaptor&lt;OuterA1, InnerAllocs...&gt;&amp; a,
+<span class="lineNum">     100 </span>            :                const scoped_allocator_adaptor&lt;OuterA2, InnerAllocs...&gt;&amp; b) noexcept;
+<span class="lineNum">     101 </span>            : 
+<span class="lineNum">     102 </span>            : }  // std
+<span class="lineNum">     103 </span>            : 
+<span class="lineNum">     104 </span>            : */
+<span class="lineNum">     105 </span>            : 
+<span class="lineNum">     106 </span>            : #include &lt;__config&gt;
+<span class="lineNum">     107 </span>            : #include &lt;memory&gt;
+<span class="lineNum">     108 </span>            : 
+<span class="lineNum">     109 </span>            : #if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
+<span class="lineNum">     110 </span>            : #pragma GCC system_header
+<span class="lineNum">     111 </span>            : #endif
+<span class="lineNum">     112 </span>            : 
+<span class="lineNum">     113 </span>            : _LIBCPP_BEGIN_NAMESPACE_STD
+<span class="lineNum">     114 </span>            : 
+<span class="lineNum">     115 </span>            : #if !defined(_LIBCPP_HAS_NO_RVALUE_REFERENCES) &amp;&amp; !defined(_LIBCPP_HAS_NO_ADVANCED_SFINAE)
+<span class="lineNum">     116 </span>            : 
+<span class="lineNum">     117 </span>            : // scoped_allocator_adaptor
+<span class="lineNum">     118 </span>            : 
+<span class="lineNum">     119 </span>            : template &lt;class ..._Allocs&gt;
+<span class="lineNum">     120 </span>            : class scoped_allocator_adaptor;
+<span class="lineNum">     121 </span>            : 
+<span class="lineNum">     122 </span>            : template &lt;class ..._Allocs&gt; struct __get_poc_copy_assignment;
+<span class="lineNum">     123 </span>            : 
+<span class="lineNum">     124 </span>            : template &lt;class _A0&gt;
+<span class="lineNum">     125 </span>            : struct __get_poc_copy_assignment&lt;_A0&gt;
+<span class="lineNum">     126 </span>            : {
+<span class="lineNum">     127 </span>            :     static const bool value = allocator_traits&lt;_A0&gt;::
+<span class="lineNum">     128 </span>            :                               propagate_on_container_copy_assignment::value;
+<span class="lineNum">     129 </span>            : };
+<span class="lineNum">     130 </span>            : 
+<span class="lineNum">     131 </span>            : template &lt;class _A0, class ..._Allocs&gt;
+<span class="lineNum">     132 </span>            : struct __get_poc_copy_assignment&lt;_A0, _Allocs...&gt;
+<span class="lineNum">     133 </span>            : {
+<span class="lineNum">     134 </span>            :     static const bool value =
+<span class="lineNum">     135 </span>            :         allocator_traits&lt;_A0&gt;::propagate_on_container_copy_assignment::value ||
+<span class="lineNum">     136 </span>            :         __get_poc_copy_assignment&lt;_Allocs...&gt;::value;
+<span class="lineNum">     137 </span>            : };
+<span class="lineNum">     138 </span>            : 
+<span class="lineNum">     139 </span>            : template &lt;class ..._Allocs&gt; struct __get_poc_move_assignment;
+<span class="lineNum">     140 </span>            : 
+<span class="lineNum">     141 </span>            : template &lt;class _A0&gt;
+<span class="lineNum">     142 </span>            : struct __get_poc_move_assignment&lt;_A0&gt;
+<span class="lineNum">     143 </span>            : {
+<span class="lineNum">     144 </span>            :     static const bool value = allocator_traits&lt;_A0&gt;::
+<span class="lineNum">     145 </span>            :                               propagate_on_container_move_assignment::value;
+<span class="lineNum">     146 </span>            : };
+<span class="lineNum">     147 </span>            : 
+<span class="lineNum">     148 </span>            : template &lt;class _A0, class ..._Allocs&gt;
+<span class="lineNum">     149 </span>            : struct __get_poc_move_assignment&lt;_A0, _Allocs...&gt;
+<span class="lineNum">     150 </span>            : {
+<span class="lineNum">     151 </span>            :     static const bool value =
+<span class="lineNum">     152 </span>            :         allocator_traits&lt;_A0&gt;::propagate_on_container_move_assignment::value ||
+<span class="lineNum">     153 </span>            :         __get_poc_move_assignment&lt;_Allocs...&gt;::value;
+<span class="lineNum">     154 </span>            : };
+<span class="lineNum">     155 </span>            : 
+<span class="lineNum">     156 </span>            : template &lt;class ..._Allocs&gt; struct __get_poc_swap;
+<span class="lineNum">     157 </span>            : 
+<span class="lineNum">     158 </span>            : template &lt;class _A0&gt;
+<span class="lineNum">     159 </span>            : struct __get_poc_swap&lt;_A0&gt;
+<span class="lineNum">     160 </span>            : {
+<span class="lineNum">     161 </span>            :     static const bool value = allocator_traits&lt;_A0&gt;::
+<span class="lineNum">     162 </span>            :                               propagate_on_container_swap::value;
+<span class="lineNum">     163 </span>            : };
+<span class="lineNum">     164 </span>            : 
+<span class="lineNum">     165 </span>            : template &lt;class _A0, class ..._Allocs&gt;
+<span class="lineNum">     166 </span>            : struct __get_poc_swap&lt;_A0, _Allocs...&gt;
+<span class="lineNum">     167 </span>            : {
+<span class="lineNum">     168 </span>            :     static const bool value =
+<span class="lineNum">     169 </span>            :         allocator_traits&lt;_A0&gt;::propagate_on_container_swap::value ||
+<span class="lineNum">     170 </span>            :         __get_poc_swap&lt;_Allocs...&gt;::value;
+<span class="lineNum">     171 </span>            : };
+<a name="172"><span class="lineNum">     172 </span>            : </a>
+<span class="lineNum">     173 </span>            : template &lt;class ..._Allocs&gt;
+<span class="lineNum">     174 </span><span class="lineCov">          7 : class __scoped_allocator_storage;</span>
+<a name="175"><span class="lineNum">     175 </span>            : </a>
+<span class="lineNum">     176 </span>            : template &lt;class _OuterAlloc, class... _InnerAllocs&gt;
+<span class="lineNum">     177 </span><span class="lineCov">          8 : class __scoped_allocator_storage&lt;_OuterAlloc, _InnerAllocs...&gt;</span>
+<span class="lineNum">     178 </span>            :     : public _OuterAlloc
+<span class="lineNum">     179 </span>            : {
+<span class="lineNum">     180 </span>            :     typedef _OuterAlloc outer_allocator_type;
+<span class="lineNum">     181 </span>            : protected:
+<span class="lineNum">     182 </span>            :     typedef scoped_allocator_adaptor&lt;_InnerAllocs...&gt; inner_allocator_type;
+<span class="lineNum">     183 </span>            : 
+<span class="lineNum">     184 </span>            : private:
+<span class="lineNum">     185 </span>            :     inner_allocator_type __inner_;
+<span class="lineNum">     186 </span>            : 
+<span class="lineNum">     187 </span>            : protected:
+<a name="188"><span class="lineNum">     188 </span>            : </a>
+<span class="lineNum">     189 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     190 </span><span class="lineCov">         38 :     __scoped_allocator_storage() _NOEXCEPT {}</span>
+<span class="lineNum">     191 </span>            : 
+<span class="lineNum">     192 </span>            :     template &lt;class _OuterA2,
+<span class="lineNum">     193 </span>            :               class = typename enable_if&lt;
+<span class="lineNum">     194 </span>            :                         is_constructible&lt;outer_allocator_type, _OuterA2&gt;::value
+<a name="195"><span class="lineNum">     195 </span>            :                       &gt;::type&gt;</a>
+<span class="lineNum">     196 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     197 </span>            :         __scoped_allocator_storage(_OuterA2&amp;&amp; __outerAlloc,
+<span class="lineNum">     198 </span>            :                                    const _InnerAllocs&amp; ...__innerAllocs) _NOEXCEPT
+<span class="lineNum">     199 </span><span class="lineCov">         40 :             : outer_allocator_type(_VSTD::forward&lt;_OuterA2&gt;(__outerAlloc)),</span>
+<span class="lineNum">     200 </span><span class="lineCov">         80 :               __inner_(__innerAllocs...) {}</span>
+<span class="lineNum">     201 </span>            : 
+<span class="lineNum">     202 </span>            :     template &lt;class _OuterA2,
+<span class="lineNum">     203 </span>            :               class = typename enable_if&lt;
+<span class="lineNum">     204 </span>            :                         is_constructible&lt;outer_allocator_type, const _OuterA2&amp;&gt;::value
+<a name="205"><span class="lineNum">     205 </span>            :                       &gt;::type&gt;</a>
+<span class="lineNum">     206 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     207 </span>            :         __scoped_allocator_storage(
+<span class="lineNum">     208 </span>            :             const __scoped_allocator_storage&lt;_OuterA2, _InnerAllocs...&gt;&amp; __other) _NOEXCEPT
+<span class="lineNum">     209 </span><span class="lineCov">          2 :             : outer_allocator_type(__other.outer_allocator()),</span>
+<span class="lineNum">     210 </span><span class="lineCov">          6 :               __inner_(__other.inner_allocator()) {}</span>
+<span class="lineNum">     211 </span>            : 
+<span class="lineNum">     212 </span>            :     template &lt;class _OuterA2,
+<span class="lineNum">     213 </span>            :               class = typename enable_if&lt;
+<span class="lineNum">     214 </span>            :                         is_constructible&lt;outer_allocator_type, _OuterA2&gt;::value
+<a name="215"><span class="lineNum">     215 </span>            :                       &gt;::type&gt;</a>
+<span class="lineNum">     216 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     217 </span>            :         __scoped_allocator_storage(
+<span class="lineNum">     218 </span>            :             __scoped_allocator_storage&lt;_OuterA2, _InnerAllocs...&gt;&amp;&amp; __other) _NOEXCEPT
+<span class="lineNum">     219 </span><span class="lineCov">          2 :             : outer_allocator_type(_VSTD::move(__other.outer_allocator())),</span>
+<span class="lineNum">     220 </span><span class="lineCov">          6 :               __inner_(_VSTD::move(__other.inner_allocator())) {}</span>
+<span class="lineNum">     221 </span>            : 
+<span class="lineNum">     222 </span>            :     template &lt;class _OuterA2,
+<span class="lineNum">     223 </span>            :               class = typename enable_if&lt;
+<span class="lineNum">     224 </span>            :                         is_constructible&lt;outer_allocator_type, _OuterA2&gt;::value
+<a name="225"><span class="lineNum">     225 </span>            :                       &gt;::type&gt;</a>
+<span class="lineNum">     226 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     227 </span>            :         __scoped_allocator_storage(_OuterA2&amp;&amp; __o,
+<span class="lineNum">     228 </span>            :                                    const inner_allocator_type&amp; __i) _NOEXCEPT
+<span class="lineNum">     229 </span><span class="lineCov">          2 :             : outer_allocator_type(_VSTD::forward&lt;_OuterA2&gt;(__o)),</span>
+<span class="lineNum">     230 </span><span class="lineCov">          2 :               __inner_(__i)</span>
+<span class="lineNum">     231 </span><span class="lineCov">          2 :         {</span>
+<span class="lineNum">     232 </span><span class="lineCov">          2 :         }</span>
+<a name="233"><span class="lineNum">     233 </span>            : </a>
+<span class="lineNum">     234 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<a name="235"><span class="lineNum">     235 </span><span class="lineCov">         19 :     inner_allocator_type&amp; inner_allocator() _NOEXCEPT             {return __inner_;}</span></a>
+<span class="lineNum">     236 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     237 </span><span class="lineCov">         50 :     const inner_allocator_type&amp; inner_allocator() const _NOEXCEPT {return __inner_;}</span>
+<a name="238"><span class="lineNum">     238 </span>            : </a>
+<span class="lineNum">     239 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     240 </span>            :     outer_allocator_type&amp; outer_allocator() _NOEXCEPT
+<a name="241"><span class="lineNum">     241 </span><span class="lineCov">         30 :         {return static_cast&lt;outer_allocator_type&amp;&gt;(*this);}</span></a>
+<span class="lineNum">     242 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     243 </span>            :     const outer_allocator_type&amp; outer_allocator() const _NOEXCEPT
+<span class="lineNum">     244 </span><span class="lineCov">         52 :         {return static_cast&lt;const outer_allocator_type&amp;&gt;(*this);}</span>
+<span class="lineNum">     245 </span>            : 
+<a name="246"><span class="lineNum">     246 </span>            :     scoped_allocator_adaptor&lt;outer_allocator_type, _InnerAllocs...&gt;</a>
+<span class="lineNum">     247 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     248 </span>            :     select_on_container_copy_construction() const _NOEXCEPT
+<span class="lineNum">     249 </span>            :         {
+<span class="lineNum">     250 </span><span class="lineCov">          2 :             return scoped_allocator_adaptor&lt;outer_allocator_type, _InnerAllocs...&gt;</span>
+<span class="lineNum">     251 </span>            :             (
+<span class="lineNum">     252 </span><span class="lineCov">          2 :                 allocator_traits&lt;outer_allocator_type&gt;::</span>
+<span class="lineNum">     253 </span><span class="lineCov">          2 :                     select_on_container_copy_construction(outer_allocator()),</span>
+<span class="lineNum">     254 </span><span class="lineCov">          2 :                 allocator_traits&lt;inner_allocator_type&gt;::</span>
+<span class="lineNum">     255 </span><span class="lineCov">          2 :                     select_on_container_copy_construction(inner_allocator())</span>
+<span class="lineNum">     256 </span>            :             );
+<span class="lineNum">     257 </span>            :         }
+<span class="lineNum">     258 </span>            : 
+<span class="lineNum">     259 </span>            :     template &lt;class...&gt; friend class __scoped_allocator_storage;
+<span class="lineNum">     260 </span>            : };
+<a name="261"><span class="lineNum">     261 </span>            : </a>
+<span class="lineNum">     262 </span>            : template &lt;class _OuterAlloc&gt;
+<span class="lineNum">     263 </span><span class="lineCov">          8 : class __scoped_allocator_storage&lt;_OuterAlloc&gt;</span>
+<span class="lineNum">     264 </span>            :     : public _OuterAlloc
+<span class="lineNum">     265 </span>            : {
+<span class="lineNum">     266 </span>            :     typedef _OuterAlloc outer_allocator_type;
+<span class="lineNum">     267 </span>            : protected:
+<span class="lineNum">     268 </span>            :     typedef scoped_allocator_adaptor&lt;_OuterAlloc&gt; inner_allocator_type;
+<a name="269"><span class="lineNum">     269 </span>            : </a>
+<span class="lineNum">     270 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     271 </span><span class="lineCov">         44 :     __scoped_allocator_storage() _NOEXCEPT {}</span>
+<span class="lineNum">     272 </span>            : 
+<span class="lineNum">     273 </span>            :     template &lt;class _OuterA2,
+<span class="lineNum">     274 </span>            :               class = typename enable_if&lt;
+<span class="lineNum">     275 </span>            :                         is_constructible&lt;outer_allocator_type, _OuterA2&gt;::value
+<a name="276"><span class="lineNum">     276 </span>            :                       &gt;::type&gt;</a>
+<span class="lineNum">     277 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     278 </span>            :         __scoped_allocator_storage(_OuterA2&amp;&amp; __outerAlloc) _NOEXCEPT
+<span class="lineNum">     279 </span><span class="lineCov">        100 :             : outer_allocator_type(_VSTD::forward&lt;_OuterA2&gt;(__outerAlloc)) {}</span>
+<span class="lineNum">     280 </span>            : 
+<span class="lineNum">     281 </span>            :     template &lt;class _OuterA2,
+<span class="lineNum">     282 </span>            :               class = typename enable_if&lt;
+<span class="lineNum">     283 </span>            :                         is_constructible&lt;outer_allocator_type, const _OuterA2&amp;&gt;::value
+<span class="lineNum">     284 </span>            :                       &gt;::type&gt;
+<span class="lineNum">     285 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     286 </span>            :         __scoped_allocator_storage(
+<span class="lineNum">     287 </span>            :             const __scoped_allocator_storage&lt;_OuterA2&gt;&amp; __other) _NOEXCEPT
+<span class="lineNum">     288 </span>            :             : outer_allocator_type(__other.outer_allocator()) {}
+<span class="lineNum">     289 </span>            : 
+<span class="lineNum">     290 </span>            :     template &lt;class _OuterA2,
+<span class="lineNum">     291 </span>            :               class = typename enable_if&lt;
+<span class="lineNum">     292 </span>            :                         is_constructible&lt;outer_allocator_type, _OuterA2&gt;::value
+<span class="lineNum">     293 </span>            :                       &gt;::type&gt;
+<span class="lineNum">     294 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     295 </span>            :         __scoped_allocator_storage(
+<span class="lineNum">     296 </span>            :             __scoped_allocator_storage&lt;_OuterA2&gt;&amp;&amp; __other) _NOEXCEPT
+<span class="lineNum">     297 </span>            :             : outer_allocator_type(_VSTD::move(__other.outer_allocator())) {}
+<a name="298"><span class="lineNum">     298 </span>            : </a>
+<span class="lineNum">     299 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     300 </span>            :     inner_allocator_type&amp; inner_allocator() _NOEXCEPT
+<span class="lineNum">     301 </span><span class="lineCov">          5 :         {return static_cast&lt;inner_allocator_type&amp;&gt;(*this);}</span>
+<span class="lineNum">     302 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     303 </span>            :     const inner_allocator_type&amp; inner_allocator() const _NOEXCEPT
+<span class="lineNum">     304 </span>            :         {return static_cast&lt;const inner_allocator_type&amp;&gt;(*this);}
+<a name="305"><span class="lineNum">     305 </span>            : </a>
+<span class="lineNum">     306 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     307 </span>            :     outer_allocator_type&amp; outer_allocator() _NOEXCEPT
+<a name="308"><span class="lineNum">     308 </span><span class="lineCov">         18 :         {return static_cast&lt;outer_allocator_type&amp;&gt;(*this);}</span></a>
+<span class="lineNum">     309 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     310 </span>            :     const outer_allocator_type&amp; outer_allocator() const _NOEXCEPT
+<span class="lineNum">     311 </span><span class="lineCov">         62 :         {return static_cast&lt;const outer_allocator_type&amp;&gt;(*this);}</span>
+<span class="lineNum">     312 </span>            : 
+<a name="313"><span class="lineNum">     313 </span>            :     _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     314 </span>            :     scoped_allocator_adaptor&lt;outer_allocator_type&gt;
+<span class="lineNum">     315 </span>            :     select_on_container_copy_construction() const _NOEXCEPT
+<span class="lineNum">     316 </span><span class="lineCov">          3 :         {return scoped_allocator_adaptor&lt;outer_allocator_type&gt;(</span>
+<span class="lineNum">     317 </span><span class="lineCov">          3 :             allocator_traits&lt;outer_allocator_type&gt;::</span>
+<span class="lineNum">     318 </span><span class="lineCov">          3 :                 select_on_container_copy_construction(outer_allocator())</span>
+<span class="lineNum">     319 </span>            :         );}
+<span class="lineNum">     320 </span>            : 
+<span class="lineNum">     321 </span>            :     __scoped_allocator_storage(const outer_allocator_type&amp; __o,
+<span class="lineNum">     322 </span>            :                                const inner_allocator_type&amp; __i) _NOEXCEPT;
+<span class="lineNum">     323 </span>            : 
+<span class="lineNum">     324 </span>            :     template &lt;class...&gt; friend class __scoped_allocator_storage;
+<span class="lineNum">     325 </span>            : };
+<span class="lineNum">     326 </span>            : 
+<span class="lineNum">     327 </span>            : // __outermost
+<span class="lineNum">     328 </span>            : 
+<span class="lineNum">     329 </span>            : template &lt;class _Alloc&gt;
+<span class="lineNum">     330 </span>            : decltype(declval&lt;_Alloc&gt;().outer_allocator(), true_type())
+<span class="lineNum">     331 </span>            : __has_outer_allocator_test(_Alloc&amp;&amp; __a);
+<span class="lineNum">     332 </span>            : 
+<span class="lineNum">     333 </span>            : template &lt;class _Alloc&gt;
+<span class="lineNum">     334 </span>            : false_type
+<span class="lineNum">     335 </span>            : __has_outer_allocator_test(const volatile _Alloc&amp; __a);
+<span class="lineNum">     336 </span>            : 
+<span class="lineNum">     337 </span>            : template &lt;class _Alloc&gt;
+<span class="lineNum">     338 </span>            : struct __has_outer_allocator
+<span class="lineNum">     339 </span>            :     : public common_type
+<span class="lineNum">     340 </span>            :              &lt;
+<span class="lineNum">     341 </span>            :                  decltype(__has_outer_allocator_test(declval&lt;_Alloc&amp;&gt;()))
+<span class="lineNum">     342 </span>            :              &gt;::type
+<span class="lineNum">     343 </span>            : {
+<span class="lineNum">     344 </span>            : };
+<span class="lineNum">     345 </span>            : 
+<span class="lineNum">     346 </span>            : template &lt;class _Alloc, bool = __has_outer_allocator&lt;_Alloc&gt;::value&gt;
+<span class="lineNum">     347 </span>            : struct __outermost
+<span class="lineNum">     348 </span>            : {
+<a name="349"><span class="lineNum">     349 </span>            :     typedef _Alloc type;</a>
+<span class="lineNum">     350 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     351 </span><span class="lineCov">         10 :     type&amp; operator()(type&amp; __a) const _NOEXCEPT {return __a;}</span>
+<span class="lineNum">     352 </span>            : };
+<span class="lineNum">     353 </span>            : 
+<span class="lineNum">     354 </span>            : template &lt;class _Alloc&gt;
+<span class="lineNum">     355 </span>            : struct __outermost&lt;_Alloc, true&gt;
+<span class="lineNum">     356 </span>            : {
+<span class="lineNum">     357 </span>            :     typedef typename remove_reference
+<span class="lineNum">     358 </span>            :                      &lt;
+<span class="lineNum">     359 </span>            :                         decltype(_VSTD::declval&lt;_Alloc&gt;().outer_allocator())
+<span class="lineNum">     360 </span>            :                      &gt;::type                                    _OuterAlloc;
+<a name="361"><span class="lineNum">     361 </span>            :     typedef typename __outermost&lt;_OuterAlloc&gt;::type             type;</a>
+<span class="lineNum">     362 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     363 </span>            :     type&amp; operator()(_Alloc&amp; __a) const _NOEXCEPT
+<span class="lineNum">     364 </span><span class="lineCov">          2 :         {return __outermost&lt;_OuterAlloc&gt;()(__a.outer_allocator());}</span>
+<span class="lineNum">     365 </span>            : };
+<a name="366"><span class="lineNum">     366 </span>            : </a>
+<span class="lineNum">     367 </span>            : template &lt;class _OuterAlloc, class... _InnerAllocs&gt;
+<span class="lineNum">     368 </span><span class="lineCov">         23 : class _LIBCPP_TYPE_VIS_ONLY scoped_allocator_adaptor&lt;_OuterAlloc, _InnerAllocs...&gt;</span>
+<span class="lineNum">     369 </span>            :     : public __scoped_allocator_storage&lt;_OuterAlloc, _InnerAllocs...&gt;
+<span class="lineNum">     370 </span>            : {
+<span class="lineNum">     371 </span>            :     typedef __scoped_allocator_storage&lt;_OuterAlloc, _InnerAllocs...&gt; base;
+<span class="lineNum">     372 </span>            :     typedef allocator_traits&lt;_OuterAlloc&gt;             _OuterTraits;
+<span class="lineNum">     373 </span>            : public:
+<span class="lineNum">     374 </span>            :     typedef _OuterAlloc                               outer_allocator_type;
+<span class="lineNum">     375 </span>            :     typedef typename base::inner_allocator_type       inner_allocator_type;
+<span class="lineNum">     376 </span>            :     typedef typename _OuterTraits::size_type          size_type;
+<span class="lineNum">     377 </span>            :     typedef typename _OuterTraits::difference_type    difference_type;
+<span class="lineNum">     378 </span>            :     typedef typename _OuterTraits::pointer            pointer;
+<span class="lineNum">     379 </span>            :     typedef typename _OuterTraits::const_pointer      const_pointer;
+<span class="lineNum">     380 </span>            :     typedef typename _OuterTraits::void_pointer       void_pointer;
+<span class="lineNum">     381 </span>            :     typedef typename _OuterTraits::const_void_pointer const_void_pointer;
+<span class="lineNum">     382 </span>            : 
+<span class="lineNum">     383 </span>            :     typedef integral_constant
+<span class="lineNum">     384 </span>            :             &lt;
+<span class="lineNum">     385 </span>            :                 bool,
+<span class="lineNum">     386 </span>            :                 __get_poc_copy_assignment&lt;outer_allocator_type,
+<span class="lineNum">     387 </span>            :                                           _InnerAllocs...&gt;::value
+<span class="lineNum">     388 </span>            :             &gt; propagate_on_container_copy_assignment;
+<span class="lineNum">     389 </span>            :     typedef integral_constant
+<span class="lineNum">     390 </span>            :             &lt;
+<span class="lineNum">     391 </span>            :                 bool,
+<span class="lineNum">     392 </span>            :                 __get_poc_move_assignment&lt;outer_allocator_type,
+<span class="lineNum">     393 </span>            :                                           _InnerAllocs...&gt;::value
+<span class="lineNum">     394 </span>            :             &gt; propagate_on_container_move_assignment;
+<span class="lineNum">     395 </span>            :     typedef integral_constant
+<span class="lineNum">     396 </span>            :             &lt;
+<span class="lineNum">     397 </span>            :                 bool,
+<span class="lineNum">     398 </span>            :                 __get_poc_swap&lt;outer_allocator_type, _InnerAllocs...&gt;::value
+<span class="lineNum">     399 </span>            :             &gt; propagate_on_container_swap;
+<span class="lineNum">     400 </span>            : 
+<span class="lineNum">     401 </span>            :     template &lt;class _Tp&gt;
+<span class="lineNum">     402 </span>            :     struct rebind
+<span class="lineNum">     403 </span>            :     {
+<span class="lineNum">     404 </span>            :         typedef scoped_allocator_adaptor
+<span class="lineNum">     405 </span>            :         &lt;
+<span class="lineNum">     406 </span>            :             typename _OuterTraits::template rebind_alloc&lt;_Tp&gt;, _InnerAllocs...
+<span class="lineNum">     407 </span>            :         &gt; other;
+<span class="lineNum">     408 </span>            :     };
+<a name="409"><span class="lineNum">     409 </span>            : </a>
+<span class="lineNum">     410 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     411 </span><span class="lineCov">         41 :     scoped_allocator_adaptor() _NOEXCEPT {}</span>
+<span class="lineNum">     412 </span>            :     template &lt;class _OuterA2,
+<span class="lineNum">     413 </span>            :               class = typename enable_if&lt;
+<span class="lineNum">     414 </span>            :                         is_constructible&lt;outer_allocator_type, _OuterA2&gt;::value
+<a name="415"><span class="lineNum">     415 </span>            :                       &gt;::type&gt;</a>
+<span class="lineNum">     416 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     417 </span>            :         scoped_allocator_adaptor(_OuterA2&amp;&amp; __outerAlloc,
+<span class="lineNum">     418 </span>            :                                  const _InnerAllocs&amp; ...__innerAllocs) _NOEXCEPT
+<span class="lineNum">     419 </span><span class="lineCov">         89 :             : base(_VSTD::forward&lt;_OuterA2&gt;(__outerAlloc), __innerAllocs...) {}</span>
+<span class="lineNum">     420 </span>            :     // scoped_allocator_adaptor(const scoped_allocator_adaptor&amp; __other) = default;
+<span class="lineNum">     421 </span>            :     template &lt;class _OuterA2,
+<span class="lineNum">     422 </span>            :               class = typename enable_if&lt;
+<span class="lineNum">     423 </span>            :                         is_constructible&lt;outer_allocator_type, const _OuterA2&amp;&gt;::value
+<a name="424"><span class="lineNum">     424 </span>            :                       &gt;::type&gt;</a>
+<span class="lineNum">     425 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     426 </span>            :         scoped_allocator_adaptor(
+<span class="lineNum">     427 </span>            :             const scoped_allocator_adaptor&lt;_OuterA2, _InnerAllocs...&gt;&amp; __other) _NOEXCEPT
+<span class="lineNum">     428 </span><span class="lineCov">          2 :                 : base(__other) {}</span>
+<span class="lineNum">     429 </span>            :     template &lt;class _OuterA2,
+<span class="lineNum">     430 </span>            :               class = typename enable_if&lt;
+<span class="lineNum">     431 </span>            :                         is_constructible&lt;outer_allocator_type, _OuterA2&gt;::value
+<a name="432"><span class="lineNum">     432 </span>            :                       &gt;::type&gt;</a>
+<span class="lineNum">     433 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     434 </span>            :         scoped_allocator_adaptor(
+<span class="lineNum">     435 </span>            :             scoped_allocator_adaptor&lt;_OuterA2, _InnerAllocs...&gt;&amp;&amp; __other) _NOEXCEPT
+<span class="lineNum">     436 </span><span class="lineCov">          3 :                 : base(_VSTD::move(__other)) {}</span>
+<span class="lineNum">     437 </span>            : 
+<span class="lineNum">     438 </span>            :     // ~scoped_allocator_adaptor() = default;
+<a name="439"><span class="lineNum">     439 </span>            : </a>
+<span class="lineNum">     440 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     441 </span>            :     inner_allocator_type&amp; inner_allocator() _NOEXCEPT
+<a name="442"><span class="lineNum">     442 </span><span class="lineCov">         22 :         {return base::inner_allocator();}</span></a>
+<span class="lineNum">     443 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     444 </span>            :     const inner_allocator_type&amp; inner_allocator() const _NOEXCEPT
+<span class="lineNum">     445 </span><span class="lineCov">         46 :         {return base::inner_allocator();}</span>
+<a name="446"><span class="lineNum">     446 </span>            : </a>
+<span class="lineNum">     447 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     448 </span>            :     outer_allocator_type&amp; outer_allocator() _NOEXCEPT
+<a name="449"><span class="lineNum">     449 </span><span class="lineCov">         46 :         {return base::outer_allocator();}</span></a>
+<span class="lineNum">     450 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     451 </span>            :     const outer_allocator_type&amp; outer_allocator() const _NOEXCEPT
+<span class="lineNum">     452 </span><span class="lineCov">        107 :         {return base::outer_allocator();}</span>
+<a name="453"><span class="lineNum">     453 </span>            : </a>
+<span class="lineNum">     454 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     455 </span>            :     pointer allocate(size_type __n)
+<span class="lineNum">     456 </span><span class="lineCov">          3 :         {return allocator_traits&lt;outer_allocator_type&gt;::</span>
+<a name="457"><span class="lineNum">     457 </span><span class="lineCov">          3 :             allocate(outer_allocator(), __n);}</span></a>
+<span class="lineNum">     458 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     459 </span>            :     pointer allocate(size_type __n, const_void_pointer __hint)
+<span class="lineNum">     460 </span><span class="lineCov">          6 :         {return allocator_traits&lt;outer_allocator_type&gt;::</span>
+<span class="lineNum">     461 </span><span class="lineCov">          6 :             allocate(outer_allocator(), __n, __hint);}</span>
+<a name="462"><span class="lineNum">     462 </span>            : </a>
+<span class="lineNum">     463 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     464 </span>            :     void deallocate(pointer __p, size_type __n) _NOEXCEPT
+<span class="lineNum">     465 </span><span class="lineCov">          3 :         {allocator_traits&lt;outer_allocator_type&gt;::</span>
+<span class="lineNum">     466 </span><span class="lineCov">          6 :             deallocate(outer_allocator(), __p, __n);}</span>
+<a name="467"><span class="lineNum">     467 </span>            : </a>
+<span class="lineNum">     468 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     469 </span>            :     size_type max_size() const
+<span class="lineNum">     470 </span><span class="lineCov">          3 :         {return allocator_traits&lt;outer_allocator_type&gt;::max_size(outer_allocator());}</span>
+<span class="lineNum">     471 </span>            : 
+<a name="472"><span class="lineNum">     472 </span>            :     template &lt;class _Tp, class... _Args&gt;</a>
+<span class="lineNum">     473 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     474 </span>            :         void construct(_Tp* __p, _Args&amp;&amp; ...__args)
+<span class="lineNum">     475 </span><span class="lineCov">         16 :             {__construct(__uses_alloc_ctor&lt;_Tp, inner_allocator_type, _Args...&gt;(),</span>
+<span class="lineNum">     476 </span><span class="lineCov">         16 :                          __p, _VSTD::forward&lt;_Args&gt;(__args)...);}</span>
+<a name="477"><span class="lineNum">     477 </span>            :     template &lt;class _Tp&gt;</a>
+<span class="lineNum">     478 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     479 </span>            :         void destroy(_Tp* __p)
+<span class="lineNum">     480 </span>            :             {
+<span class="lineNum">     481 </span>            :                 typedef __outermost&lt;outer_allocator_type&gt; _OM;
+<span class="lineNum">     482 </span><span class="lineCov">          2 :                 allocator_traits&lt;typename _OM::type&gt;::</span>
+<span class="lineNum">     483 </span><span class="lineCov">          2 :                                          destroy(_OM()(outer_allocator()), __p);</span>
+<span class="lineNum">     484 </span><span class="lineCov">          2 :             }</span>
+<a name="485"><span class="lineNum">     485 </span>            : </a>
+<span class="lineNum">     486 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     487 </span>            :     scoped_allocator_adaptor select_on_container_copy_construction() const _NOEXCEPT
+<span class="lineNum">     488 </span><span class="lineCov">          5 :         {return base::select_on_container_copy_construction();}</span>
+<span class="lineNum">     489 </span>            : 
+<span class="lineNum">     490 </span>            : private:
+<span class="lineNum">     491 </span>            : 
+<span class="lineNum">     492 </span>            :     template &lt;class _OuterA2,
+<span class="lineNum">     493 </span>            :               class = typename enable_if&lt;
+<span class="lineNum">     494 </span>            :                         is_constructible&lt;outer_allocator_type, _OuterA2&gt;::value
+<a name="495"><span class="lineNum">     495 </span>            :                       &gt;::type&gt;</a>
+<span class="lineNum">     496 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     497 </span>            :     scoped_allocator_adaptor(_OuterA2&amp;&amp; __o,
+<span class="lineNum">     498 </span>            :                              const inner_allocator_type&amp; __i) _NOEXCEPT
+<span class="lineNum">     499 </span><span class="lineCov">          2 :         : base(_VSTD::forward&lt;_OuterA2&gt;(__o), __i) {}</span>
+<span class="lineNum">     500 </span>            : 
+<a name="501"><span class="lineNum">     501 </span>            :     template &lt;class _Tp, class... _Args&gt;</a>
+<span class="lineNum">     502 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     503 </span>            :         void __construct(integral_constant&lt;int, 0&gt;, _Tp* __p, _Args&amp;&amp; ...__args)
+<span class="lineNum">     504 </span>            :             {
+<span class="lineNum">     505 </span>            :                 typedef __outermost&lt;outer_allocator_type&gt; _OM;
+<span class="lineNum">     506 </span><span class="lineCov">          4 :                 allocator_traits&lt;typename _OM::type&gt;::construct</span>
+<span class="lineNum">     507 </span>            :                 (
+<span class="lineNum">     508 </span><span class="lineCov">          4 :                     _OM()(outer_allocator()),</span>
+<span class="lineNum">     509 </span><span class="lineCov">          4 :                     __p,</span>
+<span class="lineNum">     510 </span><span class="lineCov">          2 :                     _VSTD::forward&lt;_Args&gt;(__args)...</span>
+<span class="lineNum">     511 </span>            :                 );
+<span class="lineNum">     512 </span><span class="lineCov">          4 :             }</span>
+<span class="lineNum">     513 </span>            : 
+<a name="514"><span class="lineNum">     514 </span>            :     template &lt;class _Tp, class... _Args&gt;</a>
+<span class="lineNum">     515 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     516 </span>            :         void __construct(integral_constant&lt;int, 1&gt;, _Tp* __p, _Args&amp;&amp; ...__args)
+<span class="lineNum">     517 </span>            :             {
+<span class="lineNum">     518 </span>            :                 typedef __outermost&lt;outer_allocator_type&gt; _OM;
+<span class="lineNum">     519 </span><span class="lineCov">          2 :                 allocator_traits&lt;typename _OM::type&gt;::construct</span>
+<span class="lineNum">     520 </span>            :                 (
+<span class="lineNum">     521 </span><span class="lineCov">          2 :                     _OM()(outer_allocator()),</span>
+<span class="lineNum">     522 </span><span class="lineCov">          2 :                     __p,</span>
+<span class="lineNum">     523 </span>            :                     allocator_arg,
+<span class="lineNum">     524 </span><span class="lineCov">          2 :                     inner_allocator(),</span>
+<span class="lineNum">     525 </span><span class="lineCov">          2 :                     _VSTD::forward&lt;_Args&gt;(__args)...</span>
+<span class="lineNum">     526 </span>            :                 );
+<span class="lineNum">     527 </span><span class="lineCov">          2 :             }</span>
+<span class="lineNum">     528 </span>            : 
+<a name="529"><span class="lineNum">     529 </span>            :     template &lt;class _Tp, class... _Args&gt;</a>
+<span class="lineNum">     530 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     531 </span>            :         void __construct(integral_constant&lt;int, 2&gt;, _Tp* __p, _Args&amp;&amp; ...__args)
+<span class="lineNum">     532 </span>            :             {
+<span class="lineNum">     533 </span>            :                 typedef __outermost&lt;outer_allocator_type&gt; _OM;
+<span class="lineNum">     534 </span><span class="lineCov">          2 :                 allocator_traits&lt;typename _OM::type&gt;::construct</span>
+<span class="lineNum">     535 </span>            :                 (
+<span class="lineNum">     536 </span><span class="lineCov">          2 :                     _OM()(outer_allocator()),</span>
+<span class="lineNum">     537 </span><span class="lineCov">          2 :                     __p,</span>
+<span class="lineNum">     538 </span><span class="lineCov">          2 :                     _VSTD::forward&lt;_Args&gt;(__args)...,</span>
+<span class="lineNum">     539 </span><span class="lineCov">          2 :                     inner_allocator()</span>
+<span class="lineNum">     540 </span>            :                 );
+<span class="lineNum">     541 </span><span class="lineCov">          2 :             }</span>
+<span class="lineNum">     542 </span>            : 
+<span class="lineNum">     543 </span>            :     template &lt;class...&gt; friend class __scoped_allocator_storage;
+<span class="lineNum">     544 </span>            : };
+<span class="lineNum">     545 </span>            : 
+<span class="lineNum">     546 </span>            : template &lt;class _OuterA1, class _OuterA2&gt;
+<a name="547"><span class="lineNum">     547 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     548 </span>            : bool
+<span class="lineNum">     549 </span>            : operator==(const scoped_allocator_adaptor&lt;_OuterA1&gt;&amp; __a,
+<span class="lineNum">     550 </span>            :            const scoped_allocator_adaptor&lt;_OuterA2&gt;&amp; __b) _NOEXCEPT
+<span class="lineNum">     551 </span>            : {
+<span class="lineNum">     552 </span><span class="lineCov">         58 :     return __a.outer_allocator() == __b.outer_allocator();</span>
+<span class="lineNum">     553 </span>            : }
+<span class="lineNum">     554 </span>            : 
+<span class="lineNum">     555 </span>            : template &lt;class _OuterA1, class _OuterA2, class _InnerA0, class... _InnerAllocs&gt;
+<a name="556"><span class="lineNum">     556 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     557 </span>            : bool
+<span class="lineNum">     558 </span>            : operator==(const scoped_allocator_adaptor&lt;_OuterA1, _InnerA0, _InnerAllocs...&gt;&amp; __a,
+<span class="lineNum">     559 </span>            :            const scoped_allocator_adaptor&lt;_OuterA2, _InnerA0, _InnerAllocs...&gt;&amp; __b) _NOEXCEPT
+<span class="lineNum">     560 </span>            : {
+<span class="lineNum">     561 </span><span class="lineCov">         69 :     return __a.outer_allocator() == __b.outer_allocator() &amp;&amp;</span>
+<span class="lineNum">     562 </span><span class="lineCov">         23 :            __a.inner_allocator() == __b.inner_allocator();</span>
+<span class="lineNum">     563 </span>            : }
+<span class="lineNum">     564 </span>            : 
+<span class="lineNum">     565 </span>            : template &lt;class _OuterA1, class _OuterA2, class... _InnerAllocs&gt;
+<a name="566"><span class="lineNum">     566 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     567 </span>            : bool
+<span class="lineNum">     568 </span>            : operator!=(const scoped_allocator_adaptor&lt;_OuterA1, _InnerAllocs...&gt;&amp; __a,
+<span class="lineNum">     569 </span>            :            const scoped_allocator_adaptor&lt;_OuterA2, _InnerAllocs...&gt;&amp; __b) _NOEXCEPT
+<span class="lineNum">     570 </span>            : {
+<span class="lineNum">     571 </span><span class="lineCov">          4 :     return !(__a == __b);</span>
+<span class="lineNum">     572 </span>            : }
+<span class="lineNum">     573 </span>            : 
+<span class="lineNum">     574 </span>            : #endif  // !defined(_LIBCPP_HAS_NO_RVALUE_REFERENCES) &amp;&amp; !defined(_LIBCPP_HAS_NO_ADVANCED_SFINAE)
+<span class="lineNum">     575 </span>            : 
+<span class="lineNum">     576 </span>            : _LIBCPP_END_NAMESPACE_STD
+<span class="lineNum">     577 </span>            : 
+<span class="lineNum">     578 </span>            : #endif  // _LIBCPP_SCOPED_ALLOCATOR
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

@@ -1,0 +1,301 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - test_coverage.info - src/memory.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">src</a> - memory.cpp<span style="font-size: 80%;"> (source / <a href="memory.cpp.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">test_coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">61</td>
+            <td class="headerCovTableEntry">70</td>
+            <td class="headerCovTableEntryMed">87.1 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2015-06-02</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">22</td>
+            <td class="headerCovTableEntry">27</td>
+            <td class="headerCovTableEntryMed">81.5 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : //===------------------------ memory.cpp ----------------------------------===//</a>
+<span class="lineNum">       2 </span>            : //
+<span class="lineNum">       3 </span>            : //                     The LLVM Compiler Infrastructure
+<span class="lineNum">       4 </span>            : //
+<span class="lineNum">       5 </span>            : // This file is dual licensed under the MIT and the University of Illinois Open
+<span class="lineNum">       6 </span>            : // Source Licenses. See LICENSE.TXT for details.
+<span class="lineNum">       7 </span>            : //
+<span class="lineNum">       8 </span>            : //===----------------------------------------------------------------------===//
+<span class="lineNum">       9 </span>            : 
+<span class="lineNum">      10 </span>            : #define _LIBCPP_BUILDING_MEMORY
+<span class="lineNum">      11 </span>            : #include &quot;memory&quot;
+<span class="lineNum">      12 </span>            : #ifndef _LIBCPP_HAS_NO_THREADS
+<span class="lineNum">      13 </span>            : #include &quot;mutex&quot;
+<span class="lineNum">      14 </span>            : #include &quot;thread&quot;
+<span class="lineNum">      15 </span>            : #endif
+<span class="lineNum">      16 </span>            : 
+<span class="lineNum">      17 </span>            : _LIBCPP_BEGIN_NAMESPACE_STD
+<span class="lineNum">      18 </span>            : 
+<span class="lineNum">      19 </span>            : namespace
+<span class="lineNum">      20 </span>            : {
+<span class="lineNum">      21 </span>            : 
+<a name="22"><span class="lineNum">      22 </span>            : template &lt;class T&gt;</a>
+<span class="lineNum">      23 </span>            : inline T
+<span class="lineNum">      24 </span>            : increment(T&amp; t) _NOEXCEPT
+<span class="lineNum">      25 </span>            : {
+<span class="lineNum">      26 </span><span class="lineCov">     256681 :     return __sync_add_and_fetch(&amp;t, 1);</span>
+<span class="lineNum">      27 </span>            : }
+<span class="lineNum">      28 </span>            : 
+<a name="29"><span class="lineNum">      29 </span>            : template &lt;class T&gt;</a>
+<span class="lineNum">      30 </span>            : inline T
+<span class="lineNum">      31 </span>            : decrement(T&amp; t) _NOEXCEPT
+<span class="lineNum">      32 </span>            : {
+<span class="lineNum">      33 </span><span class="lineCov">      62192 :     return __sync_add_and_fetch(&amp;t, -1);</span>
+<span class="lineNum">      34 </span>            : }
+<span class="lineNum">      35 </span>            : 
+<span class="lineNum">      36 </span>            : }  // namespace
+<span class="lineNum">      37 </span>            : 
+<a name="38"><span class="lineNum">      38 </span>            : const allocator_arg_t allocator_arg = allocator_arg_t();</a>
+<span class="lineNum">      39 </span>            : 
+<span class="lineNum">      40 </span><span class="lineCov">          4 : bad_weak_ptr::~bad_weak_ptr() _NOEXCEPT {}</span>
+<a name="41"><span class="lineNum">      41 </span>            : </a>
+<span class="lineNum">      42 </span>            : const char*
+<span class="lineNum">      43 </span>            : bad_weak_ptr::what() const _NOEXCEPT
+<span class="lineNum">      44 </span>            : {
+<span class="lineNum">      45 </span><span class="lineCov">          1 :     return &quot;bad_weak_ptr&quot;;</span>
+<a name="46"><span class="lineNum">      46 </span>            : }</a>
+<span class="lineNum">      47 </span>            : 
+<span class="lineNum">      48 </span>            : __shared_count::~__shared_count()
+<span class="lineNum">      49 </span><span class="lineNoCov">          0 : {</span>
+<span class="lineNum">      50 </span><span class="lineCov">       2804 : }</span>
+<a name="51"><span class="lineNum">      51 </span>            : </a>
+<span class="lineNum">      52 </span>            : void
+<span class="lineNum">      53 </span>            : __shared_count::__add_shared() _NOEXCEPT
+<span class="lineNum">      54 </span>            : {
+<span class="lineNum">      55 </span><span class="lineCov">     256643 :     increment(__shared_owners_);</span>
+<span class="lineNum">      56 </span><span class="lineCov">     256643 : }</span>
+<a name="57"><span class="lineNum">      57 </span>            : </a>
+<span class="lineNum">      58 </span>            : bool
+<span class="lineNum">      59 </span>            : __shared_count::__release_shared() _NOEXCEPT
+<span class="lineNum">      60 </span>            : {
+<span class="lineNum">      61 </span><span class="lineCov">      61657 :     if (decrement(__shared_owners_) == -1)</span>
+<span class="lineNum">      62 </span>            :     {
+<span class="lineNum">      63 </span><span class="lineCov">       2628 :         __on_zero_shared();</span>
+<span class="lineNum">      64 </span><span class="lineCov">       2628 :         return true;</span>
+<span class="lineNum">      65 </span>            :     }
+<span class="lineNum">      66 </span><span class="lineCov">      59029 :     return false;</span>
+<a name="67"><span class="lineNum">      67 </span><span class="lineCov">      61657 : }</span></a>
+<span class="lineNum">      68 </span>            : 
+<span class="lineNum">      69 </span>            : __shared_weak_count::~__shared_weak_count()
+<span class="lineNum">      70 </span><span class="lineNoCov">          0 : {</span>
+<span class="lineNum">      71 </span><span class="lineNoCov">          0 : }</span>
+<a name="72"><span class="lineNum">      72 </span>            : </a>
+<span class="lineNum">      73 </span>            : void
+<span class="lineNum">      74 </span>            : __shared_weak_count::__add_shared() _NOEXCEPT
+<span class="lineNum">      75 </span>            : {
+<span class="lineNum">      76 </span><span class="lineCov">         96 :     __shared_count::__add_shared();</span>
+<span class="lineNum">      77 </span><span class="lineCov">         96 : }</span>
+<a name="78"><span class="lineNum">      78 </span>            : </a>
+<span class="lineNum">      79 </span>            : void
+<span class="lineNum">      80 </span>            : __shared_weak_count::__add_weak() _NOEXCEPT
+<span class="lineNum">      81 </span>            : {
+<span class="lineNum">      82 </span><span class="lineCov">         38 :     increment(__shared_weak_owners_);</span>
+<span class="lineNum">      83 </span><span class="lineCov">         38 : }</span>
+<a name="84"><span class="lineNum">      84 </span>            : </a>
+<span class="lineNum">      85 </span>            : void
+<span class="lineNum">      86 </span>            : __shared_weak_count::__release_shared() _NOEXCEPT
+<span class="lineNum">      87 </span>            : {
+<span class="lineNum">      88 </span><span class="lineCov">        601 :     if (__shared_count::__release_shared())</span>
+<span class="lineNum">      89 </span><span class="lineCov">        497 :         __release_weak();</span>
+<span class="lineNum">      90 </span><span class="lineCov">        601 : }</span>
+<a name="91"><span class="lineNum">      91 </span>            : </a>
+<span class="lineNum">      92 </span>            : void
+<span class="lineNum">      93 </span>            : __shared_weak_count::__release_weak() _NOEXCEPT
+<span class="lineNum">      94 </span>            : {
+<span class="lineNum">      95 </span><span class="lineCov">        535 :     if (decrement(__shared_weak_owners_) == -1)</span>
+<span class="lineNum">      96 </span><span class="lineCov">        497 :         __on_zero_shared_weak();</span>
+<span class="lineNum">      97 </span><span class="lineCov">        535 : }</span>
+<a name="98"><span class="lineNum">      98 </span>            : </a>
+<span class="lineNum">      99 </span>            : __shared_weak_count*
+<span class="lineNum">     100 </span>            : __shared_weak_count::lock() _NOEXCEPT
+<span class="lineNum">     101 </span>            : {
+<span class="lineNum">     102 </span><span class="lineCov">         10 :     long object_owners = __shared_owners_;</span>
+<span class="lineNum">     103 </span><span class="lineCov">         20 :     while (object_owners != -1)</span>
+<span class="lineNum">     104 </span>            :     {
+<span class="lineNum">     105 </span><span class="lineCov">         16 :         if (__sync_bool_compare_and_swap(&amp;__shared_owners_,</span>
+<span class="lineNum">     106 </span><span class="lineCov">          8 :                                          object_owners,</span>
+<span class="lineNum">     107 </span><span class="lineCov">          8 :                                          object_owners+1))</span>
+<span class="lineNum">     108 </span><span class="lineCov">          8 :             return this;</span>
+<span class="lineNum">     109 </span><span class="lineNoCov">          0 :         object_owners = __shared_owners_;</span>
+<span class="lineNum">     110 </span>            :     }
+<span class="lineNum">     111 </span><span class="lineCov">          2 :     return 0;</span>
+<span class="lineNum">     112 </span><span class="lineCov">         10 : }</span>
+<span class="lineNum">     113 </span>            : 
+<span class="lineNum">     114 </span>            : #if !defined(_LIBCPP_NO_RTTI) || !defined(_LIBCPP_BUILD_STATIC)
+<a name="115"><span class="lineNum">     115 </span>            : </a>
+<span class="lineNum">     116 </span>            : const void*
+<span class="lineNum">     117 </span>            : __shared_weak_count::__get_deleter(const type_info&amp;) const _NOEXCEPT
+<span class="lineNum">     118 </span>            : {
+<span class="lineNum">     119 </span><span class="lineNoCov">          0 :     return 0;</span>
+<span class="lineNum">     120 </span>            : }
+<span class="lineNum">     121 </span>            : 
+<span class="lineNum">     122 </span>            : #endif  // _LIBCPP_NO_RTTI
+<span class="lineNum">     123 </span>            : 
+<span class="lineNum">     124 </span>            : #if __has_feature(cxx_atomic) &amp;&amp; !defined(_LIBCPP_HAS_NO_THREADS)
+<span class="lineNum">     125 </span>            : 
+<span class="lineNum">     126 </span>            : static const std::size_t __sp_mut_count = 16;
+<span class="lineNum">     127 </span>            : static pthread_mutex_t mut_back_imp[__sp_mut_count] =
+<span class="lineNum">     128 </span>            : {
+<span class="lineNum">     129 </span>            :     PTHREAD_MUTEX_INITIALIZER, PTHREAD_MUTEX_INITIALIZER, PTHREAD_MUTEX_INITIALIZER, PTHREAD_MUTEX_INITIALIZER,
+<span class="lineNum">     130 </span>            :     PTHREAD_MUTEX_INITIALIZER, PTHREAD_MUTEX_INITIALIZER, PTHREAD_MUTEX_INITIALIZER, PTHREAD_MUTEX_INITIALIZER,
+<span class="lineNum">     131 </span>            :     PTHREAD_MUTEX_INITIALIZER, PTHREAD_MUTEX_INITIALIZER, PTHREAD_MUTEX_INITIALIZER, PTHREAD_MUTEX_INITIALIZER,
+<span class="lineNum">     132 </span>            :     PTHREAD_MUTEX_INITIALIZER, PTHREAD_MUTEX_INITIALIZER, PTHREAD_MUTEX_INITIALIZER, PTHREAD_MUTEX_INITIALIZER
+<span class="lineNum">     133 </span>            : };
+<span class="lineNum">     134 </span>            : 
+<a name="135"><span class="lineNum">     135 </span>            : static mutex* mut_back = reinterpret_cast&lt;std::mutex*&gt;(mut_back_imp);</a>
+<span class="lineNum">     136 </span>            : 
+<span class="lineNum">     137 </span>            : _LIBCPP_CONSTEXPR __sp_mut::__sp_mut(void* p) _NOEXCEPT
+<span class="lineNum">     138 </span><span class="lineCov">        160 :    : __lx(p)</span>
+<span class="lineNum">     139 </span>            : {
+<span class="lineNum">     140 </span><span class="lineCov">        160 : }</span>
+<a name="141"><span class="lineNum">     141 </span>            : </a>
+<span class="lineNum">     142 </span>            : void
+<span class="lineNum">     143 </span>            : __sp_mut::lock() _NOEXCEPT
+<span class="lineNum">     144 </span>            : {
+<span class="lineNum">     145 </span><span class="lineCov">         14 :     mutex&amp; m = *static_cast&lt;mutex*&gt;(__lx);</span>
+<span class="lineNum">     146 </span><span class="lineCov">         14 :     unsigned count = 0;</span>
+<span class="lineNum">     147 </span><span class="lineCov">         28 :     while (!m.try_lock())</span>
+<span class="lineNum">     148 </span>            :     {
+<span class="lineNum">     149 </span><span class="lineNoCov">          0 :         if (++count &gt; 16)</span>
+<span class="lineNum">     150 </span>            :         {
+<span class="lineNum">     151 </span><span class="lineNoCov">          0 :             m.lock();</span>
+<span class="lineNum">     152 </span><span class="lineNoCov">          0 :             break;</span>
+<span class="lineNum">     153 </span>            :         }
+<span class="lineNum">     154 </span><span class="lineNoCov">          0 :         this_thread::yield();</span>
+<span class="lineNum">     155 </span>            :     }
+<span class="lineNum">     156 </span><span class="lineCov">         14 : }</span>
+<a name="157"><span class="lineNum">     157 </span>            : </a>
+<span class="lineNum">     158 </span>            : void
+<span class="lineNum">     159 </span>            : __sp_mut::unlock() _NOEXCEPT
+<span class="lineNum">     160 </span>            : {
+<span class="lineNum">     161 </span><span class="lineCov">         14 :     static_cast&lt;mutex*&gt;(__lx)-&gt;unlock();</span>
+<span class="lineNum">     162 </span><span class="lineCov">         14 : }</span>
+<a name="163"><span class="lineNum">     163 </span>            : </a>
+<span class="lineNum">     164 </span>            : __sp_mut&amp;
+<span class="lineNum">     165 </span>            : __get_sp_mut(const void* p)
+<span class="lineNum">     166 </span>            : {
+<span class="lineNum">     167 </span><span class="lineCov">         34 :     static __sp_mut muts[__sp_mut_count] </span>
+<span class="lineNum">     168 </span>            :     {
+<span class="lineNum">     169 </span><span class="lineCov">         10 :         &amp;mut_back[ 0], &amp;mut_back[ 1], &amp;mut_back[ 2], &amp;mut_back[ 3],</span>
+<span class="lineNum">     170 </span><span class="lineCov">         10 :         &amp;mut_back[ 4], &amp;mut_back[ 5], &amp;mut_back[ 6], &amp;mut_back[ 7],</span>
+<span class="lineNum">     171 </span><span class="lineCov">         10 :         &amp;mut_back[ 8], &amp;mut_back[ 9], &amp;mut_back[10], &amp;mut_back[11],</span>
+<span class="lineNum">     172 </span><span class="lineCov">         10 :         &amp;mut_back[12], &amp;mut_back[13], &amp;mut_back[14], &amp;mut_back[15]</span>
+<span class="lineNum">     173 </span>            :     };
+<span class="lineNum">     174 </span><span class="lineCov">         14 :     return muts[hash&lt;const void*&gt;()(p) &amp; (__sp_mut_count-1)];</span>
+<span class="lineNum">     175 </span>            : }
+<span class="lineNum">     176 </span>            : 
+<span class="lineNum">     177 </span>            : #endif // __has_feature(cxx_atomic) &amp;&amp; !_LIBCPP_HAS_NO_THREADS
+<a name="178"><span class="lineNum">     178 </span>            : </a>
+<span class="lineNum">     179 </span>            : void
+<span class="lineNum">     180 </span>            : declare_reachable(void*)
+<span class="lineNum">     181 </span>            : {
+<span class="lineNum">     182 </span><span class="lineCov">          1 : }</span>
+<a name="183"><span class="lineNum">     183 </span>            : </a>
+<span class="lineNum">     184 </span>            : void
+<span class="lineNum">     185 </span>            : declare_no_pointers(char*, size_t)
+<span class="lineNum">     186 </span>            : {
+<span class="lineNum">     187 </span><span class="lineCov">          1 : }</span>
+<a name="188"><span class="lineNum">     188 </span>            : </a>
+<span class="lineNum">     189 </span>            : void
+<span class="lineNum">     190 </span>            : undeclare_no_pointers(char*, size_t)
+<span class="lineNum">     191 </span>            : {
+<span class="lineNum">     192 </span><span class="lineCov">          1 : }</span>
+<a name="193"><span class="lineNum">     193 </span>            : </a>
+<span class="lineNum">     194 </span>            : pointer_safety
+<span class="lineNum">     195 </span>            : get_pointer_safety() _NOEXCEPT
+<span class="lineNum">     196 </span>            : {
+<span class="lineNum">     197 </span><span class="lineCov">          2 :     return pointer_safety::relaxed;</span>
+<span class="lineNum">     198 </span>            : }
+<a name="199"><span class="lineNum">     199 </span>            : </a>
+<span class="lineNum">     200 </span>            : void*
+<span class="lineNum">     201 </span>            : __undeclare_reachable(void* p)
+<span class="lineNum">     202 </span>            : {
+<span class="lineNum">     203 </span><span class="lineCov">          1 :     return p;</span>
+<span class="lineNum">     204 </span>            : }
+<a name="205"><span class="lineNum">     205 </span>            : </a>
+<span class="lineNum">     206 </span>            : void*
+<span class="lineNum">     207 </span>            : align(size_t alignment, size_t size, void*&amp; ptr, size_t&amp; space)
+<span class="lineNum">     208 </span>            : {
+<span class="lineNum">     209 </span><span class="lineCov">          9 :     void* r = nullptr;</span>
+<span class="lineNum">     210 </span><span class="lineCov">          9 :     if (size &lt;= space)</span>
+<span class="lineNum">     211 </span>            :     {
+<span class="lineNum">     212 </span><span class="lineCov">          8 :         char* p1 = static_cast&lt;char*&gt;(ptr);</span>
+<span class="lineNum">     213 </span><span class="lineCov">          8 :         char* p2 = reinterpret_cast&lt;char*&gt;(reinterpret_cast&lt;size_t&gt;(p1 + (alignment - 1)) &amp; -alignment);</span>
+<span class="lineNum">     214 </span><span class="lineCov">          8 :         size_t d = static_cast&lt;size_t&gt;(p2 - p1);</span>
+<span class="lineNum">     215 </span><span class="lineCov">          8 :         if (d &lt;= space - size)</span>
+<span class="lineNum">     216 </span>            :         {
+<span class="lineNum">     217 </span><span class="lineCov">          7 :             r = p2;</span>
+<span class="lineNum">     218 </span><span class="lineCov">          7 :             ptr = r;</span>
+<span class="lineNum">     219 </span><span class="lineCov">          7 :             space -= d;</span>
+<span class="lineNum">     220 </span><span class="lineCov">          7 :         }</span>
+<span class="lineNum">     221 </span><span class="lineCov">          8 :     }</span>
+<span class="lineNum">     222 </span><span class="lineCov">          9 :     return r;</span>
+<span class="lineNum">     223 </span>            : }
+<span class="lineNum">     224 </span>            : 
+<span class="lineNum">     225 </span>            : _LIBCPP_END_NAMESPACE_STD
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

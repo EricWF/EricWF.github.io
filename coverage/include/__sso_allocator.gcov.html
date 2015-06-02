@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - test_coverage.info - include/__sso_allocator</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">include</a> - __sso_allocator<span style="font-size: 80%;"> (source / <a href="__sso_allocator.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">test_coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">11</td>
+            <td class="headerCovTableEntry">11</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2015-06-02</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">4</td>
+            <td class="headerCovTableEntry">4</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : // -*- C++ -*-</a>
+<span class="lineNum">       2 </span>            : //===----------------------------------------------------------------------===//
+<span class="lineNum">       3 </span>            : //
+<span class="lineNum">       4 </span>            : //                     The LLVM Compiler Infrastructure
+<span class="lineNum">       5 </span>            : //
+<span class="lineNum">       6 </span>            : // This file is dual licensed under the MIT and the University of Illinois Open
+<span class="lineNum">       7 </span>            : // Source Licenses. See LICENSE.TXT for details.
+<span class="lineNum">       8 </span>            : //
+<span class="lineNum">       9 </span>            : //===----------------------------------------------------------------------===//
+<span class="lineNum">      10 </span>            : 
+<span class="lineNum">      11 </span>            : #ifndef _LIBCPP___SSO_ALLOCATOR
+<span class="lineNum">      12 </span>            : #define _LIBCPP___SSO_ALLOCATOR
+<span class="lineNum">      13 </span>            : 
+<span class="lineNum">      14 </span>            : #include &lt;__config&gt;
+<span class="lineNum">      15 </span>            : #include &lt;type_traits&gt;
+<span class="lineNum">      16 </span>            : #include &lt;new&gt;
+<span class="lineNum">      17 </span>            : 
+<span class="lineNum">      18 </span>            : #include &lt;__undef___deallocate&gt;
+<span class="lineNum">      19 </span>            : 
+<span class="lineNum">      20 </span>            : #if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
+<span class="lineNum">      21 </span>            : #pragma GCC system_header
+<span class="lineNum">      22 </span>            : #endif
+<span class="lineNum">      23 </span>            : 
+<span class="lineNum">      24 </span>            : _LIBCPP_BEGIN_NAMESPACE_STD
+<span class="lineNum">      25 </span>            : 
+<span class="lineNum">      26 </span>            : template &lt;class _Tp, size_t _Np&gt; class _LIBCPP_HIDDEN __sso_allocator;
+<span class="lineNum">      27 </span>            : 
+<span class="lineNum">      28 </span>            : template &lt;size_t _Np&gt;
+<span class="lineNum">      29 </span>            : class _LIBCPP_HIDDEN __sso_allocator&lt;void, _Np&gt;
+<span class="lineNum">      30 </span>            : {
+<span class="lineNum">      31 </span>            : public:
+<span class="lineNum">      32 </span>            :     typedef const void*       const_pointer;
+<span class="lineNum">      33 </span>            :     typedef void              value_type;
+<span class="lineNum">      34 </span>            : };
+<span class="lineNum">      35 </span>            : 
+<span class="lineNum">      36 </span>            : template &lt;class _Tp, size_t _Np&gt;
+<span class="lineNum">      37 </span>            : class _LIBCPP_HIDDEN __sso_allocator
+<span class="lineNum">      38 </span>            : {
+<span class="lineNum">      39 </span>            :     typename aligned_storage&lt;sizeof(_Tp) * _Np&gt;::type buf_;
+<span class="lineNum">      40 </span>            :     bool __allocated_;
+<span class="lineNum">      41 </span>            : public:
+<span class="lineNum">      42 </span>            :     typedef size_t            size_type;
+<span class="lineNum">      43 </span>            :     typedef _Tp*              pointer;
+<a name="44"><span class="lineNum">      44 </span>            :     typedef _Tp               value_type;</a>
+<span class="lineNum">      45 </span>            : 
+<span class="lineNum">      46 </span><span class="lineCov">       4804 :     _LIBCPP_INLINE_VISIBILITY __sso_allocator() throw() : __allocated_(false) {}</span>
+<span class="lineNum">      47 </span>            :     _LIBCPP_INLINE_VISIBILITY __sso_allocator(const __sso_allocator&amp;) throw() : __allocated_(false) {}
+<span class="lineNum">      48 </span>            :     template &lt;class _Up&gt; _LIBCPP_INLINE_VISIBILITY __sso_allocator(const __sso_allocator&lt;_Up, _Np&gt;&amp;) throw()
+<span class="lineNum">      49 </span>            :          : __allocated_(false) {}
+<span class="lineNum">      50 </span>            : private:
+<a name="51"><span class="lineNum">      51 </span>            :     __sso_allocator&amp; operator=(const __sso_allocator&amp;);</a>
+<span class="lineNum">      52 </span>            : public:
+<span class="lineNum">      53 </span>            :     _LIBCPP_INLINE_VISIBILITY pointer allocate(size_type __n, typename __sso_allocator&lt;void, _Np&gt;::const_pointer = 0)
+<span class="lineNum">      54 </span>            :     {
+<span class="lineNum">      55 </span><span class="lineCov">       9608 :         if (!__allocated_ &amp;&amp; __n &lt;= _Np)</span>
+<span class="lineNum">      56 </span>            :         {
+<span class="lineNum">      57 </span><span class="lineCov">       4636 :             __allocated_ = true;</span>
+<span class="lineNum">      58 </span><span class="lineCov">       4636 :             return (pointer)&amp;buf_;</span>
+<span class="lineNum">      59 </span>            :         }
+<a name="60"><span class="lineNum">      60 </span><span class="lineCov">        168 :         return static_cast&lt;pointer&gt;(_VSTD::__allocate(__n * sizeof(_Tp)));</span></a>
+<span class="lineNum">      61 </span><span class="lineCov">       4804 :     }</span>
+<span class="lineNum">      62 </span>            :     _LIBCPP_INLINE_VISIBILITY void deallocate(pointer __p, size_type)
+<span class="lineNum">      63 </span>            :     {
+<span class="lineNum">      64 </span><span class="lineCov">        251 :         if (__p == (pointer)&amp;buf_)</span>
+<span class="lineNum">      65 </span><span class="lineCov">         83 :             __allocated_ = false;</span>
+<span class="lineNum">      66 </span>            :         else
+<a name="67"><span class="lineNum">      67 </span><span class="lineCov">        168 :             _VSTD::__deallocate(__p);</span></a>
+<span class="lineNum">      68 </span><span class="lineCov">        251 :     }</span>
+<span class="lineNum">      69 </span><span class="lineCov">       4804 :     _LIBCPP_INLINE_VISIBILITY size_type max_size() const throw() {return size_type(~0) / sizeof(_Tp);}</span>
+<span class="lineNum">      70 </span>            : 
+<span class="lineNum">      71 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">      72 </span>            :     bool operator==(__sso_allocator&amp; __a) const {return &amp;buf_ == &amp;__a.buf_;}
+<span class="lineNum">      73 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">      74 </span>            :     bool operator!=(__sso_allocator&amp; __a) const {return &amp;buf_ != &amp;__a.buf_;}
+<span class="lineNum">      75 </span>            : };
+<span class="lineNum">      76 </span>            : 
+<span class="lineNum">      77 </span>            : _LIBCPP_END_NAMESPACE_STD
+<span class="lineNum">      78 </span>            : 
+<span class="lineNum">      79 </span>            : #endif  // _LIBCPP___SSO_ALLOCATOR
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

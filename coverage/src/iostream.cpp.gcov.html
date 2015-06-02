@@ -1,0 +1,164 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - test_coverage.info - src/iostream.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">src</a> - iostream.cpp<span style="font-size: 80%;"> (source / <a href="iostream.cpp.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">test_coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">25</td>
+            <td class="headerCovTableEntry">25</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2015-06-02</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : //===------------------------ iostream.cpp --------------------------------===//</a>
+<span class="lineNum">       2 </span>            : //
+<span class="lineNum">       3 </span>            : //                     The LLVM Compiler Infrastructure
+<span class="lineNum">       4 </span>            : //
+<span class="lineNum">       5 </span>            : // This file is dual licensed under the MIT and the University of Illinois Open
+<span class="lineNum">       6 </span>            : // Source Licenses. See LICENSE.TXT for details.
+<span class="lineNum">       7 </span>            : //
+<span class="lineNum">       8 </span>            : //===----------------------------------------------------------------------===//
+<span class="lineNum">       9 </span>            : 
+<span class="lineNum">      10 </span>            : #include &quot;__std_stream&quot;
+<span class="lineNum">      11 </span>            : #include &quot;string&quot;
+<span class="lineNum">      12 </span>            : #include &quot;new&quot;
+<span class="lineNum">      13 </span>            : 
+<span class="lineNum">      14 </span>            : _LIBCPP_BEGIN_NAMESPACE_STD
+<span class="lineNum">      15 </span>            : 
+<span class="lineNum">      16 </span>            : #ifndef _LIBCPP_HAS_NO_STDIN
+<span class="lineNum">      17 </span>            : _ALIGNAS_TYPE (istream)  _LIBCPP_FUNC_VIS char cin [sizeof(istream)];
+<span class="lineNum">      18 </span>            : _ALIGNAS_TYPE (__stdinbuf&lt;char&gt; ) static char __cin [sizeof(__stdinbuf &lt;char&gt;)];
+<span class="lineNum">      19 </span>            : static mbstate_t mb_cin;
+<span class="lineNum">      20 </span>            : _ALIGNAS_TYPE (wistream) _LIBCPP_FUNC_VIS char wcin [sizeof(wistream)];
+<span class="lineNum">      21 </span>            : _ALIGNAS_TYPE (__stdinbuf&lt;wchar_t&gt; ) static char __wcin [sizeof(__stdinbuf &lt;wchar_t&gt;)];
+<span class="lineNum">      22 </span>            : static mbstate_t mb_wcin;
+<span class="lineNum">      23 </span>            : #endif
+<span class="lineNum">      24 </span>            : 
+<span class="lineNum">      25 </span>            : #ifndef _LIBCPP_HAS_NO_STDOUT
+<span class="lineNum">      26 </span>            : _ALIGNAS_TYPE (ostream)  _LIBCPP_FUNC_VIS char cout[sizeof(ostream)];
+<span class="lineNum">      27 </span>            : _ALIGNAS_TYPE (__stdoutbuf&lt;char&gt;) static char __cout[sizeof(__stdoutbuf&lt;char&gt;)];
+<span class="lineNum">      28 </span>            : static mbstate_t mb_cout;
+<span class="lineNum">      29 </span>            : _ALIGNAS_TYPE (wostream) _LIBCPP_FUNC_VIS char wcout[sizeof(wostream)];
+<span class="lineNum">      30 </span>            : _ALIGNAS_TYPE (__stdoutbuf&lt;wchar_t&gt;) static char __wcout[sizeof(__stdoutbuf&lt;wchar_t&gt;)];
+<span class="lineNum">      31 </span>            : static mbstate_t mb_wcout;
+<span class="lineNum">      32 </span>            : #endif
+<span class="lineNum">      33 </span>            : 
+<span class="lineNum">      34 </span>            : _ALIGNAS_TYPE (ostream)  _LIBCPP_FUNC_VIS char cerr[sizeof(ostream)];
+<span class="lineNum">      35 </span>            : _ALIGNAS_TYPE (__stdoutbuf&lt;char&gt;) static char __cerr[sizeof(__stdoutbuf&lt;char&gt;)];
+<span class="lineNum">      36 </span>            : static mbstate_t mb_cerr;
+<span class="lineNum">      37 </span>            : _ALIGNAS_TYPE (wostream) _LIBCPP_FUNC_VIS char wcerr[sizeof(wostream)];
+<span class="lineNum">      38 </span>            : _ALIGNAS_TYPE (__stdoutbuf&lt;wchar_t&gt;) static char __wcerr[sizeof(__stdoutbuf&lt;wchar_t&gt;)];
+<span class="lineNum">      39 </span>            : static mbstate_t mb_wcerr;
+<span class="lineNum">      40 </span>            : 
+<span class="lineNum">      41 </span>            : _ALIGNAS_TYPE (ostream)  _LIBCPP_FUNC_VIS char clog[sizeof(ostream)];
+<a name="42"><span class="lineNum">      42 </span>            : _ALIGNAS_TYPE (wostream) _LIBCPP_FUNC_VIS char wclog[sizeof(wostream)];</a>
+<span class="lineNum">      43 </span>            : 
+<a name="44"><span class="lineNum">      44 </span><span class="lineCov">       4544 : ios_base::Init __start_std_streams;</span></a>
+<span class="lineNum">      45 </span>            : 
+<span class="lineNum">      46 </span>            : ios_base::Init::Init()
+<span class="lineNum">      47 </span>            : {
+<span class="lineNum">      48 </span>            : #ifndef _LIBCPP_HAS_NO_STDIN
+<span class="lineNum">      49 </span><span class="lineCov">       4544 :     istream* cin_ptr  = ::new(cin)  istream(::new(__cin)  __stdinbuf &lt;char&gt;(stdin, &amp;mb_cin));</span>
+<span class="lineNum">      50 </span><span class="lineCov">       4544 :     wistream* wcin_ptr  = ::new(wcin)  wistream(::new(__wcin)  __stdinbuf &lt;wchar_t&gt;(stdin, &amp;mb_wcin));</span>
+<span class="lineNum">      51 </span>            : #endif
+<span class="lineNum">      52 </span>            : #ifndef _LIBCPP_HAS_NO_STDOUT
+<span class="lineNum">      53 </span><span class="lineCov">       4544 :     ostream* cout_ptr = ::new(cout) ostream(::new(__cout) __stdoutbuf&lt;char&gt;(stdout, &amp;mb_cout));</span>
+<span class="lineNum">      54 </span><span class="lineCov">       4544 :     wostream* wcout_ptr = ::new(wcout) wostream(::new(__wcout) __stdoutbuf&lt;wchar_t&gt;(stdout, &amp;mb_wcout));</span>
+<span class="lineNum">      55 </span>            : #endif
+<span class="lineNum">      56 </span><span class="lineCov">       4544 :     ostream* cerr_ptr = ::new(cerr) ostream(::new(__cerr) __stdoutbuf&lt;char&gt;(stderr, &amp;mb_cerr));</span>
+<span class="lineNum">      57 </span><span class="lineCov">       4544 :                         ::new(clog) ostream(cerr_ptr-&gt;rdbuf());</span>
+<span class="lineNum">      58 </span><span class="lineCov">       4544 :     wostream* wcerr_ptr = ::new(wcerr) wostream(::new(__wcerr) __stdoutbuf&lt;wchar_t&gt;(stderr, &amp;mb_wcerr));</span>
+<span class="lineNum">      59 </span><span class="lineCov">       4544 :                           ::new(wclog) wostream(wcerr_ptr-&gt;rdbuf());</span>
+<span class="lineNum">      60 </span>            : 
+<span class="lineNum">      61 </span>            : #if !defined(_LIBCPP_HAS_NO_STDIN) &amp;&amp; !defined(_LIBCPP_HAS_NO_STDOUT)
+<span class="lineNum">      62 </span><span class="lineCov">       4544 :     cin_ptr-&gt;tie(cout_ptr);</span>
+<span class="lineNum">      63 </span><span class="lineCov">       4544 :     wcin_ptr-&gt;tie(wcout_ptr);</span>
+<span class="lineNum">      64 </span>            : #endif
+<span class="lineNum">      65 </span><span class="lineCov">       4544 :     _VSTD::unitbuf(*cerr_ptr);</span>
+<span class="lineNum">      66 </span><span class="lineCov">       4544 :     _VSTD::unitbuf(*wcerr_ptr);</span>
+<span class="lineNum">      67 </span>            : #ifndef _LIBCPP_HAS_NO_STDOUT
+<span class="lineNum">      68 </span><span class="lineCov">       4544 :     cerr_ptr-&gt;tie(cout_ptr);</span>
+<span class="lineNum">      69 </span><span class="lineCov">       4544 :     wcerr_ptr-&gt;tie(wcout_ptr);</span>
+<span class="lineNum">      70 </span>            : #endif
+<a name="71"><span class="lineNum">      71 </span><span class="lineCov">       4544 : }</span></a>
+<span class="lineNum">      72 </span>            : 
+<span class="lineNum">      73 </span>            : ios_base::Init::~Init()
+<span class="lineNum">      74 </span>            : {
+<span class="lineNum">      75 </span>            : #ifndef _LIBCPP_HAS_NO_STDOUT
+<span class="lineNum">      76 </span><span class="lineCov">       4544 :     ostream* cout_ptr = reinterpret_cast&lt;ostream*&gt;(cout);</span>
+<span class="lineNum">      77 </span><span class="lineCov">       4544 :     wostream* wcout_ptr = reinterpret_cast&lt;wostream*&gt;(wcout);</span>
+<span class="lineNum">      78 </span><span class="lineCov">       4544 :     cout_ptr-&gt;flush();</span>
+<span class="lineNum">      79 </span><span class="lineCov">       4544 :     wcout_ptr-&gt;flush();</span>
+<span class="lineNum">      80 </span>            : #endif
+<span class="lineNum">      81 </span>            : 
+<span class="lineNum">      82 </span><span class="lineCov">       4544 :     ostream* clog_ptr = reinterpret_cast&lt;ostream*&gt;(clog);</span>
+<span class="lineNum">      83 </span><span class="lineCov">       4544 :     wostream* wclog_ptr = reinterpret_cast&lt;wostream*&gt;(wclog);</span>
+<span class="lineNum">      84 </span><span class="lineCov">       4544 :     clog_ptr-&gt;flush();</span>
+<span class="lineNum">      85 </span><span class="lineCov">       4544 :     wclog_ptr-&gt;flush();</span>
+<span class="lineNum">      86 </span><span class="lineCov">       4544 : }</span>
+<span class="lineNum">      87 </span>            : 
+<span class="lineNum">      88 </span>            : _LIBCPP_END_NAMESPACE_STD
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

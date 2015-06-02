@@ -1,0 +1,1808 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - test_coverage.info - include/istream</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">include</a> - istream<span style="font-size: 80%;"> (source / <a href="istream.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">test_coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">506</td>
+            <td class="headerCovTableEntry">648</td>
+            <td class="headerCovTableEntryMed">78.1 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2015-06-02</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">131</td>
+            <td class="headerCovTableEntry">154</td>
+            <td class="headerCovTableEntryMed">85.1 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : // -*- C++ -*-</a>
+<span class="lineNum">       2 </span>            : //===--------------------------- istream ----------------------------------===//
+<span class="lineNum">       3 </span>            : //
+<span class="lineNum">       4 </span>            : //                     The LLVM Compiler Infrastructure
+<span class="lineNum">       5 </span>            : //
+<span class="lineNum">       6 </span>            : // This file is dual licensed under the MIT and the University of Illinois Open
+<span class="lineNum">       7 </span>            : // Source Licenses. See LICENSE.TXT for details.
+<span class="lineNum">       8 </span>            : //
+<span class="lineNum">       9 </span>            : //===----------------------------------------------------------------------===//
+<span class="lineNum">      10 </span>            : 
+<span class="lineNum">      11 </span>            : #ifndef _LIBCPP_ISTREAM
+<span class="lineNum">      12 </span>            : #define _LIBCPP_ISTREAM
+<span class="lineNum">      13 </span>            : 
+<span class="lineNum">      14 </span>            : /*
+<span class="lineNum">      15 </span>            :     istream synopsis
+<span class="lineNum">      16 </span>            : 
+<span class="lineNum">      17 </span>            : template &lt;class charT, class traits = char_traits&lt;charT&gt; &gt;
+<span class="lineNum">      18 </span>            : class basic_istream
+<span class="lineNum">      19 </span>            :     : virtual public basic_ios&lt;charT,traits&gt;
+<span class="lineNum">      20 </span>            : {
+<span class="lineNum">      21 </span>            : public:
+<span class="lineNum">      22 </span>            :     // types (inherited from basic_ios (27.5.4)):
+<span class="lineNum">      23 </span>            :     typedef charT                          char_type;
+<span class="lineNum">      24 </span>            :     typedef traits                         traits_type;
+<span class="lineNum">      25 </span>            :     typedef typename traits_type::int_type int_type;
+<span class="lineNum">      26 </span>            :     typedef typename traits_type::pos_type pos_type;
+<span class="lineNum">      27 </span>            :     typedef typename traits_type::off_type off_type;
+<span class="lineNum">      28 </span>            : 
+<span class="lineNum">      29 </span>            :     // 27.7.1.1.1 Constructor/destructor:
+<span class="lineNum">      30 </span>            :     explicit basic_istream(basic_streambuf&lt;char_type, traits_type&gt;* sb);
+<span class="lineNum">      31 </span>            :     basic_istream(basic_istream&amp;&amp; rhs);
+<span class="lineNum">      32 </span>            :     virtual ~basic_istream();
+<span class="lineNum">      33 </span>            : 
+<span class="lineNum">      34 </span>            :     // 27.7.1.1.2 Assign/swap:
+<span class="lineNum">      35 </span>            :     basic_istream&amp; operator=(basic_istream&amp;&amp; rhs);
+<span class="lineNum">      36 </span>            :     void swap(basic_istream&amp; rhs);
+<span class="lineNum">      37 </span>            : 
+<span class="lineNum">      38 </span>            :     // 27.7.1.1.3 Prefix/suffix:
+<span class="lineNum">      39 </span>            :     class sentry;
+<span class="lineNum">      40 </span>            : 
+<span class="lineNum">      41 </span>            :     // 27.7.1.2 Formatted input:
+<span class="lineNum">      42 </span>            :     basic_istream&amp; operator&gt;&gt;(basic_istream&amp; (*pf)(basic_istream&amp;));
+<span class="lineNum">      43 </span>            :     basic_istream&amp; operator&gt;&gt;(basic_ios&lt;char_type, traits_type&gt;&amp;
+<span class="lineNum">      44 </span>            :                               (*pf)(basic_ios&lt;char_type, traits_type&gt;&amp;));
+<span class="lineNum">      45 </span>            :     basic_istream&amp; operator&gt;&gt;(ios_base&amp; (*pf)(ios_base&amp;));
+<span class="lineNum">      46 </span>            :     basic_istream&amp; operator&gt;&gt;(basic_streambuf&lt;char_type, traits_type&gt;* sb);
+<span class="lineNum">      47 </span>            :     basic_istream&amp; operator&gt;&gt;(bool&amp; n);
+<span class="lineNum">      48 </span>            :     basic_istream&amp; operator&gt;&gt;(short&amp; n);
+<span class="lineNum">      49 </span>            :     basic_istream&amp; operator&gt;&gt;(unsigned short&amp; n);
+<span class="lineNum">      50 </span>            :     basic_istream&amp; operator&gt;&gt;(int&amp; n);
+<span class="lineNum">      51 </span>            :     basic_istream&amp; operator&gt;&gt;(unsigned int&amp; n);
+<span class="lineNum">      52 </span>            :     basic_istream&amp; operator&gt;&gt;(long&amp; n);
+<span class="lineNum">      53 </span>            :     basic_istream&amp; operator&gt;&gt;(unsigned long&amp; n);
+<span class="lineNum">      54 </span>            :     basic_istream&amp; operator&gt;&gt;(long long&amp; n);
+<span class="lineNum">      55 </span>            :     basic_istream&amp; operator&gt;&gt;(unsigned long long&amp; n);
+<span class="lineNum">      56 </span>            :     basic_istream&amp; operator&gt;&gt;(float&amp; f);
+<span class="lineNum">      57 </span>            :     basic_istream&amp; operator&gt;&gt;(double&amp; f);
+<span class="lineNum">      58 </span>            :     basic_istream&amp; operator&gt;&gt;(long double&amp; f);
+<span class="lineNum">      59 </span>            :     basic_istream&amp; operator&gt;&gt;(void*&amp; p);
+<span class="lineNum">      60 </span>            : 
+<span class="lineNum">      61 </span>            :     // 27.7.1.3 Unformatted input:
+<span class="lineNum">      62 </span>            :     streamsize gcount() const;
+<span class="lineNum">      63 </span>            :     int_type get();
+<span class="lineNum">      64 </span>            :     basic_istream&amp; get(char_type&amp; c);
+<span class="lineNum">      65 </span>            :     basic_istream&amp; get(char_type* s, streamsize n);
+<span class="lineNum">      66 </span>            :     basic_istream&amp; get(char_type* s, streamsize n, char_type delim);
+<span class="lineNum">      67 </span>            :     basic_istream&amp; get(basic_streambuf&lt;char_type,traits_type&gt;&amp; sb);
+<span class="lineNum">      68 </span>            :     basic_istream&amp; get(basic_streambuf&lt;char_type,traits_type&gt;&amp; sb, char_type delim);
+<span class="lineNum">      69 </span>            : 
+<span class="lineNum">      70 </span>            :     basic_istream&amp; getline(char_type* s, streamsize n);
+<span class="lineNum">      71 </span>            :     basic_istream&amp; getline(char_type* s, streamsize n, char_type delim);
+<span class="lineNum">      72 </span>            : 
+<span class="lineNum">      73 </span>            :     basic_istream&amp; ignore(streamsize n = 1, int_type delim = traits_type::eof());
+<span class="lineNum">      74 </span>            :     int_type peek();
+<span class="lineNum">      75 </span>            :     basic_istream&amp; read (char_type* s, streamsize n);
+<span class="lineNum">      76 </span>            :     streamsize readsome(char_type* s, streamsize n);
+<span class="lineNum">      77 </span>            : 
+<span class="lineNum">      78 </span>            :     basic_istream&amp; putback(char_type c);
+<span class="lineNum">      79 </span>            :     basic_istream&amp; unget();
+<span class="lineNum">      80 </span>            :     int sync();
+<span class="lineNum">      81 </span>            : 
+<span class="lineNum">      82 </span>            :     pos_type tellg();
+<span class="lineNum">      83 </span>            :     basic_istream&amp; seekg(pos_type);
+<span class="lineNum">      84 </span>            :     basic_istream&amp; seekg(off_type, ios_base::seekdir);
+<span class="lineNum">      85 </span>            : protected:
+<span class="lineNum">      86 </span>            :     basic_istream(const basic_istream&amp; rhs) = delete;
+<span class="lineNum">      87 </span>            :     basic_istream(basic_istream&amp;&amp; rhs);
+<span class="lineNum">      88 </span>            :     // 27.7.2.1.2 Assign/swap:
+<span class="lineNum">      89 </span>            :     basic_istream&amp; operator=(const basic_istream&amp; rhs) = delete;
+<span class="lineNum">      90 </span>            :     basic_istream&amp; operator=(basic_istream&amp;&amp; rhs);
+<span class="lineNum">      91 </span>            :     void swap(basic_istream&amp; rhs);
+<span class="lineNum">      92 </span>            : };
+<span class="lineNum">      93 </span>            : 
+<span class="lineNum">      94 </span>            : // 27.7.1.2.3 character extraction templates:
+<span class="lineNum">      95 </span>            : template&lt;class charT, class traits&gt;
+<span class="lineNum">      96 </span>            :   basic_istream&lt;charT,traits&gt;&amp; operator&gt;&gt;(basic_istream&lt;charT,traits&gt;&amp;, charT&amp;);
+<span class="lineNum">      97 </span>            : 
+<span class="lineNum">      98 </span>            : template&lt;class traits&gt;
+<span class="lineNum">      99 </span>            :   basic_istream&lt;char,traits&gt;&amp; operator&gt;&gt;(basic_istream&lt;char,traits&gt;&amp;, unsigned char&amp;);
+<span class="lineNum">     100 </span>            : 
+<span class="lineNum">     101 </span>            : template&lt;class traits&gt;
+<span class="lineNum">     102 </span>            :   basic_istream&lt;char,traits&gt;&amp; operator&gt;&gt;(basic_istream&lt;char,traits&gt;&amp;, signed char&amp;);
+<span class="lineNum">     103 </span>            : 
+<span class="lineNum">     104 </span>            : template&lt;class charT, class traits&gt;
+<span class="lineNum">     105 </span>            :   basic_istream&lt;charT,traits&gt;&amp; operator&gt;&gt;(basic_istream&lt;charT,traits&gt;&amp;, charT*);
+<span class="lineNum">     106 </span>            : 
+<span class="lineNum">     107 </span>            : template&lt;class traits&gt;
+<span class="lineNum">     108 </span>            :   basic_istream&lt;char,traits&gt;&amp; operator&gt;&gt;(basic_istream&lt;char,traits&gt;&amp;, unsigned char*);
+<span class="lineNum">     109 </span>            : 
+<span class="lineNum">     110 </span>            : template&lt;class traits&gt;
+<span class="lineNum">     111 </span>            :   basic_istream&lt;char,traits&gt;&amp; operator&gt;&gt;(basic_istream&lt;char,traits&gt;&amp;, signed char*);
+<span class="lineNum">     112 </span>            : 
+<span class="lineNum">     113 </span>            : template &lt;class charT, class traits&gt;
+<span class="lineNum">     114 </span>            :   void
+<span class="lineNum">     115 </span>            :   swap(basic_istream&lt;charT, traits&gt;&amp; x, basic_istream&lt;charT, traits&gt;&amp; y);
+<span class="lineNum">     116 </span>            : 
+<span class="lineNum">     117 </span>            : typedef basic_istream&lt;char&gt; istream;
+<span class="lineNum">     118 </span>            : typedef basic_istream&lt;wchar_t&gt; wistream;
+<span class="lineNum">     119 </span>            : 
+<span class="lineNum">     120 </span>            : template &lt;class charT, class traits = char_traits&lt;charT&gt; &gt;
+<span class="lineNum">     121 </span>            : class basic_iostream :
+<span class="lineNum">     122 </span>            :     public basic_istream&lt;charT,traits&gt;,
+<span class="lineNum">     123 </span>            :     public basic_ostream&lt;charT,traits&gt;
+<span class="lineNum">     124 </span>            : {
+<span class="lineNum">     125 </span>            : public:
+<span class="lineNum">     126 </span>            :     // types:
+<span class="lineNum">     127 </span>            :     typedef charT                          char_type;
+<span class="lineNum">     128 </span>            :     typedef traits                         traits_type;
+<span class="lineNum">     129 </span>            :     typedef typename traits_type::int_type int_type;
+<span class="lineNum">     130 </span>            :     typedef typename traits_type::pos_type pos_type;
+<span class="lineNum">     131 </span>            :     typedef typename traits_type::off_type off_type;
+<span class="lineNum">     132 </span>            : 
+<span class="lineNum">     133 </span>            :     // constructor/destructor
+<span class="lineNum">     134 </span>            :     explicit basic_iostream(basic_streambuf&lt;char_type, traits_type&gt;* sb);
+<span class="lineNum">     135 </span>            :     basic_iostream(basic_iostream&amp;&amp; rhs);
+<span class="lineNum">     136 </span>            :     virtual ~basic_iostream();
+<span class="lineNum">     137 </span>            : 
+<span class="lineNum">     138 </span>            :     // assign/swap
+<span class="lineNum">     139 </span>            :     basic_iostream&amp; operator=(basic_iostream&amp;&amp; rhs);
+<span class="lineNum">     140 </span>            :     void swap(basic_iostream&amp; rhs);
+<span class="lineNum">     141 </span>            : };
+<span class="lineNum">     142 </span>            : 
+<span class="lineNum">     143 </span>            : template &lt;class charT, class traits&gt;
+<span class="lineNum">     144 </span>            :   void
+<span class="lineNum">     145 </span>            :   swap(basic_iostream&lt;charT, traits&gt;&amp; x, basic_iostream&lt;charT, traits&gt;&amp; y);
+<span class="lineNum">     146 </span>            : 
+<span class="lineNum">     147 </span>            : typedef basic_iostream&lt;char&gt; iostream;
+<span class="lineNum">     148 </span>            : typedef basic_iostream&lt;wchar_t&gt; wiostream;
+<span class="lineNum">     149 </span>            : 
+<span class="lineNum">     150 </span>            : template &lt;class charT, class traits&gt;
+<span class="lineNum">     151 </span>            :   basic_istream&lt;charT,traits&gt;&amp;
+<span class="lineNum">     152 </span>            :   ws(basic_istream&lt;charT,traits&gt;&amp; is);
+<span class="lineNum">     153 </span>            : 
+<span class="lineNum">     154 </span>            : template &lt;class charT, class traits, class T&gt;
+<span class="lineNum">     155 </span>            :   basic_istream&lt;charT, traits&gt;&amp;
+<span class="lineNum">     156 </span>            :   operator&gt;&gt;(basic_istream&lt;charT, traits&gt;&amp;&amp; is, T&amp; x);
+<span class="lineNum">     157 </span>            : 
+<span class="lineNum">     158 </span>            : }  // std
+<span class="lineNum">     159 </span>            : 
+<span class="lineNum">     160 </span>            : */
+<span class="lineNum">     161 </span>            : 
+<span class="lineNum">     162 </span>            : #include &lt;__config&gt;
+<span class="lineNum">     163 </span>            : #include &lt;ostream&gt;
+<span class="lineNum">     164 </span>            : 
+<span class="lineNum">     165 </span>            : #include &lt;__undef_min_max&gt;
+<span class="lineNum">     166 </span>            : 
+<span class="lineNum">     167 </span>            : #if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
+<span class="lineNum">     168 </span>            : #pragma GCC system_header
+<span class="lineNum">     169 </span>            : #endif
+<span class="lineNum">     170 </span>            : 
+<span class="lineNum">     171 </span>            : _LIBCPP_BEGIN_NAMESPACE_STD
+<span class="lineNum">     172 </span>            : 
+<span class="lineNum">     173 </span>            : template &lt;class _CharT, class _Traits&gt;
+<span class="lineNum">     174 </span>            : class _LIBCPP_TYPE_VIS_ONLY basic_istream
+<span class="lineNum">     175 </span>            :     : virtual public basic_ios&lt;_CharT, _Traits&gt;
+<span class="lineNum">     176 </span>            : {
+<span class="lineNum">     177 </span>            :     streamsize __gc_;
+<span class="lineNum">     178 </span>            : public:
+<span class="lineNum">     179 </span>            :     // types (inherited from basic_ios (27.5.4)):
+<span class="lineNum">     180 </span>            :     typedef _CharT                         char_type;
+<span class="lineNum">     181 </span>            :     typedef _Traits                        traits_type;
+<span class="lineNum">     182 </span>            :     typedef typename traits_type::int_type int_type;
+<span class="lineNum">     183 </span>            :     typedef typename traits_type::pos_type pos_type;
+<span class="lineNum">     184 </span>            :     typedef typename traits_type::off_type off_type;
+<a name="185"><span class="lineNum">     185 </span>            : </a>
+<a name="186"><span class="lineNum">     186 </span>            :     // 27.7.1.1.1 Constructor/destructor:</a>
+<span class="lineNum">     187 </span><span class="lineCov">       9236 :     explicit basic_istream(basic_streambuf&lt;char_type, traits_type&gt;* __sb);</span>
+<span class="lineNum">     188 </span><span class="lineNoCov">          0 :     virtual ~basic_istream();</span>
+<span class="lineNum">     189 </span>            : protected:
+<a name="190"><span class="lineNum">     190 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES</a>
+<span class="lineNum">     191 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     192 </span><span class="lineNoCov">          0 :     basic_istream(basic_istream&amp;&amp; __rhs);</span>
+<span class="lineNum">     193 </span>            : #endif
+<span class="lineNum">     194 </span>            :     // 27.7.1.1.2 Assign/swap:
+<span class="lineNum">     195 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">     196 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     197 </span>            :     basic_istream&amp; operator=(basic_istream&amp;&amp; __rhs);
+<span class="lineNum">     198 </span>            : #endif
+<span class="lineNum">     199 </span>            :     void swap(basic_istream&amp; __rhs);
+<span class="lineNum">     200 </span>            : 
+<span class="lineNum">     201 </span>            : #if _LIBCPP_STD_VER &gt; 11
+<span class="lineNum">     202 </span>            : #ifndef _LIBCPP_HAS_NO_DELETED_FUNCTIONS
+<span class="lineNum">     203 </span>            :     basic_istream           (const basic_istream&amp; __rhs) = delete;
+<span class="lineNum">     204 </span>            :     basic_istream&amp; operator=(const basic_istream&amp; __rhs) = delete;
+<span class="lineNum">     205 </span>            : #else
+<span class="lineNum">     206 </span>            :     basic_istream           (const basic_istream&amp; __rhs); // not defined
+<span class="lineNum">     207 </span>            :     basic_istream&amp; operator=(const basic_istream&amp; __rhs); // not defined
+<span class="lineNum">     208 </span>            : #endif
+<span class="lineNum">     209 </span>            : #endif
+<span class="lineNum">     210 </span>            : public:
+<span class="lineNum">     211 </span>            : 
+<span class="lineNum">     212 </span>            :     // 27.7.1.1.3 Prefix/suffix:
+<span class="lineNum">     213 </span>            :     class _LIBCPP_TYPE_VIS_ONLY sentry;
+<span class="lineNum">     214 </span>            : 
+<span class="lineNum">     215 </span>            :     // 27.7.1.2 Formatted input:
+<span class="lineNum">     216 </span>            :     basic_istream&amp; operator&gt;&gt;(basic_istream&amp; (*__pf)(basic_istream&amp;));
+<span class="lineNum">     217 </span>            :     basic_istream&amp; operator&gt;&gt;(basic_ios&lt;char_type, traits_type&gt;&amp;
+<span class="lineNum">     218 </span>            :                               (*__pf)(basic_ios&lt;char_type, traits_type&gt;&amp;));
+<span class="lineNum">     219 </span>            :     basic_istream&amp; operator&gt;&gt;(ios_base&amp; (*__pf)(ios_base&amp;));
+<span class="lineNum">     220 </span>            :     basic_istream&amp; operator&gt;&gt;(basic_streambuf&lt;char_type, traits_type&gt;* __sb);
+<span class="lineNum">     221 </span>            :     basic_istream&amp; operator&gt;&gt;(bool&amp; __n);
+<span class="lineNum">     222 </span>            :     basic_istream&amp; operator&gt;&gt;(short&amp; __n);
+<span class="lineNum">     223 </span>            :     basic_istream&amp; operator&gt;&gt;(unsigned short&amp; __n);
+<span class="lineNum">     224 </span>            :     basic_istream&amp; operator&gt;&gt;(int&amp; __n);
+<span class="lineNum">     225 </span>            :     basic_istream&amp; operator&gt;&gt;(unsigned int&amp; __n);
+<span class="lineNum">     226 </span>            :     basic_istream&amp; operator&gt;&gt;(long&amp; __n);
+<span class="lineNum">     227 </span>            :     basic_istream&amp; operator&gt;&gt;(unsigned long&amp; __n);
+<span class="lineNum">     228 </span>            :     basic_istream&amp; operator&gt;&gt;(long long&amp; __n);
+<span class="lineNum">     229 </span>            :     basic_istream&amp; operator&gt;&gt;(unsigned long long&amp; __n);
+<span class="lineNum">     230 </span>            :     basic_istream&amp; operator&gt;&gt;(float&amp; __f);
+<span class="lineNum">     231 </span>            :     basic_istream&amp; operator&gt;&gt;(double&amp; __f);
+<span class="lineNum">     232 </span>            :     basic_istream&amp; operator&gt;&gt;(long double&amp; __f);
+<span class="lineNum">     233 </span>            :     basic_istream&amp; operator&gt;&gt;(void*&amp; __p);
+<span class="lineNum">     234 </span>            : 
+<a name="235"><span class="lineNum">     235 </span>            :     // 27.7.1.3 Unformatted input:</a>
+<span class="lineNum">     236 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     237 </span><span class="lineCov">        111 :     streamsize gcount() const {return __gc_;}</span>
+<span class="lineNum">     238 </span>            :     int_type get();
+<span class="lineNum">     239 </span>            :     basic_istream&amp; get(char_type&amp; __c);
+<span class="lineNum">     240 </span>            :     basic_istream&amp; get(char_type* __s, streamsize __n);
+<span class="lineNum">     241 </span>            :     basic_istream&amp; get(char_type* __s, streamsize __n, char_type __dlm);
+<span class="lineNum">     242 </span>            :     basic_istream&amp; get(basic_streambuf&lt;char_type, traits_type&gt;&amp; __sb);
+<span class="lineNum">     243 </span>            :     basic_istream&amp; get(basic_streambuf&lt;char_type, traits_type&gt;&amp; __sb, char_type __dlm);
+<span class="lineNum">     244 </span>            : 
+<span class="lineNum">     245 </span>            :     basic_istream&amp; getline(char_type* __s, streamsize __n);
+<span class="lineNum">     246 </span>            :     basic_istream&amp; getline(char_type* __s, streamsize __n, char_type __dlm);
+<span class="lineNum">     247 </span>            : 
+<span class="lineNum">     248 </span>            :     basic_istream&amp; ignore(streamsize __n = 1, int_type __dlm = traits_type::eof());
+<span class="lineNum">     249 </span>            :     int_type peek();
+<span class="lineNum">     250 </span>            :     basic_istream&amp; read (char_type* __s, streamsize __n);
+<span class="lineNum">     251 </span>            :     streamsize readsome(char_type* __s, streamsize __n);
+<span class="lineNum">     252 </span>            : 
+<span class="lineNum">     253 </span>            :     basic_istream&amp; putback(char_type __c);
+<span class="lineNum">     254 </span>            :     basic_istream&amp; unget();
+<span class="lineNum">     255 </span>            :     int sync();
+<span class="lineNum">     256 </span>            : 
+<span class="lineNum">     257 </span>            :     pos_type tellg();
+<span class="lineNum">     258 </span>            :     basic_istream&amp; seekg(pos_type __pos);
+<span class="lineNum">     259 </span>            :     basic_istream&amp; seekg(off_type __off, ios_base::seekdir __dir);
+<span class="lineNum">     260 </span>            : };
+<span class="lineNum">     261 </span>            : 
+<span class="lineNum">     262 </span>            : template &lt;class _CharT, class _Traits&gt;
+<span class="lineNum">     263 </span>            : class _LIBCPP_TYPE_VIS_ONLY basic_istream&lt;_CharT, _Traits&gt;::sentry
+<span class="lineNum">     264 </span>            : {
+<span class="lineNum">     265 </span>            :     bool __ok_;
+<span class="lineNum">     266 </span>            : 
+<span class="lineNum">     267 </span>            :     sentry(const sentry&amp;); // = delete;
+<span class="lineNum">     268 </span>            :     sentry&amp; operator=(const sentry&amp;); // = delete;
+<span class="lineNum">     269 </span>            : 
+<span class="lineNum">     270 </span>            : public:
+<span class="lineNum">     271 </span>            :     explicit sentry(basic_istream&lt;_CharT, _Traits&gt;&amp; __is, bool __noskipws = false);
+<span class="lineNum">     272 </span>            : //    ~sentry() = default;
+<span class="lineNum">     273 </span>            : 
+<a name="274"><span class="lineNum">     274 </span>            :     _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     275 </span>            :         _LIBCPP_EXPLICIT
+<span class="lineNum">     276 </span><span class="lineCov">       2256 :         operator bool() const {return __ok_;}</span>
+<span class="lineNum">     277 </span>            : };
+<a name="278"><span class="lineNum">     278 </span>            : </a>
+<span class="lineNum">     279 </span>            : template &lt;class _CharT, class _Traits&gt;
+<span class="lineNum">     280 </span>            : basic_istream&lt;_CharT, _Traits&gt;::sentry::sentry(basic_istream&lt;_CharT, _Traits&gt;&amp; __is,
+<span class="lineNum">     281 </span>            :                                                bool __noskipws)
+<span class="lineNum">     282 </span><span class="lineCov">       2256 :     : __ok_(false)</span>
+<span class="lineNum">     283 </span>            : {
+<span class="lineNum">     284 </span><span class="lineCov">       2256 :     if (__is.good())</span>
+<span class="lineNum">     285 </span>            :     {
+<span class="lineNum">     286 </span><span class="lineCov">       2232 :         if (__is.tie())</span>
+<span class="lineNum">     287 </span><span class="lineNoCov">          0 :             __is.tie()-&gt;flush();</span>
+<span class="lineNum">     288 </span><span class="lineCov">       4176 :         if (!__noskipws &amp;&amp; (__is.flags() &amp; ios_base::skipws))</span>
+<span class="lineNum">     289 </span>            :         {
+<span class="lineNum">     290 </span>            :             typedef istreambuf_iterator&lt;_CharT, _Traits&gt; _Ip;
+<span class="lineNum">     291 </span><span class="lineCov">       3590 :             const ctype&lt;_CharT&gt;&amp; __ct = use_facet&lt;ctype&lt;_CharT&gt; &gt;(__is.getloc());</span>
+<span class="lineNum">     292 </span><span class="lineCov">       1795 :             _Ip __i(__is);</span>
+<span class="lineNum">     293 </span><span class="lineCov">       1795 :             _Ip __eof;</span>
+<span class="lineNum">     294 </span><span class="lineCov">       6790 :             for (; __i != __eof; ++__i)</span>
+<span class="lineNum">     295 </span><span class="lineCov">       4981 :                 if (!__ct.is(__ct.space, *__i))</span>
+<span class="lineNum">     296 </span><span class="lineCov">       1781 :                     break;</span>
+<span class="lineNum">     297 </span><span class="lineCov">       1795 :             if (__i == __eof)</span>
+<span class="lineNum">     298 </span><span class="lineCov">         14 :                 __is.setstate(ios_base::failbit | ios_base::eofbit);</span>
+<span class="lineNum">     299 </span><span class="lineCov">       1795 :         }</span>
+<span class="lineNum">     300 </span><span class="lineCov">       2232 :         __ok_ = __is.good();</span>
+<span class="lineNum">     301 </span><span class="lineCov">       2232 :     }</span>
+<span class="lineNum">     302 </span>            :     else
+<span class="lineNum">     303 </span><span class="lineCov">         24 :         __is.setstate(ios_base::failbit);</span>
+<span class="lineNum">     304 </span><span class="lineCov">       2256 : }</span>
+<span class="lineNum">     305 </span>            : 
+<a name="306"><span class="lineNum">     306 </span>            : template &lt;class _CharT, class _Traits&gt;</a>
+<span class="lineNum">     307 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     308 </span>            : basic_istream&lt;_CharT, _Traits&gt;::basic_istream(basic_streambuf&lt;char_type, traits_type&gt;* __sb)
+<span class="lineNum">     309 </span><span class="lineCov">       9644 :     : __gc_(0)</span>
+<span class="lineNum">     310 </span><span class="lineCov">      18880 : {</span>
+<span class="lineNum">     311 </span><span class="lineCov">       9644 :     this-&gt;init(__sb);</span>
+<span class="lineNum">     312 </span><span class="lineCov">       9644 : }</span>
+<span class="lineNum">     313 </span>            : 
+<span class="lineNum">     314 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">     315 </span>            : 
+<a name="316"><span class="lineNum">     316 </span>            : template &lt;class _CharT, class _Traits&gt;</a>
+<span class="lineNum">     317 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     318 </span>            : basic_istream&lt;_CharT, _Traits&gt;::basic_istream(basic_istream&amp;&amp; __rhs)
+<span class="lineNum">     319 </span><span class="lineCov">         17 :     : __gc_(__rhs.__gc_)</span>
+<span class="lineNum">     320 </span><span class="lineCov">         17 : {</span>
+<span class="lineNum">     321 </span><span class="lineCov">         17 :     __rhs.__gc_ = 0;</span>
+<span class="lineNum">     322 </span><span class="lineCov">         17 :     this-&gt;move(__rhs);</span>
+<span class="lineNum">     323 </span><span class="lineCov">         17 : }</span>
+<span class="lineNum">     324 </span>            : 
+<span class="lineNum">     325 </span>            : template &lt;class _CharT, class _Traits&gt;
+<a name="326"><span class="lineNum">     326 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     327 </span>            : basic_istream&lt;_CharT, _Traits&gt;&amp;
+<span class="lineNum">     328 </span>            : basic_istream&lt;_CharT, _Traits&gt;::operator=(basic_istream&amp;&amp; __rhs)
+<span class="lineNum">     329 </span>            : {
+<span class="lineNum">     330 </span><span class="lineCov">         10 :     swap(__rhs);</span>
+<span class="lineNum">     331 </span><span class="lineCov">         10 :     return *this;</span>
+<span class="lineNum">     332 </span>            : }
+<span class="lineNum">     333 </span>            : 
+<span class="lineNum">     334 </span>            : #endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<a name="335"><span class="lineNum">     335 </span>            : </a>
+<span class="lineNum">     336 </span>            : template &lt;class _CharT, class _Traits&gt;
+<span class="lineNum">     337 </span>            : basic_istream&lt;_CharT, _Traits&gt;::~basic_istream()
+<span class="lineNum">     338 </span><span class="lineCov">        148 : {</span>
+<span class="lineNum">     339 </span><span class="lineCov">        721 : }</span>
+<span class="lineNum">     340 </span>            : 
+<span class="lineNum">     341 </span>            : template &lt;class _CharT, class _Traits&gt;
+<a name="342"><span class="lineNum">     342 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     343 </span>            : void
+<span class="lineNum">     344 </span>            : basic_istream&lt;_CharT, _Traits&gt;::swap(basic_istream&amp; __rhs)
+<span class="lineNum">     345 </span>            : {
+<span class="lineNum">     346 </span><span class="lineCov">         36 :     _VSTD::swap(__gc_, __rhs.__gc_);</span>
+<span class="lineNum">     347 </span><span class="lineCov">         36 :     basic_ios&lt;char_type, traits_type&gt;::swap(__rhs);</span>
+<span class="lineNum">     348 </span><span class="lineCov">         36 : }</span>
+<span class="lineNum">     349 </span>            : 
+<a name="350"><span class="lineNum">     350 </span>            : template &lt;class _CharT, class _Traits&gt;</a>
+<span class="lineNum">     351 </span>            : basic_istream&lt;_CharT, _Traits&gt;&amp;
+<span class="lineNum">     352 </span>            : basic_istream&lt;_CharT, _Traits&gt;::operator&gt;&gt;(unsigned short&amp; __n)
+<span class="lineNum">     353 </span>            : {
+<span class="lineNum">     354 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     355 </span>            :     try
+<span class="lineNum">     356 </span>            :     {
+<span class="lineNum">     357 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     358 </span><span class="lineCov">          8 :         sentry __s(*this);</span>
+<span class="lineNum">     359 </span><span class="lineCov">         16 :         if (__s)</span>
+<span class="lineNum">     360 </span>            :         {
+<span class="lineNum">     361 </span>            :             typedef istreambuf_iterator&lt;char_type, traits_type&gt; _Ip;
+<span class="lineNum">     362 </span>            :             typedef num_get&lt;char_type, _Ip&gt; _Fp;
+<span class="lineNum">     363 </span><span class="lineCov">          7 :             ios_base::iostate __err = ios_base::goodbit;</span>
+<span class="lineNum">     364 </span><span class="lineCov">         28 :             use_facet&lt;_Fp&gt;(this-&gt;getloc()).get(_Ip(*this), _Ip(), *this, __err, __n);</span>
+<span class="lineNum">     365 </span><span class="lineCov">          7 :             this-&gt;setstate(__err);</span>
+<span class="lineNum">     366 </span><span class="lineCov">          7 :         }</span>
+<span class="lineNum">     367 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     368 </span><span class="lineCov">          8 :     }</span>
+<span class="lineNum">     369 </span>            :     catch (...)
+<span class="lineNum">     370 </span>            :     {
+<span class="lineNum">     371 </span><span class="lineNoCov">          0 :         this-&gt;__set_badbit_and_consider_rethrow();</span>
+<span class="lineNum">     372 </span><span class="lineNoCov">          0 :     }</span>
+<span class="lineNum">     373 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     374 </span><span class="lineCov">          8 :     return *this;</span>
+<span class="lineNum">     375 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     376 </span>            : 
+<a name="377"><span class="lineNum">     377 </span>            : template &lt;class _CharT, class _Traits&gt;</a>
+<span class="lineNum">     378 </span>            : basic_istream&lt;_CharT, _Traits&gt;&amp;
+<span class="lineNum">     379 </span>            : basic_istream&lt;_CharT, _Traits&gt;::operator&gt;&gt;(unsigned int&amp; __n)
+<span class="lineNum">     380 </span>            : {
+<span class="lineNum">     381 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     382 </span>            :     try
+<span class="lineNum">     383 </span>            :     {
+<span class="lineNum">     384 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     385 </span><span class="lineCov">         11 :         sentry __s(*this);</span>
+<span class="lineNum">     386 </span><span class="lineCov">         22 :         if (__s)</span>
+<span class="lineNum">     387 </span>            :         {
+<span class="lineNum">     388 </span>            :             typedef istreambuf_iterator&lt;char_type, traits_type&gt; _Ip;
+<span class="lineNum">     389 </span>            :             typedef num_get&lt;char_type, _Ip&gt; _Fp;
+<span class="lineNum">     390 </span><span class="lineCov">         10 :             ios_base::iostate __err = ios_base::goodbit;</span>
+<span class="lineNum">     391 </span><span class="lineCov">         40 :             use_facet&lt;_Fp&gt;(this-&gt;getloc()).get(_Ip(*this), _Ip(), *this, __err, __n);</span>
+<span class="lineNum">     392 </span><span class="lineCov">         10 :             this-&gt;setstate(__err);</span>
+<span class="lineNum">     393 </span><span class="lineCov">         10 :         }</span>
+<span class="lineNum">     394 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     395 </span><span class="lineCov">         11 :     }</span>
+<span class="lineNum">     396 </span>            :     catch (...)
+<span class="lineNum">     397 </span>            :     {
+<span class="lineNum">     398 </span><span class="lineNoCov">          0 :         this-&gt;__set_badbit_and_consider_rethrow();</span>
+<span class="lineNum">     399 </span><span class="lineNoCov">          0 :     }</span>
+<span class="lineNum">     400 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     401 </span><span class="lineCov">         11 :     return *this;</span>
+<span class="lineNum">     402 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     403 </span>            : 
+<a name="404"><span class="lineNum">     404 </span>            : template &lt;class _CharT, class _Traits&gt;</a>
+<span class="lineNum">     405 </span>            : basic_istream&lt;_CharT, _Traits&gt;&amp;
+<span class="lineNum">     406 </span>            : basic_istream&lt;_CharT, _Traits&gt;::operator&gt;&gt;(long&amp; __n)
+<span class="lineNum">     407 </span>            : {
+<span class="lineNum">     408 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     409 </span>            :     try
+<span class="lineNum">     410 </span>            :     {
+<span class="lineNum">     411 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     412 </span><span class="lineCov">         12 :         sentry __s(*this);</span>
+<span class="lineNum">     413 </span><span class="lineCov">         24 :         if (__s)</span>
+<span class="lineNum">     414 </span>            :         {
+<span class="lineNum">     415 </span>            :             typedef istreambuf_iterator&lt;char_type, traits_type&gt; _Ip;
+<span class="lineNum">     416 </span>            :             typedef num_get&lt;char_type, _Ip&gt; _Fp;
+<span class="lineNum">     417 </span><span class="lineCov">         11 :             ios_base::iostate __err = ios_base::goodbit;</span>
+<span class="lineNum">     418 </span><span class="lineCov">         44 :             use_facet&lt;_Fp&gt;(this-&gt;getloc()).get(_Ip(*this), _Ip(), *this, __err, __n);</span>
+<span class="lineNum">     419 </span><span class="lineCov">         11 :             this-&gt;setstate(__err);</span>
+<span class="lineNum">     420 </span><span class="lineCov">         11 :         }</span>
+<span class="lineNum">     421 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     422 </span><span class="lineCov">         12 :     }</span>
+<span class="lineNum">     423 </span>            :     catch (...)
+<span class="lineNum">     424 </span>            :     {
+<span class="lineNum">     425 </span><span class="lineNoCov">          0 :         this-&gt;__set_badbit_and_consider_rethrow();</span>
+<span class="lineNum">     426 </span><span class="lineNoCov">          0 :     }</span>
+<span class="lineNum">     427 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     428 </span><span class="lineCov">         12 :     return *this;</span>
+<span class="lineNum">     429 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     430 </span>            : 
+<a name="431"><span class="lineNum">     431 </span>            : template &lt;class _CharT, class _Traits&gt;</a>
+<span class="lineNum">     432 </span>            : basic_istream&lt;_CharT, _Traits&gt;&amp;
+<span class="lineNum">     433 </span>            : basic_istream&lt;_CharT, _Traits&gt;::operator&gt;&gt;(unsigned long&amp; __n)
+<span class="lineNum">     434 </span>            : {
+<span class="lineNum">     435 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     436 </span>            :     try
+<span class="lineNum">     437 </span>            :     {
+<span class="lineNum">     438 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     439 </span><span class="lineCov">       1325 :         sentry __s(*this);</span>
+<span class="lineNum">     440 </span><span class="lineCov">       2650 :         if (__s)</span>
+<span class="lineNum">     441 </span>            :         {
+<span class="lineNum">     442 </span>            :             typedef istreambuf_iterator&lt;char_type, traits_type&gt; _Ip;
+<span class="lineNum">     443 </span>            :             typedef num_get&lt;char_type, _Ip&gt; _Fp;
+<span class="lineNum">     444 </span><span class="lineCov">       1324 :             ios_base::iostate __err = ios_base::goodbit;</span>
+<span class="lineNum">     445 </span><span class="lineCov">       5296 :             use_facet&lt;_Fp&gt;(this-&gt;getloc()).get(_Ip(*this), _Ip(), *this, __err, __n);</span>
+<span class="lineNum">     446 </span><span class="lineCov">       1324 :             this-&gt;setstate(__err);</span>
+<span class="lineNum">     447 </span><span class="lineCov">       1324 :         }</span>
+<span class="lineNum">     448 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     449 </span><span class="lineCov">       1325 :     }</span>
+<span class="lineNum">     450 </span>            :     catch (...)
+<span class="lineNum">     451 </span>            :     {
+<span class="lineNum">     452 </span><span class="lineNoCov">          0 :         this-&gt;__set_badbit_and_consider_rethrow();</span>
+<span class="lineNum">     453 </span><span class="lineNoCov">          0 :     }</span>
+<span class="lineNum">     454 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     455 </span><span class="lineCov">       1325 :     return *this;</span>
+<span class="lineNum">     456 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     457 </span>            : 
+<a name="458"><span class="lineNum">     458 </span>            : template &lt;class _CharT, class _Traits&gt;</a>
+<span class="lineNum">     459 </span>            : basic_istream&lt;_CharT, _Traits&gt;&amp;
+<span class="lineNum">     460 </span>            : basic_istream&lt;_CharT, _Traits&gt;::operator&gt;&gt;(long long&amp; __n)
+<span class="lineNum">     461 </span>            : {
+<span class="lineNum">     462 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     463 </span>            :     try
+<span class="lineNum">     464 </span>            :     {
+<span class="lineNum">     465 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     466 </span><span class="lineCov">         12 :         sentry __s(*this);</span>
+<span class="lineNum">     467 </span><span class="lineCov">         24 :         if (__s)</span>
+<span class="lineNum">     468 </span>            :         {
+<span class="lineNum">     469 </span>            :             typedef istreambuf_iterator&lt;char_type, traits_type&gt; _Ip;
+<span class="lineNum">     470 </span>            :             typedef num_get&lt;char_type, _Ip&gt; _Fp;
+<span class="lineNum">     471 </span><span class="lineCov">         11 :             ios_base::iostate __err = ios_base::goodbit;</span>
+<span class="lineNum">     472 </span><span class="lineCov">         44 :             use_facet&lt;_Fp&gt;(this-&gt;getloc()).get(_Ip(*this), _Ip(), *this, __err, __n);</span>
+<span class="lineNum">     473 </span><span class="lineCov">         11 :             this-&gt;setstate(__err);</span>
+<span class="lineNum">     474 </span><span class="lineCov">         11 :         }</span>
+<span class="lineNum">     475 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     476 </span><span class="lineCov">         12 :     }</span>
+<span class="lineNum">     477 </span>            :     catch (...)
+<span class="lineNum">     478 </span>            :     {
+<span class="lineNum">     479 </span><span class="lineNoCov">          0 :         this-&gt;__set_badbit_and_consider_rethrow();</span>
+<span class="lineNum">     480 </span><span class="lineNoCov">          0 :     }</span>
+<span class="lineNum">     481 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     482 </span><span class="lineCov">         12 :     return *this;</span>
+<span class="lineNum">     483 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     484 </span>            : 
+<a name="485"><span class="lineNum">     485 </span>            : template &lt;class _CharT, class _Traits&gt;</a>
+<span class="lineNum">     486 </span>            : basic_istream&lt;_CharT, _Traits&gt;&amp;
+<span class="lineNum">     487 </span>            : basic_istream&lt;_CharT, _Traits&gt;::operator&gt;&gt;(unsigned long long&amp; __n)
+<span class="lineNum">     488 </span>            : {
+<span class="lineNum">     489 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     490 </span>            :     try
+<span class="lineNum">     491 </span>            :     {
+<span class="lineNum">     492 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     493 </span><span class="lineCov">         10 :         sentry __s(*this);</span>
+<span class="lineNum">     494 </span><span class="lineCov">         20 :         if (__s)</span>
+<span class="lineNum">     495 </span>            :         {
+<span class="lineNum">     496 </span>            :             typedef istreambuf_iterator&lt;char_type, traits_type&gt; _Ip;
+<span class="lineNum">     497 </span>            :             typedef num_get&lt;char_type, _Ip&gt; _Fp;
+<span class="lineNum">     498 </span><span class="lineCov">          9 :             ios_base::iostate __err = ios_base::goodbit;</span>
+<span class="lineNum">     499 </span><span class="lineCov">         36 :             use_facet&lt;_Fp&gt;(this-&gt;getloc()).get(_Ip(*this), _Ip(), *this, __err, __n);</span>
+<span class="lineNum">     500 </span><span class="lineCov">          9 :             this-&gt;setstate(__err);</span>
+<span class="lineNum">     501 </span><span class="lineCov">          9 :         }</span>
+<span class="lineNum">     502 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     503 </span><span class="lineCov">         10 :     }</span>
+<span class="lineNum">     504 </span>            :     catch (...)
+<span class="lineNum">     505 </span>            :     {
+<span class="lineNum">     506 </span><span class="lineNoCov">          0 :         this-&gt;__set_badbit_and_consider_rethrow();</span>
+<span class="lineNum">     507 </span><span class="lineNoCov">          0 :     }</span>
+<span class="lineNum">     508 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     509 </span><span class="lineCov">         10 :     return *this;</span>
+<span class="lineNum">     510 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     511 </span>            : 
+<a name="512"><span class="lineNum">     512 </span>            : template &lt;class _CharT, class _Traits&gt;</a>
+<span class="lineNum">     513 </span>            : basic_istream&lt;_CharT, _Traits&gt;&amp;
+<span class="lineNum">     514 </span>            : basic_istream&lt;_CharT, _Traits&gt;::operator&gt;&gt;(float&amp; __n)
+<span class="lineNum">     515 </span>            : {
+<span class="lineNum">     516 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     517 </span>            :     try
+<span class="lineNum">     518 </span>            :     {
+<span class="lineNum">     519 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     520 </span><span class="lineCov">          4 :         sentry __s(*this);</span>
+<span class="lineNum">     521 </span><span class="lineCov">          8 :         if (__s)</span>
+<span class="lineNum">     522 </span>            :         {
+<span class="lineNum">     523 </span>            :             typedef istreambuf_iterator&lt;char_type, traits_type&gt; _Ip;
+<span class="lineNum">     524 </span>            :             typedef num_get&lt;char_type, _Ip&gt; _Fp;
+<span class="lineNum">     525 </span><span class="lineCov">          3 :             ios_base::iostate __err = ios_base::goodbit;</span>
+<span class="lineNum">     526 </span><span class="lineCov">         12 :             use_facet&lt;_Fp&gt;(this-&gt;getloc()).get(_Ip(*this), _Ip(), *this, __err, __n);</span>
+<span class="lineNum">     527 </span><span class="lineCov">          3 :             this-&gt;setstate(__err);</span>
+<span class="lineNum">     528 </span><span class="lineCov">          3 :         }</span>
+<span class="lineNum">     529 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     530 </span><span class="lineCov">          4 :     }</span>
+<span class="lineNum">     531 </span>            :     catch (...)
+<span class="lineNum">     532 </span>            :     {
+<span class="lineNum">     533 </span><span class="lineNoCov">          0 :         this-&gt;__set_badbit_and_consider_rethrow();</span>
+<span class="lineNum">     534 </span><span class="lineNoCov">          0 :     }</span>
+<span class="lineNum">     535 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     536 </span><span class="lineCov">          4 :     return *this;</span>
+<span class="lineNum">     537 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     538 </span>            : 
+<a name="539"><span class="lineNum">     539 </span>            : template &lt;class _CharT, class _Traits&gt;</a>
+<span class="lineNum">     540 </span>            : basic_istream&lt;_CharT, _Traits&gt;&amp;
+<span class="lineNum">     541 </span>            : basic_istream&lt;_CharT, _Traits&gt;::operator&gt;&gt;(double&amp; __n)
+<span class="lineNum">     542 </span>            : {
+<span class="lineNum">     543 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     544 </span>            :     try
+<span class="lineNum">     545 </span>            :     {
+<span class="lineNum">     546 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     547 </span><span class="lineCov">        129 :         sentry __s(*this);</span>
+<span class="lineNum">     548 </span><span class="lineCov">        258 :         if (__s)</span>
+<span class="lineNum">     549 </span>            :         {
+<span class="lineNum">     550 </span>            :             typedef istreambuf_iterator&lt;char_type, traits_type&gt; _Ip;
+<span class="lineNum">     551 </span>            :             typedef num_get&lt;char_type, _Ip&gt; _Fp;
+<span class="lineNum">     552 </span><span class="lineCov">        127 :             ios_base::iostate __err = ios_base::goodbit;</span>
+<span class="lineNum">     553 </span><span class="lineCov">        508 :             use_facet&lt;_Fp&gt;(this-&gt;getloc()).get(_Ip(*this), _Ip(), *this, __err, __n);</span>
+<span class="lineNum">     554 </span><span class="lineCov">        127 :             this-&gt;setstate(__err);</span>
+<span class="lineNum">     555 </span><span class="lineCov">        127 :         }</span>
+<span class="lineNum">     556 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     557 </span><span class="lineCov">        129 :     }</span>
+<span class="lineNum">     558 </span>            :     catch (...)
+<span class="lineNum">     559 </span>            :     {
+<span class="lineNum">     560 </span><span class="lineNoCov">          0 :         this-&gt;__set_badbit_and_consider_rethrow();</span>
+<span class="lineNum">     561 </span><span class="lineNoCov">          0 :     }</span>
+<span class="lineNum">     562 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     563 </span><span class="lineCov">        129 :     return *this;</span>
+<span class="lineNum">     564 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     565 </span>            : 
+<a name="566"><span class="lineNum">     566 </span>            : template &lt;class _CharT, class _Traits&gt;</a>
+<span class="lineNum">     567 </span>            : basic_istream&lt;_CharT, _Traits&gt;&amp;
+<span class="lineNum">     568 </span>            : basic_istream&lt;_CharT, _Traits&gt;::operator&gt;&gt;(long double&amp; __n)
+<span class="lineNum">     569 </span>            : {
+<span class="lineNum">     570 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     571 </span>            :     try
+<span class="lineNum">     572 </span>            :     {
+<span class="lineNum">     573 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     574 </span><span class="lineCov">          4 :         sentry __s(*this);</span>
+<span class="lineNum">     575 </span><span class="lineCov">          8 :         if (__s)</span>
+<span class="lineNum">     576 </span>            :         {
+<span class="lineNum">     577 </span>            :             typedef istreambuf_iterator&lt;char_type, traits_type&gt; _Ip;
+<span class="lineNum">     578 </span>            :             typedef num_get&lt;char_type, _Ip&gt; _Fp;
+<span class="lineNum">     579 </span><span class="lineCov">          3 :             ios_base::iostate __err = ios_base::goodbit;</span>
+<span class="lineNum">     580 </span><span class="lineCov">         12 :             use_facet&lt;_Fp&gt;(this-&gt;getloc()).get(_Ip(*this), _Ip(), *this, __err, __n);</span>
+<span class="lineNum">     581 </span><span class="lineCov">          3 :             this-&gt;setstate(__err);</span>
+<span class="lineNum">     582 </span><span class="lineCov">          3 :         }</span>
+<span class="lineNum">     583 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     584 </span><span class="lineCov">          4 :     }</span>
+<span class="lineNum">     585 </span>            :     catch (...)
+<span class="lineNum">     586 </span>            :     {
+<span class="lineNum">     587 </span><span class="lineNoCov">          0 :         this-&gt;__set_badbit_and_consider_rethrow();</span>
+<span class="lineNum">     588 </span><span class="lineNoCov">          0 :     }</span>
+<span class="lineNum">     589 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     590 </span><span class="lineCov">          4 :     return *this;</span>
+<span class="lineNum">     591 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     592 </span>            : 
+<a name="593"><span class="lineNum">     593 </span>            : template &lt;class _CharT, class _Traits&gt;</a>
+<span class="lineNum">     594 </span>            : basic_istream&lt;_CharT, _Traits&gt;&amp;
+<span class="lineNum">     595 </span>            : basic_istream&lt;_CharT, _Traits&gt;::operator&gt;&gt;(bool&amp; __n)
+<span class="lineNum">     596 </span>            : {
+<span class="lineNum">     597 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     598 </span>            :     try
+<span class="lineNum">     599 </span>            :     {
+<span class="lineNum">     600 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     601 </span><span class="lineCov">          6 :         sentry __s(*this);</span>
+<span class="lineNum">     602 </span><span class="lineCov">         12 :         if (__s)</span>
+<span class="lineNum">     603 </span>            :         {
+<span class="lineNum">     604 </span>            :             typedef istreambuf_iterator&lt;char_type, traits_type&gt; _Ip;
+<span class="lineNum">     605 </span>            :             typedef num_get&lt;char_type, _Ip&gt; _Fp;
+<span class="lineNum">     606 </span><span class="lineCov">          5 :             ios_base::iostate __err = ios_base::goodbit;</span>
+<span class="lineNum">     607 </span><span class="lineCov">         20 :             use_facet&lt;_Fp&gt;(this-&gt;getloc()).get(_Ip(*this), _Ip(), *this, __err, __n);</span>
+<span class="lineNum">     608 </span><span class="lineCov">          5 :             this-&gt;setstate(__err);</span>
+<span class="lineNum">     609 </span><span class="lineCov">          5 :         }</span>
+<span class="lineNum">     610 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     611 </span><span class="lineCov">          6 :     }</span>
+<span class="lineNum">     612 </span>            :     catch (...)
+<span class="lineNum">     613 </span>            :     {
+<span class="lineNum">     614 </span><span class="lineNoCov">          0 :         this-&gt;__set_badbit_and_consider_rethrow();</span>
+<span class="lineNum">     615 </span><span class="lineNoCov">          0 :     }</span>
+<span class="lineNum">     616 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     617 </span><span class="lineCov">          6 :     return *this;</span>
+<span class="lineNum">     618 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     619 </span>            : 
+<a name="620"><span class="lineNum">     620 </span>            : template &lt;class _CharT, class _Traits&gt;</a>
+<span class="lineNum">     621 </span>            : basic_istream&lt;_CharT, _Traits&gt;&amp;
+<span class="lineNum">     622 </span>            : basic_istream&lt;_CharT, _Traits&gt;::operator&gt;&gt;(void*&amp; __n)
+<span class="lineNum">     623 </span>            : {
+<span class="lineNum">     624 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     625 </span>            :     try
+<span class="lineNum">     626 </span>            :     {
+<span class="lineNum">     627 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     628 </span><span class="lineCov">          6 :         sentry __s(*this);</span>
+<span class="lineNum">     629 </span><span class="lineCov">         12 :         if (__s)</span>
+<span class="lineNum">     630 </span>            :         {
+<span class="lineNum">     631 </span>            :             typedef istreambuf_iterator&lt;char_type, traits_type&gt; _Ip;
+<span class="lineNum">     632 </span>            :             typedef num_get&lt;char_type, _Ip&gt; _Fp;
+<span class="lineNum">     633 </span><span class="lineCov">          5 :             ios_base::iostate __err = ios_base::goodbit;</span>
+<span class="lineNum">     634 </span><span class="lineCov">         20 :             use_facet&lt;_Fp&gt;(this-&gt;getloc()).get(_Ip(*this), _Ip(), *this, __err, __n);</span>
+<span class="lineNum">     635 </span><span class="lineCov">          5 :             this-&gt;setstate(__err);</span>
+<span class="lineNum">     636 </span><span class="lineCov">          5 :         }</span>
+<span class="lineNum">     637 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     638 </span><span class="lineCov">          6 :     }</span>
+<span class="lineNum">     639 </span>            :     catch (...)
+<span class="lineNum">     640 </span>            :     {
+<span class="lineNum">     641 </span><span class="lineNoCov">          0 :         this-&gt;__set_badbit_and_consider_rethrow();</span>
+<span class="lineNum">     642 </span><span class="lineNoCov">          0 :     }</span>
+<span class="lineNum">     643 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     644 </span><span class="lineCov">          6 :     return *this;</span>
+<span class="lineNum">     645 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     646 </span>            : 
+<a name="647"><span class="lineNum">     647 </span>            : template &lt;class _CharT, class _Traits&gt;</a>
+<span class="lineNum">     648 </span>            : basic_istream&lt;_CharT, _Traits&gt;&amp;
+<span class="lineNum">     649 </span>            : basic_istream&lt;_CharT, _Traits&gt;::operator&gt;&gt;(short&amp; __n)
+<span class="lineNum">     650 </span>            : {
+<span class="lineNum">     651 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     652 </span>            :     try
+<span class="lineNum">     653 </span>            :     {
+<span class="lineNum">     654 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     655 </span><span class="lineCov">          8 :         sentry __s(*this);</span>
+<span class="lineNum">     656 </span><span class="lineCov">         16 :         if (__s)</span>
+<span class="lineNum">     657 </span>            :         {
+<span class="lineNum">     658 </span>            :             typedef istreambuf_iterator&lt;char_type, traits_type&gt; _Ip;
+<span class="lineNum">     659 </span>            :             typedef num_get&lt;char_type, _Ip&gt; _Fp;
+<span class="lineNum">     660 </span><span class="lineCov">          7 :             ios_base::iostate __err = ios_base::goodbit;</span>
+<span class="lineNum">     661 </span>            :             long __temp;
+<span class="lineNum">     662 </span><span class="lineCov">         28 :             use_facet&lt;_Fp&gt;(this-&gt;getloc()).get(_Ip(*this), _Ip(), *this, __err, __temp);</span>
+<span class="lineNum">     663 </span><span class="lineCov">          7 :             if (__temp &lt; numeric_limits&lt;short&gt;::min())</span>
+<span class="lineNum">     664 </span>            :             {
+<span class="lineNum">     665 </span><span class="lineCov">          2 :                 __err |= ios_base::failbit;</span>
+<span class="lineNum">     666 </span><span class="lineCov">          2 :                 __n = numeric_limits&lt;short&gt;::min();</span>
+<span class="lineNum">     667 </span><span class="lineCov">          2 :             }</span>
+<span class="lineNum">     668 </span><span class="lineCov">          5 :             else if (__temp &gt; numeric_limits&lt;short&gt;::max())</span>
+<span class="lineNum">     669 </span>            :             {
+<span class="lineNum">     670 </span><span class="lineCov">          1 :                 __err |= ios_base::failbit;</span>
+<span class="lineNum">     671 </span><span class="lineCov">          1 :                 __n = numeric_limits&lt;short&gt;::max();</span>
+<span class="lineNum">     672 </span><span class="lineCov">          1 :             }</span>
+<span class="lineNum">     673 </span>            :             else
+<span class="lineNum">     674 </span><span class="lineCov">          4 :                 __n = static_cast&lt;short&gt;(__temp);</span>
+<span class="lineNum">     675 </span><span class="lineCov">          7 :             this-&gt;setstate(__err);</span>
+<span class="lineNum">     676 </span><span class="lineCov">          7 :         }</span>
+<span class="lineNum">     677 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     678 </span><span class="lineCov">          8 :     }</span>
+<span class="lineNum">     679 </span>            :     catch (...)
+<span class="lineNum">     680 </span>            :     {
+<span class="lineNum">     681 </span><span class="lineNoCov">          0 :         this-&gt;__set_badbit_and_consider_rethrow();</span>
+<span class="lineNum">     682 </span><span class="lineNoCov">          0 :     }</span>
+<span class="lineNum">     683 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     684 </span><span class="lineCov">          8 :     return *this;</span>
+<span class="lineNum">     685 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     686 </span>            : 
+<a name="687"><span class="lineNum">     687 </span>            : template &lt;class _CharT, class _Traits&gt;</a>
+<span class="lineNum">     688 </span>            : basic_istream&lt;_CharT, _Traits&gt;&amp;
+<span class="lineNum">     689 </span>            : basic_istream&lt;_CharT, _Traits&gt;::operator&gt;&gt;(int&amp; __n)
+<span class="lineNum">     690 </span>            : {
+<span class="lineNum">     691 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     692 </span>            :     try
+<span class="lineNum">     693 </span>            :     {
+<span class="lineNum">     694 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     695 </span><span class="lineCov">        125 :         sentry __s(*this);</span>
+<span class="lineNum">     696 </span><span class="lineCov">        250 :         if (__s)</span>
+<span class="lineNum">     697 </span>            :         {
+<span class="lineNum">     698 </span>            :             typedef istreambuf_iterator&lt;char_type, traits_type&gt; _Ip;
+<span class="lineNum">     699 </span>            :             typedef num_get&lt;char_type, _Ip&gt; _Fp;
+<span class="lineNum">     700 </span><span class="lineCov">        123 :             ios_base::iostate __err = ios_base::goodbit;</span>
+<span class="lineNum">     701 </span>            :             long __temp;
+<span class="lineNum">     702 </span><span class="lineCov">        492 :             use_facet&lt;_Fp&gt;(this-&gt;getloc()).get(_Ip(*this), _Ip(), *this, __err, __temp);</span>
+<span class="lineNum">     703 </span><span class="lineCov">        123 :             if (__temp &lt; numeric_limits&lt;int&gt;::min())</span>
+<span class="lineNum">     704 </span>            :             {
+<span class="lineNum">     705 </span><span class="lineCov">          2 :                 __err |= ios_base::failbit;</span>
+<span class="lineNum">     706 </span><span class="lineCov">          2 :                 __n = numeric_limits&lt;int&gt;::min();</span>
+<span class="lineNum">     707 </span><span class="lineCov">          2 :             }</span>
+<span class="lineNum">     708 </span><span class="lineCov">        121 :             else if (__temp &gt; numeric_limits&lt;int&gt;::max())</span>
+<span class="lineNum">     709 </span>            :             {
+<span class="lineNum">     710 </span><span class="lineCov">          1 :                 __err |= ios_base::failbit;</span>
+<span class="lineNum">     711 </span><span class="lineCov">          1 :                 __n = numeric_limits&lt;int&gt;::max();</span>
+<span class="lineNum">     712 </span><span class="lineCov">          1 :             }</span>
+<span class="lineNum">     713 </span>            :             else
+<span class="lineNum">     714 </span><span class="lineCov">        120 :                 __n = static_cast&lt;int&gt;(__temp);</span>
+<span class="lineNum">     715 </span><span class="lineCov">        123 :             this-&gt;setstate(__err);</span>
+<span class="lineNum">     716 </span><span class="lineCov">        123 :         }</span>
+<span class="lineNum">     717 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     718 </span><span class="lineCov">        125 :     }</span>
+<span class="lineNum">     719 </span>            :     catch (...)
+<span class="lineNum">     720 </span>            :     {
+<span class="lineNum">     721 </span><span class="lineNoCov">          0 :         this-&gt;__set_badbit_and_consider_rethrow();</span>
+<span class="lineNum">     722 </span><span class="lineNoCov">          0 :     }</span>
+<span class="lineNum">     723 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     724 </span><span class="lineCov">        125 :     return *this;</span>
+<span class="lineNum">     725 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     726 </span>            : 
+<span class="lineNum">     727 </span>            : template &lt;class _CharT, class _Traits&gt;
+<a name="728"><span class="lineNum">     728 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     729 </span>            : basic_istream&lt;_CharT, _Traits&gt;&amp;
+<span class="lineNum">     730 </span>            : basic_istream&lt;_CharT, _Traits&gt;::operator&gt;&gt;(basic_istream&amp; (*__pf)(basic_istream&amp;))
+<span class="lineNum">     731 </span>            : {
+<span class="lineNum">     732 </span><span class="lineCov">          1 :     return __pf(*this);</span>
+<span class="lineNum">     733 </span>            : }
+<span class="lineNum">     734 </span>            : 
+<span class="lineNum">     735 </span>            : template &lt;class _CharT, class _Traits&gt;
+<a name="736"><span class="lineNum">     736 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     737 </span>            : basic_istream&lt;_CharT, _Traits&gt;&amp;
+<span class="lineNum">     738 </span>            : basic_istream&lt;_CharT, _Traits&gt;::operator&gt;&gt;(basic_ios&lt;char_type, traits_type&gt;&amp;
+<span class="lineNum">     739 </span>            :                                            (*__pf)(basic_ios&lt;char_type, traits_type&gt;&amp;))
+<span class="lineNum">     740 </span>            : {
+<span class="lineNum">     741 </span><span class="lineCov">          1 :     __pf(*this);</span>
+<span class="lineNum">     742 </span><span class="lineCov">          1 :     return *this;</span>
+<span class="lineNum">     743 </span>            : }
+<span class="lineNum">     744 </span>            : 
+<span class="lineNum">     745 </span>            : template &lt;class _CharT, class _Traits&gt;
+<a name="746"><span class="lineNum">     746 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     747 </span>            : basic_istream&lt;_CharT, _Traits&gt;&amp;
+<span class="lineNum">     748 </span>            : basic_istream&lt;_CharT, _Traits&gt;::operator&gt;&gt;(ios_base&amp; (*__pf)(ios_base&amp;))
+<span class="lineNum">     749 </span>            : {
+<span class="lineNum">     750 </span><span class="lineCov">          1 :     __pf(*this);</span>
+<span class="lineNum">     751 </span><span class="lineCov">          1 :     return *this;</span>
+<span class="lineNum">     752 </span>            : }
+<span class="lineNum">     753 </span>            : 
+<a name="754"><span class="lineNum">     754 </span>            : template&lt;class _CharT, class _Traits&gt;</a>
+<span class="lineNum">     755 </span>            : basic_istream&lt;_CharT, _Traits&gt;&amp;
+<span class="lineNum">     756 </span>            : operator&gt;&gt;(basic_istream&lt;_CharT, _Traits&gt;&amp; __is, _CharT* __s)
+<span class="lineNum">     757 </span>            : {
+<span class="lineNum">     758 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     759 </span>            :     try
+<span class="lineNum">     760 </span>            :     {
+<span class="lineNum">     761 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     762 </span><span class="lineCov">         12 :         typename basic_istream&lt;_CharT, _Traits&gt;::sentry __sen(__is);</span>
+<span class="lineNum">     763 </span><span class="lineCov">         24 :         if (__sen)</span>
+<span class="lineNum">     764 </span>            :         {
+<span class="lineNum">     765 </span><span class="lineCov">         24 :             streamsize __n = __is.width();</span>
+<span class="lineNum">     766 </span><span class="lineCov">         12 :             if (__n &lt;= 0)</span>
+<span class="lineNum">     767 </span><span class="lineCov">          6 :                 __n = numeric_limits&lt;streamsize&gt;::max() / sizeof(_CharT) - 1;</span>
+<span class="lineNum">     768 </span><span class="lineCov">         12 :             streamsize __c = 0;</span>
+<span class="lineNum">     769 </span><span class="lineCov">         36 :             const ctype&lt;_CharT&gt;&amp; __ct = use_facet&lt;ctype&lt;_CharT&gt; &gt;(__is.getloc());</span>
+<span class="lineNum">     770 </span><span class="lineCov">         12 :             ios_base::iostate __err = ios_base::goodbit;</span>
+<span class="lineNum">     771 </span><span class="lineCov">        174 :             while (__c &lt; __n-1)</span>
+<span class="lineNum">     772 </span>            :             {
+<span class="lineNum">     773 </span><span class="lineCov">        243 :                 typename _Traits::int_type __i = __is.rdbuf()-&gt;sgetc();</span>
+<span class="lineNum">     774 </span><span class="lineCov">         81 :                 if (_Traits::eq_int_type(__i, _Traits::eof()))</span>
+<span class="lineNum">     775 </span>            :                 {
+<span class="lineNum">     776 </span><span class="lineCov">          3 :                    __err |= ios_base::eofbit;</span>
+<span class="lineNum">     777 </span><span class="lineCov">          3 :                    break;</span>
+<span class="lineNum">     778 </span>            :                 }
+<span class="lineNum">     779 </span><span class="lineCov">         78 :                 _CharT __ch = _Traits::to_char_type(__i);</span>
+<span class="lineNum">     780 </span><span class="lineCov">        156 :                 if (__ct.is(__ct.space, __ch))</span>
+<span class="lineNum">     781 </span><span class="lineCov">          3 :                     break;</span>
+<span class="lineNum">     782 </span><span class="lineCov">         75 :                 *__s++ = __ch;</span>
+<span class="lineNum">     783 </span><span class="lineCov">         75 :                 ++__c;</span>
+<span class="lineNum">     784 </span><span class="lineCov">        150 :                  __is.rdbuf()-&gt;sbumpc();</span>
+<span class="lineNum">     785 </span>            :             }
+<span class="lineNum">     786 </span><span class="lineCov">         12 :             *__s = _CharT();</span>
+<span class="lineNum">     787 </span><span class="lineCov">         12 :             __is.width(0);</span>
+<span class="lineNum">     788 </span><span class="lineCov">         12 :             if (__c == 0)</span>
+<span class="lineNum">     789 </span><span class="lineCov">          3 :                __err |= ios_base::failbit;</span>
+<span class="lineNum">     790 </span><span class="lineCov">         12 :             __is.setstate(__err);</span>
+<span class="lineNum">     791 </span><span class="lineCov">         12 :         }</span>
+<span class="lineNum">     792 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     793 </span><span class="lineCov">         12 :     }</span>
+<span class="lineNum">     794 </span>            :     catch (...)
+<span class="lineNum">     795 </span>            :     {
+<span class="lineNum">     796 </span><span class="lineNoCov">          0 :         __is.__set_badbit_and_consider_rethrow();</span>
+<span class="lineNum">     797 </span><span class="lineNoCov">          0 :     }</span>
+<span class="lineNum">     798 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     799 </span><span class="lineCov">         12 :     return __is;</span>
+<span class="lineNum">     800 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     801 </span>            : 
+<span class="lineNum">     802 </span>            : template&lt;class _Traits&gt;
+<a name="803"><span class="lineNum">     803 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     804 </span>            : basic_istream&lt;char, _Traits&gt;&amp;
+<span class="lineNum">     805 </span>            : operator&gt;&gt;(basic_istream&lt;char, _Traits&gt;&amp; __is, unsigned char* __s)
+<span class="lineNum">     806 </span>            : {
+<span class="lineNum">     807 </span><span class="lineCov">          4 :     return __is &gt;&gt; (char*)__s;</span>
+<span class="lineNum">     808 </span>            : }
+<span class="lineNum">     809 </span>            : 
+<span class="lineNum">     810 </span>            : template&lt;class _Traits&gt;
+<a name="811"><span class="lineNum">     811 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     812 </span>            : basic_istream&lt;char, _Traits&gt;&amp;
+<span class="lineNum">     813 </span>            : operator&gt;&gt;(basic_istream&lt;char, _Traits&gt;&amp; __is, signed char* __s)
+<span class="lineNum">     814 </span>            : {
+<span class="lineNum">     815 </span><span class="lineCov">          4 :     return __is &gt;&gt; (char*)__s;</span>
+<span class="lineNum">     816 </span>            : }
+<span class="lineNum">     817 </span>            : 
+<a name="818"><span class="lineNum">     818 </span>            : template&lt;class _CharT, class _Traits&gt;</a>
+<span class="lineNum">     819 </span>            : basic_istream&lt;_CharT, _Traits&gt;&amp;
+<span class="lineNum">     820 </span>            : operator&gt;&gt;(basic_istream&lt;_CharT, _Traits&gt;&amp; __is, _CharT&amp; __c)
+<span class="lineNum">     821 </span>            : {
+<span class="lineNum">     822 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     823 </span>            :     try
+<span class="lineNum">     824 </span>            :     {
+<span class="lineNum">     825 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     826 </span><span class="lineCov">        221 :         typename basic_istream&lt;_CharT, _Traits&gt;::sentry __sen(__is);</span>
+<span class="lineNum">     827 </span><span class="lineCov">        442 :         if (__sen)</span>
+<span class="lineNum">     828 </span>            :         {
+<span class="lineNum">     829 </span><span class="lineCov">        630 :             typename _Traits::int_type __i = __is.rdbuf()-&gt;sbumpc();</span>
+<span class="lineNum">     830 </span><span class="lineCov">        210 :             if (_Traits::eq_int_type(__i, _Traits::eof()))</span>
+<span class="lineNum">     831 </span><span class="lineCov">          8 :                 __is.setstate(ios_base::eofbit | ios_base::failbit);</span>
+<span class="lineNum">     832 </span>            :             else
+<span class="lineNum">     833 </span><span class="lineCov">        206 :                 __c = _Traits::to_char_type(__i);</span>
+<span class="lineNum">     834 </span><span class="lineCov">        210 :         }</span>
+<span class="lineNum">     835 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     836 </span><span class="lineCov">        221 :     }</span>
+<span class="lineNum">     837 </span>            :     catch (...)
+<span class="lineNum">     838 </span>            :     {
+<span class="lineNum">     839 </span><span class="lineNoCov">          0 :         __is.__set_badbit_and_consider_rethrow();</span>
+<span class="lineNum">     840 </span><span class="lineNoCov">          0 :     }</span>
+<span class="lineNum">     841 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     842 </span><span class="lineCov">        221 :     return __is;</span>
+<span class="lineNum">     843 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     844 </span>            : 
+<span class="lineNum">     845 </span>            : template&lt;class _Traits&gt;
+<a name="846"><span class="lineNum">     846 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     847 </span>            : basic_istream&lt;char, _Traits&gt;&amp;
+<span class="lineNum">     848 </span>            : operator&gt;&gt;(basic_istream&lt;char, _Traits&gt;&amp; __is, unsigned char&amp; __c)
+<span class="lineNum">     849 </span>            : {
+<span class="lineNum">     850 </span><span class="lineCov">          4 :     return __is &gt;&gt; (char&amp;)__c;</span>
+<span class="lineNum">     851 </span>            : }
+<span class="lineNum">     852 </span>            : 
+<span class="lineNum">     853 </span>            : template&lt;class _Traits&gt;
+<a name="854"><span class="lineNum">     854 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     855 </span>            : basic_istream&lt;char, _Traits&gt;&amp;
+<span class="lineNum">     856 </span>            : operator&gt;&gt;(basic_istream&lt;char, _Traits&gt;&amp; __is, signed char&amp; __c)
+<span class="lineNum">     857 </span>            : {
+<span class="lineNum">     858 </span><span class="lineCov">          4 :     return __is &gt;&gt; (char&amp;)__c;</span>
+<span class="lineNum">     859 </span>            : }
+<span class="lineNum">     860 </span>            : 
+<a name="861"><span class="lineNum">     861 </span>            : template&lt;class _CharT, class _Traits&gt;</a>
+<span class="lineNum">     862 </span>            : basic_istream&lt;_CharT, _Traits&gt;&amp;
+<span class="lineNum">     863 </span>            : basic_istream&lt;_CharT, _Traits&gt;::operator&gt;&gt;(basic_streambuf&lt;char_type, traits_type&gt;* __sb)
+<span class="lineNum">     864 </span>            : {
+<span class="lineNum">     865 </span><span class="lineCov">          1 :     __gc_ = 0;</span>
+<span class="lineNum">     866 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     867 </span>            :     try
+<span class="lineNum">     868 </span>            :     {
+<span class="lineNum">     869 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     870 </span><span class="lineCov">          1 :         sentry __s(*this, true);</span>
+<span class="lineNum">     871 </span><span class="lineCov">          2 :         if (__s)</span>
+<span class="lineNum">     872 </span>            :         {
+<span class="lineNum">     873 </span><span class="lineCov">          1 :             if (__sb)</span>
+<span class="lineNum">     874 </span>            :             {
+<span class="lineNum">     875 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     876 </span>            :                 try
+<span class="lineNum">     877 </span>            :                 {
+<span class="lineNum">     878 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     879 </span><span class="lineCov">          1 :                     ios_base::iostate __err = ios_base::goodbit;</span>
+<span class="lineNum">     880 </span><span class="lineCov">         22 :                     while (true)</span>
+<span class="lineNum">     881 </span>            :                     {
+<span class="lineNum">     882 </span><span class="lineCov">         33 :                         typename traits_type::int_type __i = this-&gt;rdbuf()-&gt;sgetc();</span>
+<span class="lineNum">     883 </span><span class="lineCov">         11 :                         if (traits_type::eq_int_type(__i, _Traits::eof()))</span>
+<span class="lineNum">     884 </span>            :                         {
+<span class="lineNum">     885 </span><span class="lineCov">          1 :                            __err |= ios_base::eofbit;</span>
+<span class="lineNum">     886 </span><span class="lineCov">          1 :                            break;</span>
+<span class="lineNum">     887 </span>            :                         }
+<span class="lineNum">     888 </span><span class="lineCov">         10 :                         if (traits_type::eq_int_type(</span>
+<span class="lineNum">     889 </span><span class="lineCov">         10 :                                 __sb-&gt;sputc(traits_type::to_char_type(__i)),</span>
+<span class="lineNum">     890 </span><span class="lineCov">         10 :                                 traits_type::eof()))</span>
+<span class="lineNum">     891 </span><span class="lineNoCov">          0 :                             break;</span>
+<span class="lineNum">     892 </span><span class="lineCov">         10 :                         ++__gc_;</span>
+<span class="lineNum">     893 </span><span class="lineCov">         20 :                         this-&gt;rdbuf()-&gt;sbumpc();</span>
+<span class="lineNum">     894 </span>            :                     }
+<span class="lineNum">     895 </span><span class="lineCov">          1 :                     if (__gc_ == 0)</span>
+<span class="lineNum">     896 </span><span class="lineNoCov">          0 :                        __err |= ios_base::failbit;</span>
+<span class="lineNum">     897 </span><span class="lineCov">          1 :                     this-&gt;setstate(__err);</span>
+<span class="lineNum">     898 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     899 </span><span class="lineCov">          1 :                 }</span>
+<span class="lineNum">     900 </span>            :                 catch (...)
+<span class="lineNum">     901 </span>            :                 {
+<span class="lineNum">     902 </span><span class="lineNoCov">          0 :                     if (__gc_ == 0)</span>
+<span class="lineNum">     903 </span><span class="lineNoCov">          0 :                         this-&gt;__set_failbit_and_consider_rethrow();</span>
+<span class="lineNum">     904 </span><span class="lineNoCov">          0 :                 }</span>
+<span class="lineNum">     905 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     906 </span><span class="lineCov">          1 :             }</span>
+<span class="lineNum">     907 </span>            :             else
+<span class="lineNum">     908 </span><span class="lineNoCov">          0 :                 this-&gt;setstate(ios_base::failbit);</span>
+<span class="lineNum">     909 </span><span class="lineCov">          1 :         }</span>
+<span class="lineNum">     910 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     911 </span><span class="lineCov">          1 :     }</span>
+<span class="lineNum">     912 </span>            :     catch (...)
+<span class="lineNum">     913 </span>            :     {
+<span class="lineNum">     914 </span><span class="lineNoCov">          0 :         this-&gt;__set_badbit_and_consider_rethrow();</span>
+<span class="lineNum">     915 </span><span class="lineNoCov">          0 :     }</span>
+<span class="lineNum">     916 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     917 </span><span class="lineCov">          1 :     return *this;</span>
+<span class="lineNum">     918 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     919 </span>            : 
+<a name="920"><span class="lineNum">     920 </span>            : template&lt;class _CharT, class _Traits&gt;</a>
+<span class="lineNum">     921 </span>            : typename basic_istream&lt;_CharT, _Traits&gt;::int_type
+<span class="lineNum">     922 </span>            : basic_istream&lt;_CharT, _Traits&gt;::get()
+<span class="lineNum">     923 </span>            : {
+<span class="lineNum">     924 </span><span class="lineCov">         65 :     __gc_ = 0;</span>
+<span class="lineNum">     925 </span><span class="lineCov">         65 :     int_type __r = traits_type::eof();</span>
+<span class="lineNum">     926 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     927 </span>            :     try
+<span class="lineNum">     928 </span>            :     {
+<span class="lineNum">     929 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     930 </span><span class="lineCov">         65 :         sentry __s(*this, true);</span>
+<span class="lineNum">     931 </span><span class="lineCov">        130 :         if (__s)</span>
+<span class="lineNum">     932 </span>            :         {
+<span class="lineNum">     933 </span><span class="lineCov">        195 :             __r = this-&gt;rdbuf()-&gt;sbumpc();</span>
+<span class="lineNum">     934 </span><span class="lineCov">         65 :             if (traits_type::eq_int_type(__r, traits_type::eof()))</span>
+<span class="lineNum">     935 </span><span class="lineCov">          2 :                this-&gt;setstate(ios_base::failbit | ios_base::eofbit);</span>
+<span class="lineNum">     936 </span>            :             else
+<span class="lineNum">     937 </span><span class="lineCov">         64 :                 __gc_ = 1;</span>
+<span class="lineNum">     938 </span><span class="lineCov">         65 :         }</span>
+<span class="lineNum">     939 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     940 </span><span class="lineCov">         65 :     }</span>
+<span class="lineNum">     941 </span>            :     catch (...)
+<span class="lineNum">     942 </span>            :     {
+<span class="lineNum">     943 </span><span class="lineNoCov">          0 :         this-&gt;__set_badbit_and_consider_rethrow();</span>
+<span class="lineNum">     944 </span><span class="lineNoCov">          0 :     }</span>
+<span class="lineNum">     945 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     946 </span><span class="lineCov">         65 :     return __r;</span>
+<span class="lineNum">     947 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     948 </span>            : 
+<span class="lineNum">     949 </span>            : template&lt;class _CharT, class _Traits&gt;
+<a name="950"><span class="lineNum">     950 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     951 </span>            : basic_istream&lt;_CharT, _Traits&gt;&amp;
+<span class="lineNum">     952 </span>            : basic_istream&lt;_CharT, _Traits&gt;::get(char_type&amp; __c)
+<span class="lineNum">     953 </span>            : {
+<span class="lineNum">     954 </span><span class="lineCov">          9 :     int_type __ch = get();</span>
+<span class="lineNum">     955 </span><span class="lineCov">          9 :     if (__ch != traits_type::eof())</span>
+<span class="lineNum">     956 </span><span class="lineCov">          9 :         __c = traits_type::to_char_type(__ch);</span>
+<span class="lineNum">     957 </span><span class="lineCov">          9 :     return *this;</span>
+<span class="lineNum">     958 </span>            : }
+<span class="lineNum">     959 </span>            : 
+<a name="960"><span class="lineNum">     960 </span>            : template&lt;class _CharT, class _Traits&gt;</a>
+<span class="lineNum">     961 </span>            : basic_istream&lt;_CharT, _Traits&gt;&amp;
+<span class="lineNum">     962 </span>            : basic_istream&lt;_CharT, _Traits&gt;::get(char_type* __s, streamsize __n, char_type __dlm)
+<span class="lineNum">     963 </span>            : {
+<span class="lineNum">     964 </span><span class="lineCov">         16 :     __gc_ = 0;</span>
+<span class="lineNum">     965 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     966 </span>            :     try
+<span class="lineNum">     967 </span>            :     {
+<span class="lineNum">     968 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     969 </span><span class="lineCov">         16 :         sentry __sen(*this, true);</span>
+<span class="lineNum">     970 </span><span class="lineCov">         32 :         if (__sen)</span>
+<span class="lineNum">     971 </span>            :         {
+<span class="lineNum">     972 </span><span class="lineCov">         16 :             if (__n &gt; 0)</span>
+<span class="lineNum">     973 </span>            :             {
+<span class="lineNum">     974 </span><span class="lineCov">         16 :                 ios_base::iostate __err = ios_base::goodbit;</span>
+<span class="lineNum">     975 </span><span class="lineCov">         88 :                 while (__gc_ &lt; __n-1)</span>
+<span class="lineNum">     976 </span>            :                 {
+<span class="lineNum">     977 </span><span class="lineCov">        120 :                     int_type __i = this-&gt;rdbuf()-&gt;sgetc();</span>
+<span class="lineNum">     978 </span><span class="lineCov">         40 :                     if (traits_type::eq_int_type(__i, traits_type::eof()))</span>
+<span class="lineNum">     979 </span>            :                     {
+<span class="lineNum">     980 </span><span class="lineCov">          4 :                        __err |= ios_base::eofbit;</span>
+<span class="lineNum">     981 </span><span class="lineCov">          4 :                        break;</span>
+<span class="lineNum">     982 </span>            :                     }
+<span class="lineNum">     983 </span><span class="lineCov">         36 :                     char_type __ch = traits_type::to_char_type(__i);</span>
+<span class="lineNum">     984 </span><span class="lineCov">         36 :                     if (traits_type::eq(__ch, __dlm))</span>
+<span class="lineNum">     985 </span><span class="lineCov">          8 :                         break;</span>
+<span class="lineNum">     986 </span><span class="lineCov">         28 :                     *__s++ = __ch;</span>
+<span class="lineNum">     987 </span><span class="lineCov">         28 :                     ++__gc_;</span>
+<span class="lineNum">     988 </span><span class="lineCov">         56 :                      this-&gt;rdbuf()-&gt;sbumpc();</span>
+<span class="lineNum">     989 </span>            :                 }
+<span class="lineNum">     990 </span><span class="lineCov">         16 :                 *__s = char_type();</span>
+<span class="lineNum">     991 </span><span class="lineCov">         16 :                 if (__gc_ == 0)</span>
+<span class="lineNum">     992 </span><span class="lineCov">          4 :                    __err |= ios_base::failbit;</span>
+<span class="lineNum">     993 </span><span class="lineCov">         16 :                 this-&gt;setstate(__err);</span>
+<span class="lineNum">     994 </span><span class="lineCov">         16 :             }</span>
+<span class="lineNum">     995 </span>            :             else
+<span class="lineNum">     996 </span><span class="lineNoCov">          0 :                 this-&gt;setstate(ios_base::failbit);</span>
+<span class="lineNum">     997 </span><span class="lineCov">         16 :         }</span>
+<span class="lineNum">     998 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     999 </span><span class="lineCov">         16 :     }</span>
+<span class="lineNum">    1000 </span>            :     catch (...)
+<span class="lineNum">    1001 </span>            :     {
+<span class="lineNum">    1002 </span><span class="lineNoCov">          0 :         this-&gt;__set_badbit_and_consider_rethrow();</span>
+<span class="lineNum">    1003 </span><span class="lineNoCov">          0 :     }</span>
+<span class="lineNum">    1004 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1005 </span><span class="lineCov">         16 :     return *this;</span>
+<span class="lineNum">    1006 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">    1007 </span>            : 
+<span class="lineNum">    1008 </span>            : template&lt;class _CharT, class _Traits&gt;
+<a name="1009"><span class="lineNum">    1009 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">    1010 </span>            : basic_istream&lt;_CharT, _Traits&gt;&amp;
+<span class="lineNum">    1011 </span>            : basic_istream&lt;_CharT, _Traits&gt;::get(char_type* __s, streamsize __n)
+<span class="lineNum">    1012 </span>            : {
+<span class="lineNum">    1013 </span><span class="lineCov">          8 :     return get(__s, __n, this-&gt;widen('\n'));</span>
+<span class="lineNum">    1014 </span>            : }
+<span class="lineNum">    1015 </span>            : 
+<a name="1016"><span class="lineNum">    1016 </span>            : template&lt;class _CharT, class _Traits&gt;</a>
+<span class="lineNum">    1017 </span>            : basic_istream&lt;_CharT, _Traits&gt;&amp;
+<span class="lineNum">    1018 </span>            : basic_istream&lt;_CharT, _Traits&gt;::get(basic_streambuf&lt;char_type, traits_type&gt;&amp; __sb,
+<span class="lineNum">    1019 </span>            :                                     char_type __dlm)
+<span class="lineNum">    1020 </span>            : {
+<span class="lineNum">    1021 </span><span class="lineCov">          8 :     __gc_ = 0;</span>
+<span class="lineNum">    1022 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1023 </span>            :     try
+<span class="lineNum">    1024 </span>            :     {
+<span class="lineNum">    1025 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1026 </span><span class="lineCov">          8 :         sentry __sen(*this, true);</span>
+<span class="lineNum">    1027 </span><span class="lineCov">         16 :         if (__sen)</span>
+<span class="lineNum">    1028 </span>            :         {
+<span class="lineNum">    1029 </span><span class="lineCov">          8 :             ios_base::iostate __err = ios_base::goodbit;</span>
+<span class="lineNum">    1030 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1031 </span>            :             try
+<span class="lineNum">    1032 </span>            :             {
+<span class="lineNum">    1033 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1034 </span><span class="lineCov">         96 :                 while (true)</span>
+<span class="lineNum">    1035 </span>            :                 {
+<span class="lineNum">    1036 </span><span class="lineCov">        144 :                     typename traits_type::int_type __i = this-&gt;rdbuf()-&gt;sgetc();</span>
+<span class="lineNum">    1037 </span><span class="lineCov">         48 :                     if (traits_type::eq_int_type(__i, traits_type::eof()))</span>
+<span class="lineNum">    1038 </span>            :                     {
+<span class="lineNum">    1039 </span><span class="lineCov">          4 :                        __err |= ios_base::eofbit;</span>
+<span class="lineNum">    1040 </span><span class="lineCov">          4 :                        break;</span>
+<span class="lineNum">    1041 </span>            :                     }
+<span class="lineNum">    1042 </span><span class="lineCov">         44 :                     char_type __ch = traits_type::to_char_type(__i);</span>
+<span class="lineNum">    1043 </span><span class="lineCov">         44 :                     if (traits_type::eq(__ch, __dlm))</span>
+<span class="lineNum">    1044 </span><span class="lineCov">          4 :                         break;</span>
+<span class="lineNum">    1045 </span><span class="lineCov">         80 :                     if (traits_type::eq_int_type(__sb.sputc(__ch), traits_type::eof()))</span>
+<span class="lineNum">    1046 </span><span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">    1047 </span><span class="lineCov">         40 :                     ++__gc_;</span>
+<span class="lineNum">    1048 </span><span class="lineCov">         80 :                     this-&gt;rdbuf()-&gt;sbumpc();</span>
+<span class="lineNum">    1049 </span>            :                 }
+<span class="lineNum">    1050 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1051 </span><span class="lineCov">          8 :             }</span>
+<span class="lineNum">    1052 </span>            :             catch (...)
+<span class="lineNum">    1053 </span>            :             {
+<span class="lineNum">    1054 </span><span class="lineNoCov">          0 :             }</span>
+<span class="lineNum">    1055 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1056 </span><span class="lineCov">          8 :             if (__gc_ == 0)</span>
+<span class="lineNum">    1057 </span><span class="lineNoCov">          0 :                __err |= ios_base::failbit;</span>
+<span class="lineNum">    1058 </span><span class="lineCov">          8 :             this-&gt;setstate(__err);</span>
+<span class="lineNum">    1059 </span><span class="lineCov">          8 :         }</span>
+<span class="lineNum">    1060 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1061 </span><span class="lineCov">          8 :     }</span>
+<span class="lineNum">    1062 </span>            :     catch (...)
+<span class="lineNum">    1063 </span>            :     {
+<span class="lineNum">    1064 </span><span class="lineNoCov">          0 :         this-&gt;__set_badbit_and_consider_rethrow();</span>
+<span class="lineNum">    1065 </span><span class="lineNoCov">          0 :     }</span>
+<span class="lineNum">    1066 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1067 </span><span class="lineCov">          8 :     return *this;</span>
+<span class="lineNum">    1068 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">    1069 </span>            : 
+<span class="lineNum">    1070 </span>            : template&lt;class _CharT, class _Traits&gt;
+<a name="1071"><span class="lineNum">    1071 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">    1072 </span>            : basic_istream&lt;_CharT, _Traits&gt;&amp;
+<span class="lineNum">    1073 </span>            : basic_istream&lt;_CharT, _Traits&gt;::get(basic_streambuf&lt;char_type, traits_type&gt;&amp; __sb)
+<span class="lineNum">    1074 </span>            : {
+<span class="lineNum">    1075 </span><span class="lineCov">          4 :     return get(__sb, this-&gt;widen('\n'));</span>
+<span class="lineNum">    1076 </span>            : }
+<span class="lineNum">    1077 </span>            : 
+<a name="1078"><span class="lineNum">    1078 </span>            : template&lt;class _CharT, class _Traits&gt;</a>
+<span class="lineNum">    1079 </span>            : basic_istream&lt;_CharT, _Traits&gt;&amp;
+<span class="lineNum">    1080 </span>            : basic_istream&lt;_CharT, _Traits&gt;::getline(char_type* __s, streamsize __n, char_type __dlm)
+<span class="lineNum">    1081 </span>            : {
+<span class="lineNum">    1082 </span><span class="lineCov">         12 :     __gc_ = 0;</span>
+<span class="lineNum">    1083 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1084 </span>            :     try
+<span class="lineNum">    1085 </span>            :     {
+<span class="lineNum">    1086 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1087 </span><span class="lineCov">         12 :         sentry __sen(*this, true);</span>
+<span class="lineNum">    1088 </span><span class="lineCov">         24 :         if (__sen)</span>
+<span class="lineNum">    1089 </span>            :         {
+<span class="lineNum">    1090 </span><span class="lineCov">         12 :             ios_base::iostate __err = ios_base::goodbit;</span>
+<span class="lineNum">    1091 </span><span class="lineCov">         80 :             while (true)</span>
+<span class="lineNum">    1092 </span>            :             {
+<span class="lineNum">    1093 </span><span class="lineCov">        120 :                 typename traits_type::int_type __i = this-&gt;rdbuf()-&gt;sgetc();</span>
+<span class="lineNum">    1094 </span><span class="lineCov">         40 :                 if (traits_type::eq_int_type(__i, traits_type::eof()))</span>
+<span class="lineNum">    1095 </span>            :                 {
+<span class="lineNum">    1096 </span><span class="lineCov">          4 :                    __err |= ios_base::eofbit;</span>
+<span class="lineNum">    1097 </span><span class="lineCov">          4 :                    break;</span>
+<span class="lineNum">    1098 </span>            :                 }
+<span class="lineNum">    1099 </span><span class="lineCov">         36 :                 char_type __ch = traits_type::to_char_type(__i);</span>
+<span class="lineNum">    1100 </span><span class="lineCov">         36 :                 if (traits_type::eq(__ch, __dlm))</span>
+<span class="lineNum">    1101 </span>            :                 {
+<span class="lineNum">    1102 </span><span class="lineCov">         16 :                     this-&gt;rdbuf()-&gt;sbumpc();</span>
+<span class="lineNum">    1103 </span><span class="lineCov">          8 :                     ++__gc_;</span>
+<span class="lineNum">    1104 </span><span class="lineCov">          8 :                     break;</span>
+<span class="lineNum">    1105 </span>            :                 }
+<span class="lineNum">    1106 </span><span class="lineCov">         28 :                 if (__gc_ &gt;= __n-1)</span>
+<span class="lineNum">    1107 </span>            :                 {
+<span class="lineNum">    1108 </span><span class="lineNoCov">          0 :                     __err |= ios_base::failbit;</span>
+<span class="lineNum">    1109 </span><span class="lineNoCov">          0 :                     break;</span>
+<span class="lineNum">    1110 </span>            :                 }
+<span class="lineNum">    1111 </span><span class="lineCov">         28 :                 *__s++ = __ch;</span>
+<span class="lineNum">    1112 </span><span class="lineCov">         56 :                 this-&gt;rdbuf()-&gt;sbumpc();</span>
+<span class="lineNum">    1113 </span><span class="lineCov">         28 :                 ++__gc_;</span>
+<span class="lineNum">    1114 </span>            :             }
+<span class="lineNum">    1115 </span><span class="lineCov">         12 :             if (__n &gt; 0)</span>
+<span class="lineNum">    1116 </span><span class="lineCov">         12 :                 *__s = char_type();</span>
+<span class="lineNum">    1117 </span><span class="lineCov">         12 :             if (__gc_ == 0)</span>
+<span class="lineNum">    1118 </span><span class="lineNoCov">          0 :                __err |= ios_base::failbit;</span>
+<span class="lineNum">    1119 </span><span class="lineCov">         12 :             this-&gt;setstate(__err);</span>
+<span class="lineNum">    1120 </span><span class="lineCov">         12 :         }</span>
+<span class="lineNum">    1121 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1122 </span><span class="lineCov">         12 :     }</span>
+<span class="lineNum">    1123 </span>            :     catch (...)
+<span class="lineNum">    1124 </span>            :     {
+<span class="lineNum">    1125 </span><span class="lineNoCov">          0 :         this-&gt;__set_badbit_and_consider_rethrow();</span>
+<span class="lineNum">    1126 </span><span class="lineNoCov">          0 :     }</span>
+<span class="lineNum">    1127 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1128 </span><span class="lineCov">         12 :     return *this;</span>
+<span class="lineNum">    1129 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">    1130 </span>            : 
+<span class="lineNum">    1131 </span>            : template&lt;class _CharT, class _Traits&gt;
+<a name="1132"><span class="lineNum">    1132 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">    1133 </span>            : basic_istream&lt;_CharT, _Traits&gt;&amp;
+<span class="lineNum">    1134 </span>            : basic_istream&lt;_CharT, _Traits&gt;::getline(char_type* __s, streamsize __n)
+<span class="lineNum">    1135 </span>            : {
+<span class="lineNum">    1136 </span><span class="lineCov">          6 :     return getline(__s, __n, this-&gt;widen('\n'));</span>
+<span class="lineNum">    1137 </span>            : }
+<span class="lineNum">    1138 </span>            : 
+<a name="1139"><span class="lineNum">    1139 </span>            : template&lt;class _CharT, class _Traits&gt;</a>
+<span class="lineNum">    1140 </span>            : basic_istream&lt;_CharT, _Traits&gt;&amp;
+<span class="lineNum">    1141 </span>            : basic_istream&lt;_CharT, _Traits&gt;::ignore(streamsize __n, int_type __dlm)
+<span class="lineNum">    1142 </span>            : {
+<span class="lineNum">    1143 </span><span class="lineCov">          7 :     __gc_ = 0;</span>
+<span class="lineNum">    1144 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1145 </span>            :     try
+<span class="lineNum">    1146 </span>            :     {
+<span class="lineNum">    1147 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1148 </span><span class="lineCov">          7 :         sentry __sen(*this, true);</span>
+<span class="lineNum">    1149 </span><span class="lineCov">         14 :         if (__sen)</span>
+<span class="lineNum">    1150 </span>            :         {
+<span class="lineNum">    1151 </span><span class="lineCov">          7 :             ios_base::iostate __err = ios_base::goodbit;</span>
+<span class="lineNum">    1152 </span><span class="lineCov">          7 :             if (__n == numeric_limits&lt;streamsize&gt;::max())</span>
+<span class="lineNum">    1153 </span>            :             {
+<span class="lineNum">    1154 </span><span class="lineNoCov">          0 :                 while (true)</span>
+<span class="lineNum">    1155 </span>            :                 {
+<span class="lineNum">    1156 </span><span class="lineNoCov">          0 :                     typename traits_type::int_type __i = this-&gt;rdbuf()-&gt;sbumpc();</span>
+<span class="lineNum">    1157 </span><span class="lineNoCov">          0 :                     if (traits_type::eq_int_type(__i, traits_type::eof()))</span>
+<span class="lineNum">    1158 </span>            :                     {
+<span class="lineNum">    1159 </span><span class="lineNoCov">          0 :                        __err |= ios_base::eofbit;</span>
+<span class="lineNum">    1160 </span><span class="lineNoCov">          0 :                        break;</span>
+<span class="lineNum">    1161 </span>            :                     }
+<span class="lineNum">    1162 </span><span class="lineNoCov">          0 :                     ++__gc_;</span>
+<span class="lineNum">    1163 </span><span class="lineNoCov">          0 :                     if (traits_type::eq_int_type(__i, __dlm))</span>
+<span class="lineNum">    1164 </span><span class="lineNoCov">          0 :                         break;</span>
+<span class="lineNum">    1165 </span>            :                 }
+<span class="lineNum">    1166 </span><span class="lineNoCov">          0 :             }</span>
+<span class="lineNum">    1167 </span>            :             else
+<span class="lineNum">    1168 </span>            :             {
+<span class="lineNum">    1169 </span><span class="lineCov">         66 :                 while (__gc_ &lt; __n)</span>
+<span class="lineNum">    1170 </span>            :                 {
+<span class="lineNum">    1171 </span><span class="lineCov">         90 :                     typename traits_type::int_type __i = this-&gt;rdbuf()-&gt;sbumpc();</span>
+<span class="lineNum">    1172 </span><span class="lineCov">         30 :                     if (traits_type::eq_int_type(__i, traits_type::eof()))</span>
+<span class="lineNum">    1173 </span>            :                     {
+<span class="lineNum">    1174 </span><span class="lineCov">          2 :                        __err |= ios_base::eofbit;</span>
+<span class="lineNum">    1175 </span><span class="lineCov">          2 :                        break;</span>
+<span class="lineNum">    1176 </span>            :                     }
+<span class="lineNum">    1177 </span><span class="lineCov">         28 :                     ++__gc_;</span>
+<span class="lineNum">    1178 </span><span class="lineCov">         28 :                     if (traits_type::eq_int_type(__i, __dlm))</span>
+<span class="lineNum">    1179 </span><span class="lineCov">          2 :                         break;</span>
+<span class="lineNum">    1180 </span>            :                 }
+<span class="lineNum">    1181 </span>            :             }
+<span class="lineNum">    1182 </span><span class="lineCov">          7 :             this-&gt;setstate(__err);</span>
+<span class="lineNum">    1183 </span><span class="lineCov">          7 :         }</span>
+<span class="lineNum">    1184 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1185 </span><span class="lineCov">          7 :     }</span>
+<span class="lineNum">    1186 </span>            :     catch (...)
+<span class="lineNum">    1187 </span>            :     {
+<span class="lineNum">    1188 </span><span class="lineNoCov">          0 :         this-&gt;__set_badbit_and_consider_rethrow();</span>
+<span class="lineNum">    1189 </span><span class="lineNoCov">          0 :     }</span>
+<span class="lineNum">    1190 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1191 </span><span class="lineCov">          7 :     return *this;</span>
+<span class="lineNum">    1192 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">    1193 </span>            : 
+<a name="1194"><span class="lineNum">    1194 </span>            : template&lt;class _CharT, class _Traits&gt;</a>
+<span class="lineNum">    1195 </span>            : typename basic_istream&lt;_CharT, _Traits&gt;::int_type
+<span class="lineNum">    1196 </span>            : basic_istream&lt;_CharT, _Traits&gt;::peek()
+<span class="lineNum">    1197 </span>            : {
+<span class="lineNum">    1198 </span><span class="lineCov">         37 :     __gc_ = 0;</span>
+<span class="lineNum">    1199 </span><span class="lineCov">         37 :     int_type __r = traits_type::eof();</span>
+<span class="lineNum">    1200 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1201 </span>            :     try
+<span class="lineNum">    1202 </span>            :     {
+<span class="lineNum">    1203 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1204 </span><span class="lineCov">         37 :         sentry __sen(*this, true);</span>
+<span class="lineNum">    1205 </span><span class="lineCov">         74 :         if (__sen)</span>
+<span class="lineNum">    1206 </span>            :         {
+<span class="lineNum">    1207 </span><span class="lineCov">        108 :             __r = this-&gt;rdbuf()-&gt;sgetc();</span>
+<span class="lineNum">    1208 </span><span class="lineCov">         36 :             if (traits_type::eq_int_type(__r, traits_type::eof()))</span>
+<span class="lineNum">    1209 </span><span class="lineNoCov">          0 :                 this-&gt;setstate(ios_base::eofbit);</span>
+<span class="lineNum">    1210 </span><span class="lineCov">         36 :         }</span>
+<span class="lineNum">    1211 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1212 </span><span class="lineCov">         37 :     }</span>
+<span class="lineNum">    1213 </span>            :     catch (...)
+<span class="lineNum">    1214 </span>            :     {
+<span class="lineNum">    1215 </span><span class="lineNoCov">          0 :         this-&gt;__set_badbit_and_consider_rethrow();</span>
+<span class="lineNum">    1216 </span><span class="lineNoCov">          0 :     }</span>
+<span class="lineNum">    1217 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1218 </span><span class="lineCov">         37 :     return __r;</span>
+<span class="lineNum">    1219 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">    1220 </span>            : 
+<a name="1221"><span class="lineNum">    1221 </span>            : template&lt;class _CharT, class _Traits&gt;</a>
+<span class="lineNum">    1222 </span>            : basic_istream&lt;_CharT, _Traits&gt;&amp;
+<span class="lineNum">    1223 </span>            : basic_istream&lt;_CharT, _Traits&gt;::read(char_type* __s, streamsize __n)
+<span class="lineNum">    1224 </span>            : {
+<span class="lineNum">    1225 </span><span class="lineCov">         12 :     __gc_ = 0;</span>
+<span class="lineNum">    1226 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1227 </span>            :     try
+<span class="lineNum">    1228 </span>            :     {
+<span class="lineNum">    1229 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1230 </span><span class="lineCov">         12 :         sentry __sen(*this, true);</span>
+<span class="lineNum">    1231 </span><span class="lineCov">         24 :         if (__sen)</span>
+<span class="lineNum">    1232 </span>            :         {
+<span class="lineNum">    1233 </span><span class="lineCov">         36 :             __gc_ = this-&gt;rdbuf()-&gt;sgetn(__s, __n);</span>
+<span class="lineNum">    1234 </span><span class="lineCov">         12 :             if (__gc_ != __n)</span>
+<span class="lineNum">    1235 </span><span class="lineCov">          4 :                 this-&gt;setstate(ios_base::failbit | ios_base::eofbit);</span>
+<span class="lineNum">    1236 </span><span class="lineCov">         12 :         }</span>
+<span class="lineNum">    1237 </span>            :         else
+<span class="lineNum">    1238 </span><span class="lineNoCov">          0 :             this-&gt;setstate(ios_base::failbit);</span>
+<span class="lineNum">    1239 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1240 </span><span class="lineCov">         12 :     }</span>
+<span class="lineNum">    1241 </span>            :     catch (...)
+<span class="lineNum">    1242 </span>            :     {
+<span class="lineNum">    1243 </span><span class="lineNoCov">          0 :         this-&gt;__set_badbit_and_consider_rethrow();</span>
+<span class="lineNum">    1244 </span><span class="lineNoCov">          0 :     }</span>
+<span class="lineNum">    1245 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1246 </span><span class="lineCov">         12 :     return *this;</span>
+<span class="lineNum">    1247 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">    1248 </span>            : 
+<a name="1249"><span class="lineNum">    1249 </span>            : template&lt;class _CharT, class _Traits&gt;</a>
+<span class="lineNum">    1250 </span>            : streamsize
+<span class="lineNum">    1251 </span>            : basic_istream&lt;_CharT, _Traits&gt;::readsome(char_type* __s, streamsize __n)
+<span class="lineNum">    1252 </span>            : {
+<span class="lineNum">    1253 </span><span class="lineCov">          8 :     __gc_ = 0;</span>
+<span class="lineNum">    1254 </span><span class="lineCov">          8 :     streamsize __c = this-&gt;rdbuf()-&gt;in_avail();</span>
+<span class="lineNum">    1255 </span><span class="lineCov">          8 :     switch (__c)</span>
+<span class="lineNum">    1256 </span>            :     {
+<span class="lineNum">    1257 </span>            :     case -1:
+<span class="lineNum">    1258 </span><span class="lineNoCov">          0 :         this-&gt;setstate(ios_base::eofbit);</span>
+<span class="lineNum">    1259 </span><span class="lineNoCov">          0 :         break;</span>
+<span class="lineNum">    1260 </span>            :     case 0:
+<span class="lineNum">    1261 </span><span class="lineCov">          2 :         break;</span>
+<span class="lineNum">    1262 </span>            :     default:
+<span class="lineNum">    1263 </span><span class="lineCov">          6 :         read(__s, _VSTD::min(__c, __n));</span>
+<span class="lineNum">    1264 </span><span class="lineCov">          6 :         break;</span>
+<span class="lineNum">    1265 </span>            :     }
+<span class="lineNum">    1266 </span><span class="lineCov">          8 :     return __gc_;</span>
+<span class="lineNum">    1267 </span>            : }
+<span class="lineNum">    1268 </span>            : 
+<a name="1269"><span class="lineNum">    1269 </span>            : template&lt;class _CharT, class _Traits&gt;</a>
+<span class="lineNum">    1270 </span>            : basic_istream&lt;_CharT, _Traits&gt;&amp;
+<span class="lineNum">    1271 </span>            : basic_istream&lt;_CharT, _Traits&gt;::putback(char_type __c)
+<span class="lineNum">    1272 </span>            : {
+<span class="lineNum">    1273 </span><span class="lineCov">         18 :     __gc_ = 0;</span>
+<span class="lineNum">    1274 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1275 </span>            :     try
+<span class="lineNum">    1276 </span>            :     {
+<span class="lineNum">    1277 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1278 </span><span class="lineCov">         36 :         this-&gt;clear(this-&gt;rdstate() &amp; ~ios_base::eofbit);</span>
+<span class="lineNum">    1279 </span><span class="lineCov">         18 :         sentry __sen(*this, true);</span>
+<span class="lineNum">    1280 </span><span class="lineCov">         36 :         if (__sen)</span>
+<span class="lineNum">    1281 </span>            :         {
+<span class="lineNum">    1282 </span><span class="lineCov">         90 :             if (this-&gt;rdbuf() == 0 || this-&gt;rdbuf()-&gt;sputbackc(__c) == traits_type::eof())</span>
+<span class="lineNum">    1283 </span><span class="lineCov">         12 :                 this-&gt;setstate(ios_base::badbit);</span>
+<span class="lineNum">    1284 </span><span class="lineCov">         18 :         }</span>
+<span class="lineNum">    1285 </span>            :         else
+<span class="lineNum">    1286 </span><span class="lineNoCov">          0 :             this-&gt;setstate(ios_base::failbit);</span>
+<span class="lineNum">    1287 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1288 </span><span class="lineCov">         18 :     }</span>
+<span class="lineNum">    1289 </span>            :     catch (...)
+<span class="lineNum">    1290 </span>            :     {
+<span class="lineNum">    1291 </span><span class="lineNoCov">          0 :         this-&gt;__set_badbit_and_consider_rethrow();</span>
+<span class="lineNum">    1292 </span><span class="lineNoCov">          0 :     }</span>
+<span class="lineNum">    1293 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1294 </span><span class="lineCov">         18 :     return *this;</span>
+<span class="lineNum">    1295 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">    1296 </span>            : 
+<a name="1297"><span class="lineNum">    1297 </span>            : template&lt;class _CharT, class _Traits&gt;</a>
+<span class="lineNum">    1298 </span>            : basic_istream&lt;_CharT, _Traits&gt;&amp;
+<span class="lineNum">    1299 </span>            : basic_istream&lt;_CharT, _Traits&gt;::unget()
+<span class="lineNum">    1300 </span>            : {
+<span class="lineNum">    1301 </span><span class="lineCov">         16 :     __gc_ = 0;</span>
+<span class="lineNum">    1302 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1303 </span>            :     try
+<span class="lineNum">    1304 </span>            :     {
+<span class="lineNum">    1305 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1306 </span><span class="lineCov">         32 :         this-&gt;clear(this-&gt;rdstate() &amp; ~ios_base::eofbit);</span>
+<span class="lineNum">    1307 </span><span class="lineCov">         16 :         sentry __sen(*this, true);</span>
+<span class="lineNum">    1308 </span><span class="lineCov">         32 :         if (__sen)</span>
+<span class="lineNum">    1309 </span>            :         {
+<span class="lineNum">    1310 </span><span class="lineCov">         80 :             if (this-&gt;rdbuf() == 0 || this-&gt;rdbuf()-&gt;sungetc() == traits_type::eof())</span>
+<span class="lineNum">    1311 </span><span class="lineCov">          4 :                 this-&gt;setstate(ios_base::badbit);</span>
+<span class="lineNum">    1312 </span><span class="lineCov">         16 :         }</span>
+<span class="lineNum">    1313 </span>            :         else
+<span class="lineNum">    1314 </span><span class="lineNoCov">          0 :             this-&gt;setstate(ios_base::failbit);</span>
+<span class="lineNum">    1315 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1316 </span><span class="lineCov">         16 :     }</span>
+<span class="lineNum">    1317 </span>            :     catch (...)
+<span class="lineNum">    1318 </span>            :     {
+<span class="lineNum">    1319 </span><span class="lineNoCov">          0 :         this-&gt;__set_badbit_and_consider_rethrow();</span>
+<span class="lineNum">    1320 </span><span class="lineNoCov">          0 :     }</span>
+<span class="lineNum">    1321 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1322 </span><span class="lineCov">         16 :     return *this;</span>
+<span class="lineNum">    1323 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">    1324 </span>            : 
+<a name="1325"><span class="lineNum">    1325 </span>            : template&lt;class _CharT, class _Traits&gt;</a>
+<span class="lineNum">    1326 </span>            : int
+<span class="lineNum">    1327 </span>            : basic_istream&lt;_CharT, _Traits&gt;::sync()
+<span class="lineNum">    1328 </span>            : {
+<span class="lineNum">    1329 </span><span class="lineCov">          2 :     int __r = 0;</span>
+<span class="lineNum">    1330 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1331 </span>            :     try
+<span class="lineNum">    1332 </span>            :     {
+<span class="lineNum">    1333 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1334 </span><span class="lineCov">          2 :         sentry __sen(*this, true);</span>
+<span class="lineNum">    1335 </span><span class="lineCov">          4 :         if (__sen)</span>
+<span class="lineNum">    1336 </span>            :         {
+<span class="lineNum">    1337 </span><span class="lineCov">          4 :             if (this-&gt;rdbuf() == 0)</span>
+<span class="lineNum">    1338 </span><span class="lineNoCov">          0 :                 return -1;</span>
+<span class="lineNum">    1339 </span><span class="lineCov">          6 :             if (this-&gt;rdbuf()-&gt;pubsync() == -1)</span>
+<span class="lineNum">    1340 </span>            :             {
+<span class="lineNum">    1341 </span><span class="lineNoCov">          0 :                 this-&gt;setstate(ios_base::badbit);</span>
+<span class="lineNum">    1342 </span><span class="lineNoCov">          0 :                 return -1;</span>
+<span class="lineNum">    1343 </span>            :             }
+<span class="lineNum">    1344 </span><span class="lineCov">          2 :         }</span>
+<span class="lineNum">    1345 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1346 </span><span class="lineCov">          2 :     }</span>
+<span class="lineNum">    1347 </span>            :     catch (...)
+<span class="lineNum">    1348 </span>            :     {
+<span class="lineNum">    1349 </span><span class="lineNoCov">          0 :         this-&gt;__set_badbit_and_consider_rethrow();</span>
+<span class="lineNum">    1350 </span><span class="lineNoCov">          0 :     }</span>
+<span class="lineNum">    1351 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1352 </span><span class="lineCov">          2 :     return __r;</span>
+<span class="lineNum">    1353 </span><span class="lineCov">          2 : }</span>
+<span class="lineNum">    1354 </span>            : 
+<a name="1355"><span class="lineNum">    1355 </span>            : template&lt;class _CharT, class _Traits&gt;</a>
+<span class="lineNum">    1356 </span>            : typename basic_istream&lt;_CharT, _Traits&gt;::pos_type
+<span class="lineNum">    1357 </span>            : basic_istream&lt;_CharT, _Traits&gt;::tellg()
+<span class="lineNum">    1358 </span>            : {
+<span class="lineNum">    1359 </span><span class="lineCov">          4 :     pos_type __r(-1);</span>
+<span class="lineNum">    1360 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1361 </span>            :     try
+<span class="lineNum">    1362 </span>            :     {
+<span class="lineNum">    1363 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1364 </span><span class="lineCov">          4 :         sentry __sen(*this, true);</span>
+<span class="lineNum">    1365 </span><span class="lineCov">          8 :         if (__sen)</span>
+<span class="lineNum">    1366 </span><span class="lineCov">         12 :             __r = this-&gt;rdbuf()-&gt;pubseekoff(0, ios_base::cur, ios_base::in);</span>
+<span class="lineNum">    1367 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1368 </span><span class="lineCov">          4 :     }</span>
+<span class="lineNum">    1369 </span>            :     catch (...)
+<span class="lineNum">    1370 </span>            :     {
+<span class="lineNum">    1371 </span><span class="lineNoCov">          0 :         this-&gt;__set_badbit_and_consider_rethrow();</span>
+<span class="lineNum">    1372 </span><span class="lineNoCov">          0 :     }</span>
+<span class="lineNum">    1373 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1374 </span><span class="lineCov">          4 :     return __r;</span>
+<span class="lineNum">    1375 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">    1376 </span>            : 
+<a name="1377"><span class="lineNum">    1377 </span>            : template&lt;class _CharT, class _Traits&gt;</a>
+<span class="lineNum">    1378 </span>            : basic_istream&lt;_CharT, _Traits&gt;&amp;
+<span class="lineNum">    1379 </span>            : basic_istream&lt;_CharT, _Traits&gt;::seekg(pos_type __pos)
+<span class="lineNum">    1380 </span>            : {
+<span class="lineNum">    1381 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1382 </span>            :     try
+<span class="lineNum">    1383 </span>            :     {
+<span class="lineNum">    1384 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1385 </span><span class="lineCov">         48 :         this-&gt;clear(this-&gt;rdstate() &amp; ~ios_base::eofbit);</span>
+<span class="lineNum">    1386 </span><span class="lineCov">         24 :         sentry __sen(*this, true);</span>
+<span class="lineNum">    1387 </span><span class="lineCov">         48 :         if (__sen)</span>
+<span class="lineNum">    1388 </span>            :         {
+<span class="lineNum">    1389 </span><span class="lineCov">        120 :             if (this-&gt;rdbuf()-&gt;pubseekpos(__pos, ios_base::in) == pos_type(-1))</span>
+<span class="lineNum">    1390 </span><span class="lineCov">          4 :                 this-&gt;setstate(ios_base::failbit);</span>
+<span class="lineNum">    1391 </span><span class="lineCov">         24 :         }</span>
+<span class="lineNum">    1392 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1393 </span><span class="lineCov">         24 :     }</span>
+<span class="lineNum">    1394 </span>            :     catch (...)
+<span class="lineNum">    1395 </span>            :     {
+<span class="lineNum">    1396 </span><span class="lineNoCov">          0 :         this-&gt;__set_badbit_and_consider_rethrow();</span>
+<span class="lineNum">    1397 </span><span class="lineNoCov">          0 :     }</span>
+<span class="lineNum">    1398 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1399 </span><span class="lineCov">         24 :     return *this;</span>
+<span class="lineNum">    1400 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">    1401 </span>            : 
+<a name="1402"><span class="lineNum">    1402 </span>            : template&lt;class _CharT, class _Traits&gt;</a>
+<span class="lineNum">    1403 </span>            : basic_istream&lt;_CharT, _Traits&gt;&amp;
+<span class="lineNum">    1404 </span>            : basic_istream&lt;_CharT, _Traits&gt;::seekg(off_type __off, ios_base::seekdir __dir)
+<span class="lineNum">    1405 </span>            : {
+<span class="lineNum">    1406 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1407 </span>            :     try
+<span class="lineNum">    1408 </span>            :     {
+<span class="lineNum">    1409 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1410 </span><span class="lineCov">          6 :         sentry __sen(*this, true);</span>
+<span class="lineNum">    1411 </span><span class="lineCov">         12 :         if (__sen)</span>
+<span class="lineNum">    1412 </span>            :         {
+<span class="lineNum">    1413 </span><span class="lineCov">         30 :             if (this-&gt;rdbuf()-&gt;pubseekoff(__off, __dir, ios_base::in) == pos_type(-1))</span>
+<span class="lineNum">    1414 </span><span class="lineCov">          4 :                 this-&gt;setstate(ios_base::failbit);</span>
+<span class="lineNum">    1415 </span><span class="lineCov">          6 :         }</span>
+<span class="lineNum">    1416 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1417 </span><span class="lineCov">          6 :     }</span>
+<span class="lineNum">    1418 </span>            :     catch (...)
+<span class="lineNum">    1419 </span>            :     {
+<span class="lineNum">    1420 </span><span class="lineNoCov">          0 :         this-&gt;__set_badbit_and_consider_rethrow();</span>
+<span class="lineNum">    1421 </span><span class="lineNoCov">          0 :     }</span>
+<span class="lineNum">    1422 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1423 </span><span class="lineCov">          6 :     return *this;</span>
+<span class="lineNum">    1424 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">    1425 </span>            : 
+<a name="1426"><span class="lineNum">    1426 </span>            : template &lt;class _CharT, class _Traits&gt;</a>
+<span class="lineNum">    1427 </span>            : basic_istream&lt;_CharT, _Traits&gt;&amp;
+<span class="lineNum">    1428 </span>            : ws(basic_istream&lt;_CharT, _Traits&gt;&amp; __is)
+<span class="lineNum">    1429 </span>            : {
+<span class="lineNum">    1430 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1431 </span>            :     try
+<span class="lineNum">    1432 </span>            :     {
+<span class="lineNum">    1433 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1434 </span><span class="lineCov">         24 :         typename basic_istream&lt;_CharT, _Traits&gt;::sentry __sen(__is, true);</span>
+<span class="lineNum">    1435 </span><span class="lineCov">         48 :         if (__sen)</span>
+<span class="lineNum">    1436 </span>            :         {
+<span class="lineNum">    1437 </span><span class="lineCov">         66 :             const ctype&lt;_CharT&gt;&amp; __ct = use_facet&lt;ctype&lt;_CharT&gt; &gt;(__is.getloc());</span>
+<span class="lineNum">    1438 </span><span class="lineCov">         84 :             while (true)</span>
+<span class="lineNum">    1439 </span>            :             {
+<span class="lineNum">    1440 </span><span class="lineCov">        126 :                 typename _Traits::int_type __i = __is.rdbuf()-&gt;sgetc();</span>
+<span class="lineNum">    1441 </span><span class="lineCov">         42 :                 if (_Traits::eq_int_type(__i, _Traits::eof()))</span>
+<span class="lineNum">    1442 </span>            :                 {
+<span class="lineNum">    1443 </span><span class="lineCov">          3 :                    __is.setstate(ios_base::eofbit);</span>
+<span class="lineNum">    1444 </span><span class="lineCov">          3 :                    break;</span>
+<span class="lineNum">    1445 </span>            :                 }
+<span class="lineNum">    1446 </span><span class="lineCov">         78 :                 if (!__ct.is(__ct.space, _Traits::to_char_type(__i)))</span>
+<span class="lineNum">    1447 </span><span class="lineCov">         19 :                     break;</span>
+<span class="lineNum">    1448 </span><span class="lineCov">         40 :                 __is.rdbuf()-&gt;sbumpc();</span>
+<span class="lineNum">    1449 </span>            :             }
+<span class="lineNum">    1450 </span><span class="lineCov">         22 :         }</span>
+<span class="lineNum">    1451 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1452 </span><span class="lineCov">         24 :     }</span>
+<span class="lineNum">    1453 </span>            :     catch (...)
+<span class="lineNum">    1454 </span>            :     {
+<span class="lineNum">    1455 </span><span class="lineNoCov">          0 :         __is.__set_badbit_and_consider_rethrow();</span>
+<span class="lineNum">    1456 </span><span class="lineNoCov">          0 :     }</span>
+<span class="lineNum">    1457 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1458 </span><span class="lineCov">         24 :     return __is;</span>
+<span class="lineNum">    1459 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">    1460 </span>            : 
+<span class="lineNum">    1461 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">    1462 </span>            : 
+<span class="lineNum">    1463 </span>            : template &lt;class _CharT, class _Traits, class _Tp&gt;
+<span class="lineNum">    1464 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1465 </span>            : basic_istream&lt;_CharT, _Traits&gt;&amp;
+<span class="lineNum">    1466 </span>            : operator&gt;&gt;(basic_istream&lt;_CharT, _Traits&gt;&amp;&amp; __is, _Tp&amp; __x)
+<span class="lineNum">    1467 </span>            : {
+<span class="lineNum">    1468 </span>            :     __is &gt;&gt; __x;
+<span class="lineNum">    1469 </span>            :     return __is;
+<span class="lineNum">    1470 </span>            : }
+<span class="lineNum">    1471 </span>            : 
+<span class="lineNum">    1472 </span>            : #endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">    1473 </span>            : 
+<span class="lineNum">    1474 </span>            : template &lt;class _CharT, class _Traits&gt;
+<span class="lineNum">    1475 </span>            : class _LIBCPP_TYPE_VIS_ONLY basic_iostream
+<span class="lineNum">    1476 </span>            :     : public basic_istream&lt;_CharT, _Traits&gt;,
+<span class="lineNum">    1477 </span>            :       public basic_ostream&lt;_CharT, _Traits&gt;
+<span class="lineNum">    1478 </span>            : {
+<span class="lineNum">    1479 </span>            : public:
+<span class="lineNum">    1480 </span>            :     // types:
+<span class="lineNum">    1481 </span>            :     typedef _CharT                         char_type;
+<span class="lineNum">    1482 </span>            :     typedef _Traits                        traits_type;
+<span class="lineNum">    1483 </span>            :     typedef typename traits_type::int_type int_type;
+<span class="lineNum">    1484 </span>            :     typedef typename traits_type::pos_type pos_type;
+<span class="lineNum">    1485 </span>            :     typedef typename traits_type::off_type off_type;
+<a name="1486"><span class="lineNum">    1486 </span>            : </a>
+<a name="1487"><span class="lineNum">    1487 </span>            :     // constructor/destructor</a>
+<span class="lineNum">    1488 </span><span class="lineCov">        152 :     explicit basic_iostream(basic_streambuf&lt;char_type, traits_type&gt;* __sb);</span>
+<span class="lineNum">    1489 </span><span class="lineNoCov">          0 :     virtual ~basic_iostream();</span>
+<span class="lineNum">    1490 </span>            : protected:
+<a name="1491"><span class="lineNum">    1491 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES</a>
+<span class="lineNum">    1492 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1493 </span><span class="lineCov">          6 :     basic_iostream(basic_iostream&amp;&amp; __rhs);</span>
+<span class="lineNum">    1494 </span>            : #endif
+<span class="lineNum">    1495 </span>            : 
+<span class="lineNum">    1496 </span>            :     // assign/swap
+<span class="lineNum">    1497 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">    1498 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1499 </span>            :     basic_iostream&amp; operator=(basic_iostream&amp;&amp; __rhs);
+<span class="lineNum">    1500 </span>            : #endif
+<span class="lineNum">    1501 </span>            :     void swap(basic_iostream&amp; __rhs);
+<span class="lineNum">    1502 </span>            : public:
+<span class="lineNum">    1503 </span>            : };
+<span class="lineNum">    1504 </span>            : 
+<span class="lineNum">    1505 </span>            : template &lt;class _CharT, class _Traits&gt;
+<span class="lineNum">    1506 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1507 </span>            : basic_iostream&lt;_CharT, _Traits&gt;::basic_iostream(basic_streambuf&lt;char_type, traits_type&gt;* __sb)
+<span class="lineNum">    1508 </span><span class="lineCov">        150 :     : basic_istream&lt;_CharT, _Traits&gt;(__sb)</span>
+<span class="lineNum">    1509 </span><span class="lineCov">        452 : {</span>
+<span class="lineNum">    1510 </span><span class="lineCov">        150 : }</span>
+<span class="lineNum">    1511 </span>            : 
+<span class="lineNum">    1512 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">    1513 </span>            : 
+<span class="lineNum">    1514 </span>            : template &lt;class _CharT, class _Traits&gt;
+<span class="lineNum">    1515 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1516 </span>            : basic_iostream&lt;_CharT, _Traits&gt;::basic_iostream(basic_iostream&amp;&amp; __rhs)
+<span class="lineNum">    1517 </span><span class="lineCov">          6 :     : basic_istream&lt;_CharT, _Traits&gt;(_VSTD::move(__rhs))</span>
+<span class="lineNum">    1518 </span><span class="lineCov">         18 : {</span>
+<span class="lineNum">    1519 </span><span class="lineCov">          6 : }</span>
+<span class="lineNum">    1520 </span>            : 
+<span class="lineNum">    1521 </span>            : template &lt;class _CharT, class _Traits&gt;
+<a name="1522"><span class="lineNum">    1522 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">    1523 </span>            : basic_iostream&lt;_CharT, _Traits&gt;&amp;
+<span class="lineNum">    1524 </span>            : basic_iostream&lt;_CharT, _Traits&gt;::operator=(basic_iostream&amp;&amp; __rhs)
+<span class="lineNum">    1525 </span>            : {
+<span class="lineNum">    1526 </span><span class="lineCov">          6 :     swap(__rhs);</span>
+<span class="lineNum">    1527 </span><span class="lineCov">          6 :     return *this;</span>
+<span class="lineNum">    1528 </span>            : }
+<span class="lineNum">    1529 </span>            : 
+<span class="lineNum">    1530 </span>            : #endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<a name="1531"><span class="lineNum">    1531 </span>            : </a>
+<span class="lineNum">    1532 </span>            : template &lt;class _CharT, class _Traits&gt;
+<span class="lineNum">    1533 </span>            : basic_iostream&lt;_CharT, _Traits&gt;::~basic_iostream()
+<span class="lineNum">    1534 </span><span class="lineCov">          2 : {</span>
+<span class="lineNum">    1535 </span><span class="lineCov">        158 : }</span>
+<span class="lineNum">    1536 </span>            : 
+<span class="lineNum">    1537 </span>            : template &lt;class _CharT, class _Traits&gt;
+<a name="1538"><span class="lineNum">    1538 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">    1539 </span>            : void
+<span class="lineNum">    1540 </span>            : basic_iostream&lt;_CharT, _Traits&gt;::swap(basic_iostream&amp; __rhs)
+<span class="lineNum">    1541 </span>            : {
+<span class="lineNum">    1542 </span><span class="lineCov">         16 :     basic_istream&lt;char_type, traits_type&gt;::swap(__rhs);</span>
+<span class="lineNum">    1543 </span><span class="lineCov">         16 : }</span>
+<span class="lineNum">    1544 </span>            : 
+<a name="1545"><span class="lineNum">    1545 </span>            : template&lt;class _CharT, class _Traits, class _Allocator&gt;</a>
+<span class="lineNum">    1546 </span>            : basic_istream&lt;_CharT, _Traits&gt;&amp;
+<span class="lineNum">    1547 </span>            : operator&gt;&gt;(basic_istream&lt;_CharT, _Traits&gt;&amp; __is,
+<span class="lineNum">    1548 </span>            :            basic_string&lt;_CharT, _Traits, _Allocator&gt;&amp; __str)
+<span class="lineNum">    1549 </span>            : {
+<span class="lineNum">    1550 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1551 </span>            :     try
+<span class="lineNum">    1552 </span>            :     {
+<span class="lineNum">    1553 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1554 </span><span class="lineCov">         60 :         typename basic_istream&lt;_CharT, _Traits&gt;::sentry __sen(__is);</span>
+<span class="lineNum">    1555 </span><span class="lineCov">        120 :         if (__sen)</span>
+<span class="lineNum">    1556 </span>            :         {
+<span class="lineNum">    1557 </span><span class="lineCov">         54 :             __str.clear();</span>
+<span class="lineNum">    1558 </span><span class="lineCov">        108 :             streamsize __n = __is.width();</span>
+<span class="lineNum">    1559 </span><span class="lineCov">         54 :             if (__n &lt;= 0)</span>
+<span class="lineNum">    1560 </span><span class="lineCov">         50 :                 __n = __str.max_size();</span>
+<span class="lineNum">    1561 </span><span class="lineCov">         54 :             if (__n &lt;= 0)</span>
+<span class="lineNum">    1562 </span><span class="lineCov">         30 :                 __n = numeric_limits&lt;streamsize&gt;::max();</span>
+<span class="lineNum">    1563 </span><span class="lineCov">         54 :             streamsize __c = 0;</span>
+<span class="lineNum">    1564 </span><span class="lineCov">        162 :             const ctype&lt;_CharT&gt;&amp; __ct = use_facet&lt;ctype&lt;_CharT&gt; &gt;(__is.getloc());</span>
+<span class="lineNum">    1565 </span><span class="lineCov">         54 :             ios_base::iostate __err = ios_base::goodbit;</span>
+<span class="lineNum">    1566 </span><span class="lineCov">        550 :             while (__c &lt; __n)</span>
+<span class="lineNum">    1567 </span>            :             {
+<span class="lineNum">    1568 </span><span class="lineCov">        813 :                 typename _Traits::int_type __i = __is.rdbuf()-&gt;sgetc();</span>
+<span class="lineNum">    1569 </span><span class="lineCov">        271 :                 if (_Traits::eq_int_type(__i, _Traits::eof()))</span>
+<span class="lineNum">    1570 </span>            :                 {
+<span class="lineNum">    1571 </span><span class="lineCov">         31 :                    __err |= ios_base::eofbit;</span>
+<span class="lineNum">    1572 </span><span class="lineCov">         31 :                    break;</span>
+<span class="lineNum">    1573 </span>            :                 }
+<span class="lineNum">    1574 </span><span class="lineCov">        240 :                 _CharT __ch = _Traits::to_char_type(__i);</span>
+<span class="lineNum">    1575 </span><span class="lineCov">        480 :                 if (__ct.is(__ct.space, __ch))</span>
+<span class="lineNum">    1576 </span><span class="lineCov">         19 :                     break;</span>
+<span class="lineNum">    1577 </span><span class="lineCov">        221 :                 __str.push_back(__ch);</span>
+<span class="lineNum">    1578 </span><span class="lineCov">        221 :                 ++__c;</span>
+<span class="lineNum">    1579 </span><span class="lineCov">        442 :                  __is.rdbuf()-&gt;sbumpc();</span>
+<span class="lineNum">    1580 </span>            :             }
+<span class="lineNum">    1581 </span><span class="lineCov">         54 :             __is.width(0);</span>
+<span class="lineNum">    1582 </span><span class="lineCov">         54 :             if (__c == 0)</span>
+<span class="lineNum">    1583 </span><span class="lineNoCov">          0 :                __err |= ios_base::failbit;</span>
+<span class="lineNum">    1584 </span><span class="lineCov">         54 :             __is.setstate(__err);</span>
+<span class="lineNum">    1585 </span><span class="lineCov">         54 :         }</span>
+<span class="lineNum">    1586 </span>            :         else
+<span class="lineNum">    1587 </span><span class="lineCov">          6 :             __is.setstate(ios_base::failbit);</span>
+<span class="lineNum">    1588 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1589 </span><span class="lineCov">         60 :     }</span>
+<span class="lineNum">    1590 </span>            :     catch (...)
+<span class="lineNum">    1591 </span>            :     {
+<span class="lineNum">    1592 </span><span class="lineNoCov">          0 :         __is.__set_badbit_and_consider_rethrow();</span>
+<span class="lineNum">    1593 </span><span class="lineNoCov">          0 :     }</span>
+<span class="lineNum">    1594 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1595 </span><span class="lineCov">         60 :     return __is;</span>
+<span class="lineNum">    1596 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">    1597 </span>            : 
+<a name="1598"><span class="lineNum">    1598 </span>            : template&lt;class _CharT, class _Traits, class _Allocator&gt;</a>
+<span class="lineNum">    1599 </span>            : basic_istream&lt;_CharT, _Traits&gt;&amp;
+<span class="lineNum">    1600 </span>            : getline(basic_istream&lt;_CharT, _Traits&gt;&amp; __is,
+<span class="lineNum">    1601 </span>            :         basic_string&lt;_CharT, _Traits, _Allocator&gt;&amp; __str, _CharT __dlm)
+<span class="lineNum">    1602 </span>            : {
+<span class="lineNum">    1603 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1604 </span>            :     try
+<span class="lineNum">    1605 </span>            :     {
+<span class="lineNum">    1606 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1607 </span><span class="lineCov">         36 :         typename basic_istream&lt;_CharT, _Traits&gt;::sentry __sen(__is, true);</span>
+<span class="lineNum">    1608 </span><span class="lineCov">         72 :         if (__sen)</span>
+<span class="lineNum">    1609 </span>            :         {
+<span class="lineNum">    1610 </span><span class="lineCov">         36 :             __str.clear();</span>
+<span class="lineNum">    1611 </span><span class="lineCov">         36 :             ios_base::iostate __err = ios_base::goodbit;</span>
+<span class="lineNum">    1612 </span><span class="lineCov">         36 :             streamsize __extr = 0;</span>
+<span class="lineNum">    1613 </span><span class="lineCov">        392 :             while (true)</span>
+<span class="lineNum">    1614 </span>            :             {
+<span class="lineNum">    1615 </span><span class="lineCov">        588 :                 typename _Traits::int_type __i = __is.rdbuf()-&gt;sbumpc();</span>
+<span class="lineNum">    1616 </span><span class="lineCov">        196 :                 if (_Traits::eq_int_type(__i, _Traits::eof()))</span>
+<span class="lineNum">    1617 </span>            :                 {
+<span class="lineNum">    1618 </span><span class="lineCov">          8 :                    __err |= ios_base::eofbit;</span>
+<span class="lineNum">    1619 </span><span class="lineCov">          8 :                    break;</span>
+<span class="lineNum">    1620 </span>            :                 }
+<span class="lineNum">    1621 </span><span class="lineCov">        188 :                 ++__extr;</span>
+<span class="lineNum">    1622 </span><span class="lineCov">        188 :                 _CharT __ch = _Traits::to_char_type(__i);</span>
+<span class="lineNum">    1623 </span><span class="lineCov">        188 :                 if (_Traits::eq(__ch, __dlm))</span>
+<span class="lineNum">    1624 </span><span class="lineCov">         28 :                     break;</span>
+<span class="lineNum">    1625 </span><span class="lineCov">        160 :                 __str.push_back(__ch);</span>
+<span class="lineNum">    1626 </span><span class="lineCov">        160 :                 if (__str.size() == __str.max_size())</span>
+<span class="lineNum">    1627 </span>            :                 {
+<span class="lineNum">    1628 </span><span class="lineNoCov">          0 :                     __err |= ios_base::failbit;</span>
+<span class="lineNum">    1629 </span><span class="lineNoCov">          0 :                     break;</span>
+<span class="lineNum">    1630 </span>            :                 }
+<span class="lineNum">    1631 </span>            :             }
+<span class="lineNum">    1632 </span><span class="lineCov">         36 :             if (__extr == 0)</span>
+<span class="lineNum">    1633 </span><span class="lineNoCov">          0 :                __err |= ios_base::failbit;</span>
+<span class="lineNum">    1634 </span><span class="lineCov">         36 :             __is.setstate(__err);</span>
+<span class="lineNum">    1635 </span><span class="lineCov">         36 :         }</span>
+<span class="lineNum">    1636 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1637 </span><span class="lineCov">         36 :     }</span>
+<span class="lineNum">    1638 </span>            :     catch (...)
+<span class="lineNum">    1639 </span>            :     {
+<span class="lineNum">    1640 </span><span class="lineNoCov">          0 :         __is.__set_badbit_and_consider_rethrow();</span>
+<span class="lineNum">    1641 </span><span class="lineNoCov">          0 :     }</span>
+<span class="lineNum">    1642 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1643 </span><span class="lineCov">         36 :     return __is;</span>
+<span class="lineNum">    1644 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">    1645 </span>            : 
+<span class="lineNum">    1646 </span>            : template&lt;class _CharT, class _Traits, class _Allocator&gt;
+<a name="1647"><span class="lineNum">    1647 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">    1648 </span>            : basic_istream&lt;_CharT, _Traits&gt;&amp;
+<span class="lineNum">    1649 </span>            : getline(basic_istream&lt;_CharT, _Traits&gt;&amp; __is,
+<span class="lineNum">    1650 </span>            :         basic_string&lt;_CharT, _Traits, _Allocator&gt;&amp; __str)
+<span class="lineNum">    1651 </span>            : {
+<span class="lineNum">    1652 </span><span class="lineCov">         12 :     return getline(__is, __str, __is.widen('\n'));</span>
+<span class="lineNum">    1653 </span>            : }
+<span class="lineNum">    1654 </span>            : 
+<span class="lineNum">    1655 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">    1656 </span>            : 
+<span class="lineNum">    1657 </span>            : template&lt;class _CharT, class _Traits, class _Allocator&gt;
+<a name="1658"><span class="lineNum">    1658 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">    1659 </span>            : basic_istream&lt;_CharT, _Traits&gt;&amp;
+<span class="lineNum">    1660 </span>            : getline(basic_istream&lt;_CharT, _Traits&gt;&amp;&amp; __is,
+<span class="lineNum">    1661 </span>            :         basic_string&lt;_CharT, _Traits, _Allocator&gt;&amp; __str, _CharT __dlm)
+<span class="lineNum">    1662 </span>            : {
+<span class="lineNum">    1663 </span><span class="lineCov">          4 :     return getline(__is, __str, __dlm);</span>
+<span class="lineNum">    1664 </span>            : }
+<span class="lineNum">    1665 </span>            : 
+<span class="lineNum">    1666 </span>            : template&lt;class _CharT, class _Traits, class _Allocator&gt;
+<a name="1667"><span class="lineNum">    1667 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">    1668 </span>            : basic_istream&lt;_CharT, _Traits&gt;&amp;
+<span class="lineNum">    1669 </span>            : getline(basic_istream&lt;_CharT, _Traits&gt;&amp;&amp; __is,
+<span class="lineNum">    1670 </span>            :         basic_string&lt;_CharT, _Traits, _Allocator&gt;&amp; __str)
+<span class="lineNum">    1671 </span>            : {
+<span class="lineNum">    1672 </span><span class="lineCov">          4 :     return getline(__is, __str, __is.widen('\n'));</span>
+<span class="lineNum">    1673 </span>            : }
+<span class="lineNum">    1674 </span>            : 
+<span class="lineNum">    1675 </span>            : #endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">    1676 </span>            : 
+<a name="1677"><span class="lineNum">    1677 </span>            : template &lt;class _CharT, class _Traits, size_t _Size&gt;</a>
+<span class="lineNum">    1678 </span>            : basic_istream&lt;_CharT, _Traits&gt;&amp;
+<span class="lineNum">    1679 </span>            : operator&gt;&gt;(basic_istream&lt;_CharT, _Traits&gt;&amp; __is, bitset&lt;_Size&gt;&amp; __x)
+<span class="lineNum">    1680 </span>            : {
+<span class="lineNum">    1681 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1682 </span>            :     try
+<span class="lineNum">    1683 </span>            :     {
+<span class="lineNum">    1684 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1685 </span><span class="lineCov">          1 :         typename basic_istream&lt;_CharT, _Traits&gt;::sentry __sen(__is);</span>
+<span class="lineNum">    1686 </span><span class="lineCov">          2 :         if (__sen)</span>
+<span class="lineNum">    1687 </span>            :         {
+<span class="lineNum">    1688 </span><span class="lineCov">          1 :             basic_string&lt;_CharT, _Traits&gt; __str;</span>
+<span class="lineNum">    1689 </span><span class="lineCov">          3 :             const ctype&lt;_CharT&gt;&amp; __ct = use_facet&lt;ctype&lt;_CharT&gt; &gt;(__is.getloc());</span>
+<span class="lineNum">    1690 </span><span class="lineCov">          1 :             streamsize __c = 0;</span>
+<span class="lineNum">    1691 </span><span class="lineCov">          1 :             ios_base::iostate __err = ios_base::goodbit;</span>
+<span class="lineNum">    1692 </span><span class="lineCov">          2 :             _CharT __zero = __ct.widen('0');</span>
+<span class="lineNum">    1693 </span><span class="lineCov">          2 :             _CharT __one = __ct.widen('1');</span>
+<span class="lineNum">    1694 </span><span class="lineCov">         18 :             while (__c &lt; _Size)</span>
+<span class="lineNum">    1695 </span>            :             {
+<span class="lineNum">    1696 </span><span class="lineCov">         24 :                 typename _Traits::int_type __i = __is.rdbuf()-&gt;sgetc();</span>
+<span class="lineNum">    1697 </span><span class="lineCov">          8 :                 if (_Traits::eq_int_type(__i, _Traits::eof()))</span>
+<span class="lineNum">    1698 </span>            :                 {
+<span class="lineNum">    1699 </span><span class="lineNoCov">          0 :                    __err |= ios_base::eofbit;</span>
+<span class="lineNum">    1700 </span><span class="lineNoCov">          0 :                    break;</span>
+<span class="lineNum">    1701 </span>            :                 }
+<span class="lineNum">    1702 </span><span class="lineCov">          8 :                 _CharT __ch = _Traits::to_char_type(__i);</span>
+<span class="lineNum">    1703 </span><span class="lineCov">         12 :                 if (!_Traits::eq(__ch, __zero) &amp;&amp; !_Traits::eq(__ch, __one))</span>
+<span class="lineNum">    1704 </span><span class="lineNoCov">          0 :                     break;</span>
+<span class="lineNum">    1705 </span><span class="lineCov">          8 :                 __str.push_back(__ch);</span>
+<span class="lineNum">    1706 </span><span class="lineCov">          8 :                 ++__c;</span>
+<span class="lineNum">    1707 </span><span class="lineCov">         16 :                  __is.rdbuf()-&gt;sbumpc();</span>
+<span class="lineNum">    1708 </span>            :             }
+<span class="lineNum">    1709 </span><span class="lineCov">          2 :             __x = bitset&lt;_Size&gt;(__str);</span>
+<span class="lineNum">    1710 </span><span class="lineCov">          1 :             if (__c == 0)</span>
+<span class="lineNum">    1711 </span><span class="lineNoCov">          0 :                __err |= ios_base::failbit;</span>
+<span class="lineNum">    1712 </span><span class="lineCov">          1 :             __is.setstate(__err);</span>
+<span class="lineNum">    1713 </span><span class="lineCov">          1 :         }</span>
+<span class="lineNum">    1714 </span>            :         else
+<span class="lineNum">    1715 </span><span class="lineNoCov">          0 :             __is.setstate(ios_base::failbit);</span>
+<span class="lineNum">    1716 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1717 </span><span class="lineCov">          1 :     }</span>
+<span class="lineNum">    1718 </span>            :     catch (...)
+<span class="lineNum">    1719 </span>            :     {
+<span class="lineNum">    1720 </span><span class="lineNoCov">          0 :         __is.__set_badbit_and_consider_rethrow();</span>
+<span class="lineNum">    1721 </span><span class="lineNoCov">          0 :     }</span>
+<span class="lineNum">    1722 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1723 </span><span class="lineCov">          1 :     return __is;</span>
+<span class="lineNum">    1724 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">    1725 </span>            : 
+<span class="lineNum">    1726 </span>            : _LIBCPP_EXTERN_TEMPLATE(class _LIBCPP_TYPE_VIS basic_istream&lt;char&gt;)
+<span class="lineNum">    1727 </span>            : _LIBCPP_EXTERN_TEMPLATE(class _LIBCPP_TYPE_VIS basic_istream&lt;wchar_t&gt;)
+<span class="lineNum">    1728 </span>            : _LIBCPP_EXTERN_TEMPLATE(class _LIBCPP_TYPE_VIS basic_iostream&lt;char&gt;)
+<span class="lineNum">    1729 </span>            : 
+<span class="lineNum">    1730 </span>            : _LIBCPP_END_NAMESPACE_STD
+<span class="lineNum">    1731 </span>            : 
+<span class="lineNum">    1732 </span>            : #endif  // _LIBCPP_ISTREAM
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

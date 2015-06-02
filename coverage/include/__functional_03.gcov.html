@@ -1,0 +1,2195 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - test_coverage.info - include/__functional_03</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">include</a> - __functional_03<span style="font-size: 80%;"> (source / <a href="__functional_03.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">test_coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">76</td>
+            <td class="headerCovTableEntry">164</td>
+            <td class="headerCovTableEntryLo">46.3 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2015-06-02</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">67</td>
+            <td class="headerCovTableEntry">161</td>
+            <td class="headerCovTableEntryLo">41.6 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : // -*- C++ -*-</a>
+<span class="lineNum">       2 </span>            : //===----------------------------------------------------------------------===//
+<span class="lineNum">       3 </span>            : //
+<span class="lineNum">       4 </span>            : //                     The LLVM Compiler Infrastructure
+<span class="lineNum">       5 </span>            : //
+<span class="lineNum">       6 </span>            : // This file is dual licensed under the MIT and the University of Illinois Open
+<span class="lineNum">       7 </span>            : // Source Licenses. See LICENSE.TXT for details.
+<span class="lineNum">       8 </span>            : //
+<span class="lineNum">       9 </span>            : //===----------------------------------------------------------------------===//
+<span class="lineNum">      10 </span>            : 
+<span class="lineNum">      11 </span>            : #ifndef _LIBCPP_FUNCTIONAL_03
+<span class="lineNum">      12 </span>            : #define _LIBCPP_FUNCTIONAL_03
+<span class="lineNum">      13 </span>            : 
+<span class="lineNum">      14 </span>            : // manual variadic expansion for &lt;functional&gt;
+<span class="lineNum">      15 </span>            : 
+<span class="lineNum">      16 </span>            : #if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
+<span class="lineNum">      17 </span>            : #pragma GCC system_header
+<span class="lineNum">      18 </span>            : #endif
+<span class="lineNum">      19 </span>            : 
+<span class="lineNum">      20 </span>            : template &lt;class _Tp&gt;
+<span class="lineNum">      21 </span>            : class __mem_fn
+<span class="lineNum">      22 </span>            :     : public __weak_result_type&lt;_Tp&gt;
+<span class="lineNum">      23 </span>            : {
+<span class="lineNum">      24 </span>            : public:
+<span class="lineNum">      25 </span>            :     // types
+<span class="lineNum">      26 </span>            :     typedef _Tp type;
+<span class="lineNum">      27 </span>            : private:
+<span class="lineNum">      28 </span>            :     type __f_;
+<span class="lineNum">      29 </span>            : 
+<span class="lineNum">      30 </span>            : public:
+<span class="lineNum">      31 </span>            :     _LIBCPP_INLINE_VISIBILITY __mem_fn(type __f) : __f_(__f) {}
+<span class="lineNum">      32 </span>            : 
+<span class="lineNum">      33 </span>            :     // invoke
+<span class="lineNum">      34 </span>            : 
+<span class="lineNum">      35 </span>            :     typename __invoke_return&lt;type&gt;::type
+<span class="lineNum">      36 </span>            :        operator() () const
+<span class="lineNum">      37 </span>            :        {
+<span class="lineNum">      38 </span>            :            return __invoke(__f_);
+<span class="lineNum">      39 </span>            :        }
+<span class="lineNum">      40 </span>            : 
+<span class="lineNum">      41 </span>            :     template &lt;class _A0&gt;
+<span class="lineNum">      42 </span>            :        typename __invoke_return0&lt;type, _A0&gt;::type
+<span class="lineNum">      43 </span>            :           operator() (_A0&amp; __a0) const
+<span class="lineNum">      44 </span>            :           {
+<span class="lineNum">      45 </span>            :               return __invoke(__f_, __a0);
+<span class="lineNum">      46 </span>            :           }
+<span class="lineNum">      47 </span>            : 
+<span class="lineNum">      48 </span>            :     template &lt;class _A0, class _A1&gt;
+<span class="lineNum">      49 </span>            :        typename __invoke_return1&lt;type, _A0, _A1&gt;::type
+<span class="lineNum">      50 </span>            :           operator() (_A0&amp; __a0, _A1&amp; __a1) const
+<span class="lineNum">      51 </span>            :           {
+<span class="lineNum">      52 </span>            :               return __invoke(__f_, __a0, __a1);
+<span class="lineNum">      53 </span>            :           }
+<span class="lineNum">      54 </span>            : 
+<span class="lineNum">      55 </span>            :     template &lt;class _A0, class _A1, class _A2&gt;
+<span class="lineNum">      56 </span>            :        typename __invoke_return2&lt;type, _A0, _A1, _A2&gt;::type
+<span class="lineNum">      57 </span>            :           operator() (_A0&amp; __a0, _A1&amp; __a1, _A2&amp; __a2) const
+<span class="lineNum">      58 </span>            :           {
+<span class="lineNum">      59 </span>            :               return __invoke(__f_, __a0, __a1, __a2);
+<span class="lineNum">      60 </span>            :           }
+<span class="lineNum">      61 </span>            : };
+<span class="lineNum">      62 </span>            : 
+<span class="lineNum">      63 </span>            : template&lt;class _Rp, class _Tp&gt;
+<span class="lineNum">      64 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">      65 </span>            : __mem_fn&lt;_Rp _Tp::*&gt;
+<span class="lineNum">      66 </span>            : mem_fn(_Rp _Tp::* __pm)
+<span class="lineNum">      67 </span>            : {
+<span class="lineNum">      68 </span>            :     return __mem_fn&lt;_Rp _Tp::*&gt;(__pm);
+<span class="lineNum">      69 </span>            : }
+<span class="lineNum">      70 </span>            : 
+<span class="lineNum">      71 </span>            : template&lt;class _Rp, class _Tp&gt;
+<span class="lineNum">      72 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">      73 </span>            : __mem_fn&lt;_Rp (_Tp::*)()&gt;
+<span class="lineNum">      74 </span>            : mem_fn(_Rp (_Tp::* __pm)())
+<span class="lineNum">      75 </span>            : {
+<span class="lineNum">      76 </span>            :     return __mem_fn&lt;_Rp (_Tp::*)()&gt;(__pm);
+<span class="lineNum">      77 </span>            : }
+<span class="lineNum">      78 </span>            : 
+<span class="lineNum">      79 </span>            : template&lt;class _Rp, class _Tp, class _A0&gt;
+<span class="lineNum">      80 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">      81 </span>            : __mem_fn&lt;_Rp (_Tp::*)(_A0)&gt;
+<span class="lineNum">      82 </span>            : mem_fn(_Rp (_Tp::* __pm)(_A0))
+<span class="lineNum">      83 </span>            : {
+<span class="lineNum">      84 </span>            :     return __mem_fn&lt;_Rp (_Tp::*)(_A0)&gt;(__pm);
+<span class="lineNum">      85 </span>            : }
+<span class="lineNum">      86 </span>            : 
+<span class="lineNum">      87 </span>            : template&lt;class _Rp, class _Tp, class _A0, class _A1&gt;
+<span class="lineNum">      88 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">      89 </span>            : __mem_fn&lt;_Rp (_Tp::*)(_A0, _A1)&gt;
+<span class="lineNum">      90 </span>            : mem_fn(_Rp (_Tp::* __pm)(_A0, _A1))
+<span class="lineNum">      91 </span>            : {
+<span class="lineNum">      92 </span>            :     return __mem_fn&lt;_Rp (_Tp::*)(_A0, _A1)&gt;(__pm);
+<span class="lineNum">      93 </span>            : }
+<span class="lineNum">      94 </span>            : 
+<span class="lineNum">      95 </span>            : template&lt;class _Rp, class _Tp, class _A0, class _A1, class _A2&gt;
+<span class="lineNum">      96 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">      97 </span>            : __mem_fn&lt;_Rp (_Tp::*)(_A0, _A1, _A2)&gt;
+<span class="lineNum">      98 </span>            : mem_fn(_Rp (_Tp::* __pm)(_A0, _A1, _A2))
+<span class="lineNum">      99 </span>            : {
+<span class="lineNum">     100 </span>            :     return __mem_fn&lt;_Rp (_Tp::*)(_A0, _A1, _A2)&gt;(__pm);
+<span class="lineNum">     101 </span>            : }
+<span class="lineNum">     102 </span>            : 
+<span class="lineNum">     103 </span>            : template&lt;class _Rp, class _Tp&gt;
+<span class="lineNum">     104 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     105 </span>            : __mem_fn&lt;_Rp (_Tp::*)() const&gt;
+<span class="lineNum">     106 </span>            : mem_fn(_Rp (_Tp::* __pm)() const)
+<span class="lineNum">     107 </span>            : {
+<span class="lineNum">     108 </span>            :     return __mem_fn&lt;_Rp (_Tp::*)() const&gt;(__pm);
+<span class="lineNum">     109 </span>            : }
+<span class="lineNum">     110 </span>            : 
+<span class="lineNum">     111 </span>            : template&lt;class _Rp, class _Tp, class _A0&gt;
+<span class="lineNum">     112 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     113 </span>            : __mem_fn&lt;_Rp (_Tp::*)(_A0) const&gt;
+<span class="lineNum">     114 </span>            : mem_fn(_Rp (_Tp::* __pm)(_A0) const)
+<span class="lineNum">     115 </span>            : {
+<span class="lineNum">     116 </span>            :     return __mem_fn&lt;_Rp (_Tp::*)(_A0) const&gt;(__pm);
+<span class="lineNum">     117 </span>            : }
+<span class="lineNum">     118 </span>            : 
+<span class="lineNum">     119 </span>            : template&lt;class _Rp, class _Tp, class _A0, class _A1&gt;
+<span class="lineNum">     120 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     121 </span>            : __mem_fn&lt;_Rp (_Tp::*)(_A0, _A1) const&gt;
+<span class="lineNum">     122 </span>            : mem_fn(_Rp (_Tp::* __pm)(_A0, _A1) const)
+<span class="lineNum">     123 </span>            : {
+<span class="lineNum">     124 </span>            :     return __mem_fn&lt;_Rp (_Tp::*)(_A0, _A1) const&gt;(__pm);
+<span class="lineNum">     125 </span>            : }
+<span class="lineNum">     126 </span>            : 
+<span class="lineNum">     127 </span>            : template&lt;class _Rp, class _Tp, class _A0, class _A1, class _A2&gt;
+<span class="lineNum">     128 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     129 </span>            : __mem_fn&lt;_Rp (_Tp::*)(_A0, _A1, _A2) const&gt;
+<span class="lineNum">     130 </span>            : mem_fn(_Rp (_Tp::* __pm)(_A0, _A1, _A2) const)
+<span class="lineNum">     131 </span>            : {
+<span class="lineNum">     132 </span>            :     return __mem_fn&lt;_Rp (_Tp::*)(_A0, _A1, _A2) const&gt;(__pm);
+<span class="lineNum">     133 </span>            : }
+<span class="lineNum">     134 </span>            : 
+<span class="lineNum">     135 </span>            : template&lt;class _Rp, class _Tp&gt;
+<span class="lineNum">     136 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     137 </span>            : __mem_fn&lt;_Rp (_Tp::*)() volatile&gt;
+<span class="lineNum">     138 </span>            : mem_fn(_Rp (_Tp::* __pm)() volatile)
+<span class="lineNum">     139 </span>            : {
+<span class="lineNum">     140 </span>            :     return __mem_fn&lt;_Rp (_Tp::*)() volatile&gt;(__pm);
+<span class="lineNum">     141 </span>            : }
+<span class="lineNum">     142 </span>            : 
+<span class="lineNum">     143 </span>            : template&lt;class _Rp, class _Tp, class _A0&gt;
+<span class="lineNum">     144 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     145 </span>            : __mem_fn&lt;_Rp (_Tp::*)(_A0) volatile&gt;
+<span class="lineNum">     146 </span>            : mem_fn(_Rp (_Tp::* __pm)(_A0) volatile)
+<span class="lineNum">     147 </span>            : {
+<span class="lineNum">     148 </span>            :     return __mem_fn&lt;_Rp (_Tp::*)(_A0) volatile&gt;(__pm);
+<span class="lineNum">     149 </span>            : }
+<span class="lineNum">     150 </span>            : 
+<span class="lineNum">     151 </span>            : template&lt;class _Rp, class _Tp, class _A0, class _A1&gt;
+<span class="lineNum">     152 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     153 </span>            : __mem_fn&lt;_Rp (_Tp::*)(_A0, _A1) volatile&gt;
+<span class="lineNum">     154 </span>            : mem_fn(_Rp (_Tp::* __pm)(_A0, _A1) volatile)
+<span class="lineNum">     155 </span>            : {
+<span class="lineNum">     156 </span>            :     return __mem_fn&lt;_Rp (_Tp::*)(_A0, _A1) volatile&gt;(__pm);
+<span class="lineNum">     157 </span>            : }
+<span class="lineNum">     158 </span>            : 
+<span class="lineNum">     159 </span>            : template&lt;class _Rp, class _Tp, class _A0, class _A1, class _A2&gt;
+<span class="lineNum">     160 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     161 </span>            : __mem_fn&lt;_Rp (_Tp::*)(_A0, _A1, _A2) volatile&gt;
+<span class="lineNum">     162 </span>            : mem_fn(_Rp (_Tp::* __pm)(_A0, _A1, _A2) volatile)
+<span class="lineNum">     163 </span>            : {
+<span class="lineNum">     164 </span>            :     return __mem_fn&lt;_Rp (_Tp::*)(_A0, _A1, _A2) volatile&gt;(__pm);
+<span class="lineNum">     165 </span>            : }
+<span class="lineNum">     166 </span>            : 
+<span class="lineNum">     167 </span>            : template&lt;class _Rp, class _Tp&gt;
+<span class="lineNum">     168 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     169 </span>            : __mem_fn&lt;_Rp (_Tp::*)() const volatile&gt;
+<span class="lineNum">     170 </span>            : mem_fn(_Rp (_Tp::* __pm)() const volatile)
+<span class="lineNum">     171 </span>            : {
+<span class="lineNum">     172 </span>            :     return __mem_fn&lt;_Rp (_Tp::*)() const volatile&gt;(__pm);
+<span class="lineNum">     173 </span>            : }
+<span class="lineNum">     174 </span>            : 
+<span class="lineNum">     175 </span>            : template&lt;class _Rp, class _Tp, class _A0&gt;
+<span class="lineNum">     176 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     177 </span>            : __mem_fn&lt;_Rp (_Tp::*)(_A0) const volatile&gt;
+<span class="lineNum">     178 </span>            : mem_fn(_Rp (_Tp::* __pm)(_A0) const volatile)
+<span class="lineNum">     179 </span>            : {
+<span class="lineNum">     180 </span>            :     return __mem_fn&lt;_Rp (_Tp::*)(_A0) const volatile&gt;(__pm);
+<span class="lineNum">     181 </span>            : }
+<span class="lineNum">     182 </span>            : 
+<span class="lineNum">     183 </span>            : template&lt;class _Rp, class _Tp, class _A0, class _A1&gt;
+<span class="lineNum">     184 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     185 </span>            : __mem_fn&lt;_Rp (_Tp::*)(_A0, _A1) const volatile&gt;
+<span class="lineNum">     186 </span>            : mem_fn(_Rp (_Tp::* __pm)(_A0, _A1) const volatile)
+<span class="lineNum">     187 </span>            : {
+<span class="lineNum">     188 </span>            :     return __mem_fn&lt;_Rp (_Tp::*)(_A0, _A1) const volatile&gt;(__pm);
+<span class="lineNum">     189 </span>            : }
+<span class="lineNum">     190 </span>            : 
+<span class="lineNum">     191 </span>            : template&lt;class _Rp, class _Tp, class _A0, class _A1, class _A2&gt;
+<span class="lineNum">     192 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     193 </span>            : __mem_fn&lt;_Rp (_Tp::*)(_A0, _A1, _A2) const volatile&gt;
+<span class="lineNum">     194 </span>            : mem_fn(_Rp (_Tp::* __pm)(_A0, _A1, _A2) const volatile)
+<span class="lineNum">     195 </span>            : {
+<span class="lineNum">     196 </span>            :     return __mem_fn&lt;_Rp (_Tp::*)(_A0, _A1, _A2) const volatile&gt;(__pm);
+<span class="lineNum">     197 </span>            : }
+<span class="lineNum">     198 </span>            : 
+<a name="199"><span class="lineNum">     199 </span>            : // bad_function_call</a>
+<span class="lineNum">     200 </span>            : 
+<span class="lineNum">     201 </span><span class="lineNoCov">          0 : class _LIBCPP_EXCEPTION_ABI bad_function_call</span>
+<span class="lineNum">     202 </span>            :     : public exception
+<span class="lineNum">     203 </span>            : {
+<span class="lineNum">     204 </span>            : };
+<span class="lineNum">     205 </span>            : 
+<span class="lineNum">     206 </span>            : template&lt;class _Fp&gt; class _LIBCPP_TYPE_VIS_ONLY function; // undefined
+<span class="lineNum">     207 </span>            : 
+<span class="lineNum">     208 </span>            : namespace __function
+<span class="lineNum">     209 </span>            : {
+<span class="lineNum">     210 </span>            : 
+<span class="lineNum">     211 </span>            : template&lt;class _Fp&gt;
+<span class="lineNum">     212 </span>            : struct __maybe_derive_from_unary_function
+<span class="lineNum">     213 </span>            : {
+<span class="lineNum">     214 </span>            : };
+<span class="lineNum">     215 </span>            : 
+<span class="lineNum">     216 </span>            : template&lt;class _Rp, class _A1&gt;
+<span class="lineNum">     217 </span>            : struct __maybe_derive_from_unary_function&lt;_Rp(_A1)&gt;
+<span class="lineNum">     218 </span>            :     : public unary_function&lt;_A1, _Rp&gt;
+<span class="lineNum">     219 </span>            : {
+<span class="lineNum">     220 </span>            : };
+<span class="lineNum">     221 </span>            : 
+<span class="lineNum">     222 </span>            : template&lt;class _Fp&gt;
+<span class="lineNum">     223 </span>            : struct __maybe_derive_from_binary_function
+<span class="lineNum">     224 </span>            : {
+<span class="lineNum">     225 </span>            : };
+<span class="lineNum">     226 </span>            : 
+<span class="lineNum">     227 </span>            : template&lt;class _Rp, class _A1, class _A2&gt;
+<span class="lineNum">     228 </span>            : struct __maybe_derive_from_binary_function&lt;_Rp(_A1, _A2)&gt;
+<span class="lineNum">     229 </span>            :     : public binary_function&lt;_A1, _A2, _Rp&gt;
+<span class="lineNum">     230 </span>            : {
+<span class="lineNum">     231 </span>            : };
+<span class="lineNum">     232 </span>            : 
+<span class="lineNum">     233 </span>            : template&lt;class _Fp&gt; class __base;
+<span class="lineNum">     234 </span>            : 
+<span class="lineNum">     235 </span>            : template&lt;class _Rp&gt;
+<span class="lineNum">     236 </span>            : class __base&lt;_Rp()&gt;
+<span class="lineNum">     237 </span>            : {
+<span class="lineNum">     238 </span>            :     __base(const __base&amp;);
+<a name="239"><span class="lineNum">     239 </span>            :     __base&amp; operator=(const __base&amp;);</a>
+<a name="240"><span class="lineNum">     240 </span>            : public:</a>
+<span class="lineNum">     241 </span><span class="lineCov">          2 :     __base() {}</span>
+<span class="lineNum">     242 </span><span class="lineNoCov">          0 :     virtual ~__base() {}</span>
+<span class="lineNum">     243 </span>            :     virtual __base* __clone() const = 0;
+<span class="lineNum">     244 </span>            :     virtual void __clone(__base*) const = 0;
+<span class="lineNum">     245 </span>            :     virtual void destroy() = 0;
+<span class="lineNum">     246 </span>            :     virtual void destroy_deallocate() = 0;
+<span class="lineNum">     247 </span>            :     virtual _Rp operator()() = 0;
+<span class="lineNum">     248 </span>            : #ifndef _LIBCPP_NO_RTTI
+<span class="lineNum">     249 </span>            :     virtual const void* target(const type_info&amp;) const = 0;
+<span class="lineNum">     250 </span>            :     virtual const std::type_info&amp; target_type() const = 0;
+<span class="lineNum">     251 </span>            : #endif  // _LIBCPP_NO_RTTI
+<span class="lineNum">     252 </span>            : };
+<span class="lineNum">     253 </span>            : 
+<span class="lineNum">     254 </span>            : template&lt;class _Rp, class _A0&gt;
+<span class="lineNum">     255 </span>            : class __base&lt;_Rp(_A0)&gt;
+<span class="lineNum">     256 </span>            : {
+<span class="lineNum">     257 </span>            :     __base(const __base&amp;);
+<a name="258"><span class="lineNum">     258 </span>            :     __base&amp; operator=(const __base&amp;);</a>
+<a name="259"><span class="lineNum">     259 </span>            : public:</a>
+<span class="lineNum">     260 </span><span class="lineCov">          2 :     __base() {}</span>
+<span class="lineNum">     261 </span><span class="lineNoCov">          0 :     virtual ~__base() {}</span>
+<span class="lineNum">     262 </span>            :     virtual __base* __clone() const = 0;
+<span class="lineNum">     263 </span>            :     virtual void __clone(__base*) const = 0;
+<span class="lineNum">     264 </span>            :     virtual void destroy() = 0;
+<span class="lineNum">     265 </span>            :     virtual void destroy_deallocate() = 0;
+<span class="lineNum">     266 </span>            :     virtual _Rp operator()(_A0) = 0;
+<span class="lineNum">     267 </span>            : #ifndef _LIBCPP_NO_RTTI
+<span class="lineNum">     268 </span>            :     virtual const void* target(const type_info&amp;) const = 0;
+<span class="lineNum">     269 </span>            :     virtual const std::type_info&amp; target_type() const = 0;
+<span class="lineNum">     270 </span>            : #endif  // _LIBCPP_NO_RTTI
+<span class="lineNum">     271 </span>            : };
+<span class="lineNum">     272 </span>            : 
+<span class="lineNum">     273 </span>            : template&lt;class _Rp, class _A0, class _A1&gt;
+<span class="lineNum">     274 </span>            : class __base&lt;_Rp(_A0, _A1)&gt;
+<span class="lineNum">     275 </span>            : {
+<span class="lineNum">     276 </span>            :     __base(const __base&amp;);
+<a name="277"><span class="lineNum">     277 </span>            :     __base&amp; operator=(const __base&amp;);</a>
+<a name="278"><span class="lineNum">     278 </span>            : public:</a>
+<span class="lineNum">     279 </span><span class="lineCov">          2 :     __base() {}</span>
+<span class="lineNum">     280 </span><span class="lineNoCov">          0 :     virtual ~__base() {}</span>
+<span class="lineNum">     281 </span>            :     virtual __base* __clone() const = 0;
+<span class="lineNum">     282 </span>            :     virtual void __clone(__base*) const = 0;
+<span class="lineNum">     283 </span>            :     virtual void destroy() = 0;
+<span class="lineNum">     284 </span>            :     virtual void destroy_deallocate() = 0;
+<span class="lineNum">     285 </span>            :     virtual _Rp operator()(_A0, _A1) = 0;
+<span class="lineNum">     286 </span>            : #ifndef _LIBCPP_NO_RTTI
+<span class="lineNum">     287 </span>            :     virtual const void* target(const type_info&amp;) const = 0;
+<span class="lineNum">     288 </span>            :     virtual const std::type_info&amp; target_type() const = 0;
+<span class="lineNum">     289 </span>            : #endif  // _LIBCPP_NO_RTTI
+<span class="lineNum">     290 </span>            : };
+<span class="lineNum">     291 </span>            : 
+<span class="lineNum">     292 </span>            : template&lt;class _Rp, class _A0, class _A1, class _A2&gt;
+<span class="lineNum">     293 </span>            : class __base&lt;_Rp(_A0, _A1, _A2)&gt;
+<span class="lineNum">     294 </span>            : {
+<span class="lineNum">     295 </span>            :     __base(const __base&amp;);
+<a name="296"><span class="lineNum">     296 </span>            :     __base&amp; operator=(const __base&amp;);</a>
+<a name="297"><span class="lineNum">     297 </span>            : public:</a>
+<span class="lineNum">     298 </span><span class="lineCov">          2 :     __base() {}</span>
+<span class="lineNum">     299 </span><span class="lineNoCov">          0 :     virtual ~__base() {}</span>
+<span class="lineNum">     300 </span>            :     virtual __base* __clone() const = 0;
+<span class="lineNum">     301 </span>            :     virtual void __clone(__base*) const = 0;
+<span class="lineNum">     302 </span>            :     virtual void destroy() = 0;
+<span class="lineNum">     303 </span>            :     virtual void destroy_deallocate() = 0;
+<span class="lineNum">     304 </span>            :     virtual _Rp operator()(_A0, _A1, _A2) = 0;
+<span class="lineNum">     305 </span>            : #ifndef _LIBCPP_NO_RTTI
+<span class="lineNum">     306 </span>            :     virtual const void* target(const type_info&amp;) const = 0;
+<span class="lineNum">     307 </span>            :     virtual const std::type_info&amp; target_type() const = 0;
+<span class="lineNum">     308 </span>            : #endif  // _LIBCPP_NO_RTTI
+<a name="309"><span class="lineNum">     309 </span>            : };</a>
+<span class="lineNum">     310 </span>            : 
+<span class="lineNum">     311 </span><span class="lineNoCov">          0 : template&lt;class _FD, class _Alloc, class _FB&gt; class __func;</span>
+<span class="lineNum">     312 </span>            : 
+<span class="lineNum">     313 </span>            : template&lt;class _Fp, class _Alloc, class _Rp&gt;
+<span class="lineNum">     314 </span>            : class __func&lt;_Fp, _Alloc, _Rp()&gt;
+<span class="lineNum">     315 </span>            :     : public  __base&lt;_Rp()&gt;
+<span class="lineNum">     316 </span>            : {
+<a name="317"><span class="lineNum">     317 </span>            :     __compressed_pair&lt;_Fp, _Alloc&gt; __f_;</a>
+<a name="318"><span class="lineNum">     318 </span>            : public:</a>
+<span class="lineNum">     319 </span><span class="lineCov">          4 :     explicit __func(_Fp __f) : __f_(_VSTD::move(__f)) {}</span>
+<span class="lineNum">     320 </span><span class="lineNoCov">          0 :     explicit __func(_Fp __f, _Alloc __a) : __f_(_VSTD::move(__f), _VSTD::move(__a)) {}</span>
+<span class="lineNum">     321 </span>            :     virtual __base&lt;_Rp()&gt;* __clone() const;
+<span class="lineNum">     322 </span>            :     virtual void __clone(__base&lt;_Rp()&gt;*) const;
+<span class="lineNum">     323 </span>            :     virtual void destroy();
+<span class="lineNum">     324 </span>            :     virtual void destroy_deallocate();
+<span class="lineNum">     325 </span>            :     virtual _Rp operator()();
+<span class="lineNum">     326 </span>            : #ifndef _LIBCPP_NO_RTTI
+<span class="lineNum">     327 </span>            :     virtual const void* target(const type_info&amp;) const;
+<span class="lineNum">     328 </span>            :     virtual const std::type_info&amp; target_type() const;
+<span class="lineNum">     329 </span>            : #endif  // _LIBCPP_NO_RTTI
+<span class="lineNum">     330 </span>            : };
+<span class="lineNum">     331 </span>            : 
+<a name="332"><span class="lineNum">     332 </span>            : template&lt;class _Fp, class _Alloc, class _Rp&gt;</a>
+<span class="lineNum">     333 </span>            : __base&lt;_Rp()&gt;*
+<span class="lineNum">     334 </span>            : __func&lt;_Fp, _Alloc, _Rp()&gt;::__clone() const
+<span class="lineNum">     335 </span>            : {
+<span class="lineNum">     336 </span>            :     typedef typename _Alloc::template rebind&lt;__func&gt;::other _Ap;
+<span class="lineNum">     337 </span><span class="lineNoCov">          0 :     _Ap __a(__f_.second());</span>
+<span class="lineNum">     338 </span>            :     typedef __allocator_destructor&lt;_Ap&gt; _Dp;
+<span class="lineNum">     339 </span><span class="lineNoCov">          0 :     unique_ptr&lt;__func, _Dp&gt; __hold(__a.allocate(1), _Dp(__a, 1));</span>
+<span class="lineNum">     340 </span><span class="lineNoCov">          0 :     ::new (__hold.get()) __func(__f_.first(), _Alloc(__a));</span>
+<span class="lineNum">     341 </span><span class="lineNoCov">          0 :     return __hold.release();</span>
+<span class="lineNum">     342 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     343 </span>            : 
+<a name="344"><span class="lineNum">     344 </span>            : template&lt;class _Fp, class _Alloc, class _Rp&gt;</a>
+<span class="lineNum">     345 </span>            : void
+<span class="lineNum">     346 </span>            : __func&lt;_Fp, _Alloc, _Rp()&gt;::__clone(__base&lt;_Rp()&gt;* __p) const
+<span class="lineNum">     347 </span>            : {
+<span class="lineNum">     348 </span><span class="lineNoCov">          0 :     ::new (__p) __func(__f_.first(), __f_.second());</span>
+<span class="lineNum">     349 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     350 </span>            : 
+<a name="351"><span class="lineNum">     351 </span>            : template&lt;class _Fp, class _Alloc, class _Rp&gt;</a>
+<span class="lineNum">     352 </span>            : void
+<span class="lineNum">     353 </span>            : __func&lt;_Fp, _Alloc, _Rp()&gt;::destroy()
+<span class="lineNum">     354 </span>            : {
+<span class="lineNum">     355 </span><span class="lineCov">          2 :     __f_.~__compressed_pair&lt;_Fp, _Alloc&gt;();</span>
+<span class="lineNum">     356 </span><span class="lineCov">          2 : }</span>
+<span class="lineNum">     357 </span>            : 
+<a name="358"><span class="lineNum">     358 </span>            : template&lt;class _Fp, class _Alloc, class _Rp&gt;</a>
+<span class="lineNum">     359 </span>            : void
+<span class="lineNum">     360 </span>            : __func&lt;_Fp, _Alloc, _Rp()&gt;::destroy_deallocate()
+<span class="lineNum">     361 </span>            : {
+<span class="lineNum">     362 </span>            :     typedef typename _Alloc::template rebind&lt;__func&gt;::other _Ap;
+<span class="lineNum">     363 </span><span class="lineNoCov">          0 :     _Ap __a(__f_.second());</span>
+<span class="lineNum">     364 </span><span class="lineNoCov">          0 :     __f_.~__compressed_pair&lt;_Fp, _Alloc&gt;();</span>
+<span class="lineNum">     365 </span><span class="lineNoCov">          0 :     __a.deallocate(this, 1);</span>
+<span class="lineNum">     366 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     367 </span>            : 
+<a name="368"><span class="lineNum">     368 </span>            : template&lt;class _Fp, class _Alloc, class _Rp&gt;</a>
+<span class="lineNum">     369 </span>            : _Rp
+<span class="lineNum">     370 </span>            : __func&lt;_Fp, _Alloc, _Rp()&gt;::operator()()
+<span class="lineNum">     371 </span>            : {
+<span class="lineNum">     372 </span>            :     typedef __invoke_void_return_wrapper&lt;_Rp&gt; _Invoker;
+<span class="lineNum">     373 </span><span class="lineCov">          2 :     return _Invoker::__call(__f_.first());</span>
+<span class="lineNum">     374 </span>            : }
+<span class="lineNum">     375 </span>            : 
+<span class="lineNum">     376 </span>            : #ifndef _LIBCPP_NO_RTTI
+<span class="lineNum">     377 </span>            : 
+<a name="378"><span class="lineNum">     378 </span>            : template&lt;class _Fp, class _Alloc, class _Rp&gt;</a>
+<span class="lineNum">     379 </span>            : const void*
+<span class="lineNum">     380 </span>            : __func&lt;_Fp, _Alloc, _Rp()&gt;::target(const type_info&amp; __ti) const
+<span class="lineNum">     381 </span>            : {
+<span class="lineNum">     382 </span><span class="lineNoCov">          0 :     if (__ti == typeid(_Fp))</span>
+<span class="lineNum">     383 </span><span class="lineNoCov">          0 :         return &amp;__f_.first();</span>
+<span class="lineNum">     384 </span><span class="lineNoCov">          0 :     return (const void*)0;</span>
+<span class="lineNum">     385 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     386 </span>            : 
+<a name="387"><span class="lineNum">     387 </span>            : template&lt;class _Fp, class _Alloc, class _Rp&gt;</a>
+<span class="lineNum">     388 </span>            : const std::type_info&amp;
+<span class="lineNum">     389 </span>            : __func&lt;_Fp, _Alloc, _Rp()&gt;::target_type() const
+<span class="lineNum">     390 </span>            : {
+<span class="lineNum">     391 </span><span class="lineNoCov">          0 :     return typeid(_Fp);</span>
+<span class="lineNum">     392 </span>            : }
+<span class="lineNum">     393 </span>            : 
+<span class="lineNum">     394 </span>            : #endif  // _LIBCPP_NO_RTTI
+<span class="lineNum">     395 </span>            : 
+<span class="lineNum">     396 </span>            : template&lt;class _Fp, class _Alloc, class _Rp, class _A0&gt;
+<span class="lineNum">     397 </span>            : class __func&lt;_Fp, _Alloc, _Rp(_A0)&gt;
+<span class="lineNum">     398 </span>            :     : public  __base&lt;_Rp(_A0)&gt;
+<span class="lineNum">     399 </span>            : {
+<a name="400"><span class="lineNum">     400 </span>            :     __compressed_pair&lt;_Fp, _Alloc&gt; __f_;</a>
+<a name="401"><span class="lineNum">     401 </span>            : public:</a>
+<span class="lineNum">     402 </span><span class="lineCov">          4 :     _LIBCPP_INLINE_VISIBILITY explicit __func(_Fp __f) : __f_(_VSTD::move(__f)) {}</span>
+<span class="lineNum">     403 </span><span class="lineNoCov">          0 :     _LIBCPP_INLINE_VISIBILITY explicit __func(_Fp __f, _Alloc __a)</span>
+<span class="lineNum">     404 </span><span class="lineNoCov">          0 :         : __f_(_VSTD::move(__f), _VSTD::move(__a)) {}</span>
+<span class="lineNum">     405 </span>            :     virtual __base&lt;_Rp(_A0)&gt;* __clone() const;
+<span class="lineNum">     406 </span>            :     virtual void __clone(__base&lt;_Rp(_A0)&gt;*) const;
+<span class="lineNum">     407 </span>            :     virtual void destroy();
+<span class="lineNum">     408 </span>            :     virtual void destroy_deallocate();
+<span class="lineNum">     409 </span>            :     virtual _Rp operator()(_A0);
+<span class="lineNum">     410 </span>            : #ifndef _LIBCPP_NO_RTTI
+<span class="lineNum">     411 </span>            :     virtual const void* target(const type_info&amp;) const;
+<span class="lineNum">     412 </span>            :     virtual const std::type_info&amp; target_type() const;
+<span class="lineNum">     413 </span>            : #endif  // _LIBCPP_NO_RTTI
+<span class="lineNum">     414 </span>            : };
+<span class="lineNum">     415 </span>            : 
+<a name="416"><span class="lineNum">     416 </span>            : template&lt;class _Fp, class _Alloc, class _Rp, class _A0&gt;</a>
+<span class="lineNum">     417 </span>            : __base&lt;_Rp(_A0)&gt;*
+<span class="lineNum">     418 </span>            : __func&lt;_Fp, _Alloc, _Rp(_A0)&gt;::__clone() const
+<span class="lineNum">     419 </span>            : {
+<span class="lineNum">     420 </span>            :     typedef typename _Alloc::template rebind&lt;__func&gt;::other _Ap;
+<span class="lineNum">     421 </span><span class="lineNoCov">          0 :     _Ap __a(__f_.second());</span>
+<span class="lineNum">     422 </span>            :     typedef __allocator_destructor&lt;_Ap&gt; _Dp;
+<span class="lineNum">     423 </span><span class="lineNoCov">          0 :     unique_ptr&lt;__func, _Dp&gt; __hold(__a.allocate(1), _Dp(__a, 1));</span>
+<span class="lineNum">     424 </span><span class="lineNoCov">          0 :     ::new (__hold.get()) __func(__f_.first(), _Alloc(__a));</span>
+<span class="lineNum">     425 </span><span class="lineNoCov">          0 :     return __hold.release();</span>
+<span class="lineNum">     426 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     427 </span>            : 
+<a name="428"><span class="lineNum">     428 </span>            : template&lt;class _Fp, class _Alloc, class _Rp, class _A0&gt;</a>
+<span class="lineNum">     429 </span>            : void
+<span class="lineNum">     430 </span>            : __func&lt;_Fp, _Alloc, _Rp(_A0)&gt;::__clone(__base&lt;_Rp(_A0)&gt;* __p) const
+<span class="lineNum">     431 </span>            : {
+<span class="lineNum">     432 </span><span class="lineNoCov">          0 :     ::new (__p) __func(__f_.first(), __f_.second());</span>
+<span class="lineNum">     433 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     434 </span>            : 
+<a name="435"><span class="lineNum">     435 </span>            : template&lt;class _Fp, class _Alloc, class _Rp, class _A0&gt;</a>
+<span class="lineNum">     436 </span>            : void
+<span class="lineNum">     437 </span>            : __func&lt;_Fp, _Alloc, _Rp(_A0)&gt;::destroy()
+<span class="lineNum">     438 </span>            : {
+<span class="lineNum">     439 </span><span class="lineCov">          2 :     __f_.~__compressed_pair&lt;_Fp, _Alloc&gt;();</span>
+<span class="lineNum">     440 </span><span class="lineCov">          2 : }</span>
+<span class="lineNum">     441 </span>            : 
+<a name="442"><span class="lineNum">     442 </span>            : template&lt;class _Fp, class _Alloc, class _Rp, class _A0&gt;</a>
+<span class="lineNum">     443 </span>            : void
+<span class="lineNum">     444 </span>            : __func&lt;_Fp, _Alloc, _Rp(_A0)&gt;::destroy_deallocate()
+<span class="lineNum">     445 </span>            : {
+<span class="lineNum">     446 </span>            :     typedef typename _Alloc::template rebind&lt;__func&gt;::other _Ap;
+<span class="lineNum">     447 </span><span class="lineNoCov">          0 :     _Ap __a(__f_.second());</span>
+<span class="lineNum">     448 </span><span class="lineNoCov">          0 :     __f_.~__compressed_pair&lt;_Fp, _Alloc&gt;();</span>
+<span class="lineNum">     449 </span><span class="lineNoCov">          0 :     __a.deallocate(this, 1);</span>
+<span class="lineNum">     450 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     451 </span>            : 
+<a name="452"><span class="lineNum">     452 </span>            : template&lt;class _Fp, class _Alloc, class _Rp, class _A0&gt;</a>
+<span class="lineNum">     453 </span>            : _Rp
+<span class="lineNum">     454 </span>            : __func&lt;_Fp, _Alloc, _Rp(_A0)&gt;::operator()(_A0 __a0)
+<span class="lineNum">     455 </span>            : {
+<span class="lineNum">     456 </span>            :     typedef __invoke_void_return_wrapper&lt;_Rp&gt; _Invoker;
+<span class="lineNum">     457 </span><span class="lineCov">          2 :     return _Invoker::__call(__f_.first(), __a0);</span>
+<span class="lineNum">     458 </span>            : }
+<span class="lineNum">     459 </span>            : 
+<span class="lineNum">     460 </span>            : #ifndef _LIBCPP_NO_RTTI
+<span class="lineNum">     461 </span>            : 
+<a name="462"><span class="lineNum">     462 </span>            : template&lt;class _Fp, class _Alloc, class _Rp, class _A0&gt;</a>
+<span class="lineNum">     463 </span>            : const void*
+<span class="lineNum">     464 </span>            : __func&lt;_Fp, _Alloc, _Rp(_A0)&gt;::target(const type_info&amp; __ti) const
+<span class="lineNum">     465 </span>            : {
+<span class="lineNum">     466 </span><span class="lineNoCov">          0 :     if (__ti == typeid(_Fp))</span>
+<span class="lineNum">     467 </span><span class="lineNoCov">          0 :         return &amp;__f_.first();</span>
+<span class="lineNum">     468 </span><span class="lineNoCov">          0 :     return (const void*)0;</span>
+<span class="lineNum">     469 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     470 </span>            : 
+<a name="471"><span class="lineNum">     471 </span>            : template&lt;class _Fp, class _Alloc, class _Rp, class _A0&gt;</a>
+<span class="lineNum">     472 </span>            : const std::type_info&amp;
+<span class="lineNum">     473 </span>            : __func&lt;_Fp, _Alloc, _Rp(_A0)&gt;::target_type() const
+<span class="lineNum">     474 </span>            : {
+<span class="lineNum">     475 </span><span class="lineNoCov">          0 :     return typeid(_Fp);</span>
+<span class="lineNum">     476 </span>            : }
+<span class="lineNum">     477 </span>            : 
+<span class="lineNum">     478 </span>            : #endif  // _LIBCPP_NO_RTTI
+<span class="lineNum">     479 </span>            : 
+<span class="lineNum">     480 </span>            : template&lt;class _Fp, class _Alloc, class _Rp, class _A0, class _A1&gt;
+<span class="lineNum">     481 </span>            : class __func&lt;_Fp, _Alloc, _Rp(_A0, _A1)&gt;
+<span class="lineNum">     482 </span>            :     : public  __base&lt;_Rp(_A0, _A1)&gt;
+<span class="lineNum">     483 </span>            : {
+<a name="484"><span class="lineNum">     484 </span>            :     __compressed_pair&lt;_Fp, _Alloc&gt; __f_;</a>
+<a name="485"><span class="lineNum">     485 </span>            : public:</a>
+<span class="lineNum">     486 </span><span class="lineCov">          4 :     _LIBCPP_INLINE_VISIBILITY explicit __func(_Fp __f) : __f_(_VSTD::move(__f)) {}</span>
+<span class="lineNum">     487 </span><span class="lineNoCov">          0 :     _LIBCPP_INLINE_VISIBILITY explicit __func(_Fp __f, _Alloc __a)</span>
+<span class="lineNum">     488 </span><span class="lineNoCov">          0 :         : __f_(_VSTD::move(__f), _VSTD::move(__a)) {}</span>
+<span class="lineNum">     489 </span>            :     virtual __base&lt;_Rp(_A0, _A1)&gt;* __clone() const;
+<span class="lineNum">     490 </span>            :     virtual void __clone(__base&lt;_Rp(_A0, _A1)&gt;*) const;
+<span class="lineNum">     491 </span>            :     virtual void destroy();
+<span class="lineNum">     492 </span>            :     virtual void destroy_deallocate();
+<span class="lineNum">     493 </span>            :     virtual _Rp operator()(_A0, _A1);
+<span class="lineNum">     494 </span>            : #ifndef _LIBCPP_NO_RTTI
+<span class="lineNum">     495 </span>            :     virtual const void* target(const type_info&amp;) const;
+<span class="lineNum">     496 </span>            :     virtual const std::type_info&amp; target_type() const;
+<span class="lineNum">     497 </span>            : #endif  // _LIBCPP_NO_RTTI
+<span class="lineNum">     498 </span>            : };
+<span class="lineNum">     499 </span>            : 
+<a name="500"><span class="lineNum">     500 </span>            : template&lt;class _Fp, class _Alloc, class _Rp, class _A0, class _A1&gt;</a>
+<span class="lineNum">     501 </span>            : __base&lt;_Rp(_A0, _A1)&gt;*
+<span class="lineNum">     502 </span>            : __func&lt;_Fp, _Alloc, _Rp(_A0, _A1)&gt;::__clone() const
+<span class="lineNum">     503 </span>            : {
+<span class="lineNum">     504 </span>            :     typedef typename _Alloc::template rebind&lt;__func&gt;::other _Ap;
+<span class="lineNum">     505 </span><span class="lineNoCov">          0 :     _Ap __a(__f_.second());</span>
+<span class="lineNum">     506 </span>            :     typedef __allocator_destructor&lt;_Ap&gt; _Dp;
+<span class="lineNum">     507 </span><span class="lineNoCov">          0 :     unique_ptr&lt;__func, _Dp&gt; __hold(__a.allocate(1), _Dp(__a, 1));</span>
+<span class="lineNum">     508 </span><span class="lineNoCov">          0 :     ::new (__hold.get()) __func(__f_.first(), _Alloc(__a));</span>
+<span class="lineNum">     509 </span><span class="lineNoCov">          0 :     return __hold.release();</span>
+<span class="lineNum">     510 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     511 </span>            : 
+<a name="512"><span class="lineNum">     512 </span>            : template&lt;class _Fp, class _Alloc, class _Rp, class _A0, class _A1&gt;</a>
+<span class="lineNum">     513 </span>            : void
+<span class="lineNum">     514 </span>            : __func&lt;_Fp, _Alloc, _Rp(_A0, _A1)&gt;::__clone(__base&lt;_Rp(_A0, _A1)&gt;* __p) const
+<span class="lineNum">     515 </span>            : {
+<span class="lineNum">     516 </span><span class="lineNoCov">          0 :     ::new (__p) __func(__f_.first(), __f_.second());</span>
+<span class="lineNum">     517 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     518 </span>            : 
+<a name="519"><span class="lineNum">     519 </span>            : template&lt;class _Fp, class _Alloc, class _Rp, class _A0, class _A1&gt;</a>
+<span class="lineNum">     520 </span>            : void
+<span class="lineNum">     521 </span>            : __func&lt;_Fp, _Alloc, _Rp(_A0, _A1)&gt;::destroy()
+<span class="lineNum">     522 </span>            : {
+<span class="lineNum">     523 </span><span class="lineCov">          2 :     __f_.~__compressed_pair&lt;_Fp, _Alloc&gt;();</span>
+<span class="lineNum">     524 </span><span class="lineCov">          2 : }</span>
+<span class="lineNum">     525 </span>            : 
+<a name="526"><span class="lineNum">     526 </span>            : template&lt;class _Fp, class _Alloc, class _Rp, class _A0, class _A1&gt;</a>
+<span class="lineNum">     527 </span>            : void
+<span class="lineNum">     528 </span>            : __func&lt;_Fp, _Alloc, _Rp(_A0, _A1)&gt;::destroy_deallocate()
+<span class="lineNum">     529 </span>            : {
+<span class="lineNum">     530 </span>            :     typedef typename _Alloc::template rebind&lt;__func&gt;::other _Ap;
+<span class="lineNum">     531 </span><span class="lineNoCov">          0 :     _Ap __a(__f_.second());</span>
+<span class="lineNum">     532 </span><span class="lineNoCov">          0 :     __f_.~__compressed_pair&lt;_Fp, _Alloc&gt;();</span>
+<span class="lineNum">     533 </span><span class="lineNoCov">          0 :     __a.deallocate(this, 1);</span>
+<span class="lineNum">     534 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     535 </span>            : 
+<a name="536"><span class="lineNum">     536 </span>            : template&lt;class _Fp, class _Alloc, class _Rp, class _A0, class _A1&gt;</a>
+<span class="lineNum">     537 </span>            : _Rp
+<span class="lineNum">     538 </span>            : __func&lt;_Fp, _Alloc, _Rp(_A0, _A1)&gt;::operator()(_A0 __a0, _A1 __a1)
+<span class="lineNum">     539 </span>            : {
+<span class="lineNum">     540 </span>            :     typedef __invoke_void_return_wrapper&lt;_Rp&gt; _Invoker;
+<span class="lineNum">     541 </span><span class="lineCov">          2 :     return _Invoker::__call(__f_.first(), __a0, __a1);</span>
+<span class="lineNum">     542 </span>            : }
+<span class="lineNum">     543 </span>            : 
+<span class="lineNum">     544 </span>            : #ifndef _LIBCPP_NO_RTTI
+<span class="lineNum">     545 </span>            : 
+<a name="546"><span class="lineNum">     546 </span>            : template&lt;class _Fp, class _Alloc, class _Rp, class _A0, class _A1&gt;</a>
+<span class="lineNum">     547 </span>            : const void*
+<span class="lineNum">     548 </span>            : __func&lt;_Fp, _Alloc, _Rp(_A0, _A1)&gt;::target(const type_info&amp; __ti) const
+<span class="lineNum">     549 </span>            : {
+<span class="lineNum">     550 </span><span class="lineNoCov">          0 :     if (__ti == typeid(_Fp))</span>
+<span class="lineNum">     551 </span><span class="lineNoCov">          0 :         return &amp;__f_.first();</span>
+<span class="lineNum">     552 </span><span class="lineNoCov">          0 :     return (const void*)0;</span>
+<span class="lineNum">     553 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     554 </span>            : 
+<a name="555"><span class="lineNum">     555 </span>            : template&lt;class _Fp, class _Alloc, class _Rp, class _A0, class _A1&gt;</a>
+<span class="lineNum">     556 </span>            : const std::type_info&amp;
+<span class="lineNum">     557 </span>            : __func&lt;_Fp, _Alloc, _Rp(_A0, _A1)&gt;::target_type() const
+<span class="lineNum">     558 </span>            : {
+<span class="lineNum">     559 </span><span class="lineNoCov">          0 :     return typeid(_Fp);</span>
+<span class="lineNum">     560 </span>            : }
+<span class="lineNum">     561 </span>            : 
+<span class="lineNum">     562 </span>            : #endif  // _LIBCPP_NO_RTTI
+<span class="lineNum">     563 </span>            : 
+<span class="lineNum">     564 </span>            : template&lt;class _Fp, class _Alloc, class _Rp, class _A0, class _A1, class _A2&gt;
+<span class="lineNum">     565 </span>            : class __func&lt;_Fp, _Alloc, _Rp(_A0, _A1, _A2)&gt;
+<span class="lineNum">     566 </span>            :     : public  __base&lt;_Rp(_A0, _A1, _A2)&gt;
+<span class="lineNum">     567 </span>            : {
+<a name="568"><span class="lineNum">     568 </span>            :     __compressed_pair&lt;_Fp, _Alloc&gt; __f_;</a>
+<a name="569"><span class="lineNum">     569 </span>            : public:</a>
+<span class="lineNum">     570 </span><span class="lineCov">          4 :     _LIBCPP_INLINE_VISIBILITY explicit __func(_Fp __f) : __f_(_VSTD::move(__f)) {}</span>
+<span class="lineNum">     571 </span><span class="lineNoCov">          0 :     _LIBCPP_INLINE_VISIBILITY explicit __func(_Fp __f, _Alloc __a)</span>
+<span class="lineNum">     572 </span><span class="lineNoCov">          0 :         : __f_(_VSTD::move(__f), _VSTD::move(__a)) {}</span>
+<span class="lineNum">     573 </span>            :     virtual __base&lt;_Rp(_A0, _A1, _A2)&gt;* __clone() const;
+<span class="lineNum">     574 </span>            :     virtual void __clone(__base&lt;_Rp(_A0, _A1, _A2)&gt;*) const;
+<span class="lineNum">     575 </span>            :     virtual void destroy();
+<span class="lineNum">     576 </span>            :     virtual void destroy_deallocate();
+<span class="lineNum">     577 </span>            :     virtual _Rp operator()(_A0, _A1, _A2);
+<span class="lineNum">     578 </span>            : #ifndef _LIBCPP_NO_RTTI
+<span class="lineNum">     579 </span>            :     virtual const void* target(const type_info&amp;) const;
+<span class="lineNum">     580 </span>            :     virtual const std::type_info&amp; target_type() const;
+<span class="lineNum">     581 </span>            : #endif  // _LIBCPP_NO_RTTI
+<span class="lineNum">     582 </span>            : };
+<span class="lineNum">     583 </span>            : 
+<a name="584"><span class="lineNum">     584 </span>            : template&lt;class _Fp, class _Alloc, class _Rp, class _A0, class _A1, class _A2&gt;</a>
+<span class="lineNum">     585 </span>            : __base&lt;_Rp(_A0, _A1, _A2)&gt;*
+<span class="lineNum">     586 </span>            : __func&lt;_Fp, _Alloc, _Rp(_A0, _A1, _A2)&gt;::__clone() const
+<span class="lineNum">     587 </span>            : {
+<span class="lineNum">     588 </span>            :     typedef typename _Alloc::template rebind&lt;__func&gt;::other _Ap;
+<span class="lineNum">     589 </span><span class="lineNoCov">          0 :     _Ap __a(__f_.second());</span>
+<span class="lineNum">     590 </span>            :     typedef __allocator_destructor&lt;_Ap&gt; _Dp;
+<span class="lineNum">     591 </span><span class="lineNoCov">          0 :     unique_ptr&lt;__func, _Dp&gt; __hold(__a.allocate(1), _Dp(__a, 1));</span>
+<span class="lineNum">     592 </span><span class="lineNoCov">          0 :     ::new (__hold.get()) __func(__f_.first(), _Alloc(__a));</span>
+<span class="lineNum">     593 </span><span class="lineNoCov">          0 :     return __hold.release();</span>
+<span class="lineNum">     594 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     595 </span>            : 
+<a name="596"><span class="lineNum">     596 </span>            : template&lt;class _Fp, class _Alloc, class _Rp, class _A0, class _A1, class _A2&gt;</a>
+<span class="lineNum">     597 </span>            : void
+<span class="lineNum">     598 </span>            : __func&lt;_Fp, _Alloc, _Rp(_A0, _A1, _A2)&gt;::__clone(__base&lt;_Rp(_A0, _A1, _A2)&gt;* __p) const
+<span class="lineNum">     599 </span>            : {
+<span class="lineNum">     600 </span><span class="lineNoCov">          0 :     ::new (__p) __func(__f_.first(), __f_.second());</span>
+<span class="lineNum">     601 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     602 </span>            : 
+<a name="603"><span class="lineNum">     603 </span>            : template&lt;class _Fp, class _Alloc, class _Rp, class _A0, class _A1, class _A2&gt;</a>
+<span class="lineNum">     604 </span>            : void
+<span class="lineNum">     605 </span>            : __func&lt;_Fp, _Alloc, _Rp(_A0, _A1, _A2)&gt;::destroy()
+<span class="lineNum">     606 </span>            : {
+<span class="lineNum">     607 </span><span class="lineCov">          2 :     __f_.~__compressed_pair&lt;_Fp, _Alloc&gt;();</span>
+<span class="lineNum">     608 </span><span class="lineCov">          2 : }</span>
+<span class="lineNum">     609 </span>            : 
+<a name="610"><span class="lineNum">     610 </span>            : template&lt;class _Fp, class _Alloc, class _Rp, class _A0, class _A1, class _A2&gt;</a>
+<span class="lineNum">     611 </span>            : void
+<span class="lineNum">     612 </span>            : __func&lt;_Fp, _Alloc, _Rp(_A0, _A1, _A2)&gt;::destroy_deallocate()
+<span class="lineNum">     613 </span>            : {
+<span class="lineNum">     614 </span>            :     typedef typename _Alloc::template rebind&lt;__func&gt;::other _Ap;
+<span class="lineNum">     615 </span><span class="lineNoCov">          0 :     _Ap __a(__f_.second());</span>
+<span class="lineNum">     616 </span><span class="lineNoCov">          0 :     __f_.~__compressed_pair&lt;_Fp, _Alloc&gt;();</span>
+<span class="lineNum">     617 </span><span class="lineNoCov">          0 :     __a.deallocate(this, 1);</span>
+<span class="lineNum">     618 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     619 </span>            : 
+<a name="620"><span class="lineNum">     620 </span>            : template&lt;class _Fp, class _Alloc, class _Rp, class _A0, class _A1, class _A2&gt;</a>
+<span class="lineNum">     621 </span>            : _Rp
+<span class="lineNum">     622 </span>            : __func&lt;_Fp, _Alloc, _Rp(_A0, _A1, _A2)&gt;::operator()(_A0 __a0, _A1 __a1, _A2 __a2)
+<span class="lineNum">     623 </span>            : {
+<span class="lineNum">     624 </span>            :     typedef __invoke_void_return_wrapper&lt;_Rp&gt; _Invoker;
+<span class="lineNum">     625 </span><span class="lineCov">          2 :     return _Invoker::__call(__f_.first(), __a0, __a1, __a2);</span>
+<span class="lineNum">     626 </span>            : }
+<span class="lineNum">     627 </span>            : 
+<span class="lineNum">     628 </span>            : #ifndef _LIBCPP_NO_RTTI
+<span class="lineNum">     629 </span>            : 
+<a name="630"><span class="lineNum">     630 </span>            : template&lt;class _Fp, class _Alloc, class _Rp, class _A0, class _A1, class _A2&gt;</a>
+<span class="lineNum">     631 </span>            : const void*
+<span class="lineNum">     632 </span>            : __func&lt;_Fp, _Alloc, _Rp(_A0, _A1, _A2)&gt;::target(const type_info&amp; __ti) const
+<span class="lineNum">     633 </span>            : {
+<span class="lineNum">     634 </span><span class="lineNoCov">          0 :     if (__ti == typeid(_Fp))</span>
+<span class="lineNum">     635 </span><span class="lineNoCov">          0 :         return &amp;__f_.first();</span>
+<span class="lineNum">     636 </span><span class="lineNoCov">          0 :     return (const void*)0;</span>
+<span class="lineNum">     637 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     638 </span>            : 
+<a name="639"><span class="lineNum">     639 </span>            : template&lt;class _Fp, class _Alloc, class _Rp, class _A0, class _A1, class _A2&gt;</a>
+<span class="lineNum">     640 </span>            : const std::type_info&amp;
+<span class="lineNum">     641 </span>            : __func&lt;_Fp, _Alloc, _Rp(_A0, _A1, _A2)&gt;::target_type() const
+<span class="lineNum">     642 </span>            : {
+<span class="lineNum">     643 </span><span class="lineNoCov">          0 :     return typeid(_Fp);</span>
+<span class="lineNum">     644 </span>            : }
+<span class="lineNum">     645 </span>            : 
+<span class="lineNum">     646 </span>            : #endif  // _LIBCPP_NO_RTTI
+<span class="lineNum">     647 </span>            : 
+<span class="lineNum">     648 </span>            : }  // __function
+<span class="lineNum">     649 </span>            : 
+<span class="lineNum">     650 </span>            : template&lt;class _Rp&gt;
+<span class="lineNum">     651 </span>            : class _LIBCPP_TYPE_VIS_ONLY function&lt;_Rp()&gt;
+<span class="lineNum">     652 </span>            : {
+<span class="lineNum">     653 </span>            :     typedef __function::__base&lt;_Rp()&gt; __base;
+<span class="lineNum">     654 </span>            :     aligned_storage&lt;3*sizeof(void*)&gt;::type __buf_;
+<span class="lineNum">     655 </span>            :     __base* __f_;
+<span class="lineNum">     656 </span>            : 
+<span class="lineNum">     657 </span>            :     template &lt;class _Fp&gt;
+<span class="lineNum">     658 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     659 </span>            :         static bool __not_null(const _Fp&amp;) {return true;}
+<a name="660"><span class="lineNum">     660 </span>            :     template &lt;class _R2&gt;</a>
+<span class="lineNum">     661 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     662 </span><span class="lineCov">          3 :         static bool __not_null(_R2 (*__p)()) {return __p;}</span>
+<span class="lineNum">     663 </span>            :     template &lt;class _R2&gt;
+<span class="lineNum">     664 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     665 </span>            :         static bool __not_null(const function&lt;_R2()&gt;&amp; __p) {return __p;}
+<span class="lineNum">     666 </span>            : public:
+<span class="lineNum">     667 </span>            :     typedef _Rp result_type;
+<span class="lineNum">     668 </span>            : 
+<span class="lineNum">     669 </span>            :     // 20.7.16.2.1, construct/copy/destroy:
+<span class="lineNum">     670 </span>            :     _LIBCPP_INLINE_VISIBILITY explicit function() : __f_(0) {}
+<span class="lineNum">     671 </span>            :     _LIBCPP_INLINE_VISIBILITY function(nullptr_t) : __f_(0) {}
+<a name="672"><span class="lineNum">     672 </span>            :     function(const function&amp;);</a>
+<span class="lineNum">     673 </span>            :     template&lt;class _Fp&gt;
+<span class="lineNum">     674 </span><span class="lineCov">          3 :       function(_Fp,</span>
+<span class="lineNum">     675 </span>            :                typename enable_if&lt;!is_integral&lt;_Fp&gt;::value&gt;::type* = 0);
+<span class="lineNum">     676 </span>            : 
+<span class="lineNum">     677 </span>            :     template&lt;class _Alloc&gt;
+<span class="lineNum">     678 </span>            :       _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     679 </span>            :       function(allocator_arg_t, const _Alloc&amp;) : __f_(0) {}
+<span class="lineNum">     680 </span>            :     template&lt;class _Alloc&gt;
+<span class="lineNum">     681 </span>            :       _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     682 </span>            :       function(allocator_arg_t, const _Alloc&amp;, nullptr_t) : __f_(0) {}
+<span class="lineNum">     683 </span>            :     template&lt;class _Alloc&gt;
+<span class="lineNum">     684 </span>            :       function(allocator_arg_t, const _Alloc&amp;, const function&amp;);
+<span class="lineNum">     685 </span>            :     template&lt;class _Fp, class _Alloc&gt;
+<span class="lineNum">     686 </span>            :       function(allocator_arg_t, const _Alloc&amp; __a, _Fp __f,
+<span class="lineNum">     687 </span>            :                typename enable_if&lt;!is_integral&lt;_Fp&gt;::value&gt;::type* = 0);
+<span class="lineNum">     688 </span>            : 
+<span class="lineNum">     689 </span>            :     function&amp; operator=(const function&amp;);
+<span class="lineNum">     690 </span>            :     function&amp; operator=(nullptr_t);
+<span class="lineNum">     691 </span>            :     template&lt;class _Fp&gt;
+<span class="lineNum">     692 </span>            :       typename enable_if
+<span class="lineNum">     693 </span>            :       &lt;
+<span class="lineNum">     694 </span>            :         !is_integral&lt;_Fp&gt;::value,
+<span class="lineNum">     695 </span>            :         function&amp;
+<span class="lineNum">     696 </span>            :       &gt;::type
+<span class="lineNum">     697 </span>            :       operator=(_Fp);
+<span class="lineNum">     698 </span>            : 
+<span class="lineNum">     699 </span>            :     ~function();
+<span class="lineNum">     700 </span>            : 
+<span class="lineNum">     701 </span>            :     // 20.7.16.2.2, function modifiers:
+<span class="lineNum">     702 </span>            :     void swap(function&amp;);
+<span class="lineNum">     703 </span>            :     template&lt;class _Fp, class _Alloc&gt;
+<span class="lineNum">     704 </span>            :       _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     705 </span>            :       void assign(_Fp __f, const _Alloc&amp; __a)
+<span class="lineNum">     706 </span>            :         {function(allocator_arg, __a, __f).swap(*this);}
+<a name="707"><span class="lineNum">     707 </span>            : </a>
+<span class="lineNum">     708 </span>            :     // 20.7.16.2.3, function capacity:
+<span class="lineNum">     709 </span><span class="lineCov">          1 :     _LIBCPP_INLINE_VISIBILITY operator bool() const {return __f_;}</span>
+<span class="lineNum">     710 </span>            : 
+<span class="lineNum">     711 </span>            : private:
+<span class="lineNum">     712 </span>            :     // deleted overloads close possible hole in the type system
+<span class="lineNum">     713 </span>            :     template&lt;class _R2&gt;
+<span class="lineNum">     714 </span>            :       bool operator==(const function&lt;_R2()&gt;&amp;) const;// = delete;
+<span class="lineNum">     715 </span>            :     template&lt;class _R2&gt;
+<span class="lineNum">     716 </span>            :       bool operator!=(const function&lt;_R2()&gt;&amp;) const;// = delete;
+<span class="lineNum">     717 </span>            : public:
+<span class="lineNum">     718 </span>            :     // 20.7.16.2.4, function invocation:
+<span class="lineNum">     719 </span>            :     _Rp operator()() const;
+<span class="lineNum">     720 </span>            : 
+<span class="lineNum">     721 </span>            : #ifndef _LIBCPP_NO_RTTI
+<span class="lineNum">     722 </span>            :     // 20.7.16.2.5, function target access:
+<span class="lineNum">     723 </span>            :     const std::type_info&amp; target_type() const;
+<span class="lineNum">     724 </span>            :     template &lt;typename _Tp&gt; _Tp* target();
+<span class="lineNum">     725 </span>            :     template &lt;typename _Tp&gt; const _Tp* target() const;
+<span class="lineNum">     726 </span>            : #endif  // _LIBCPP_NO_RTTI
+<span class="lineNum">     727 </span>            : };
+<span class="lineNum">     728 </span>            : 
+<span class="lineNum">     729 </span>            : template&lt;class _Rp&gt;
+<span class="lineNum">     730 </span>            : function&lt;_Rp()&gt;::function(const function&amp; __f)
+<span class="lineNum">     731 </span>            : {
+<span class="lineNum">     732 </span>            :     if (__f.__f_ == 0)
+<span class="lineNum">     733 </span>            :         __f_ = 0;
+<span class="lineNum">     734 </span>            :     else if (__f.__f_ == (const __base*)&amp;__f.__buf_)
+<span class="lineNum">     735 </span>            :     {
+<span class="lineNum">     736 </span>            :         __f_ = (__base*)&amp;__buf_;
+<span class="lineNum">     737 </span>            :         __f.__f_-&gt;__clone(__f_);
+<span class="lineNum">     738 </span>            :     }
+<span class="lineNum">     739 </span>            :     else
+<span class="lineNum">     740 </span>            :         __f_ = __f.__f_-&gt;__clone();
+<span class="lineNum">     741 </span>            : }
+<span class="lineNum">     742 </span>            : 
+<span class="lineNum">     743 </span>            : template&lt;class _Rp&gt;
+<span class="lineNum">     744 </span>            : template&lt;class _Alloc&gt;
+<span class="lineNum">     745 </span>            : function&lt;_Rp()&gt;::function(allocator_arg_t, const _Alloc&amp;, const function&amp; __f)
+<span class="lineNum">     746 </span>            : {
+<span class="lineNum">     747 </span>            :     if (__f.__f_ == 0)
+<span class="lineNum">     748 </span>            :         __f_ = 0;
+<span class="lineNum">     749 </span>            :     else if (__f.__f_ == (const __base*)&amp;__f.__buf_)
+<span class="lineNum">     750 </span>            :     {
+<span class="lineNum">     751 </span>            :         __f_ = (__base*)&amp;__buf_;
+<span class="lineNum">     752 </span>            :         __f.__f_-&gt;__clone(__f_);
+<span class="lineNum">     753 </span>            :     }
+<span class="lineNum">     754 </span>            :     else
+<span class="lineNum">     755 </span>            :         __f_ = __f.__f_-&gt;__clone();
+<span class="lineNum">     756 </span>            : }
+<span class="lineNum">     757 </span>            : 
+<span class="lineNum">     758 </span>            : template&lt;class _Rp&gt;
+<span class="lineNum">     759 </span>            : template &lt;class _Fp&gt;
+<span class="lineNum">     760 </span>            : function&lt;_Rp()&gt;::function(_Fp __f,
+<span class="lineNum">     761 </span>            :                                      typename enable_if&lt;!is_integral&lt;_Fp&gt;::value&gt;::type*)
+<span class="lineNum">     762 </span><span class="lineCov">          3 :     : __f_(0)</span>
+<span class="lineNum">     763 </span>            : {
+<span class="lineNum">     764 </span><span class="lineCov">          3 :     if (__not_null(__f))</span>
+<span class="lineNum">     765 </span>            :     {
+<span class="lineNum">     766 </span>            :         typedef __function::__func&lt;_Fp, allocator&lt;_Fp&gt;, _Rp()&gt; _FF;
+<span class="lineNum">     767 </span>            :         if (sizeof(_FF) &lt;= sizeof(__buf_))
+<span class="lineNum">     768 </span>            :         {
+<span class="lineNum">     769 </span><span class="lineCov">          2 :             __f_ = (__base*)&amp;__buf_;</span>
+<span class="lineNum">     770 </span><span class="lineCov">          2 :             ::new (__f_) _FF(__f);</span>
+<span class="lineNum">     771 </span>            :         }
+<span class="lineNum">     772 </span>            :         else
+<span class="lineNum">     773 </span>            :         {
+<span class="lineNum">     774 </span>            :             typedef allocator&lt;_FF&gt; _Ap;
+<span class="lineNum">     775 </span>            :             _Ap __a;
+<span class="lineNum">     776 </span>            :             typedef __allocator_destructor&lt;_Ap&gt; _Dp;
+<span class="lineNum">     777 </span>            :             unique_ptr&lt;__base, _Dp&gt; __hold(__a.allocate(1), _Dp(__a, 1));
+<span class="lineNum">     778 </span>            :             ::new (__hold.get()) _FF(__f, allocator&lt;_Fp&gt;(__a));
+<span class="lineNum">     779 </span>            :             __f_ = __hold.release();
+<span class="lineNum">     780 </span>            :         }
+<span class="lineNum">     781 </span><span class="lineCov">          2 :     }</span>
+<span class="lineNum">     782 </span><span class="lineCov">          3 : }</span>
+<span class="lineNum">     783 </span>            : 
+<span class="lineNum">     784 </span>            : template&lt;class _Rp&gt;
+<span class="lineNum">     785 </span>            : template &lt;class _Fp, class _Alloc&gt;
+<span class="lineNum">     786 </span>            : function&lt;_Rp()&gt;::function(allocator_arg_t, const _Alloc&amp; __a0, _Fp __f,
+<span class="lineNum">     787 </span>            :                                      typename enable_if&lt;!is_integral&lt;_Fp&gt;::value&gt;::type*)
+<span class="lineNum">     788 </span>            :     : __f_(0)
+<span class="lineNum">     789 </span>            : {
+<span class="lineNum">     790 </span>            :     typedef allocator_traits&lt;_Alloc&gt; __alloc_traits;
+<span class="lineNum">     791 </span>            :     if (__not_null(__f))
+<span class="lineNum">     792 </span>            :     {
+<span class="lineNum">     793 </span>            :         typedef __function::__func&lt;_Fp, _Alloc, _Rp()&gt; _FF;
+<span class="lineNum">     794 </span>            :         if (sizeof(_FF) &lt;= sizeof(__buf_))
+<span class="lineNum">     795 </span>            :         {
+<span class="lineNum">     796 </span>            :             __f_ = (__base*)&amp;__buf_;
+<span class="lineNum">     797 </span>            :             ::new (__f_) _FF(__f);
+<span class="lineNum">     798 </span>            :         }
+<span class="lineNum">     799 </span>            :         else
+<span class="lineNum">     800 </span>            :         {
+<span class="lineNum">     801 </span>            :             typedef typename __rebind_alloc_helper&lt;__alloc_traits, _FF&gt;::type _Ap;
+<span class="lineNum">     802 </span>            :             _Ap __a(__a0);
+<span class="lineNum">     803 </span>            :             typedef __allocator_destructor&lt;_Ap&gt; _Dp;
+<span class="lineNum">     804 </span>            :             unique_ptr&lt;__base, _Dp&gt; __hold(__a.allocate(1), _Dp(__a, 1));
+<span class="lineNum">     805 </span>            :             ::new (__hold.get()) _FF(__f, _Alloc(__a));
+<span class="lineNum">     806 </span>            :             __f_ = __hold.release();
+<span class="lineNum">     807 </span>            :         }
+<span class="lineNum">     808 </span>            :     }
+<span class="lineNum">     809 </span>            : }
+<span class="lineNum">     810 </span>            : 
+<span class="lineNum">     811 </span>            : template&lt;class _Rp&gt;
+<span class="lineNum">     812 </span>            : function&lt;_Rp()&gt;&amp;
+<span class="lineNum">     813 </span>            : function&lt;_Rp()&gt;::operator=(const function&amp; __f)
+<span class="lineNum">     814 </span>            : {
+<span class="lineNum">     815 </span>            :     function(__f).swap(*this);
+<span class="lineNum">     816 </span>            :     return *this;
+<span class="lineNum">     817 </span>            : }
+<span class="lineNum">     818 </span>            : 
+<span class="lineNum">     819 </span>            : template&lt;class _Rp&gt;
+<span class="lineNum">     820 </span>            : function&lt;_Rp()&gt;&amp;
+<span class="lineNum">     821 </span>            : function&lt;_Rp()&gt;::operator=(nullptr_t)
+<span class="lineNum">     822 </span>            : {
+<span class="lineNum">     823 </span>            :     if (__f_ == (__base*)&amp;__buf_)
+<span class="lineNum">     824 </span>            :         __f_-&gt;destroy();
+<span class="lineNum">     825 </span>            :     else if (__f_)
+<span class="lineNum">     826 </span>            :         __f_-&gt;destroy_deallocate();
+<span class="lineNum">     827 </span>            :     __f_ = 0;
+<span class="lineNum">     828 </span>            :     return *this;
+<span class="lineNum">     829 </span>            : }
+<span class="lineNum">     830 </span>            : 
+<span class="lineNum">     831 </span>            : template&lt;class _Rp&gt;
+<span class="lineNum">     832 </span>            : template &lt;class _Fp&gt;
+<span class="lineNum">     833 </span>            : typename enable_if
+<span class="lineNum">     834 </span>            : &lt;
+<span class="lineNum">     835 </span>            :     !is_integral&lt;_Fp&gt;::value,
+<span class="lineNum">     836 </span>            :     function&lt;_Rp()&gt;&amp;
+<span class="lineNum">     837 </span>            : &gt;::type
+<span class="lineNum">     838 </span>            : function&lt;_Rp()&gt;::operator=(_Fp __f)
+<span class="lineNum">     839 </span>            : {
+<span class="lineNum">     840 </span>            :     function(_VSTD::move(__f)).swap(*this);
+<span class="lineNum">     841 </span>            :     return *this;
+<span class="lineNum">     842 </span>            : }
+<a name="843"><span class="lineNum">     843 </span>            : </a>
+<span class="lineNum">     844 </span>            : template&lt;class _Rp&gt;
+<span class="lineNum">     845 </span>            : function&lt;_Rp()&gt;::~function()
+<span class="lineNum">     846 </span>            : {
+<span class="lineNum">     847 </span><span class="lineCov">          3 :     if (__f_ == (__base*)&amp;__buf_)</span>
+<span class="lineNum">     848 </span><span class="lineCov">          4 :         __f_-&gt;destroy();</span>
+<span class="lineNum">     849 </span><span class="lineCov">          1 :     else if (__f_)</span>
+<span class="lineNum">     850 </span><span class="lineNoCov">          0 :         __f_-&gt;destroy_deallocate();</span>
+<span class="lineNum">     851 </span><span class="lineCov">          3 : }</span>
+<span class="lineNum">     852 </span>            : 
+<span class="lineNum">     853 </span>            : template&lt;class _Rp&gt;
+<span class="lineNum">     854 </span>            : void
+<span class="lineNum">     855 </span>            : function&lt;_Rp()&gt;::swap(function&amp; __f)
+<span class="lineNum">     856 </span>            : {
+<span class="lineNum">     857 </span>            :     if (__f_ == (__base*)&amp;__buf_ &amp;&amp; __f.__f_ == (__base*)&amp;__f.__buf_)
+<span class="lineNum">     858 </span>            :     {
+<span class="lineNum">     859 </span>            :         typename aligned_storage&lt;sizeof(__buf_)&gt;::type __tempbuf;
+<span class="lineNum">     860 </span>            :         __base* __t = (__base*)&amp;__tempbuf;
+<span class="lineNum">     861 </span>            :         __f_-&gt;__clone(__t);
+<span class="lineNum">     862 </span>            :         __f_-&gt;destroy();
+<span class="lineNum">     863 </span>            :         __f_ = 0;
+<span class="lineNum">     864 </span>            :         __f.__f_-&gt;__clone((__base*)&amp;__buf_);
+<span class="lineNum">     865 </span>            :         __f.__f_-&gt;destroy();
+<span class="lineNum">     866 </span>            :         __f.__f_ = 0;
+<span class="lineNum">     867 </span>            :         __f_ = (__base*)&amp;__buf_;
+<span class="lineNum">     868 </span>            :         __t-&gt;__clone((__base*)&amp;__f.__buf_);
+<span class="lineNum">     869 </span>            :         __t-&gt;destroy();
+<span class="lineNum">     870 </span>            :         __f.__f_ = (__base*)&amp;__f.__buf_;
+<span class="lineNum">     871 </span>            :     }
+<span class="lineNum">     872 </span>            :     else if (__f_ == (__base*)&amp;__buf_)
+<span class="lineNum">     873 </span>            :     {
+<span class="lineNum">     874 </span>            :         __f_-&gt;__clone((__base*)&amp;__f.__buf_);
+<span class="lineNum">     875 </span>            :         __f_-&gt;destroy();
+<span class="lineNum">     876 </span>            :         __f_ = __f.__f_;
+<span class="lineNum">     877 </span>            :         __f.__f_ = (__base*)&amp;__f.__buf_;
+<span class="lineNum">     878 </span>            :     }
+<span class="lineNum">     879 </span>            :     else if (__f.__f_ == (__base*)&amp;__f.__buf_)
+<span class="lineNum">     880 </span>            :     {
+<span class="lineNum">     881 </span>            :         __f.__f_-&gt;__clone((__base*)&amp;__buf_);
+<span class="lineNum">     882 </span>            :         __f.__f_-&gt;destroy();
+<span class="lineNum">     883 </span>            :         __f.__f_ = __f_;
+<span class="lineNum">     884 </span>            :         __f_ = (__base*)&amp;__buf_;
+<span class="lineNum">     885 </span>            :     }
+<span class="lineNum">     886 </span>            :     else
+<span class="lineNum">     887 </span>            :         _VSTD::swap(__f_, __f.__f_);
+<span class="lineNum">     888 </span>            : }
+<span class="lineNum">     889 </span>            : 
+<a name="890"><span class="lineNum">     890 </span>            : template&lt;class _Rp&gt;</a>
+<span class="lineNum">     891 </span>            : _Rp
+<span class="lineNum">     892 </span>            : function&lt;_Rp()&gt;::operator()() const
+<span class="lineNum">     893 </span>            : {
+<span class="lineNum">     894 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     895 </span><span class="lineCov">          2 :     if (__f_ == 0)</span>
+<span class="lineNum">     896 </span><span class="lineNoCov">          0 :         throw bad_function_call();</span>
+<span class="lineNum">     897 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     898 </span><span class="lineCov">          2 :     return (*__f_)();</span>
+<span class="lineNum">     899 </span>            : }
+<span class="lineNum">     900 </span>            : 
+<span class="lineNum">     901 </span>            : #ifndef _LIBCPP_NO_RTTI
+<span class="lineNum">     902 </span>            : 
+<span class="lineNum">     903 </span>            : template&lt;class _Rp&gt;
+<span class="lineNum">     904 </span>            : const std::type_info&amp;
+<span class="lineNum">     905 </span>            : function&lt;_Rp()&gt;::target_type() const
+<span class="lineNum">     906 </span>            : {
+<span class="lineNum">     907 </span>            :     if (__f_ == 0)
+<span class="lineNum">     908 </span>            :         return typeid(void);
+<span class="lineNum">     909 </span>            :     return __f_-&gt;target_type();
+<span class="lineNum">     910 </span>            : }
+<span class="lineNum">     911 </span>            : 
+<span class="lineNum">     912 </span>            : template&lt;class _Rp&gt;
+<span class="lineNum">     913 </span>            : template &lt;typename _Tp&gt;
+<span class="lineNum">     914 </span>            : _Tp*
+<span class="lineNum">     915 </span>            : function&lt;_Rp()&gt;::target()
+<span class="lineNum">     916 </span>            : {
+<span class="lineNum">     917 </span>            :     if (__f_ == 0)
+<span class="lineNum">     918 </span>            :         return (_Tp*)0;
+<span class="lineNum">     919 </span>            :     return (_Tp*)__f_-&gt;target(typeid(_Tp));
+<span class="lineNum">     920 </span>            : }
+<span class="lineNum">     921 </span>            : 
+<span class="lineNum">     922 </span>            : template&lt;class _Rp&gt;
+<span class="lineNum">     923 </span>            : template &lt;typename _Tp&gt;
+<span class="lineNum">     924 </span>            : const _Tp*
+<span class="lineNum">     925 </span>            : function&lt;_Rp()&gt;::target() const
+<span class="lineNum">     926 </span>            : {
+<span class="lineNum">     927 </span>            :     if (__f_ == 0)
+<span class="lineNum">     928 </span>            :         return (const _Tp*)0;
+<span class="lineNum">     929 </span>            :     return (const _Tp*)__f_-&gt;target(typeid(_Tp));
+<span class="lineNum">     930 </span>            : }
+<span class="lineNum">     931 </span>            : 
+<span class="lineNum">     932 </span>            : #endif  // _LIBCPP_NO_RTTI
+<span class="lineNum">     933 </span>            : 
+<span class="lineNum">     934 </span>            : template&lt;class _Rp, class _A0&gt;
+<span class="lineNum">     935 </span>            : class _LIBCPP_TYPE_VIS_ONLY function&lt;_Rp(_A0)&gt;
+<span class="lineNum">     936 </span>            :     : public unary_function&lt;_A0, _Rp&gt;
+<span class="lineNum">     937 </span>            : {
+<span class="lineNum">     938 </span>            :     typedef __function::__base&lt;_Rp(_A0)&gt; __base;
+<span class="lineNum">     939 </span>            :     aligned_storage&lt;3*sizeof(void*)&gt;::type __buf_;
+<span class="lineNum">     940 </span>            :     __base* __f_;
+<span class="lineNum">     941 </span>            : 
+<span class="lineNum">     942 </span>            :     template &lt;class _Fp&gt;
+<span class="lineNum">     943 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     944 </span>            :         static bool __not_null(const _Fp&amp;) {return true;}
+<a name="945"><span class="lineNum">     945 </span>            :     template &lt;class _R2, class _B0&gt;</a>
+<span class="lineNum">     946 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     947 </span><span class="lineCov">          2 :         static bool __not_null(_R2 (*__p)(_B0)) {return __p;}</span>
+<span class="lineNum">     948 </span>            :     template &lt;class _R2, class _Cp&gt;
+<span class="lineNum">     949 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     950 </span>            :         static bool __not_null(_R2 (_Cp::*__p)()) {return __p;}
+<span class="lineNum">     951 </span>            :     template &lt;class _R2, class _Cp&gt;
+<span class="lineNum">     952 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     953 </span>            :         static bool __not_null(_R2 (_Cp::*__p)() const) {return __p;}
+<span class="lineNum">     954 </span>            :     template &lt;class _R2, class _Cp&gt;
+<span class="lineNum">     955 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     956 </span>            :         static bool __not_null(_R2 (_Cp::*__p)() volatile) {return __p;}
+<span class="lineNum">     957 </span>            :     template &lt;class _R2, class _Cp&gt;
+<span class="lineNum">     958 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     959 </span>            :         static bool __not_null(_R2 (_Cp::*__p)() const volatile) {return __p;}
+<span class="lineNum">     960 </span>            :     template &lt;class _R2, class _B0&gt;
+<span class="lineNum">     961 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     962 </span>            :         static bool __not_null(const function&lt;_R2(_B0)&gt;&amp; __p) {return __p;}
+<span class="lineNum">     963 </span>            : public:
+<span class="lineNum">     964 </span>            :     typedef _Rp result_type;
+<span class="lineNum">     965 </span>            : 
+<span class="lineNum">     966 </span>            :     // 20.7.16.2.1, construct/copy/destroy:
+<span class="lineNum">     967 </span>            :     _LIBCPP_INLINE_VISIBILITY explicit function() : __f_(0) {}
+<span class="lineNum">     968 </span>            :     _LIBCPP_INLINE_VISIBILITY function(nullptr_t) : __f_(0) {}
+<a name="969"><span class="lineNum">     969 </span>            :     function(const function&amp;);</a>
+<span class="lineNum">     970 </span>            :     template&lt;class _Fp&gt;
+<span class="lineNum">     971 </span><span class="lineCov">          2 :       function(_Fp,</span>
+<span class="lineNum">     972 </span>            :                typename enable_if&lt;!is_integral&lt;_Fp&gt;::value&gt;::type* = 0);
+<span class="lineNum">     973 </span>            : 
+<span class="lineNum">     974 </span>            :     template&lt;class _Alloc&gt;
+<span class="lineNum">     975 </span>            :       _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     976 </span>            :       function(allocator_arg_t, const _Alloc&amp;) : __f_(0) {}
+<span class="lineNum">     977 </span>            :     template&lt;class _Alloc&gt;
+<span class="lineNum">     978 </span>            :       _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     979 </span>            :       function(allocator_arg_t, const _Alloc&amp;, nullptr_t) : __f_(0) {}
+<span class="lineNum">     980 </span>            :     template&lt;class _Alloc&gt;
+<span class="lineNum">     981 </span>            :       function(allocator_arg_t, const _Alloc&amp;, const function&amp;);
+<span class="lineNum">     982 </span>            :     template&lt;class _Fp, class _Alloc&gt;
+<span class="lineNum">     983 </span>            :       function(allocator_arg_t, const _Alloc&amp; __a, _Fp __f,
+<span class="lineNum">     984 </span>            :                typename enable_if&lt;!is_integral&lt;_Fp&gt;::value&gt;::type* = 0);
+<span class="lineNum">     985 </span>            : 
+<span class="lineNum">     986 </span>            :     function&amp; operator=(const function&amp;);
+<span class="lineNum">     987 </span>            :     function&amp; operator=(nullptr_t);
+<span class="lineNum">     988 </span>            :     template&lt;class _Fp&gt;
+<span class="lineNum">     989 </span>            :       typename enable_if
+<span class="lineNum">     990 </span>            :       &lt;
+<span class="lineNum">     991 </span>            :         !is_integral&lt;_Fp&gt;::value,
+<span class="lineNum">     992 </span>            :         function&amp;
+<span class="lineNum">     993 </span>            :       &gt;::type
+<span class="lineNum">     994 </span>            :       operator=(_Fp);
+<span class="lineNum">     995 </span>            : 
+<span class="lineNum">     996 </span>            :     ~function();
+<span class="lineNum">     997 </span>            : 
+<span class="lineNum">     998 </span>            :     // 20.7.16.2.2, function modifiers:
+<span class="lineNum">     999 </span>            :     void swap(function&amp;);
+<span class="lineNum">    1000 </span>            :     template&lt;class _Fp, class _Alloc&gt;
+<span class="lineNum">    1001 </span>            :       _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1002 </span>            :       void assign(_Fp __f, const _Alloc&amp; __a)
+<span class="lineNum">    1003 </span>            :         {function(allocator_arg, __a, __f).swap(*this);}
+<span class="lineNum">    1004 </span>            : 
+<span class="lineNum">    1005 </span>            :     // 20.7.16.2.3, function capacity:
+<span class="lineNum">    1006 </span>            :     _LIBCPP_INLINE_VISIBILITY operator bool() const {return __f_;}
+<span class="lineNum">    1007 </span>            : 
+<span class="lineNum">    1008 </span>            : private:
+<span class="lineNum">    1009 </span>            :     // deleted overloads close possible hole in the type system
+<span class="lineNum">    1010 </span>            :     template&lt;class _R2, class _B0&gt;
+<span class="lineNum">    1011 </span>            :       bool operator==(const function&lt;_R2(_B0)&gt;&amp;) const;// = delete;
+<span class="lineNum">    1012 </span>            :     template&lt;class _R2, class _B0&gt;
+<span class="lineNum">    1013 </span>            :       bool operator!=(const function&lt;_R2(_B0)&gt;&amp;) const;// = delete;
+<span class="lineNum">    1014 </span>            : public:
+<span class="lineNum">    1015 </span>            :     // 20.7.16.2.4, function invocation:
+<span class="lineNum">    1016 </span>            :     _Rp operator()(_A0) const;
+<span class="lineNum">    1017 </span>            : 
+<span class="lineNum">    1018 </span>            : #ifndef _LIBCPP_NO_RTTI
+<span class="lineNum">    1019 </span>            :     // 20.7.16.2.5, function target access:
+<span class="lineNum">    1020 </span>            :     const std::type_info&amp; target_type() const;
+<span class="lineNum">    1021 </span>            :     template &lt;typename _Tp&gt; _Tp* target();
+<span class="lineNum">    1022 </span>            :     template &lt;typename _Tp&gt; const _Tp* target() const;
+<span class="lineNum">    1023 </span>            : #endif  // _LIBCPP_NO_RTTI
+<span class="lineNum">    1024 </span>            : };
+<span class="lineNum">    1025 </span>            : 
+<span class="lineNum">    1026 </span>            : template&lt;class _Rp, class _A0&gt;
+<span class="lineNum">    1027 </span>            : function&lt;_Rp(_A0)&gt;::function(const function&amp; __f)
+<span class="lineNum">    1028 </span>            : {
+<span class="lineNum">    1029 </span>            :     if (__f.__f_ == 0)
+<span class="lineNum">    1030 </span>            :         __f_ = 0;
+<span class="lineNum">    1031 </span>            :     else if (__f.__f_ == (const __base*)&amp;__f.__buf_)
+<span class="lineNum">    1032 </span>            :     {
+<span class="lineNum">    1033 </span>            :         __f_ = (__base*)&amp;__buf_;
+<span class="lineNum">    1034 </span>            :         __f.__f_-&gt;__clone(__f_);
+<span class="lineNum">    1035 </span>            :     }
+<span class="lineNum">    1036 </span>            :     else
+<span class="lineNum">    1037 </span>            :         __f_ = __f.__f_-&gt;__clone();
+<span class="lineNum">    1038 </span>            : }
+<span class="lineNum">    1039 </span>            : 
+<span class="lineNum">    1040 </span>            : template&lt;class _Rp, class _A0&gt;
+<span class="lineNum">    1041 </span>            : template&lt;class _Alloc&gt;
+<span class="lineNum">    1042 </span>            : function&lt;_Rp(_A0)&gt;::function(allocator_arg_t, const _Alloc&amp;, const function&amp; __f)
+<span class="lineNum">    1043 </span>            : {
+<span class="lineNum">    1044 </span>            :     if (__f.__f_ == 0)
+<span class="lineNum">    1045 </span>            :         __f_ = 0;
+<span class="lineNum">    1046 </span>            :     else if (__f.__f_ == (const __base*)&amp;__f.__buf_)
+<span class="lineNum">    1047 </span>            :     {
+<span class="lineNum">    1048 </span>            :         __f_ = (__base*)&amp;__buf_;
+<span class="lineNum">    1049 </span>            :         __f.__f_-&gt;__clone(__f_);
+<span class="lineNum">    1050 </span>            :     }
+<span class="lineNum">    1051 </span>            :     else
+<span class="lineNum">    1052 </span>            :         __f_ = __f.__f_-&gt;__clone();
+<span class="lineNum">    1053 </span>            : }
+<span class="lineNum">    1054 </span>            : 
+<span class="lineNum">    1055 </span>            : template&lt;class _Rp, class _A0&gt;
+<span class="lineNum">    1056 </span>            : template &lt;class _Fp&gt;
+<span class="lineNum">    1057 </span>            : function&lt;_Rp(_A0)&gt;::function(_Fp __f,
+<span class="lineNum">    1058 </span>            :                                      typename enable_if&lt;!is_integral&lt;_Fp&gt;::value&gt;::type*)
+<span class="lineNum">    1059 </span><span class="lineCov">          2 :     : __f_(0)</span>
+<span class="lineNum">    1060 </span><span class="lineCov">          2 : {</span>
+<span class="lineNum">    1061 </span><span class="lineCov">          2 :     if (__not_null(__f))</span>
+<span class="lineNum">    1062 </span>            :     {
+<span class="lineNum">    1063 </span>            :         typedef __function::__func&lt;_Fp, allocator&lt;_Fp&gt;, _Rp(_A0)&gt; _FF;
+<span class="lineNum">    1064 </span>            :         if (sizeof(_FF) &lt;= sizeof(__buf_))
+<span class="lineNum">    1065 </span>            :         {
+<span class="lineNum">    1066 </span><span class="lineCov">          2 :             __f_ = (__base*)&amp;__buf_;</span>
+<span class="lineNum">    1067 </span><span class="lineCov">          2 :             ::new (__f_) _FF(__f);</span>
+<span class="lineNum">    1068 </span>            :         }
+<span class="lineNum">    1069 </span>            :         else
+<span class="lineNum">    1070 </span>            :         {
+<span class="lineNum">    1071 </span>            :             typedef allocator&lt;_FF&gt; _Ap;
+<span class="lineNum">    1072 </span>            :             _Ap __a;
+<span class="lineNum">    1073 </span>            :             typedef __allocator_destructor&lt;_Ap&gt; _Dp;
+<span class="lineNum">    1074 </span>            :             unique_ptr&lt;__base, _Dp&gt; __hold(__a.allocate(1), _Dp(__a, 1));
+<span class="lineNum">    1075 </span>            :             ::new (__hold.get()) _FF(__f, allocator&lt;_Fp&gt;(__a));
+<span class="lineNum">    1076 </span>            :             __f_ = __hold.release();
+<span class="lineNum">    1077 </span>            :         }
+<span class="lineNum">    1078 </span><span class="lineCov">          2 :     }</span>
+<span class="lineNum">    1079 </span><span class="lineCov">          2 : }</span>
+<span class="lineNum">    1080 </span>            : 
+<span class="lineNum">    1081 </span>            : template&lt;class _Rp, class _A0&gt;
+<span class="lineNum">    1082 </span>            : template &lt;class _Fp, class _Alloc&gt;
+<span class="lineNum">    1083 </span>            : function&lt;_Rp(_A0)&gt;::function(allocator_arg_t, const _Alloc&amp; __a0, _Fp __f,
+<span class="lineNum">    1084 </span>            :                                      typename enable_if&lt;!is_integral&lt;_Fp&gt;::value&gt;::type*)
+<span class="lineNum">    1085 </span>            :     : __f_(0)
+<span class="lineNum">    1086 </span>            : {
+<span class="lineNum">    1087 </span>            :     typedef allocator_traits&lt;_Alloc&gt; __alloc_traits;
+<span class="lineNum">    1088 </span>            :     if (__not_null(__f))
+<span class="lineNum">    1089 </span>            :     {
+<span class="lineNum">    1090 </span>            :         typedef __function::__func&lt;_Fp, _Alloc, _Rp(_A0)&gt; _FF;
+<span class="lineNum">    1091 </span>            :         if (sizeof(_FF) &lt;= sizeof(__buf_))
+<span class="lineNum">    1092 </span>            :         {
+<span class="lineNum">    1093 </span>            :             __f_ = (__base*)&amp;__buf_;
+<span class="lineNum">    1094 </span>            :             ::new (__f_) _FF(__f);
+<span class="lineNum">    1095 </span>            :         }
+<span class="lineNum">    1096 </span>            :         else
+<span class="lineNum">    1097 </span>            :         {
+<span class="lineNum">    1098 </span>            :             typedef typename __rebind_alloc_helper&lt;__alloc_traits, _FF&gt;::type _Ap;
+<span class="lineNum">    1099 </span>            :             _Ap __a(__a0);
+<span class="lineNum">    1100 </span>            :             typedef __allocator_destructor&lt;_Ap&gt; _Dp;
+<span class="lineNum">    1101 </span>            :             unique_ptr&lt;__base, _Dp&gt; __hold(__a.allocate(1), _Dp(__a, 1));
+<span class="lineNum">    1102 </span>            :             ::new (__hold.get()) _FF(__f, _Alloc(__a));
+<span class="lineNum">    1103 </span>            :             __f_ = __hold.release();
+<span class="lineNum">    1104 </span>            :         }
+<span class="lineNum">    1105 </span>            :     }
+<span class="lineNum">    1106 </span>            : }
+<span class="lineNum">    1107 </span>            : 
+<span class="lineNum">    1108 </span>            : template&lt;class _Rp, class _A0&gt;
+<span class="lineNum">    1109 </span>            : function&lt;_Rp(_A0)&gt;&amp;
+<span class="lineNum">    1110 </span>            : function&lt;_Rp(_A0)&gt;::operator=(const function&amp; __f)
+<span class="lineNum">    1111 </span>            : {
+<span class="lineNum">    1112 </span>            :     function(__f).swap(*this);
+<span class="lineNum">    1113 </span>            :     return *this;
+<span class="lineNum">    1114 </span>            : }
+<span class="lineNum">    1115 </span>            : 
+<span class="lineNum">    1116 </span>            : template&lt;class _Rp, class _A0&gt;
+<span class="lineNum">    1117 </span>            : function&lt;_Rp(_A0)&gt;&amp;
+<span class="lineNum">    1118 </span>            : function&lt;_Rp(_A0)&gt;::operator=(nullptr_t)
+<span class="lineNum">    1119 </span>            : {
+<span class="lineNum">    1120 </span>            :     if (__f_ == (__base*)&amp;__buf_)
+<span class="lineNum">    1121 </span>            :         __f_-&gt;destroy();
+<span class="lineNum">    1122 </span>            :     else if (__f_)
+<span class="lineNum">    1123 </span>            :         __f_-&gt;destroy_deallocate();
+<span class="lineNum">    1124 </span>            :     __f_ = 0;
+<span class="lineNum">    1125 </span>            :     return *this;
+<span class="lineNum">    1126 </span>            : }
+<span class="lineNum">    1127 </span>            : 
+<span class="lineNum">    1128 </span>            : template&lt;class _Rp, class _A0&gt;
+<span class="lineNum">    1129 </span>            : template &lt;class _Fp&gt;
+<span class="lineNum">    1130 </span>            : typename enable_if
+<span class="lineNum">    1131 </span>            : &lt;
+<span class="lineNum">    1132 </span>            :     !is_integral&lt;_Fp&gt;::value,
+<span class="lineNum">    1133 </span>            :     function&lt;_Rp(_A0)&gt;&amp;
+<span class="lineNum">    1134 </span>            : &gt;::type
+<span class="lineNum">    1135 </span>            : function&lt;_Rp(_A0)&gt;::operator=(_Fp __f)
+<span class="lineNum">    1136 </span>            : {
+<span class="lineNum">    1137 </span>            :     function(_VSTD::move(__f)).swap(*this);
+<span class="lineNum">    1138 </span>            :     return *this;
+<span class="lineNum">    1139 </span>            : }
+<a name="1140"><span class="lineNum">    1140 </span>            : </a>
+<span class="lineNum">    1141 </span>            : template&lt;class _Rp, class _A0&gt;
+<span class="lineNum">    1142 </span>            : function&lt;_Rp(_A0)&gt;::~function()
+<span class="lineNum">    1143 </span>            : {
+<span class="lineNum">    1144 </span><span class="lineCov">          2 :     if (__f_ == (__base*)&amp;__buf_)</span>
+<span class="lineNum">    1145 </span><span class="lineCov">          4 :         __f_-&gt;destroy();</span>
+<span class="lineNum">    1146 </span><span class="lineNoCov">          0 :     else if (__f_)</span>
+<span class="lineNum">    1147 </span><span class="lineNoCov">          0 :         __f_-&gt;destroy_deallocate();</span>
+<span class="lineNum">    1148 </span><span class="lineCov">          2 : }</span>
+<span class="lineNum">    1149 </span>            : 
+<span class="lineNum">    1150 </span>            : template&lt;class _Rp, class _A0&gt;
+<span class="lineNum">    1151 </span>            : void
+<span class="lineNum">    1152 </span>            : function&lt;_Rp(_A0)&gt;::swap(function&amp; __f)
+<span class="lineNum">    1153 </span>            : {
+<span class="lineNum">    1154 </span>            :     if (__f_ == (__base*)&amp;__buf_ &amp;&amp; __f.__f_ == (__base*)&amp;__f.__buf_)
+<span class="lineNum">    1155 </span>            :     {
+<span class="lineNum">    1156 </span>            :         typename aligned_storage&lt;sizeof(__buf_)&gt;::type __tempbuf;
+<span class="lineNum">    1157 </span>            :         __base* __t = (__base*)&amp;__tempbuf;
+<span class="lineNum">    1158 </span>            :         __f_-&gt;__clone(__t);
+<span class="lineNum">    1159 </span>            :         __f_-&gt;destroy();
+<span class="lineNum">    1160 </span>            :         __f_ = 0;
+<span class="lineNum">    1161 </span>            :         __f.__f_-&gt;__clone((__base*)&amp;__buf_);
+<span class="lineNum">    1162 </span>            :         __f.__f_-&gt;destroy();
+<span class="lineNum">    1163 </span>            :         __f.__f_ = 0;
+<span class="lineNum">    1164 </span>            :         __f_ = (__base*)&amp;__buf_;
+<span class="lineNum">    1165 </span>            :         __t-&gt;__clone((__base*)&amp;__f.__buf_);
+<span class="lineNum">    1166 </span>            :         __t-&gt;destroy();
+<span class="lineNum">    1167 </span>            :         __f.__f_ = (__base*)&amp;__f.__buf_;
+<span class="lineNum">    1168 </span>            :     }
+<span class="lineNum">    1169 </span>            :     else if (__f_ == (__base*)&amp;__buf_)
+<span class="lineNum">    1170 </span>            :     {
+<span class="lineNum">    1171 </span>            :         __f_-&gt;__clone((__base*)&amp;__f.__buf_);
+<span class="lineNum">    1172 </span>            :         __f_-&gt;destroy();
+<span class="lineNum">    1173 </span>            :         __f_ = __f.__f_;
+<span class="lineNum">    1174 </span>            :         __f.__f_ = (__base*)&amp;__f.__buf_;
+<span class="lineNum">    1175 </span>            :     }
+<span class="lineNum">    1176 </span>            :     else if (__f.__f_ == (__base*)&amp;__f.__buf_)
+<span class="lineNum">    1177 </span>            :     {
+<span class="lineNum">    1178 </span>            :         __f.__f_-&gt;__clone((__base*)&amp;__buf_);
+<span class="lineNum">    1179 </span>            :         __f.__f_-&gt;destroy();
+<span class="lineNum">    1180 </span>            :         __f.__f_ = __f_;
+<span class="lineNum">    1181 </span>            :         __f_ = (__base*)&amp;__buf_;
+<span class="lineNum">    1182 </span>            :     }
+<span class="lineNum">    1183 </span>            :     else
+<span class="lineNum">    1184 </span>            :         _VSTD::swap(__f_, __f.__f_);
+<span class="lineNum">    1185 </span>            : }
+<span class="lineNum">    1186 </span>            : 
+<a name="1187"><span class="lineNum">    1187 </span>            : template&lt;class _Rp, class _A0&gt;</a>
+<span class="lineNum">    1188 </span>            : _Rp
+<span class="lineNum">    1189 </span>            : function&lt;_Rp(_A0)&gt;::operator()(_A0 __a0) const
+<span class="lineNum">    1190 </span>            : {
+<span class="lineNum">    1191 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1192 </span><span class="lineCov">          2 :     if (__f_ == 0)</span>
+<span class="lineNum">    1193 </span><span class="lineNoCov">          0 :         throw bad_function_call();</span>
+<span class="lineNum">    1194 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1195 </span><span class="lineCov">          2 :     return (*__f_)(__a0);</span>
+<span class="lineNum">    1196 </span>            : }
+<span class="lineNum">    1197 </span>            : 
+<span class="lineNum">    1198 </span>            : #ifndef _LIBCPP_NO_RTTI
+<span class="lineNum">    1199 </span>            : 
+<span class="lineNum">    1200 </span>            : template&lt;class _Rp, class _A0&gt;
+<span class="lineNum">    1201 </span>            : const std::type_info&amp;
+<span class="lineNum">    1202 </span>            : function&lt;_Rp(_A0)&gt;::target_type() const
+<span class="lineNum">    1203 </span>            : {
+<span class="lineNum">    1204 </span>            :     if (__f_ == 0)
+<span class="lineNum">    1205 </span>            :         return typeid(void);
+<span class="lineNum">    1206 </span>            :     return __f_-&gt;target_type();
+<span class="lineNum">    1207 </span>            : }
+<span class="lineNum">    1208 </span>            : 
+<span class="lineNum">    1209 </span>            : template&lt;class _Rp, class _A0&gt;
+<span class="lineNum">    1210 </span>            : template &lt;typename _Tp&gt;
+<span class="lineNum">    1211 </span>            : _Tp*
+<span class="lineNum">    1212 </span>            : function&lt;_Rp(_A0)&gt;::target()
+<span class="lineNum">    1213 </span>            : {
+<span class="lineNum">    1214 </span>            :     if (__f_ == 0)
+<span class="lineNum">    1215 </span>            :         return (_Tp*)0;
+<span class="lineNum">    1216 </span>            :     return (_Tp*)__f_-&gt;target(typeid(_Tp));
+<span class="lineNum">    1217 </span>            : }
+<span class="lineNum">    1218 </span>            : 
+<span class="lineNum">    1219 </span>            : template&lt;class _Rp, class _A0&gt;
+<span class="lineNum">    1220 </span>            : template &lt;typename _Tp&gt;
+<span class="lineNum">    1221 </span>            : const _Tp*
+<span class="lineNum">    1222 </span>            : function&lt;_Rp(_A0)&gt;::target() const
+<span class="lineNum">    1223 </span>            : {
+<span class="lineNum">    1224 </span>            :     if (__f_ == 0)
+<span class="lineNum">    1225 </span>            :         return (const _Tp*)0;
+<span class="lineNum">    1226 </span>            :     return (const _Tp*)__f_-&gt;target(typeid(_Tp));
+<span class="lineNum">    1227 </span>            : }
+<span class="lineNum">    1228 </span>            : 
+<span class="lineNum">    1229 </span>            : #endif  // _LIBCPP_NO_RTTI
+<span class="lineNum">    1230 </span>            : 
+<span class="lineNum">    1231 </span>            : template&lt;class _Rp, class _A0, class _A1&gt;
+<span class="lineNum">    1232 </span>            : class _LIBCPP_TYPE_VIS_ONLY function&lt;_Rp(_A0, _A1)&gt;
+<span class="lineNum">    1233 </span>            :     : public binary_function&lt;_A0, _A1, _Rp&gt;
+<span class="lineNum">    1234 </span>            : {
+<span class="lineNum">    1235 </span>            :     typedef __function::__base&lt;_Rp(_A0, _A1)&gt; __base;
+<span class="lineNum">    1236 </span>            :     aligned_storage&lt;3*sizeof(void*)&gt;::type __buf_;
+<span class="lineNum">    1237 </span>            :     __base* __f_;
+<span class="lineNum">    1238 </span>            : 
+<span class="lineNum">    1239 </span>            :     template &lt;class _Fp&gt;
+<span class="lineNum">    1240 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1241 </span>            :         static bool __not_null(const _Fp&amp;) {return true;}
+<a name="1242"><span class="lineNum">    1242 </span>            :     template &lt;class _R2, class _B0, class _B1&gt;</a>
+<span class="lineNum">    1243 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1244 </span><span class="lineCov">          2 :         static bool __not_null(_R2 (*__p)(_B0, _B1)) {return __p;}</span>
+<span class="lineNum">    1245 </span>            :     template &lt;class _R2, class _Cp, class _B1&gt;
+<span class="lineNum">    1246 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1247 </span>            :         static bool __not_null(_R2 (_Cp::*__p)(_B1)) {return __p;}
+<span class="lineNum">    1248 </span>            :     template &lt;class _R2, class _Cp, class _B1&gt;
+<span class="lineNum">    1249 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1250 </span>            :         static bool __not_null(_R2 (_Cp::*__p)(_B1) const) {return __p;}
+<span class="lineNum">    1251 </span>            :     template &lt;class _R2, class _Cp, class _B1&gt;
+<span class="lineNum">    1252 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1253 </span>            :         static bool __not_null(_R2 (_Cp::*__p)(_B1) volatile) {return __p;}
+<span class="lineNum">    1254 </span>            :     template &lt;class _R2, class _Cp, class _B1&gt;
+<span class="lineNum">    1255 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1256 </span>            :         static bool __not_null(_R2 (_Cp::*__p)(_B1) const volatile) {return __p;}
+<span class="lineNum">    1257 </span>            :     template &lt;class _R2, class _B0, class _B1&gt;
+<span class="lineNum">    1258 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1259 </span>            :         static bool __not_null(const function&lt;_R2(_B0, _B1)&gt;&amp; __p) {return __p;}
+<span class="lineNum">    1260 </span>            : public:
+<span class="lineNum">    1261 </span>            :     typedef _Rp result_type;
+<span class="lineNum">    1262 </span>            : 
+<span class="lineNum">    1263 </span>            :     // 20.7.16.2.1, construct/copy/destroy:
+<span class="lineNum">    1264 </span>            :     _LIBCPP_INLINE_VISIBILITY explicit function() : __f_(0) {}
+<span class="lineNum">    1265 </span>            :     _LIBCPP_INLINE_VISIBILITY function(nullptr_t) : __f_(0) {}
+<a name="1266"><span class="lineNum">    1266 </span>            :     function(const function&amp;);</a>
+<span class="lineNum">    1267 </span>            :     template&lt;class _Fp&gt;
+<span class="lineNum">    1268 </span><span class="lineCov">          2 :       function(_Fp,</span>
+<span class="lineNum">    1269 </span>            :                typename enable_if&lt;!is_integral&lt;_Fp&gt;::value&gt;::type* = 0);
+<span class="lineNum">    1270 </span>            : 
+<span class="lineNum">    1271 </span>            :     template&lt;class _Alloc&gt;
+<span class="lineNum">    1272 </span>            :       _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1273 </span>            :       function(allocator_arg_t, const _Alloc&amp;) : __f_(0) {}
+<span class="lineNum">    1274 </span>            :     template&lt;class _Alloc&gt;
+<span class="lineNum">    1275 </span>            :       _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1276 </span>            :       function(allocator_arg_t, const _Alloc&amp;, nullptr_t) : __f_(0) {}
+<span class="lineNum">    1277 </span>            :     template&lt;class _Alloc&gt;
+<span class="lineNum">    1278 </span>            :       function(allocator_arg_t, const _Alloc&amp;, const function&amp;);
+<span class="lineNum">    1279 </span>            :     template&lt;class _Fp, class _Alloc&gt;
+<span class="lineNum">    1280 </span>            :       function(allocator_arg_t, const _Alloc&amp; __a, _Fp __f,
+<span class="lineNum">    1281 </span>            :                typename enable_if&lt;!is_integral&lt;_Fp&gt;::value&gt;::type* = 0);
+<span class="lineNum">    1282 </span>            : 
+<span class="lineNum">    1283 </span>            :     function&amp; operator=(const function&amp;);
+<span class="lineNum">    1284 </span>            :     function&amp; operator=(nullptr_t);
+<span class="lineNum">    1285 </span>            :     template&lt;class _Fp&gt;
+<span class="lineNum">    1286 </span>            :       typename enable_if
+<span class="lineNum">    1287 </span>            :       &lt;
+<span class="lineNum">    1288 </span>            :         !is_integral&lt;_Fp&gt;::value,
+<span class="lineNum">    1289 </span>            :         function&amp;
+<span class="lineNum">    1290 </span>            :       &gt;::type
+<span class="lineNum">    1291 </span>            :       operator=(_Fp);
+<span class="lineNum">    1292 </span>            : 
+<span class="lineNum">    1293 </span>            :     ~function();
+<span class="lineNum">    1294 </span>            : 
+<span class="lineNum">    1295 </span>            :     // 20.7.16.2.2, function modifiers:
+<span class="lineNum">    1296 </span>            :     void swap(function&amp;);
+<span class="lineNum">    1297 </span>            :     template&lt;class _Fp, class _Alloc&gt;
+<span class="lineNum">    1298 </span>            :       _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1299 </span>            :       void assign(_Fp __f, const _Alloc&amp; __a)
+<span class="lineNum">    1300 </span>            :         {function(allocator_arg, __a, __f).swap(*this);}
+<span class="lineNum">    1301 </span>            : 
+<span class="lineNum">    1302 </span>            :     // 20.7.16.2.3, function capacity:
+<span class="lineNum">    1303 </span>            :     operator bool() const {return __f_;}
+<span class="lineNum">    1304 </span>            : 
+<span class="lineNum">    1305 </span>            : private:
+<span class="lineNum">    1306 </span>            :     // deleted overloads close possible hole in the type system
+<span class="lineNum">    1307 </span>            :     template&lt;class _R2, class _B0, class _B1&gt;
+<span class="lineNum">    1308 </span>            :       bool operator==(const function&lt;_R2(_B0, _B1)&gt;&amp;) const;// = delete;
+<span class="lineNum">    1309 </span>            :     template&lt;class _R2, class _B0, class _B1&gt;
+<span class="lineNum">    1310 </span>            :       bool operator!=(const function&lt;_R2(_B0, _B1)&gt;&amp;) const;// = delete;
+<span class="lineNum">    1311 </span>            : public:
+<span class="lineNum">    1312 </span>            :     // 20.7.16.2.4, function invocation:
+<span class="lineNum">    1313 </span>            :     _Rp operator()(_A0, _A1) const;
+<span class="lineNum">    1314 </span>            : 
+<span class="lineNum">    1315 </span>            : #ifndef _LIBCPP_NO_RTTI
+<span class="lineNum">    1316 </span>            :     // 20.7.16.2.5, function target access:
+<span class="lineNum">    1317 </span>            :     const std::type_info&amp; target_type() const;
+<span class="lineNum">    1318 </span>            :     template &lt;typename _Tp&gt; _Tp* target();
+<span class="lineNum">    1319 </span>            :     template &lt;typename _Tp&gt; const _Tp* target() const;
+<span class="lineNum">    1320 </span>            : #endif  // _LIBCPP_NO_RTTI
+<span class="lineNum">    1321 </span>            : };
+<span class="lineNum">    1322 </span>            : 
+<span class="lineNum">    1323 </span>            : template&lt;class _Rp, class _A0, class _A1&gt;
+<span class="lineNum">    1324 </span>            : function&lt;_Rp(_A0, _A1)&gt;::function(const function&amp; __f)
+<span class="lineNum">    1325 </span>            : {
+<span class="lineNum">    1326 </span>            :     if (__f.__f_ == 0)
+<span class="lineNum">    1327 </span>            :         __f_ = 0;
+<span class="lineNum">    1328 </span>            :     else if (__f.__f_ == (const __base*)&amp;__f.__buf_)
+<span class="lineNum">    1329 </span>            :     {
+<span class="lineNum">    1330 </span>            :         __f_ = (__base*)&amp;__buf_;
+<span class="lineNum">    1331 </span>            :         __f.__f_-&gt;__clone(__f_);
+<span class="lineNum">    1332 </span>            :     }
+<span class="lineNum">    1333 </span>            :     else
+<span class="lineNum">    1334 </span>            :         __f_ = __f.__f_-&gt;__clone();
+<span class="lineNum">    1335 </span>            : }
+<span class="lineNum">    1336 </span>            : 
+<span class="lineNum">    1337 </span>            : template&lt;class _Rp, class _A0, class _A1&gt;
+<span class="lineNum">    1338 </span>            : template&lt;class _Alloc&gt;
+<span class="lineNum">    1339 </span>            : function&lt;_Rp(_A0, _A1)&gt;::function(allocator_arg_t, const _Alloc&amp;, const function&amp; __f)
+<span class="lineNum">    1340 </span>            : {
+<span class="lineNum">    1341 </span>            :     if (__f.__f_ == 0)
+<span class="lineNum">    1342 </span>            :         __f_ = 0;
+<span class="lineNum">    1343 </span>            :     else if (__f.__f_ == (const __base*)&amp;__f.__buf_)
+<span class="lineNum">    1344 </span>            :     {
+<span class="lineNum">    1345 </span>            :         __f_ = (__base*)&amp;__buf_;
+<span class="lineNum">    1346 </span>            :         __f.__f_-&gt;__clone(__f_);
+<span class="lineNum">    1347 </span>            :     }
+<span class="lineNum">    1348 </span>            :     else
+<span class="lineNum">    1349 </span>            :         __f_ = __f.__f_-&gt;__clone();
+<span class="lineNum">    1350 </span>            : }
+<span class="lineNum">    1351 </span>            : 
+<span class="lineNum">    1352 </span>            : template&lt;class _Rp, class _A0, class _A1&gt;
+<span class="lineNum">    1353 </span>            : template &lt;class _Fp&gt;
+<span class="lineNum">    1354 </span>            : function&lt;_Rp(_A0, _A1)&gt;::function(_Fp __f,
+<span class="lineNum">    1355 </span>            :                                  typename enable_if&lt;!is_integral&lt;_Fp&gt;::value&gt;::type*)
+<span class="lineNum">    1356 </span><span class="lineCov">          2 :     : __f_(0)</span>
+<span class="lineNum">    1357 </span><span class="lineCov">          2 : {</span>
+<span class="lineNum">    1358 </span><span class="lineCov">          2 :     if (__not_null(__f))</span>
+<span class="lineNum">    1359 </span>            :     {
+<span class="lineNum">    1360 </span>            :         typedef __function::__func&lt;_Fp, allocator&lt;_Fp&gt;, _Rp(_A0, _A1)&gt; _FF;
+<span class="lineNum">    1361 </span>            :         if (sizeof(_FF) &lt;= sizeof(__buf_))
+<span class="lineNum">    1362 </span>            :         {
+<span class="lineNum">    1363 </span><span class="lineCov">          2 :             __f_ = (__base*)&amp;__buf_;</span>
+<span class="lineNum">    1364 </span><span class="lineCov">          2 :             ::new (__f_) _FF(__f);</span>
+<span class="lineNum">    1365 </span>            :         }
+<span class="lineNum">    1366 </span>            :         else
+<span class="lineNum">    1367 </span>            :         {
+<span class="lineNum">    1368 </span>            :             typedef allocator&lt;_FF&gt; _Ap;
+<span class="lineNum">    1369 </span>            :             _Ap __a;
+<span class="lineNum">    1370 </span>            :             typedef __allocator_destructor&lt;_Ap&gt; _Dp;
+<span class="lineNum">    1371 </span>            :             unique_ptr&lt;__base, _Dp&gt; __hold(__a.allocate(1), _Dp(__a, 1));
+<span class="lineNum">    1372 </span>            :             ::new (__hold.get()) _FF(__f, allocator&lt;_Fp&gt;(__a));
+<span class="lineNum">    1373 </span>            :             __f_ = __hold.release();
+<span class="lineNum">    1374 </span>            :         }
+<span class="lineNum">    1375 </span><span class="lineCov">          2 :     }</span>
+<span class="lineNum">    1376 </span><span class="lineCov">          2 : }</span>
+<span class="lineNum">    1377 </span>            : 
+<span class="lineNum">    1378 </span>            : template&lt;class _Rp, class _A0, class _A1&gt;
+<span class="lineNum">    1379 </span>            : template &lt;class _Fp, class _Alloc&gt;
+<span class="lineNum">    1380 </span>            : function&lt;_Rp(_A0, _A1)&gt;::function(allocator_arg_t, const _Alloc&amp; __a0, _Fp __f,
+<span class="lineNum">    1381 </span>            :                                  typename enable_if&lt;!is_integral&lt;_Fp&gt;::value&gt;::type*)
+<span class="lineNum">    1382 </span>            :     : __f_(0)
+<span class="lineNum">    1383 </span>            : {
+<span class="lineNum">    1384 </span>            :     typedef allocator_traits&lt;_Alloc&gt; __alloc_traits;
+<span class="lineNum">    1385 </span>            :     if (__not_null(__f))
+<span class="lineNum">    1386 </span>            :     {
+<span class="lineNum">    1387 </span>            :         typedef __function::__func&lt;_Fp, _Alloc, _Rp(_A0, _A1)&gt; _FF;
+<span class="lineNum">    1388 </span>            :         if (sizeof(_FF) &lt;= sizeof(__buf_))
+<span class="lineNum">    1389 </span>            :         {
+<span class="lineNum">    1390 </span>            :             __f_ = (__base*)&amp;__buf_;
+<span class="lineNum">    1391 </span>            :             ::new (__f_) _FF(__f);
+<span class="lineNum">    1392 </span>            :         }
+<span class="lineNum">    1393 </span>            :         else
+<span class="lineNum">    1394 </span>            :         {
+<span class="lineNum">    1395 </span>            :             typedef typename __rebind_alloc_helper&lt;__alloc_traits, _FF&gt;::type _Ap;
+<span class="lineNum">    1396 </span>            :             _Ap __a(__a0);
+<span class="lineNum">    1397 </span>            :             typedef __allocator_destructor&lt;_Ap&gt; _Dp;
+<span class="lineNum">    1398 </span>            :             unique_ptr&lt;__base, _Dp&gt; __hold(__a.allocate(1), _Dp(__a, 1));
+<span class="lineNum">    1399 </span>            :             ::new (__hold.get()) _FF(__f, _Alloc(__a));
+<span class="lineNum">    1400 </span>            :             __f_ = __hold.release();
+<span class="lineNum">    1401 </span>            :         }
+<span class="lineNum">    1402 </span>            :     }
+<span class="lineNum">    1403 </span>            : }
+<span class="lineNum">    1404 </span>            : 
+<span class="lineNum">    1405 </span>            : template&lt;class _Rp, class _A0, class _A1&gt;
+<span class="lineNum">    1406 </span>            : function&lt;_Rp(_A0, _A1)&gt;&amp;
+<span class="lineNum">    1407 </span>            : function&lt;_Rp(_A0, _A1)&gt;::operator=(const function&amp; __f)
+<span class="lineNum">    1408 </span>            : {
+<span class="lineNum">    1409 </span>            :     function(__f).swap(*this);
+<span class="lineNum">    1410 </span>            :     return *this;
+<span class="lineNum">    1411 </span>            : }
+<span class="lineNum">    1412 </span>            : 
+<span class="lineNum">    1413 </span>            : template&lt;class _Rp, class _A0, class _A1&gt;
+<span class="lineNum">    1414 </span>            : function&lt;_Rp(_A0, _A1)&gt;&amp;
+<span class="lineNum">    1415 </span>            : function&lt;_Rp(_A0, _A1)&gt;::operator=(nullptr_t)
+<span class="lineNum">    1416 </span>            : {
+<span class="lineNum">    1417 </span>            :     if (__f_ == (__base*)&amp;__buf_)
+<span class="lineNum">    1418 </span>            :         __f_-&gt;destroy();
+<span class="lineNum">    1419 </span>            :     else if (__f_)
+<span class="lineNum">    1420 </span>            :         __f_-&gt;destroy_deallocate();
+<span class="lineNum">    1421 </span>            :     __f_ = 0;
+<span class="lineNum">    1422 </span>            :     return *this;
+<span class="lineNum">    1423 </span>            : }
+<span class="lineNum">    1424 </span>            : 
+<span class="lineNum">    1425 </span>            : template&lt;class _Rp, class _A0, class _A1&gt;
+<span class="lineNum">    1426 </span>            : template &lt;class _Fp&gt;
+<span class="lineNum">    1427 </span>            : typename enable_if
+<span class="lineNum">    1428 </span>            : &lt;
+<span class="lineNum">    1429 </span>            :     !is_integral&lt;_Fp&gt;::value,
+<span class="lineNum">    1430 </span>            :     function&lt;_Rp(_A0, _A1)&gt;&amp;
+<span class="lineNum">    1431 </span>            : &gt;::type
+<span class="lineNum">    1432 </span>            : function&lt;_Rp(_A0, _A1)&gt;::operator=(_Fp __f)
+<span class="lineNum">    1433 </span>            : {
+<span class="lineNum">    1434 </span>            :     function(_VSTD::move(__f)).swap(*this);
+<span class="lineNum">    1435 </span>            :     return *this;
+<span class="lineNum">    1436 </span>            : }
+<a name="1437"><span class="lineNum">    1437 </span>            : </a>
+<span class="lineNum">    1438 </span>            : template&lt;class _Rp, class _A0, class _A1&gt;
+<span class="lineNum">    1439 </span>            : function&lt;_Rp(_A0, _A1)&gt;::~function()
+<span class="lineNum">    1440 </span>            : {
+<span class="lineNum">    1441 </span><span class="lineCov">          2 :     if (__f_ == (__base*)&amp;__buf_)</span>
+<span class="lineNum">    1442 </span><span class="lineCov">          4 :         __f_-&gt;destroy();</span>
+<span class="lineNum">    1443 </span><span class="lineNoCov">          0 :     else if (__f_)</span>
+<span class="lineNum">    1444 </span><span class="lineNoCov">          0 :         __f_-&gt;destroy_deallocate();</span>
+<span class="lineNum">    1445 </span><span class="lineCov">          2 : }</span>
+<span class="lineNum">    1446 </span>            : 
+<span class="lineNum">    1447 </span>            : template&lt;class _Rp, class _A0, class _A1&gt;
+<span class="lineNum">    1448 </span>            : void
+<span class="lineNum">    1449 </span>            : function&lt;_Rp(_A0, _A1)&gt;::swap(function&amp; __f)
+<span class="lineNum">    1450 </span>            : {
+<span class="lineNum">    1451 </span>            :     if (__f_ == (__base*)&amp;__buf_ &amp;&amp; __f.__f_ == (__base*)&amp;__f.__buf_)
+<span class="lineNum">    1452 </span>            :     {
+<span class="lineNum">    1453 </span>            :         typename aligned_storage&lt;sizeof(__buf_)&gt;::type __tempbuf;
+<span class="lineNum">    1454 </span>            :         __base* __t = (__base*)&amp;__tempbuf;
+<span class="lineNum">    1455 </span>            :         __f_-&gt;__clone(__t);
+<span class="lineNum">    1456 </span>            :         __f_-&gt;destroy();
+<span class="lineNum">    1457 </span>            :         __f_ = 0;
+<span class="lineNum">    1458 </span>            :         __f.__f_-&gt;__clone((__base*)&amp;__buf_);
+<span class="lineNum">    1459 </span>            :         __f.__f_-&gt;destroy();
+<span class="lineNum">    1460 </span>            :         __f.__f_ = 0;
+<span class="lineNum">    1461 </span>            :         __f_ = (__base*)&amp;__buf_;
+<span class="lineNum">    1462 </span>            :         __t-&gt;__clone((__base*)&amp;__f.__buf_);
+<span class="lineNum">    1463 </span>            :         __t-&gt;destroy();
+<span class="lineNum">    1464 </span>            :         __f.__f_ = (__base*)&amp;__f.__buf_;
+<span class="lineNum">    1465 </span>            :     }
+<span class="lineNum">    1466 </span>            :     else if (__f_ == (__base*)&amp;__buf_)
+<span class="lineNum">    1467 </span>            :     {
+<span class="lineNum">    1468 </span>            :         __f_-&gt;__clone((__base*)&amp;__f.__buf_);
+<span class="lineNum">    1469 </span>            :         __f_-&gt;destroy();
+<span class="lineNum">    1470 </span>            :         __f_ = __f.__f_;
+<span class="lineNum">    1471 </span>            :         __f.__f_ = (__base*)&amp;__f.__buf_;
+<span class="lineNum">    1472 </span>            :     }
+<span class="lineNum">    1473 </span>            :     else if (__f.__f_ == (__base*)&amp;__f.__buf_)
+<span class="lineNum">    1474 </span>            :     {
+<span class="lineNum">    1475 </span>            :         __f.__f_-&gt;__clone((__base*)&amp;__buf_);
+<span class="lineNum">    1476 </span>            :         __f.__f_-&gt;destroy();
+<span class="lineNum">    1477 </span>            :         __f.__f_ = __f_;
+<span class="lineNum">    1478 </span>            :         __f_ = (__base*)&amp;__buf_;
+<span class="lineNum">    1479 </span>            :     }
+<span class="lineNum">    1480 </span>            :     else
+<span class="lineNum">    1481 </span>            :         _VSTD::swap(__f_, __f.__f_);
+<span class="lineNum">    1482 </span>            : }
+<span class="lineNum">    1483 </span>            : 
+<a name="1484"><span class="lineNum">    1484 </span>            : template&lt;class _Rp, class _A0, class _A1&gt;</a>
+<span class="lineNum">    1485 </span>            : _Rp
+<span class="lineNum">    1486 </span>            : function&lt;_Rp(_A0, _A1)&gt;::operator()(_A0 __a0, _A1 __a1) const
+<span class="lineNum">    1487 </span>            : {
+<span class="lineNum">    1488 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1489 </span><span class="lineCov">          2 :     if (__f_ == 0)</span>
+<span class="lineNum">    1490 </span><span class="lineNoCov">          0 :         throw bad_function_call();</span>
+<span class="lineNum">    1491 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1492 </span><span class="lineCov">          2 :     return (*__f_)(__a0, __a1);</span>
+<span class="lineNum">    1493 </span>            : }
+<span class="lineNum">    1494 </span>            : 
+<span class="lineNum">    1495 </span>            : #ifndef _LIBCPP_NO_RTTI
+<span class="lineNum">    1496 </span>            : 
+<span class="lineNum">    1497 </span>            : template&lt;class _Rp, class _A0, class _A1&gt;
+<span class="lineNum">    1498 </span>            : const std::type_info&amp;
+<span class="lineNum">    1499 </span>            : function&lt;_Rp(_A0, _A1)&gt;::target_type() const
+<span class="lineNum">    1500 </span>            : {
+<span class="lineNum">    1501 </span>            :     if (__f_ == 0)
+<span class="lineNum">    1502 </span>            :         return typeid(void);
+<span class="lineNum">    1503 </span>            :     return __f_-&gt;target_type();
+<span class="lineNum">    1504 </span>            : }
+<span class="lineNum">    1505 </span>            : 
+<span class="lineNum">    1506 </span>            : template&lt;class _Rp, class _A0, class _A1&gt;
+<span class="lineNum">    1507 </span>            : template &lt;typename _Tp&gt;
+<span class="lineNum">    1508 </span>            : _Tp*
+<span class="lineNum">    1509 </span>            : function&lt;_Rp(_A0, _A1)&gt;::target()
+<span class="lineNum">    1510 </span>            : {
+<span class="lineNum">    1511 </span>            :     if (__f_ == 0)
+<span class="lineNum">    1512 </span>            :         return (_Tp*)0;
+<span class="lineNum">    1513 </span>            :     return (_Tp*)__f_-&gt;target(typeid(_Tp));
+<span class="lineNum">    1514 </span>            : }
+<span class="lineNum">    1515 </span>            : 
+<span class="lineNum">    1516 </span>            : template&lt;class _Rp, class _A0, class _A1&gt;
+<span class="lineNum">    1517 </span>            : template &lt;typename _Tp&gt;
+<span class="lineNum">    1518 </span>            : const _Tp*
+<span class="lineNum">    1519 </span>            : function&lt;_Rp(_A0, _A1)&gt;::target() const
+<span class="lineNum">    1520 </span>            : {
+<span class="lineNum">    1521 </span>            :     if (__f_ == 0)
+<span class="lineNum">    1522 </span>            :         return (const _Tp*)0;
+<span class="lineNum">    1523 </span>            :     return (const _Tp*)__f_-&gt;target(typeid(_Tp));
+<span class="lineNum">    1524 </span>            : }
+<span class="lineNum">    1525 </span>            : 
+<span class="lineNum">    1526 </span>            : #endif  // _LIBCPP_NO_RTTI
+<span class="lineNum">    1527 </span>            : 
+<span class="lineNum">    1528 </span>            : template&lt;class _Rp, class _A0, class _A1, class _A2&gt;
+<span class="lineNum">    1529 </span>            : class _LIBCPP_TYPE_VIS_ONLY function&lt;_Rp(_A0, _A1, _A2)&gt;
+<span class="lineNum">    1530 </span>            : {
+<span class="lineNum">    1531 </span>            :     typedef __function::__base&lt;_Rp(_A0, _A1, _A2)&gt; __base;
+<span class="lineNum">    1532 </span>            :     aligned_storage&lt;3*sizeof(void*)&gt;::type __buf_;
+<span class="lineNum">    1533 </span>            :     __base* __f_;
+<span class="lineNum">    1534 </span>            : 
+<span class="lineNum">    1535 </span>            :     template &lt;class _Fp&gt;
+<span class="lineNum">    1536 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1537 </span>            :         static bool __not_null(const _Fp&amp;) {return true;}
+<a name="1538"><span class="lineNum">    1538 </span>            :     template &lt;class _R2, class _B0, class _B1, class _B2&gt;</a>
+<span class="lineNum">    1539 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1540 </span><span class="lineCov">          2 :         static bool __not_null(_R2 (*__p)(_B0, _B1, _B2)) {return __p;}</span>
+<span class="lineNum">    1541 </span>            :     template &lt;class _R2, class _Cp, class _B1, class _B2&gt;
+<span class="lineNum">    1542 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1543 </span>            :         static bool __not_null(_R2 (_Cp::*__p)(_B1, _B2)) {return __p;}
+<span class="lineNum">    1544 </span>            :     template &lt;class _R2, class _Cp, class _B1, class _B2&gt;
+<span class="lineNum">    1545 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1546 </span>            :         static bool __not_null(_R2 (_Cp::*__p)(_B1, _B2) const) {return __p;}
+<span class="lineNum">    1547 </span>            :     template &lt;class _R2, class _Cp, class _B1, class _B2&gt;
+<span class="lineNum">    1548 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1549 </span>            :         static bool __not_null(_R2 (_Cp::*__p)(_B1, _B2) volatile) {return __p;}
+<span class="lineNum">    1550 </span>            :     template &lt;class _R2, class _Cp, class _B1, class _B2&gt;
+<span class="lineNum">    1551 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1552 </span>            :         static bool __not_null(_R2 (_Cp::*__p)(_B1, _B2) const volatile) {return __p;}
+<span class="lineNum">    1553 </span>            :     template &lt;class _R2, class _B0, class _B1, class _B2&gt;
+<span class="lineNum">    1554 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1555 </span>            :         static bool __not_null(const function&lt;_R2(_B0, _B1, _B2)&gt;&amp; __p) {return __p;}
+<span class="lineNum">    1556 </span>            : public:
+<span class="lineNum">    1557 </span>            :     typedef _Rp result_type;
+<span class="lineNum">    1558 </span>            : 
+<span class="lineNum">    1559 </span>            :     // 20.7.16.2.1, construct/copy/destroy:
+<span class="lineNum">    1560 </span>            :     _LIBCPP_INLINE_VISIBILITY explicit function() : __f_(0) {}
+<span class="lineNum">    1561 </span>            :     _LIBCPP_INLINE_VISIBILITY function(nullptr_t) : __f_(0) {}
+<a name="1562"><span class="lineNum">    1562 </span>            :     function(const function&amp;);</a>
+<span class="lineNum">    1563 </span>            :     template&lt;class _Fp&gt;
+<span class="lineNum">    1564 </span><span class="lineCov">          2 :       function(_Fp,</span>
+<span class="lineNum">    1565 </span>            :                typename enable_if&lt;!is_integral&lt;_Fp&gt;::value&gt;::type* = 0);
+<span class="lineNum">    1566 </span>            : 
+<span class="lineNum">    1567 </span>            :     template&lt;class _Alloc&gt;
+<span class="lineNum">    1568 </span>            :       _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1569 </span>            :       function(allocator_arg_t, const _Alloc&amp;) : __f_(0) {}
+<span class="lineNum">    1570 </span>            :     template&lt;class _Alloc&gt;
+<span class="lineNum">    1571 </span>            :       _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1572 </span>            :       function(allocator_arg_t, const _Alloc&amp;, nullptr_t) : __f_(0) {}
+<span class="lineNum">    1573 </span>            :     template&lt;class _Alloc&gt;
+<span class="lineNum">    1574 </span>            :       function(allocator_arg_t, const _Alloc&amp;, const function&amp;);
+<span class="lineNum">    1575 </span>            :     template&lt;class _Fp, class _Alloc&gt;
+<span class="lineNum">    1576 </span>            :       function(allocator_arg_t, const _Alloc&amp; __a, _Fp __f,
+<span class="lineNum">    1577 </span>            :                typename enable_if&lt;!is_integral&lt;_Fp&gt;::value&gt;::type* = 0);
+<span class="lineNum">    1578 </span>            : 
+<span class="lineNum">    1579 </span>            :     function&amp; operator=(const function&amp;);
+<span class="lineNum">    1580 </span>            :     function&amp; operator=(nullptr_t);
+<span class="lineNum">    1581 </span>            :     template&lt;class _Fp&gt;
+<span class="lineNum">    1582 </span>            :       typename enable_if
+<span class="lineNum">    1583 </span>            :       &lt;
+<span class="lineNum">    1584 </span>            :         !is_integral&lt;_Fp&gt;::value,
+<span class="lineNum">    1585 </span>            :         function&amp;
+<span class="lineNum">    1586 </span>            :       &gt;::type
+<span class="lineNum">    1587 </span>            :       operator=(_Fp);
+<span class="lineNum">    1588 </span>            : 
+<span class="lineNum">    1589 </span>            :     ~function();
+<span class="lineNum">    1590 </span>            : 
+<span class="lineNum">    1591 </span>            :     // 20.7.16.2.2, function modifiers:
+<span class="lineNum">    1592 </span>            :     void swap(function&amp;);
+<span class="lineNum">    1593 </span>            :     template&lt;class _Fp, class _Alloc&gt;
+<span class="lineNum">    1594 </span>            :       _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1595 </span>            :       void assign(_Fp __f, const _Alloc&amp; __a)
+<span class="lineNum">    1596 </span>            :         {function(allocator_arg, __a, __f).swap(*this);}
+<span class="lineNum">    1597 </span>            : 
+<span class="lineNum">    1598 </span>            :     // 20.7.16.2.3, function capacity:
+<span class="lineNum">    1599 </span>            :     _LIBCPP_INLINE_VISIBILITY operator bool() const {return __f_;}
+<span class="lineNum">    1600 </span>            : 
+<span class="lineNum">    1601 </span>            : private:
+<span class="lineNum">    1602 </span>            :     // deleted overloads close possible hole in the type system
+<span class="lineNum">    1603 </span>            :     template&lt;class _R2, class _B0, class _B1, class _B2&gt;
+<span class="lineNum">    1604 </span>            :       bool operator==(const function&lt;_R2(_B0, _B1, _B2)&gt;&amp;) const;// = delete;
+<span class="lineNum">    1605 </span>            :     template&lt;class _R2, class _B0, class _B1, class _B2&gt;
+<span class="lineNum">    1606 </span>            :       bool operator!=(const function&lt;_R2(_B0, _B1, _B2)&gt;&amp;) const;// = delete;
+<span class="lineNum">    1607 </span>            : public:
+<span class="lineNum">    1608 </span>            :     // 20.7.16.2.4, function invocation:
+<span class="lineNum">    1609 </span>            :     _Rp operator()(_A0, _A1, _A2) const;
+<span class="lineNum">    1610 </span>            : 
+<span class="lineNum">    1611 </span>            : #ifndef _LIBCPP_NO_RTTI
+<span class="lineNum">    1612 </span>            :     // 20.7.16.2.5, function target access:
+<span class="lineNum">    1613 </span>            :     const std::type_info&amp; target_type() const;
+<span class="lineNum">    1614 </span>            :     template &lt;typename _Tp&gt; _Tp* target();
+<span class="lineNum">    1615 </span>            :     template &lt;typename _Tp&gt; const _Tp* target() const;
+<span class="lineNum">    1616 </span>            : #endif  // _LIBCPP_NO_RTTI
+<span class="lineNum">    1617 </span>            : };
+<span class="lineNum">    1618 </span>            : 
+<span class="lineNum">    1619 </span>            : template&lt;class _Rp, class _A0, class _A1, class _A2&gt;
+<span class="lineNum">    1620 </span>            : function&lt;_Rp(_A0, _A1, _A2)&gt;::function(const function&amp; __f)
+<span class="lineNum">    1621 </span>            : {
+<span class="lineNum">    1622 </span>            :     if (__f.__f_ == 0)
+<span class="lineNum">    1623 </span>            :         __f_ = 0;
+<span class="lineNum">    1624 </span>            :     else if (__f.__f_ == (const __base*)&amp;__f.__buf_)
+<span class="lineNum">    1625 </span>            :     {
+<span class="lineNum">    1626 </span>            :         __f_ = (__base*)&amp;__buf_;
+<span class="lineNum">    1627 </span>            :         __f.__f_-&gt;__clone(__f_);
+<span class="lineNum">    1628 </span>            :     }
+<span class="lineNum">    1629 </span>            :     else
+<span class="lineNum">    1630 </span>            :         __f_ = __f.__f_-&gt;__clone();
+<span class="lineNum">    1631 </span>            : }
+<span class="lineNum">    1632 </span>            : 
+<span class="lineNum">    1633 </span>            : template&lt;class _Rp, class _A0, class _A1, class _A2&gt;
+<span class="lineNum">    1634 </span>            : template&lt;class _Alloc&gt;
+<span class="lineNum">    1635 </span>            : function&lt;_Rp(_A0, _A1, _A2)&gt;::function(allocator_arg_t, const _Alloc&amp;,
+<span class="lineNum">    1636 </span>            :                                       const function&amp; __f)
+<span class="lineNum">    1637 </span>            : {
+<span class="lineNum">    1638 </span>            :     if (__f.__f_ == 0)
+<span class="lineNum">    1639 </span>            :         __f_ = 0;
+<span class="lineNum">    1640 </span>            :     else if (__f.__f_ == (const __base*)&amp;__f.__buf_)
+<span class="lineNum">    1641 </span>            :     {
+<span class="lineNum">    1642 </span>            :         __f_ = (__base*)&amp;__buf_;
+<span class="lineNum">    1643 </span>            :         __f.__f_-&gt;__clone(__f_);
+<span class="lineNum">    1644 </span>            :     }
+<span class="lineNum">    1645 </span>            :     else
+<span class="lineNum">    1646 </span>            :         __f_ = __f.__f_-&gt;__clone();
+<span class="lineNum">    1647 </span>            : }
+<span class="lineNum">    1648 </span>            : 
+<span class="lineNum">    1649 </span>            : template&lt;class _Rp, class _A0, class _A1, class _A2&gt;
+<span class="lineNum">    1650 </span>            : template &lt;class _Fp&gt;
+<span class="lineNum">    1651 </span>            : function&lt;_Rp(_A0, _A1, _A2)&gt;::function(_Fp __f,
+<span class="lineNum">    1652 </span>            :                                      typename enable_if&lt;!is_integral&lt;_Fp&gt;::value&gt;::type*)
+<span class="lineNum">    1653 </span><span class="lineCov">          2 :     : __f_(0)</span>
+<span class="lineNum">    1654 </span>            : {
+<span class="lineNum">    1655 </span><span class="lineCov">          2 :     if (__not_null(__f))</span>
+<span class="lineNum">    1656 </span>            :     {
+<span class="lineNum">    1657 </span>            :         typedef __function::__func&lt;_Fp, allocator&lt;_Fp&gt;, _Rp(_A0, _A1, _A2)&gt; _FF;
+<span class="lineNum">    1658 </span>            :         if (sizeof(_FF) &lt;= sizeof(__buf_))
+<span class="lineNum">    1659 </span>            :         {
+<span class="lineNum">    1660 </span><span class="lineCov">          2 :             __f_ = (__base*)&amp;__buf_;</span>
+<span class="lineNum">    1661 </span><span class="lineCov">          2 :             ::new (__f_) _FF(__f);</span>
+<span class="lineNum">    1662 </span>            :         }
+<span class="lineNum">    1663 </span>            :         else
+<span class="lineNum">    1664 </span>            :         {
+<span class="lineNum">    1665 </span>            :             typedef allocator&lt;_FF&gt; _Ap;
+<span class="lineNum">    1666 </span>            :             _Ap __a;
+<span class="lineNum">    1667 </span>            :             typedef __allocator_destructor&lt;_Ap&gt; _Dp;
+<span class="lineNum">    1668 </span>            :             unique_ptr&lt;__base, _Dp&gt; __hold(__a.allocate(1), _Dp(__a, 1));
+<span class="lineNum">    1669 </span>            :             ::new (__hold.get()) _FF(__f, allocator&lt;_Fp&gt;(__a));
+<span class="lineNum">    1670 </span>            :             __f_ = __hold.release();
+<span class="lineNum">    1671 </span>            :         }
+<span class="lineNum">    1672 </span><span class="lineCov">          2 :     }</span>
+<span class="lineNum">    1673 </span><span class="lineCov">          2 : }</span>
+<span class="lineNum">    1674 </span>            : 
+<span class="lineNum">    1675 </span>            : template&lt;class _Rp, class _A0, class _A1, class _A2&gt;
+<span class="lineNum">    1676 </span>            : template &lt;class _Fp, class _Alloc&gt;
+<span class="lineNum">    1677 </span>            : function&lt;_Rp(_A0, _A1, _A2)&gt;::function(allocator_arg_t, const _Alloc&amp; __a0, _Fp __f,
+<span class="lineNum">    1678 </span>            :                                      typename enable_if&lt;!is_integral&lt;_Fp&gt;::value&gt;::type*)
+<span class="lineNum">    1679 </span>            :     : __f_(0)
+<span class="lineNum">    1680 </span>            : {
+<span class="lineNum">    1681 </span>            :     typedef allocator_traits&lt;_Alloc&gt; __alloc_traits;
+<span class="lineNum">    1682 </span>            :     if (__not_null(__f))
+<span class="lineNum">    1683 </span>            :     {
+<span class="lineNum">    1684 </span>            :         typedef __function::__func&lt;_Fp, _Alloc, _Rp(_A0, _A1, _A2)&gt; _FF;
+<span class="lineNum">    1685 </span>            :         if (sizeof(_FF) &lt;= sizeof(__buf_))
+<span class="lineNum">    1686 </span>            :         {
+<span class="lineNum">    1687 </span>            :             __f_ = (__base*)&amp;__buf_;
+<span class="lineNum">    1688 </span>            :             ::new (__f_) _FF(__f);
+<span class="lineNum">    1689 </span>            :         }
+<span class="lineNum">    1690 </span>            :         else
+<span class="lineNum">    1691 </span>            :         {
+<span class="lineNum">    1692 </span>            :             typedef typename __rebind_alloc_helper&lt;__alloc_traits, _FF&gt;::type _Ap;
+<span class="lineNum">    1693 </span>            :             _Ap __a(__a0);
+<span class="lineNum">    1694 </span>            :             typedef __allocator_destructor&lt;_Ap&gt; _Dp;
+<span class="lineNum">    1695 </span>            :             unique_ptr&lt;__base, _Dp&gt; __hold(__a.allocate(1), _Dp(__a, 1));
+<span class="lineNum">    1696 </span>            :             ::new (__hold.get()) _FF(__f, _Alloc(__a));
+<span class="lineNum">    1697 </span>            :             __f_ = __hold.release();
+<span class="lineNum">    1698 </span>            :         }
+<span class="lineNum">    1699 </span>            :     }
+<span class="lineNum">    1700 </span>            : }
+<span class="lineNum">    1701 </span>            : 
+<span class="lineNum">    1702 </span>            : template&lt;class _Rp, class _A0, class _A1, class _A2&gt;
+<span class="lineNum">    1703 </span>            : function&lt;_Rp(_A0, _A1, _A2)&gt;&amp;
+<span class="lineNum">    1704 </span>            : function&lt;_Rp(_A0, _A1, _A2)&gt;::operator=(const function&amp; __f)
+<span class="lineNum">    1705 </span>            : {
+<span class="lineNum">    1706 </span>            :     function(__f).swap(*this);
+<span class="lineNum">    1707 </span>            :     return *this;
+<span class="lineNum">    1708 </span>            : }
+<span class="lineNum">    1709 </span>            : 
+<span class="lineNum">    1710 </span>            : template&lt;class _Rp, class _A0, class _A1, class _A2&gt;
+<span class="lineNum">    1711 </span>            : function&lt;_Rp(_A0, _A1, _A2)&gt;&amp;
+<span class="lineNum">    1712 </span>            : function&lt;_Rp(_A0, _A1, _A2)&gt;::operator=(nullptr_t)
+<span class="lineNum">    1713 </span>            : {
+<span class="lineNum">    1714 </span>            :     if (__f_ == (__base*)&amp;__buf_)
+<span class="lineNum">    1715 </span>            :         __f_-&gt;destroy();
+<span class="lineNum">    1716 </span>            :     else if (__f_)
+<span class="lineNum">    1717 </span>            :         __f_-&gt;destroy_deallocate();
+<span class="lineNum">    1718 </span>            :     __f_ = 0;
+<span class="lineNum">    1719 </span>            :     return *this;
+<span class="lineNum">    1720 </span>            : }
+<span class="lineNum">    1721 </span>            : 
+<span class="lineNum">    1722 </span>            : template&lt;class _Rp, class _A0, class _A1, class _A2&gt;
+<span class="lineNum">    1723 </span>            : template &lt;class _Fp&gt;
+<span class="lineNum">    1724 </span>            : typename enable_if
+<span class="lineNum">    1725 </span>            : &lt;
+<span class="lineNum">    1726 </span>            :     !is_integral&lt;_Fp&gt;::value,
+<span class="lineNum">    1727 </span>            :     function&lt;_Rp(_A0, _A1, _A2)&gt;&amp;
+<span class="lineNum">    1728 </span>            : &gt;::type
+<span class="lineNum">    1729 </span>            : function&lt;_Rp(_A0, _A1, _A2)&gt;::operator=(_Fp __f)
+<span class="lineNum">    1730 </span>            : {
+<span class="lineNum">    1731 </span>            :     function(_VSTD::move(__f)).swap(*this);
+<span class="lineNum">    1732 </span>            :     return *this;
+<span class="lineNum">    1733 </span>            : }
+<a name="1734"><span class="lineNum">    1734 </span>            : </a>
+<span class="lineNum">    1735 </span>            : template&lt;class _Rp, class _A0, class _A1, class _A2&gt;
+<span class="lineNum">    1736 </span>            : function&lt;_Rp(_A0, _A1, _A2)&gt;::~function()
+<span class="lineNum">    1737 </span>            : {
+<span class="lineNum">    1738 </span><span class="lineCov">          2 :     if (__f_ == (__base*)&amp;__buf_)</span>
+<span class="lineNum">    1739 </span><span class="lineCov">          4 :         __f_-&gt;destroy();</span>
+<span class="lineNum">    1740 </span><span class="lineNoCov">          0 :     else if (__f_)</span>
+<span class="lineNum">    1741 </span><span class="lineNoCov">          0 :         __f_-&gt;destroy_deallocate();</span>
+<span class="lineNum">    1742 </span><span class="lineCov">          2 : }</span>
+<span class="lineNum">    1743 </span>            : 
+<span class="lineNum">    1744 </span>            : template&lt;class _Rp, class _A0, class _A1, class _A2&gt;
+<span class="lineNum">    1745 </span>            : void
+<span class="lineNum">    1746 </span>            : function&lt;_Rp(_A0, _A1, _A2)&gt;::swap(function&amp; __f)
+<span class="lineNum">    1747 </span>            : {
+<span class="lineNum">    1748 </span>            :     if (__f_ == (__base*)&amp;__buf_ &amp;&amp; __f.__f_ == (__base*)&amp;__f.__buf_)
+<span class="lineNum">    1749 </span>            :     {
+<span class="lineNum">    1750 </span>            :         typename aligned_storage&lt;sizeof(__buf_)&gt;::type __tempbuf;
+<span class="lineNum">    1751 </span>            :         __base* __t = (__base*)&amp;__tempbuf;
+<span class="lineNum">    1752 </span>            :         __f_-&gt;__clone(__t);
+<span class="lineNum">    1753 </span>            :         __f_-&gt;destroy();
+<span class="lineNum">    1754 </span>            :         __f_ = 0;
+<span class="lineNum">    1755 </span>            :         __f.__f_-&gt;__clone((__base*)&amp;__buf_);
+<span class="lineNum">    1756 </span>            :         __f.__f_-&gt;destroy();
+<span class="lineNum">    1757 </span>            :         __f.__f_ = 0;
+<span class="lineNum">    1758 </span>            :         __f_ = (__base*)&amp;__buf_;
+<span class="lineNum">    1759 </span>            :         __t-&gt;__clone((__base*)&amp;__f.__buf_);
+<span class="lineNum">    1760 </span>            :         __t-&gt;destroy();
+<span class="lineNum">    1761 </span>            :         __f.__f_ = (__base*)&amp;__f.__buf_;
+<span class="lineNum">    1762 </span>            :     }
+<span class="lineNum">    1763 </span>            :     else if (__f_ == (__base*)&amp;__buf_)
+<span class="lineNum">    1764 </span>            :     {
+<span class="lineNum">    1765 </span>            :         __f_-&gt;__clone((__base*)&amp;__f.__buf_);
+<span class="lineNum">    1766 </span>            :         __f_-&gt;destroy();
+<span class="lineNum">    1767 </span>            :         __f_ = __f.__f_;
+<span class="lineNum">    1768 </span>            :         __f.__f_ = (__base*)&amp;__f.__buf_;
+<span class="lineNum">    1769 </span>            :     }
+<span class="lineNum">    1770 </span>            :     else if (__f.__f_ == (__base*)&amp;__f.__buf_)
+<span class="lineNum">    1771 </span>            :     {
+<span class="lineNum">    1772 </span>            :         __f.__f_-&gt;__clone((__base*)&amp;__buf_);
+<span class="lineNum">    1773 </span>            :         __f.__f_-&gt;destroy();
+<span class="lineNum">    1774 </span>            :         __f.__f_ = __f_;
+<span class="lineNum">    1775 </span>            :         __f_ = (__base*)&amp;__buf_;
+<span class="lineNum">    1776 </span>            :     }
+<span class="lineNum">    1777 </span>            :     else
+<span class="lineNum">    1778 </span>            :         _VSTD::swap(__f_, __f.__f_);
+<span class="lineNum">    1779 </span>            : }
+<span class="lineNum">    1780 </span>            : 
+<a name="1781"><span class="lineNum">    1781 </span>            : template&lt;class _Rp, class _A0, class _A1, class _A2&gt;</a>
+<span class="lineNum">    1782 </span>            : _Rp
+<span class="lineNum">    1783 </span>            : function&lt;_Rp(_A0, _A1, _A2)&gt;::operator()(_A0 __a0, _A1 __a1, _A2 __a2) const
+<span class="lineNum">    1784 </span>            : {
+<span class="lineNum">    1785 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1786 </span><span class="lineCov">          2 :     if (__f_ == 0)</span>
+<span class="lineNum">    1787 </span><span class="lineNoCov">          0 :         throw bad_function_call();</span>
+<span class="lineNum">    1788 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">    1789 </span><span class="lineCov">          2 :     return (*__f_)(__a0, __a1, __a2);</span>
+<span class="lineNum">    1790 </span>            : }
+<span class="lineNum">    1791 </span>            : 
+<span class="lineNum">    1792 </span>            : #ifndef _LIBCPP_NO_RTTI
+<span class="lineNum">    1793 </span>            : 
+<span class="lineNum">    1794 </span>            : template&lt;class _Rp, class _A0, class _A1, class _A2&gt;
+<span class="lineNum">    1795 </span>            : const std::type_info&amp;
+<span class="lineNum">    1796 </span>            : function&lt;_Rp(_A0, _A1, _A2)&gt;::target_type() const
+<span class="lineNum">    1797 </span>            : {
+<span class="lineNum">    1798 </span>            :     if (__f_ == 0)
+<span class="lineNum">    1799 </span>            :         return typeid(void);
+<span class="lineNum">    1800 </span>            :     return __f_-&gt;target_type();
+<span class="lineNum">    1801 </span>            : }
+<span class="lineNum">    1802 </span>            : 
+<span class="lineNum">    1803 </span>            : template&lt;class _Rp, class _A0, class _A1, class _A2&gt;
+<span class="lineNum">    1804 </span>            : template &lt;typename _Tp&gt;
+<span class="lineNum">    1805 </span>            : _Tp*
+<span class="lineNum">    1806 </span>            : function&lt;_Rp(_A0, _A1, _A2)&gt;::target()
+<span class="lineNum">    1807 </span>            : {
+<span class="lineNum">    1808 </span>            :     if (__f_ == 0)
+<span class="lineNum">    1809 </span>            :         return (_Tp*)0;
+<span class="lineNum">    1810 </span>            :     return (_Tp*)__f_-&gt;target(typeid(_Tp));
+<span class="lineNum">    1811 </span>            : }
+<span class="lineNum">    1812 </span>            : 
+<span class="lineNum">    1813 </span>            : template&lt;class _Rp, class _A0, class _A1, class _A2&gt;
+<span class="lineNum">    1814 </span>            : template &lt;typename _Tp&gt;
+<span class="lineNum">    1815 </span>            : const _Tp*
+<span class="lineNum">    1816 </span>            : function&lt;_Rp(_A0, _A1, _A2)&gt;::target() const
+<span class="lineNum">    1817 </span>            : {
+<span class="lineNum">    1818 </span>            :     if (__f_ == 0)
+<span class="lineNum">    1819 </span>            :         return (const _Tp*)0;
+<span class="lineNum">    1820 </span>            :     return (const _Tp*)__f_-&gt;target(typeid(_Tp));
+<span class="lineNum">    1821 </span>            : }
+<span class="lineNum">    1822 </span>            : 
+<span class="lineNum">    1823 </span>            : #endif  // _LIBCPP_NO_RTTI
+<span class="lineNum">    1824 </span>            : 
+<span class="lineNum">    1825 </span>            : template &lt;class _Fp&gt;
+<span class="lineNum">    1826 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1827 </span>            : bool
+<span class="lineNum">    1828 </span>            : operator==(const function&lt;_Fp&gt;&amp; __f, nullptr_t) {return !__f;}
+<span class="lineNum">    1829 </span>            : 
+<span class="lineNum">    1830 </span>            : template &lt;class _Fp&gt;
+<span class="lineNum">    1831 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1832 </span>            : bool
+<span class="lineNum">    1833 </span>            : operator==(nullptr_t, const function&lt;_Fp&gt;&amp; __f) {return !__f;}
+<span class="lineNum">    1834 </span>            : 
+<span class="lineNum">    1835 </span>            : template &lt;class _Fp&gt;
+<span class="lineNum">    1836 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1837 </span>            : bool
+<span class="lineNum">    1838 </span>            : operator!=(const function&lt;_Fp&gt;&amp; __f, nullptr_t) {return (bool)__f;}
+<span class="lineNum">    1839 </span>            : 
+<span class="lineNum">    1840 </span>            : template &lt;class _Fp&gt;
+<span class="lineNum">    1841 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1842 </span>            : bool
+<span class="lineNum">    1843 </span>            : operator!=(nullptr_t, const function&lt;_Fp&gt;&amp; __f) {return (bool)__f;}
+<span class="lineNum">    1844 </span>            : 
+<span class="lineNum">    1845 </span>            : template &lt;class _Fp&gt;
+<span class="lineNum">    1846 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1847 </span>            : void
+<span class="lineNum">    1848 </span>            : swap(function&lt;_Fp&gt;&amp; __x, function&lt;_Fp&gt;&amp; __y)
+<span class="lineNum">    1849 </span>            : {return __x.swap(__y);}
+<span class="lineNum">    1850 </span>            : 
+<span class="lineNum">    1851 </span>            : template&lt;class _Tp&gt; struct __is_bind_expression : public false_type {};
+<span class="lineNum">    1852 </span>            : template&lt;class _Tp&gt; struct _LIBCPP_TYPE_VIS_ONLY is_bind_expression
+<span class="lineNum">    1853 </span>            :     : public __is_bind_expression&lt;typename remove_cv&lt;_Tp&gt;::type&gt; {};
+<span class="lineNum">    1854 </span>            : 
+<span class="lineNum">    1855 </span>            : template&lt;class _Tp&gt; struct __is_placeholder : public integral_constant&lt;int, 0&gt; {};
+<span class="lineNum">    1856 </span>            : template&lt;class _Tp&gt; struct _LIBCPP_TYPE_VIS_ONLY is_placeholder
+<span class="lineNum">    1857 </span>            :     : public __is_placeholder&lt;typename remove_cv&lt;_Tp&gt;::type&gt; {};
+<span class="lineNum">    1858 </span>            : 
+<span class="lineNum">    1859 </span>            : namespace placeholders
+<span class="lineNum">    1860 </span>            : {
+<span class="lineNum">    1861 </span>            : 
+<span class="lineNum">    1862 </span>            : template &lt;int _Np&gt; struct __ph {};
+<span class="lineNum">    1863 </span>            : 
+<span class="lineNum">    1864 </span>            : extern __ph&lt;1&gt;   _1;
+<span class="lineNum">    1865 </span>            : extern __ph&lt;2&gt;   _2;
+<span class="lineNum">    1866 </span>            : extern __ph&lt;3&gt;   _3;
+<span class="lineNum">    1867 </span>            : extern __ph&lt;4&gt;   _4;
+<span class="lineNum">    1868 </span>            : extern __ph&lt;5&gt;   _5;
+<span class="lineNum">    1869 </span>            : extern __ph&lt;6&gt;   _6;
+<span class="lineNum">    1870 </span>            : extern __ph&lt;7&gt;   _7;
+<span class="lineNum">    1871 </span>            : extern __ph&lt;8&gt;   _8;
+<span class="lineNum">    1872 </span>            : extern __ph&lt;9&gt;   _9;
+<span class="lineNum">    1873 </span>            : extern __ph&lt;10&gt; _10;
+<span class="lineNum">    1874 </span>            : 
+<span class="lineNum">    1875 </span>            : }  // placeholders
+<span class="lineNum">    1876 </span>            : 
+<span class="lineNum">    1877 </span>            : template&lt;int _Np&gt;
+<span class="lineNum">    1878 </span>            : struct __is_placeholder&lt;placeholders::__ph&lt;_Np&gt; &gt;
+<span class="lineNum">    1879 </span>            :     : public integral_constant&lt;int, _Np&gt; {};
+<span class="lineNum">    1880 </span>            : 
+<span class="lineNum">    1881 </span>            : template &lt;class _Tp, class _Uj&gt;
+<span class="lineNum">    1882 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1883 </span>            : _Tp&amp;
+<span class="lineNum">    1884 </span>            : __mu(reference_wrapper&lt;_Tp&gt; __t, _Uj&amp;)
+<span class="lineNum">    1885 </span>            : {
+<span class="lineNum">    1886 </span>            :     return __t.get();
+<span class="lineNum">    1887 </span>            : }
+<span class="lineNum">    1888 </span>            : /*
+<span class="lineNum">    1889 </span>            : template &lt;bool _IsBindExpr, class _Ti, class ..._Uj&gt;
+<span class="lineNum">    1890 </span>            : struct __mu_return1 {};
+<span class="lineNum">    1891 </span>            : 
+<span class="lineNum">    1892 </span>            : template &lt;class _Ti, class ..._Uj&gt;
+<span class="lineNum">    1893 </span>            : struct __mu_return1&lt;true, _Ti, _Uj...&gt;
+<span class="lineNum">    1894 </span>            : {
+<span class="lineNum">    1895 </span>            :     typedef typename result_of&lt;_Ti(_Uj...)&gt;::type type;
+<span class="lineNum">    1896 </span>            : };
+<span class="lineNum">    1897 </span>            : 
+<span class="lineNum">    1898 </span>            : template &lt;class _Ti, class ..._Uj, size_t ..._Indx&gt;
+<span class="lineNum">    1899 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1900 </span>            : typename __mu_return1&lt;true, _Ti, _Uj...&gt;::type
+<span class="lineNum">    1901 </span>            : __mu_expand(_Ti&amp; __ti, tuple&lt;_Uj...&gt;&amp;&amp; __uj, __tuple_indices&lt;_Indx...&gt;)
+<span class="lineNum">    1902 </span>            : {
+<span class="lineNum">    1903 </span>            :     __ti(_VSTD::forward&lt;typename tuple_element&lt;_Indx, _Uj&gt;::type&gt;(_VSTD::get&lt;_Indx&gt;(__uj))...);
+<span class="lineNum">    1904 </span>            : }
+<span class="lineNum">    1905 </span>            : 
+<span class="lineNum">    1906 </span>            : template &lt;class _Ti, class ..._Uj&gt;
+<span class="lineNum">    1907 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1908 </span>            : typename enable_if
+<span class="lineNum">    1909 </span>            : &lt;
+<span class="lineNum">    1910 </span>            :     is_bind_expression&lt;_Ti&gt;::value,
+<span class="lineNum">    1911 </span>            :     typename __mu_return1&lt;is_bind_expression&lt;_Ti&gt;::value, _Ti, _Uj...&gt;::type
+<span class="lineNum">    1912 </span>            : &gt;::type
+<span class="lineNum">    1913 </span>            : __mu(_Ti&amp; __ti, tuple&lt;_Uj...&gt;&amp; __uj)
+<span class="lineNum">    1914 </span>            : {
+<span class="lineNum">    1915 </span>            :     typedef typename __make_tuple_indices&lt;sizeof...(_Uj)&gt;::type __indices;
+<span class="lineNum">    1916 </span>            :     return  __mu_expand(__ti, __uj, __indices());
+<span class="lineNum">    1917 </span>            : }
+<span class="lineNum">    1918 </span>            : 
+<span class="lineNum">    1919 </span>            : template &lt;bool IsPh, class _Ti, class _Uj&gt;
+<span class="lineNum">    1920 </span>            : struct __mu_return2 {};
+<span class="lineNum">    1921 </span>            : 
+<span class="lineNum">    1922 </span>            : template &lt;class _Ti, class _Uj&gt;
+<span class="lineNum">    1923 </span>            : struct __mu_return2&lt;true, _Ti, _Uj&gt;
+<span class="lineNum">    1924 </span>            : {
+<span class="lineNum">    1925 </span>            :     typedef typename tuple_element&lt;is_placeholder&lt;_Ti&gt;::value - 1, _Uj&gt;::type type;
+<span class="lineNum">    1926 </span>            : };
+<span class="lineNum">    1927 </span>            : 
+<span class="lineNum">    1928 </span>            : template &lt;class _Ti, class _Uj&gt;
+<span class="lineNum">    1929 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1930 </span>            : typename enable_if
+<span class="lineNum">    1931 </span>            : &lt;
+<span class="lineNum">    1932 </span>            :     0 &lt; is_placeholder&lt;_Ti&gt;::value,
+<span class="lineNum">    1933 </span>            :     typename __mu_return2&lt;0 &lt; is_placeholder&lt;_Ti&gt;::value, _Ti, _Uj&gt;::type
+<span class="lineNum">    1934 </span>            : &gt;::type
+<span class="lineNum">    1935 </span>            : __mu(_Ti&amp;, _Uj&amp; __uj)
+<span class="lineNum">    1936 </span>            : {
+<span class="lineNum">    1937 </span>            :     const size_t _Indx = is_placeholder&lt;_Ti&gt;::value - 1;
+<span class="lineNum">    1938 </span>            :     // compiler bug workaround
+<span class="lineNum">    1939 </span>            :     typename tuple_element&lt;_Indx, _Uj&gt;::type __t = _VSTD::get&lt;_Indx&gt;(__uj);
+<span class="lineNum">    1940 </span>            :     return __t;
+<span class="lineNum">    1941 </span>            : //    return _VSTD::forward&lt;typename tuple_element&lt;_Indx, _Uj&gt;::type&gt;(_VSTD::get&lt;_Indx&gt;(__uj));
+<span class="lineNum">    1942 </span>            : }
+<span class="lineNum">    1943 </span>            : 
+<span class="lineNum">    1944 </span>            : template &lt;class _Ti, class _Uj&gt;
+<span class="lineNum">    1945 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1946 </span>            : typename enable_if
+<span class="lineNum">    1947 </span>            : &lt;
+<span class="lineNum">    1948 </span>            :     !is_bind_expression&lt;_Ti&gt;::value &amp;&amp;
+<span class="lineNum">    1949 </span>            :     is_placeholder&lt;_Ti&gt;::value == 0 &amp;&amp;
+<span class="lineNum">    1950 </span>            :     !__is_reference_wrapper&lt;_Ti&gt;::value,
+<span class="lineNum">    1951 </span>            :     _Ti&amp;
+<span class="lineNum">    1952 </span>            : &gt;::type
+<span class="lineNum">    1953 </span>            : __mu(_Ti&amp; __ti, _Uj&amp; __uj)
+<span class="lineNum">    1954 </span>            : {
+<span class="lineNum">    1955 </span>            :     return __ti;
+<span class="lineNum">    1956 </span>            : }
+<span class="lineNum">    1957 </span>            : 
+<span class="lineNum">    1958 </span>            : template &lt;class _Ti, bool IsBindEx, bool IsPh, class _TupleUj&gt;
+<span class="lineNum">    1959 </span>            : struct ____mu_return;
+<span class="lineNum">    1960 </span>            : 
+<span class="lineNum">    1961 </span>            : template &lt;class _Ti, class ..._Uj&gt;
+<span class="lineNum">    1962 </span>            : struct ____mu_return&lt;_Ti, true, false, tuple&lt;_Uj...&gt; &gt;
+<span class="lineNum">    1963 </span>            : {
+<span class="lineNum">    1964 </span>            :     typedef typename result_of&lt;_Ti(_Uj...)&gt;::type type;
+<span class="lineNum">    1965 </span>            : };
+<span class="lineNum">    1966 </span>            : 
+<span class="lineNum">    1967 </span>            : template &lt;class _Ti, class _TupleUj&gt;
+<span class="lineNum">    1968 </span>            : struct ____mu_return&lt;_Ti, false, true, _TupleUj&gt;
+<span class="lineNum">    1969 </span>            : {
+<span class="lineNum">    1970 </span>            :     typedef typename tuple_element&lt;is_placeholder&lt;_Ti&gt;::value - 1,
+<span class="lineNum">    1971 </span>            :                                    _TupleUj&gt;::type&amp;&amp; type;
+<span class="lineNum">    1972 </span>            : };
+<span class="lineNum">    1973 </span>            : 
+<span class="lineNum">    1974 </span>            : template &lt;class _Ti, class _TupleUj&gt;
+<span class="lineNum">    1975 </span>            : struct ____mu_return&lt;_Ti, false, false, _TupleUj&gt;
+<span class="lineNum">    1976 </span>            : {
+<span class="lineNum">    1977 </span>            :     typedef _Ti&amp; type;
+<span class="lineNum">    1978 </span>            : };
+<span class="lineNum">    1979 </span>            : 
+<span class="lineNum">    1980 </span>            : template &lt;class _Ti, class _TupleUj&gt;
+<span class="lineNum">    1981 </span>            : struct __mu_return
+<span class="lineNum">    1982 </span>            :     : public ____mu_return&lt;_Ti,
+<span class="lineNum">    1983 </span>            :                            is_bind_expression&lt;_Ti&gt;::value,
+<span class="lineNum">    1984 </span>            :                            0 &lt; is_placeholder&lt;_Ti&gt;::value,
+<span class="lineNum">    1985 </span>            :                            _TupleUj&gt;
+<span class="lineNum">    1986 </span>            : {
+<span class="lineNum">    1987 </span>            : };
+<span class="lineNum">    1988 </span>            : 
+<span class="lineNum">    1989 </span>            : template &lt;class _Ti, class _TupleUj&gt;
+<span class="lineNum">    1990 </span>            : struct __mu_return&lt;reference_wrapper&lt;_Ti&gt;, _TupleUj&gt;
+<span class="lineNum">    1991 </span>            : {
+<span class="lineNum">    1992 </span>            :     typedef _Ti&amp; type;
+<span class="lineNum">    1993 </span>            : };
+<span class="lineNum">    1994 </span>            : 
+<span class="lineNum">    1995 </span>            : template &lt;class _Fp, class _BoundArgs, class _TupleUj&gt;
+<span class="lineNum">    1996 </span>            : struct __bind_return;
+<span class="lineNum">    1997 </span>            : 
+<span class="lineNum">    1998 </span>            : template &lt;class _Fp, class ..._BoundArgs, class _TupleUj&gt;
+<span class="lineNum">    1999 </span>            : struct __bind_return&lt;_Fp, tuple&lt;_BoundArgs...&gt;, _TupleUj&gt;
+<span class="lineNum">    2000 </span>            : {
+<span class="lineNum">    2001 </span>            :     typedef typename __ref_return
+<span class="lineNum">    2002 </span>            :     &lt;
+<span class="lineNum">    2003 </span>            :         _Fp&amp;,
+<span class="lineNum">    2004 </span>            :         typename __mu_return
+<span class="lineNum">    2005 </span>            :         &lt;
+<span class="lineNum">    2006 </span>            :             _BoundArgs,
+<span class="lineNum">    2007 </span>            :             _TupleUj
+<span class="lineNum">    2008 </span>            :         &gt;::type...
+<span class="lineNum">    2009 </span>            :     &gt;::type type;
+<span class="lineNum">    2010 </span>            : };
+<span class="lineNum">    2011 </span>            : 
+<span class="lineNum">    2012 </span>            : template &lt;class _Fp, class ..._BoundArgs, class _TupleUj&gt;
+<span class="lineNum">    2013 </span>            : struct __bind_return&lt;_Fp, const tuple&lt;_BoundArgs...&gt;, _TupleUj&gt;
+<span class="lineNum">    2014 </span>            : {
+<span class="lineNum">    2015 </span>            :     typedef typename __ref_return
+<span class="lineNum">    2016 </span>            :     &lt;
+<span class="lineNum">    2017 </span>            :         _Fp&amp;,
+<span class="lineNum">    2018 </span>            :         typename __mu_return
+<span class="lineNum">    2019 </span>            :         &lt;
+<span class="lineNum">    2020 </span>            :             const _BoundArgs,
+<span class="lineNum">    2021 </span>            :             _TupleUj
+<span class="lineNum">    2022 </span>            :         &gt;::type...
+<span class="lineNum">    2023 </span>            :     &gt;::type type;
+<span class="lineNum">    2024 </span>            : };
+<span class="lineNum">    2025 </span>            : 
+<span class="lineNum">    2026 </span>            : template &lt;class _Fp, class _BoundArgs, size_t ..._Indx, class _Args&gt;
+<span class="lineNum">    2027 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    2028 </span>            : typename __bind_return&lt;_Fp, _BoundArgs, _Args&gt;::type
+<span class="lineNum">    2029 </span>            : __apply_functor(_Fp&amp; __f, _BoundArgs&amp; __bound_args, __tuple_indices&lt;_Indx...&gt;,
+<span class="lineNum">    2030 </span>            :                 _Args&amp;&amp; __args)
+<span class="lineNum">    2031 </span>            : {
+<span class="lineNum">    2032 </span>            :     return __invoke(__f, __mu(_VSTD::get&lt;_Indx&gt;(__bound_args), __args)...);
+<span class="lineNum">    2033 </span>            : }
+<span class="lineNum">    2034 </span>            : 
+<span class="lineNum">    2035 </span>            : template&lt;class _Fp, class ..._BoundArgs&gt;
+<span class="lineNum">    2036 </span>            : class __bind
+<span class="lineNum">    2037 </span>            : {
+<span class="lineNum">    2038 </span>            :     _Fp __f_;
+<span class="lineNum">    2039 </span>            :     tuple&lt;_BoundArgs...&gt; __bound_args_;
+<span class="lineNum">    2040 </span>            : 
+<span class="lineNum">    2041 </span>            :     typedef typename __make_tuple_indices&lt;sizeof...(_BoundArgs)&gt;::type __indices;
+<span class="lineNum">    2042 </span>            : public:
+<span class="lineNum">    2043 </span>            :     template &lt;class _Gp, class ..._BA&gt;
+<span class="lineNum">    2044 </span>            :       explicit __bind(_Gp&amp;&amp; __f, _BA&amp;&amp; ...__bound_args)
+<span class="lineNum">    2045 </span>            :         : __f_(_VSTD::forward&lt;_Gp&gt;(__f)),
+<span class="lineNum">    2046 </span>            :           __bound_args_(_VSTD::forward&lt;_BA&gt;(__bound_args)...) {}
+<span class="lineNum">    2047 </span>            : 
+<span class="lineNum">    2048 </span>            :     template &lt;class ..._Args&gt;
+<span class="lineNum">    2049 </span>            :         typename __bind_return&lt;_Fp, tuple&lt;_BoundArgs...&gt;, tuple&lt;_Args&amp;&amp;...&gt; &gt;::type
+<span class="lineNum">    2050 </span>            :         operator()(_Args&amp;&amp; ...__args)
+<span class="lineNum">    2051 </span>            :         {
+<span class="lineNum">    2052 </span>            :             // compiler bug workaround
+<span class="lineNum">    2053 </span>            :             return __apply_functor(__f_, __bound_args_, __indices(),
+<span class="lineNum">    2054 </span>            :                                   tuple&lt;_Args&amp;&amp;...&gt;(__args...));
+<span class="lineNum">    2055 </span>            :         }
+<span class="lineNum">    2056 </span>            : 
+<span class="lineNum">    2057 </span>            :     template &lt;class ..._Args&gt;
+<span class="lineNum">    2058 </span>            :         typename __bind_return&lt;_Fp, tuple&lt;_BoundArgs...&gt;, tuple&lt;_Args&amp;&amp;...&gt; &gt;::type
+<span class="lineNum">    2059 </span>            :         operator()(_Args&amp;&amp; ...__args) const
+<span class="lineNum">    2060 </span>            :         {
+<span class="lineNum">    2061 </span>            :             return __apply_functor(__f_, __bound_args_, __indices(),
+<span class="lineNum">    2062 </span>            :                                    tuple&lt;_Args&amp;&amp;...&gt;(__args...));
+<span class="lineNum">    2063 </span>            :         }
+<span class="lineNum">    2064 </span>            : };
+<span class="lineNum">    2065 </span>            : 
+<span class="lineNum">    2066 </span>            : template&lt;class _Fp, class ..._BoundArgs&gt;
+<span class="lineNum">    2067 </span>            : struct __is_bind_expression&lt;__bind&lt;_Fp, _BoundArgs...&gt; &gt; : public true_type {};
+<span class="lineNum">    2068 </span>            : 
+<span class="lineNum">    2069 </span>            : template&lt;class _Rp, class _Fp, class ..._BoundArgs&gt;
+<span class="lineNum">    2070 </span>            : class __bind_r
+<span class="lineNum">    2071 </span>            :     : public __bind&lt;_Fp, _BoundArgs...&gt;
+<span class="lineNum">    2072 </span>            : {
+<span class="lineNum">    2073 </span>            :     typedef __bind&lt;_Fp, _BoundArgs...&gt; base;
+<span class="lineNum">    2074 </span>            : public:
+<span class="lineNum">    2075 </span>            :     typedef _Rp result_type;
+<span class="lineNum">    2076 </span>            : 
+<span class="lineNum">    2077 </span>            :     template &lt;class _Gp, class ..._BA&gt;
+<span class="lineNum">    2078 </span>            :       explicit __bind_r(_Gp&amp;&amp; __f, _BA&amp;&amp; ...__bound_args)
+<span class="lineNum">    2079 </span>            :         : base(_VSTD::forward&lt;_Gp&gt;(__f),
+<span class="lineNum">    2080 </span>            :                _VSTD::forward&lt;_BA&gt;(__bound_args)...) {}
+<span class="lineNum">    2081 </span>            : 
+<span class="lineNum">    2082 </span>            :     template &lt;class ..._Args&gt;
+<span class="lineNum">    2083 </span>            :         result_type
+<span class="lineNum">    2084 </span>            :         operator()(_Args&amp;&amp; ...__args)
+<span class="lineNum">    2085 </span>            :         {
+<span class="lineNum">    2086 </span>            :             return base::operator()(_VSTD::forward&lt;_Args&gt;(__args)...);
+<span class="lineNum">    2087 </span>            :         }
+<span class="lineNum">    2088 </span>            : 
+<span class="lineNum">    2089 </span>            :     template &lt;class ..._Args&gt;
+<span class="lineNum">    2090 </span>            :         result_type
+<span class="lineNum">    2091 </span>            :         operator()(_Args&amp;&amp; ...__args) const
+<span class="lineNum">    2092 </span>            :         {
+<span class="lineNum">    2093 </span>            :             return base::operator()(_VSTD::forward&lt;_Args&gt;(__args)...);
+<span class="lineNum">    2094 </span>            :         }
+<span class="lineNum">    2095 </span>            : };
+<span class="lineNum">    2096 </span>            : 
+<span class="lineNum">    2097 </span>            : template&lt;class _Rp, class _Fp, class ..._BoundArgs&gt;
+<span class="lineNum">    2098 </span>            : struct __is_bind_expression&lt;__bind_r&lt;_Rp, _Fp, _BoundArgs...&gt; &gt; : public true_type {};
+<span class="lineNum">    2099 </span>            : 
+<span class="lineNum">    2100 </span>            : template&lt;class _Fp, class ..._BoundArgs&gt;
+<span class="lineNum">    2101 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    2102 </span>            : __bind&lt;typename decay&lt;_Fp&gt;::type, typename decay&lt;_BoundArgs&gt;::type...&gt;
+<span class="lineNum">    2103 </span>            : bind(_Fp&amp;&amp; __f, _BoundArgs&amp;&amp;... __bound_args)
+<span class="lineNum">    2104 </span>            : {
+<span class="lineNum">    2105 </span>            :     typedef __bind&lt;typename decay&lt;_Fp&gt;::type, typename decay&lt;_BoundArgs&gt;::type...&gt; type;
+<span class="lineNum">    2106 </span>            :     return type(_VSTD::forward&lt;_Fp&gt;(__f), _VSTD::forward&lt;_BoundArgs&gt;(__bound_args)...);
+<span class="lineNum">    2107 </span>            : }
+<span class="lineNum">    2108 </span>            : 
+<span class="lineNum">    2109 </span>            : template&lt;class _Rp, class _Fp, class ..._BoundArgs&gt;
+<span class="lineNum">    2110 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    2111 </span>            : __bind_r&lt;_Rp, typename decay&lt;_Fp&gt;::type, typename decay&lt;_BoundArgs&gt;::type...&gt;
+<span class="lineNum">    2112 </span>            : bind(_Fp&amp;&amp; __f, _BoundArgs&amp;&amp;... __bound_args)
+<span class="lineNum">    2113 </span>            : {
+<span class="lineNum">    2114 </span>            :     typedef __bind_r&lt;_Rp, typename decay&lt;_Fp&gt;::type, typename decay&lt;_BoundArgs&gt;::type...&gt; type;
+<span class="lineNum">    2115 </span>            :     return type(_VSTD::forward&lt;_Fp&gt;(__f), _VSTD::forward&lt;_BoundArgs&gt;(__bound_args)...);
+<span class="lineNum">    2116 </span>            : }
+<span class="lineNum">    2117 </span>            : */
+<span class="lineNum">    2118 </span>            : 
+<span class="lineNum">    2119 </span>            : #endif  // _LIBCPP_FUNCTIONAL_03
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

@@ -1,0 +1,1213 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - test_coverage.info - include/tuple</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">include</a> - tuple<span style="font-size: 80%;"> (source / <a href="tuple.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">test_coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">123</td>
+            <td class="headerCovTableEntry">124</td>
+            <td class="headerCovTableEntryHi">99.2 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2015-06-02</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">2818</td>
+            <td class="headerCovTableEntry">3299</td>
+            <td class="headerCovTableEntryMed">85.4 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : // -*- C++ -*-</a>
+<span class="lineNum">       2 </span>            : //===--------------------------- tuple ------------------------------------===//
+<span class="lineNum">       3 </span>            : //
+<span class="lineNum">       4 </span>            : //                     The LLVM Compiler Infrastructure
+<span class="lineNum">       5 </span>            : //
+<span class="lineNum">       6 </span>            : // This file is distributed under the University of Illinois Open Source
+<span class="lineNum">       7 </span>            : // License. See LICENSE.TXT for details.
+<span class="lineNum">       8 </span>            : //
+<span class="lineNum">       9 </span>            : //===----------------------------------------------------------------------===//
+<span class="lineNum">      10 </span>            : 
+<span class="lineNum">      11 </span>            : #ifndef _LIBCPP_TUPLE
+<span class="lineNum">      12 </span>            : #define _LIBCPP_TUPLE
+<span class="lineNum">      13 </span>            : 
+<span class="lineNum">      14 </span>            : /*
+<span class="lineNum">      15 </span>            :     tuple synopsis
+<span class="lineNum">      16 </span>            : 
+<span class="lineNum">      17 </span>            : namespace std
+<span class="lineNum">      18 </span>            : {
+<span class="lineNum">      19 </span>            : 
+<span class="lineNum">      20 </span>            : template &lt;class... T&gt;
+<span class="lineNum">      21 </span>            : class tuple {
+<span class="lineNum">      22 </span>            : public:
+<span class="lineNum">      23 </span>            :     constexpr tuple();
+<span class="lineNum">      24 </span>            :     explicit tuple(const T&amp;...);  // constexpr in C++14
+<span class="lineNum">      25 </span>            :     template &lt;class... U&gt;
+<span class="lineNum">      26 </span>            :         explicit tuple(U&amp;&amp;...);  // constexpr in C++14
+<span class="lineNum">      27 </span>            :     tuple(const tuple&amp;) = default;
+<span class="lineNum">      28 </span>            :     tuple(tuple&amp;&amp;) = default;
+<span class="lineNum">      29 </span>            :     template &lt;class... U&gt;
+<span class="lineNum">      30 </span>            :         tuple(const tuple&lt;U...&gt;&amp;);  // constexpr in C++14
+<span class="lineNum">      31 </span>            :     template &lt;class... U&gt;
+<span class="lineNum">      32 </span>            :         tuple(tuple&lt;U...&gt;&amp;&amp;);  // constexpr in C++14
+<span class="lineNum">      33 </span>            :     template &lt;class U1, class U2&gt;
+<span class="lineNum">      34 </span>            :         tuple(const pair&lt;U1, U2&gt;&amp;); // iff sizeof...(T) == 2 // constexpr in C++14
+<span class="lineNum">      35 </span>            :     template &lt;class U1, class U2&gt;
+<span class="lineNum">      36 </span>            :         tuple(pair&lt;U1, U2&gt;&amp;&amp;); // iff sizeof...(T) == 2  // constexpr in C++14
+<span class="lineNum">      37 </span>            : 
+<span class="lineNum">      38 </span>            :     // allocator-extended constructors
+<span class="lineNum">      39 </span>            :     template &lt;class Alloc&gt;
+<span class="lineNum">      40 </span>            :         tuple(allocator_arg_t, const Alloc&amp; a);
+<span class="lineNum">      41 </span>            :     template &lt;class Alloc&gt;
+<span class="lineNum">      42 </span>            :         tuple(allocator_arg_t, const Alloc&amp; a, const T&amp;...);
+<span class="lineNum">      43 </span>            :     template &lt;class Alloc, class... U&gt;
+<span class="lineNum">      44 </span>            :         tuple(allocator_arg_t, const Alloc&amp; a, U&amp;&amp;...);
+<span class="lineNum">      45 </span>            :     template &lt;class Alloc&gt;
+<span class="lineNum">      46 </span>            :         tuple(allocator_arg_t, const Alloc&amp; a, const tuple&amp;);
+<span class="lineNum">      47 </span>            :     template &lt;class Alloc&gt;
+<span class="lineNum">      48 </span>            :         tuple(allocator_arg_t, const Alloc&amp; a, tuple&amp;&amp;);
+<span class="lineNum">      49 </span>            :     template &lt;class Alloc, class... U&gt;
+<span class="lineNum">      50 </span>            :         tuple(allocator_arg_t, const Alloc&amp; a, const tuple&lt;U...&gt;&amp;);
+<span class="lineNum">      51 </span>            :     template &lt;class Alloc, class... U&gt;
+<span class="lineNum">      52 </span>            :         tuple(allocator_arg_t, const Alloc&amp; a, tuple&lt;U...&gt;&amp;&amp;);
+<span class="lineNum">      53 </span>            :     template &lt;class Alloc, class U1, class U2&gt;
+<span class="lineNum">      54 </span>            :         tuple(allocator_arg_t, const Alloc&amp; a, const pair&lt;U1, U2&gt;&amp;);
+<span class="lineNum">      55 </span>            :     template &lt;class Alloc, class U1, class U2&gt;
+<span class="lineNum">      56 </span>            :         tuple(allocator_arg_t, const Alloc&amp; a, pair&lt;U1, U2&gt;&amp;&amp;);
+<span class="lineNum">      57 </span>            : 
+<span class="lineNum">      58 </span>            :     tuple&amp; operator=(const tuple&amp;);
+<span class="lineNum">      59 </span>            :     tuple&amp;
+<span class="lineNum">      60 </span>            :         operator=(tuple&amp;&amp;) noexcept(AND(is_nothrow_move_assignable&lt;T&gt;::value ...));
+<span class="lineNum">      61 </span>            :     template &lt;class... U&gt;
+<span class="lineNum">      62 </span>            :         tuple&amp; operator=(const tuple&lt;U...&gt;&amp;);
+<span class="lineNum">      63 </span>            :     template &lt;class... U&gt;
+<span class="lineNum">      64 </span>            :         tuple&amp; operator=(tuple&lt;U...&gt;&amp;&amp;);
+<span class="lineNum">      65 </span>            :     template &lt;class U1, class U2&gt;
+<span class="lineNum">      66 </span>            :         tuple&amp; operator=(const pair&lt;U1, U2&gt;&amp;); // iff sizeof...(T) == 2
+<span class="lineNum">      67 </span>            :     template &lt;class U1, class U2&gt;
+<span class="lineNum">      68 </span>            :         tuple&amp; operator=(pair&lt;U1, U2&gt;&amp;&amp;); //iffsizeof...(T) == 2
+<span class="lineNum">      69 </span>            : 
+<span class="lineNum">      70 </span>            :     void swap(tuple&amp;) noexcept(AND(swap(declval&lt;T&amp;&gt;(), declval&lt;T&amp;&gt;())...));
+<span class="lineNum">      71 </span>            : };
+<span class="lineNum">      72 </span>            : 
+<span class="lineNum">      73 </span>            : const unspecified ignore;
+<span class="lineNum">      74 </span>            : 
+<span class="lineNum">      75 </span>            : template &lt;class... T&gt; tuple&lt;V...&gt;  make_tuple(T&amp;&amp;...); // constexpr in C++14
+<span class="lineNum">      76 </span>            : template &lt;class... T&gt; tuple&lt;ATypes...&gt; forward_as_tuple(T&amp;&amp;...) noexcept; // constexpr in C++14
+<span class="lineNum">      77 </span>            : template &lt;class... T&gt; tuple&lt;T&amp;...&gt; tie(T&amp;...) noexcept; // constexpr in C++14
+<span class="lineNum">      78 </span>            : template &lt;class... Tuples&gt; tuple&lt;CTypes...&gt; tuple_cat(Tuples&amp;&amp;... tpls); // constexpr in C++14
+<span class="lineNum">      79 </span>            :   
+<span class="lineNum">      80 </span>            : // 20.4.1.4, tuple helper classes:
+<span class="lineNum">      81 </span>            : template &lt;class T&gt; class tuple_size; // undefined
+<span class="lineNum">      82 </span>            : template &lt;class... T&gt; class tuple_size&lt;tuple&lt;T...&gt;&gt;;
+<span class="lineNum">      83 </span>            : template &lt;intsize_t I, class T&gt; class tuple_element; // undefined
+<span class="lineNum">      84 </span>            : template &lt;intsize_t I, class... T&gt; class tuple_element&lt;I, tuple&lt;T...&gt;&gt;;
+<span class="lineNum">      85 </span>            : template &lt;size_t _Ip, class ..._Tp&gt;
+<span class="lineNum">      86 </span>            :   using tuple_element_t = typename tuple_element &lt;_Ip, _Tp...&gt;::type; // C++14
+<span class="lineNum">      87 </span>            : 
+<span class="lineNum">      88 </span>            : // 20.4.1.5, element access:
+<span class="lineNum">      89 </span>            : template &lt;intsize_t I, class... T&gt;
+<span class="lineNum">      90 </span>            :     typename tuple_element&lt;I, tuple&lt;T...&gt;&gt;::type&amp;
+<span class="lineNum">      91 </span>            :     get(tuple&lt;T...&gt;&amp;) noexcept; // constexpr in C++14
+<span class="lineNum">      92 </span>            : template &lt;intsize_t I, class... T&gt;
+<span class="lineNum">      93 </span>            :     typename const tuple_element&lt;I, tuple&lt;T...&gt;&gt;::type &amp;
+<span class="lineNum">      94 </span>            :     get(const tuple&lt;T...&gt;&amp;) noexcept; // constexpr in C++14
+<span class="lineNum">      95 </span>            : template &lt;intsize_t I, class... T&gt;
+<span class="lineNum">      96 </span>            :     typename tuple_element&lt;I, tuple&lt;T...&gt;&gt;::type&amp;&amp;
+<span class="lineNum">      97 </span>            :     get(tuple&lt;T...&gt;&amp;&amp;) noexcept; // constexpr in C++14
+<span class="lineNum">      98 </span>            : 
+<span class="lineNum">      99 </span>            : template &lt;class T1, class... T&gt;
+<span class="lineNum">     100 </span>            :     constexpr T1&amp; get(tuple&lt;T...&gt;&amp;) noexcept;  // C++14
+<span class="lineNum">     101 </span>            : template &lt;class T1, class... T&gt;
+<span class="lineNum">     102 </span>            :     constexpr T1 const&amp; get(const tuple&lt;T...&gt;&amp;) noexcept;   // C++14
+<span class="lineNum">     103 </span>            : template &lt;class T1, class... T&gt;
+<span class="lineNum">     104 </span>            :     constexpr T1&amp;&amp; get(tuple&lt;T...&gt;&amp;&amp;) noexcept;   // C++14
+<span class="lineNum">     105 </span>            : 
+<span class="lineNum">     106 </span>            : // 20.4.1.6, relational operators:
+<span class="lineNum">     107 </span>            : template&lt;class... T, class... U&gt; bool operator==(const tuple&lt;T...&gt;&amp;, const tuple&lt;U...&gt;&amp;); // constexpr in C++14
+<span class="lineNum">     108 </span>            : template&lt;class... T, class... U&gt; bool operator&lt;(const tuple&lt;T...&gt;&amp;, const tuple&lt;U...&gt;&amp;);  // constexpr in C++14
+<span class="lineNum">     109 </span>            : template&lt;class... T, class... U&gt; bool operator!=(const tuple&lt;T...&gt;&amp;, const tuple&lt;U...&gt;&amp;); // constexpr in C++14
+<span class="lineNum">     110 </span>            : template&lt;class... T, class... U&gt; bool operator&gt;(const tuple&lt;T...&gt;&amp;, const tuple&lt;U...&gt;&amp;);  // constexpr in C++14
+<span class="lineNum">     111 </span>            : template&lt;class... T, class... U&gt; bool operator&lt;=(const tuple&lt;T...&gt;&amp;, const tuple&lt;U...&gt;&amp;); // constexpr in C++14
+<span class="lineNum">     112 </span>            : template&lt;class... T, class... U&gt; bool operator&gt;=(const tuple&lt;T...&gt;&amp;, const tuple&lt;U...&gt;&amp;); // constexpr in C++14
+<span class="lineNum">     113 </span>            : 
+<span class="lineNum">     114 </span>            : template &lt;class... Types, class Alloc&gt;
+<span class="lineNum">     115 </span>            :   struct uses_allocator&lt;tuple&lt;Types...&gt;, Alloc&gt;;
+<span class="lineNum">     116 </span>            : 
+<span class="lineNum">     117 </span>            : template &lt;class... Types&gt;
+<span class="lineNum">     118 </span>            :   void
+<span class="lineNum">     119 </span>            :   swap(tuple&lt;Types...&gt;&amp; x, tuple&lt;Types...&gt;&amp; y) noexcept(noexcept(x.swap(y)));
+<span class="lineNum">     120 </span>            : 
+<span class="lineNum">     121 </span>            : }  // std
+<span class="lineNum">     122 </span>            : 
+<span class="lineNum">     123 </span>            : */
+<span class="lineNum">     124 </span>            : 
+<span class="lineNum">     125 </span>            : #include &lt;__config&gt;
+<span class="lineNum">     126 </span>            : #include &lt;__tuple&gt;
+<span class="lineNum">     127 </span>            : #include &lt;cstddef&gt;
+<span class="lineNum">     128 </span>            : #include &lt;type_traits&gt;
+<span class="lineNum">     129 </span>            : #include &lt;__functional_base&gt;
+<span class="lineNum">     130 </span>            : #include &lt;utility&gt;
+<span class="lineNum">     131 </span>            : 
+<span class="lineNum">     132 </span>            : #if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
+<span class="lineNum">     133 </span>            : #pragma GCC system_header
+<span class="lineNum">     134 </span>            : #endif
+<span class="lineNum">     135 </span>            : 
+<span class="lineNum">     136 </span>            : _LIBCPP_BEGIN_NAMESPACE_STD
+<span class="lineNum">     137 </span>            : 
+<span class="lineNum">     138 </span>            : #ifndef _LIBCPP_HAS_NO_VARIADICS
+<span class="lineNum">     139 </span>            : 
+<span class="lineNum">     140 </span>            : // tuple_size
+<span class="lineNum">     141 </span>            : 
+<span class="lineNum">     142 </span>            : template &lt;class ..._Tp&gt;
+<span class="lineNum">     143 </span>            : class _LIBCPP_TYPE_VIS_ONLY tuple_size&lt;tuple&lt;_Tp...&gt; &gt;
+<span class="lineNum">     144 </span>            :     : public integral_constant&lt;size_t, sizeof...(_Tp)&gt;
+<span class="lineNum">     145 </span>            : {
+<span class="lineNum">     146 </span>            : };
+<span class="lineNum">     147 </span>            : 
+<span class="lineNum">     148 </span>            : // tuple_element
+<span class="lineNum">     149 </span>            : 
+<span class="lineNum">     150 </span>            : template &lt;size_t _Ip, class ..._Tp&gt;
+<span class="lineNum">     151 </span>            : class _LIBCPP_TYPE_VIS_ONLY tuple_element&lt;_Ip, tuple&lt;_Tp...&gt; &gt;
+<span class="lineNum">     152 </span>            : {
+<span class="lineNum">     153 </span>            : public:
+<span class="lineNum">     154 </span>            :     typedef typename tuple_element&lt;_Ip, __tuple_types&lt;_Tp...&gt; &gt;::type type;
+<span class="lineNum">     155 </span>            : };
+<span class="lineNum">     156 </span>            : 
+<span class="lineNum">     157 </span>            : #if _LIBCPP_STD_VER &gt; 11
+<span class="lineNum">     158 </span>            : template &lt;size_t _Ip, class ..._Tp&gt;
+<span class="lineNum">     159 </span>            : using tuple_element_t = typename tuple_element &lt;_Ip, _Tp...&gt;::type;
+<span class="lineNum">     160 </span>            : #endif
+<span class="lineNum">     161 </span>            : 
+<span class="lineNum">     162 </span>            : // __tuple_leaf
+<span class="lineNum">     163 </span>            : 
+<span class="lineNum">     164 </span>            : template &lt;size_t _Ip, class _Hp, bool=is_empty&lt;_Hp&gt;::value
+<span class="lineNum">     165 </span>            : #if __has_feature(is_final)
+<span class="lineNum">     166 </span>            :                                  &amp;&amp; !__is_final(_Hp)
+<span class="lineNum">     167 </span>            : #endif
+<span class="lineNum">     168 </span>            :          &gt;
+<span class="lineNum">     169 </span>            : class __tuple_leaf;
+<span class="lineNum">     170 </span>            : 
+<a name="171"><span class="lineNum">     171 </span>            : template &lt;size_t _Ip, class _Hp, bool _Ep&gt;</a>
+<span class="lineNum">     172 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     173 </span>            : void swap(__tuple_leaf&lt;_Ip, _Hp, _Ep&gt;&amp; __x, __tuple_leaf&lt;_Ip, _Hp, _Ep&gt;&amp; __y)
+<span class="lineNum">     174 </span>            :     _NOEXCEPT_(__is_nothrow_swappable&lt;_Hp&gt;::value)
+<span class="lineNum">     175 </span>            : {
+<span class="lineNum">     176 </span><span class="lineCov">         12 :     swap(__x.get(), __y.get());</span>
+<span class="lineNum">     177 </span><span class="lineCov">         12 : }</span>
+<a name="178"><span class="lineNum">     178 </span>            : </a>
+<span class="lineNum">     179 </span>            : template &lt;size_t _Ip, class _Hp, bool&gt;
+<span class="lineNum">     180 </span><span class="lineCov">        160 : class __tuple_leaf</span>
+<span class="lineNum">     181 </span>            : {
+<span class="lineNum">     182 </span>            :     _Hp value;
+<span class="lineNum">     183 </span>            : 
+<a name="184"><span class="lineNum">     184 </span>            :     __tuple_leaf&amp; operator=(const __tuple_leaf&amp;);</a>
+<span class="lineNum">     185 </span>            : public:
+<span class="lineNum">     186 </span>            :     _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR __tuple_leaf()
+<span class="lineNum">     187 </span><span class="lineCov">        220 :              _NOEXCEPT_(is_nothrow_default_constructible&lt;_Hp&gt;::value) : value()</span>
+<span class="lineNum">     188 </span>            :        {static_assert(!is_reference&lt;_Hp&gt;::value,
+<span class="lineNum">     189 </span><span class="lineCov">        220 :               &quot;Attempted to default construct a reference element in a tuple&quot;);}</span>
+<span class="lineNum">     190 </span>            : 
+<a name="191"><span class="lineNum">     191 </span>            :     template &lt;class _Alloc&gt;</a>
+<span class="lineNum">     192 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     193 </span>            :         __tuple_leaf(integral_constant&lt;int, 0&gt;, const _Alloc&amp;)
+<span class="lineNum">     194 </span><span class="lineCov">         10 :             : value()</span>
+<span class="lineNum">     195 </span>            :         {static_assert(!is_reference&lt;_Hp&gt;::value,
+<span class="lineNum">     196 </span><span class="lineCov">         10 :               &quot;Attempted to default construct a reference element in a tuple&quot;);}</span>
+<span class="lineNum">     197 </span>            : 
+<a name="198"><span class="lineNum">     198 </span>            :     template &lt;class _Alloc&gt;</a>
+<span class="lineNum">     199 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     200 </span>            :         __tuple_leaf(integral_constant&lt;int, 1&gt;, const _Alloc&amp; __a)
+<span class="lineNum">     201 </span><span class="lineCov">          3 :             : value(allocator_arg_t(), __a)</span>
+<span class="lineNum">     202 </span>            :         {static_assert(!is_reference&lt;_Hp&gt;::value,
+<span class="lineNum">     203 </span><span class="lineCov">          3 :               &quot;Attempted to default construct a reference element in a tuple&quot;);}</span>
+<span class="lineNum">     204 </span>            : 
+<a name="205"><span class="lineNum">     205 </span>            :     template &lt;class _Alloc&gt;</a>
+<span class="lineNum">     206 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     207 </span>            :         __tuple_leaf(integral_constant&lt;int, 2&gt;, const _Alloc&amp; __a)
+<span class="lineNum">     208 </span><span class="lineCov">          2 :             : value(__a)</span>
+<span class="lineNum">     209 </span>            :         {static_assert(!is_reference&lt;_Hp&gt;::value,
+<span class="lineNum">     210 </span><span class="lineCov">          2 :               &quot;Attempted to default construct a reference element in a tuple&quot;);}</span>
+<span class="lineNum">     211 </span>            : 
+<span class="lineNum">     212 </span>            :     template &lt;class _Tp,
+<span class="lineNum">     213 </span>            :               class = typename enable_if&lt;
+<span class="lineNum">     214 </span>            :                   __lazy_and&lt;
+<span class="lineNum">     215 </span>            :                       __lazy_not&lt;is_same&lt;typename decay&lt;_Tp&gt;::type, __tuple_leaf&gt;&gt;
+<span class="lineNum">     216 </span>            :                     , is_constructible&lt;_Hp, _Tp&gt;
+<span class="lineNum">     217 </span>            :                     &gt;::value
+<span class="lineNum">     218 </span>            :                 &gt;::type
+<a name="219"><span class="lineNum">     219 </span>            :             &gt;</a>
+<span class="lineNum">     220 </span>            :         _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_AFTER_CXX11
+<span class="lineNum">     221 </span>            :         explicit __tuple_leaf(_Tp&amp;&amp; __t) _NOEXCEPT_((is_nothrow_constructible&lt;_Hp, _Tp&gt;::value))
+<span class="lineNum">     222 </span><span class="lineCov">     128819 :             : value(_VSTD::forward&lt;_Tp&gt;(__t))</span>
+<span class="lineNum">     223 </span>            :         {static_assert(!is_reference&lt;_Hp&gt;::value ||
+<span class="lineNum">     224 </span>            :                        (is_lvalue_reference&lt;_Hp&gt;::value &amp;&amp;
+<span class="lineNum">     225 </span>            :                         (is_lvalue_reference&lt;_Tp&gt;::value ||
+<span class="lineNum">     226 </span>            :                          is_same&lt;typename remove_reference&lt;_Tp&gt;::type,
+<span class="lineNum">     227 </span>            :                                  reference_wrapper&lt;
+<span class="lineNum">     228 </span>            :                                     typename remove_reference&lt;_Hp&gt;::type
+<span class="lineNum">     229 </span>            :                                  &gt;
+<span class="lineNum">     230 </span>            :                                 &gt;::value)) ||
+<span class="lineNum">     231 </span>            :                         (is_rvalue_reference&lt;_Hp&gt;::value &amp;&amp;
+<span class="lineNum">     232 </span>            :                          !is_lvalue_reference&lt;_Tp&gt;::value),
+<span class="lineNum">     233 </span><span class="lineCov">     128819 :        &quot;Attempted to construct a reference element in a tuple with an rvalue&quot;);}</span>
+<span class="lineNum">     234 </span>            : 
+<a name="235"><span class="lineNum">     235 </span>            :     template &lt;class _Tp, class _Alloc&gt;</a>
+<span class="lineNum">     236 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     237 </span>            :         explicit __tuple_leaf(integral_constant&lt;int, 0&gt;, const _Alloc&amp;, _Tp&amp;&amp; __t)
+<span class="lineNum">     238 </span><span class="lineCov">         30 :             : value(_VSTD::forward&lt;_Tp&gt;(__t))</span>
+<span class="lineNum">     239 </span>            :         {static_assert(!is_lvalue_reference&lt;_Hp&gt;::value ||
+<span class="lineNum">     240 </span>            :                        (is_lvalue_reference&lt;_Hp&gt;::value &amp;&amp;
+<span class="lineNum">     241 </span>            :                         (is_lvalue_reference&lt;_Tp&gt;::value ||
+<span class="lineNum">     242 </span>            :                          is_same&lt;typename remove_reference&lt;_Tp&gt;::type,
+<span class="lineNum">     243 </span>            :                                  reference_wrapper&lt;
+<span class="lineNum">     244 </span>            :                                     typename remove_reference&lt;_Hp&gt;::type
+<span class="lineNum">     245 </span>            :                                  &gt;
+<span class="lineNum">     246 </span>            :                                 &gt;::value)),
+<span class="lineNum">     247 </span><span class="lineCov">         30 :        &quot;Attempted to construct a reference element in a tuple with an rvalue&quot;);}</span>
+<span class="lineNum">     248 </span>            : 
+<a name="249"><span class="lineNum">     249 </span>            :     template &lt;class _Tp, class _Alloc&gt;</a>
+<span class="lineNum">     250 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     251 </span>            :         explicit __tuple_leaf(integral_constant&lt;int, 1&gt;, const _Alloc&amp; __a, _Tp&amp;&amp; __t)
+<span class="lineNum">     252 </span><span class="lineCov">         19 :             : value(allocator_arg_t(), __a, _VSTD::forward&lt;_Tp&gt;(__t))</span>
+<span class="lineNum">     253 </span>            :         {static_assert(!is_lvalue_reference&lt;_Hp&gt;::value ||
+<span class="lineNum">     254 </span>            :                        (is_lvalue_reference&lt;_Hp&gt;::value &amp;&amp;
+<span class="lineNum">     255 </span>            :                         (is_lvalue_reference&lt;_Tp&gt;::value ||
+<span class="lineNum">     256 </span>            :                          is_same&lt;typename remove_reference&lt;_Tp&gt;::type,
+<span class="lineNum">     257 </span>            :                                  reference_wrapper&lt;
+<span class="lineNum">     258 </span>            :                                     typename remove_reference&lt;_Hp&gt;::type
+<span class="lineNum">     259 </span>            :                                  &gt;
+<span class="lineNum">     260 </span>            :                                 &gt;::value)),
+<span class="lineNum">     261 </span><span class="lineCov">         19 :        &quot;Attempted to construct a reference element in a tuple with an rvalue&quot;);}</span>
+<span class="lineNum">     262 </span>            : 
+<a name="263"><span class="lineNum">     263 </span>            :     template &lt;class _Tp, class _Alloc&gt;</a>
+<span class="lineNum">     264 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     265 </span>            :         explicit __tuple_leaf(integral_constant&lt;int, 2&gt;, const _Alloc&amp; __a, _Tp&amp;&amp; __t)
+<span class="lineNum">     266 </span><span class="lineCov">         12 :             : value(_VSTD::forward&lt;_Tp&gt;(__t), __a)</span>
+<span class="lineNum">     267 </span>            :         {static_assert(!is_lvalue_reference&lt;_Hp&gt;::value ||
+<span class="lineNum">     268 </span>            :                        (is_lvalue_reference&lt;_Hp&gt;::value &amp;&amp;
+<span class="lineNum">     269 </span>            :                         (is_lvalue_reference&lt;_Tp&gt;::value ||
+<span class="lineNum">     270 </span>            :                          is_same&lt;typename remove_reference&lt;_Tp&gt;::type,
+<span class="lineNum">     271 </span>            :                                  reference_wrapper&lt;
+<span class="lineNum">     272 </span>            :                                     typename remove_reference&lt;_Hp&gt;::type
+<span class="lineNum">     273 </span>            :                                  &gt;
+<span class="lineNum">     274 </span>            :                                 &gt;::value)),
+<a name="275"><span class="lineNum">     275 </span><span class="lineCov">         12 :        &quot;Attempted to construct a reference element in a tuple with an rvalue&quot;);}</span></a>
+<a name="276"><span class="lineNum">     276 </span>            : </a>
+<span class="lineNum">     277 </span><span class="lineCov">          1 :     __tuple_leaf(const __tuple_leaf&amp; __t) = default;</span>
+<span class="lineNum">     278 </span><span class="lineCov">          7 :     __tuple_leaf(__tuple_leaf&amp;&amp; __t) = default;</span>
+<span class="lineNum">     279 </span>            : 
+<span class="lineNum">     280 </span>            :     template &lt;class _Tp&gt;
+<a name="281"><span class="lineNum">     281 </span>            :         _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     282 </span>            :         __tuple_leaf&amp;
+<span class="lineNum">     283 </span>            :         operator=(_Tp&amp;&amp; __t) _NOEXCEPT_((is_nothrow_assignable&lt;_Hp&amp;, _Tp&gt;::value))
+<span class="lineNum">     284 </span>            :         {
+<span class="lineNum">     285 </span><span class="lineCov">         41 :             value = _VSTD::forward&lt;_Tp&gt;(__t);</span>
+<span class="lineNum">     286 </span><span class="lineCov">         41 :             return *this;</span>
+<span class="lineNum">     287 </span>            :         }
+<a name="288"><span class="lineNum">     288 </span>            : </a>
+<span class="lineNum">     289 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     290 </span>            :     int swap(__tuple_leaf&amp; __t) _NOEXCEPT_(__is_nothrow_swappable&lt;__tuple_leaf&gt;::value)
+<span class="lineNum">     291 </span>            :     {
+<span class="lineNum">     292 </span><span class="lineCov">         12 :         _VSTD::swap(*this, __t);</span>
+<span class="lineNum">     293 </span><span class="lineCov">         12 :         return 0;</span>
+<a name="294"><span class="lineNum">     294 </span>            :     }</a>
+<a name="295"><span class="lineNum">     295 </span>            : </a>
+<span class="lineNum">     296 </span><span class="lineCov">     128951 :     _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_AFTER_CXX11       _Hp&amp; get()       _NOEXCEPT {return value;}</span>
+<span class="lineNum">     297 </span><span class="lineCov">        578 :     _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_AFTER_CXX11 const _Hp&amp; get() const _NOEXCEPT {return value;}</span>
+<span class="lineNum">     298 </span>            : };
+<span class="lineNum">     299 </span>            : 
+<span class="lineNum">     300 </span>            : template &lt;size_t _Ip, class _Hp&gt;
+<span class="lineNum">     301 </span>            : class __tuple_leaf&lt;_Ip, _Hp, true&gt;
+<span class="lineNum">     302 </span>            :     : private _Hp
+<span class="lineNum">     303 </span>            : {
+<span class="lineNum">     304 </span>            : 
+<span class="lineNum">     305 </span>            :     __tuple_leaf&amp; operator=(const __tuple_leaf&amp;);
+<span class="lineNum">     306 </span>            : public:
+<span class="lineNum">     307 </span>            :     _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR __tuple_leaf()
+<span class="lineNum">     308 </span>            :              _NOEXCEPT_(is_nothrow_default_constructible&lt;_Hp&gt;::value) {}
+<span class="lineNum">     309 </span>            : 
+<span class="lineNum">     310 </span>            :     template &lt;class _Alloc&gt;
+<span class="lineNum">     311 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     312 </span>            :         __tuple_leaf(integral_constant&lt;int, 0&gt;, const _Alloc&amp;) {}
+<span class="lineNum">     313 </span>            : 
+<span class="lineNum">     314 </span>            :     template &lt;class _Alloc&gt;
+<span class="lineNum">     315 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     316 </span>            :         __tuple_leaf(integral_constant&lt;int, 1&gt;, const _Alloc&amp; __a)
+<span class="lineNum">     317 </span>            :             : _Hp(allocator_arg_t(), __a) {}
+<span class="lineNum">     318 </span>            : 
+<span class="lineNum">     319 </span>            :     template &lt;class _Alloc&gt;
+<span class="lineNum">     320 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     321 </span>            :         __tuple_leaf(integral_constant&lt;int, 2&gt;, const _Alloc&amp; __a)
+<span class="lineNum">     322 </span>            :             : _Hp(__a) {}
+<span class="lineNum">     323 </span>            : 
+<span class="lineNum">     324 </span>            :     template &lt;class _Tp,
+<span class="lineNum">     325 </span>            :               class = typename enable_if&lt;
+<span class="lineNum">     326 </span>            :                   __lazy_and&lt;
+<span class="lineNum">     327 </span>            :                         __lazy_not&lt;is_same&lt;typename decay&lt;_Tp&gt;::type, __tuple_leaf&gt;&gt;
+<span class="lineNum">     328 </span>            :                       , is_constructible&lt;_Hp, _Tp&gt;
+<span class="lineNum">     329 </span>            :                     &gt;::value
+<span class="lineNum">     330 </span>            :                 &gt;::type
+<a name="331"><span class="lineNum">     331 </span>            :             &gt;</a>
+<span class="lineNum">     332 </span>            :         _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_AFTER_CXX11
+<span class="lineNum">     333 </span>            :         explicit __tuple_leaf(_Tp&amp;&amp; __t) _NOEXCEPT_((is_nothrow_constructible&lt;_Hp, _Tp&gt;::value))
+<span class="lineNum">     334 </span><span class="lineCov">         83 :             : _Hp(_VSTD::forward&lt;_Tp&gt;(__t)) {}</span>
+<span class="lineNum">     335 </span>            : 
+<span class="lineNum">     336 </span>            :     template &lt;class _Tp, class _Alloc&gt;
+<span class="lineNum">     337 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     338 </span>            :         explicit __tuple_leaf(integral_constant&lt;int, 0&gt;, const _Alloc&amp;, _Tp&amp;&amp; __t)
+<span class="lineNum">     339 </span>            :             : _Hp(_VSTD::forward&lt;_Tp&gt;(__t)) {}
+<span class="lineNum">     340 </span>            : 
+<span class="lineNum">     341 </span>            :     template &lt;class _Tp, class _Alloc&gt;
+<span class="lineNum">     342 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     343 </span>            :         explicit __tuple_leaf(integral_constant&lt;int, 1&gt;, const _Alloc&amp; __a, _Tp&amp;&amp; __t)
+<span class="lineNum">     344 </span>            :             : _Hp(allocator_arg_t(), __a, _VSTD::forward&lt;_Tp&gt;(__t)) {}
+<span class="lineNum">     345 </span>            : 
+<span class="lineNum">     346 </span>            :     template &lt;class _Tp, class _Alloc&gt;
+<span class="lineNum">     347 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     348 </span>            :         explicit __tuple_leaf(integral_constant&lt;int, 2&gt;, const _Alloc&amp; __a, _Tp&amp;&amp; __t)
+<span class="lineNum">     349 </span>            :             : _Hp(_VSTD::forward&lt;_Tp&gt;(__t), __a) {}
+<a name="350"><span class="lineNum">     350 </span>            : </a>
+<span class="lineNum">     351 </span>            :     __tuple_leaf(__tuple_leaf const &amp;) = default;
+<span class="lineNum">     352 </span><span class="lineCov">          3 :     __tuple_leaf(__tuple_leaf &amp;&amp;) = default;</span>
+<span class="lineNum">     353 </span>            : 
+<span class="lineNum">     354 </span>            :     template &lt;class _Tp&gt;
+<span class="lineNum">     355 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     356 </span>            :         __tuple_leaf&amp;
+<span class="lineNum">     357 </span>            :         operator=(_Tp&amp;&amp; __t) _NOEXCEPT_((is_nothrow_assignable&lt;_Hp&amp;, _Tp&gt;::value))
+<span class="lineNum">     358 </span>            :         {
+<span class="lineNum">     359 </span>            :             _Hp::operator=(_VSTD::forward&lt;_Tp&gt;(__t));
+<span class="lineNum">     360 </span>            :             return *this;
+<span class="lineNum">     361 </span>            :         }
+<span class="lineNum">     362 </span>            : 
+<span class="lineNum">     363 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     364 </span>            :     int
+<span class="lineNum">     365 </span>            :     swap(__tuple_leaf&amp; __t) _NOEXCEPT_(__is_nothrow_swappable&lt;__tuple_leaf&gt;::value)
+<span class="lineNum">     366 </span>            :     {
+<span class="lineNum">     367 </span>            :         _VSTD::swap(*this, __t);
+<span class="lineNum">     368 </span>            :         return 0;
+<a name="369"><span class="lineNum">     369 </span>            :     }</a>
+<a name="370"><span class="lineNum">     370 </span>            : </a>
+<span class="lineNum">     371 </span><span class="lineCov">         80 :     _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_AFTER_CXX11       _Hp&amp; get()       _NOEXCEPT {return static_cast&lt;_Hp&amp;&gt;(*this);}</span>
+<span class="lineNum">     372 </span><span class="lineNoCov">          0 :     _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_AFTER_CXX11 const _Hp&amp; get() const _NOEXCEPT {return static_cast&lt;const _Hp&amp;&gt;(*this);}</span>
+<span class="lineNum">     373 </span>            : };
+<span class="lineNum">     374 </span>            : 
+<a name="375"><span class="lineNum">     375 </span>            : template &lt;class ..._Tp&gt;</a>
+<span class="lineNum">     376 </span>            : _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     377 </span><span class="lineCov">         25 : void __swallow(_Tp&amp;&amp;...) _NOEXCEPT {}</span>
+<span class="lineNum">     378 </span>            : 
+<span class="lineNum">     379 </span>            : template &lt;bool ..._Pred&gt;
+<span class="lineNum">     380 </span>            : struct __all
+<span class="lineNum">     381 </span>            :     : is_same&lt;__all&lt;_Pred...&gt;, __all&lt;(_Pred, true)...&gt;&gt;
+<span class="lineNum">     382 </span>            : { };
+<span class="lineNum">     383 </span>            : 
+<span class="lineNum">     384 </span>            : template &lt;class _Tp&gt;
+<span class="lineNum">     385 </span>            : struct __all_default_constructible;
+<span class="lineNum">     386 </span>            : 
+<span class="lineNum">     387 </span>            : template &lt;class ..._Tp&gt;
+<span class="lineNum">     388 </span>            : struct __all_default_constructible&lt;__tuple_types&lt;_Tp...&gt;&gt;
+<span class="lineNum">     389 </span>            :     : __all&lt;is_default_constructible&lt;_Tp&gt;::value...&gt;
+<span class="lineNum">     390 </span>            : { };
+<span class="lineNum">     391 </span>            : 
+<span class="lineNum">     392 </span>            : // __tuple_impl
+<span class="lineNum">     393 </span>            : 
+<span class="lineNum">     394 </span>            : template&lt;class _Indx, class ..._Tp&gt; struct __tuple_impl;
+<a name="395"><span class="lineNum">     395 </span>            : </a>
+<span class="lineNum">     396 </span>            : template&lt;size_t ..._Indx, class ..._Tp&gt;
+<span class="lineNum">     397 </span><span class="lineCov">        138 : struct __tuple_impl&lt;__tuple_indices&lt;_Indx...&gt;, _Tp...&gt;</span>
+<span class="lineNum">     398 </span>            :     : public __tuple_leaf&lt;_Indx, _Tp&gt;...
+<a name="399"><span class="lineNum">     399 </span>            : {</a>
+<span class="lineNum">     400 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     401 </span><span class="lineCov">        213 :     _LIBCPP_CONSTEXPR __tuple_impl()</span>
+<span class="lineNum">     402 </span><span class="lineCov">        257 :         _NOEXCEPT_(__all&lt;is_nothrow_default_constructible&lt;_Tp&gt;::value...&gt;::value) {}</span>
+<span class="lineNum">     403 </span>            : 
+<span class="lineNum">     404 </span>            :     template &lt;size_t ..._Uf, class ..._Tf,
+<span class="lineNum">     405 </span>            :               size_t ..._Ul, class ..._Tl, class ..._Up&gt;
+<a name="406"><span class="lineNum">     406 </span>            :         _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_AFTER_CXX11</a>
+<span class="lineNum">     407 </span>            :         explicit
+<span class="lineNum">     408 </span>            :         __tuple_impl(__tuple_indices&lt;_Uf...&gt;, __tuple_types&lt;_Tf...&gt;,
+<span class="lineNum">     409 </span>            :                      __tuple_indices&lt;_Ul...&gt;, __tuple_types&lt;_Tl...&gt;,
+<span class="lineNum">     410 </span>            :                      _Up&amp;&amp;... __u)
+<span class="lineNum">     411 </span>            :                      _NOEXCEPT_((__all&lt;is_nothrow_constructible&lt;_Tf, _Up&gt;::value...&gt;::value &amp;&amp;
+<span class="lineNum">     412 </span>            :                                  __all&lt;is_nothrow_default_constructible&lt;_Tl&gt;::value...&gt;::value)) :
+<span class="lineNum">     413 </span><span class="lineCov">     128812 :             __tuple_leaf&lt;_Uf, _Tf&gt;(_VSTD::forward&lt;_Up&gt;(__u))...,</span>
+<span class="lineNum">     414 </span><span class="lineCov">          7 :             __tuple_leaf&lt;_Ul, _Tl&gt;()...</span>
+<span class="lineNum">     415 </span><span class="lineCov">     257112 :             {}</span>
+<span class="lineNum">     416 </span>            : 
+<span class="lineNum">     417 </span>            :     template &lt;class _Alloc, size_t ..._Uf, class ..._Tf,
+<span class="lineNum">     418 </span>            :               size_t ..._Ul, class ..._Tl, class ..._Up&gt;
+<a name="419"><span class="lineNum">     419 </span>            :         _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     420 </span>            :         explicit
+<span class="lineNum">     421 </span>            :         __tuple_impl(allocator_arg_t, const _Alloc&amp; __a,
+<span class="lineNum">     422 </span>            :                      __tuple_indices&lt;_Uf...&gt;, __tuple_types&lt;_Tf...&gt;,
+<span class="lineNum">     423 </span>            :                      __tuple_indices&lt;_Ul...&gt;, __tuple_types&lt;_Tl...&gt;,
+<span class="lineNum">     424 </span>            :                      _Up&amp;&amp;... __u) :
+<span class="lineNum">     425 </span><span class="lineCov">         46 :             __tuple_leaf&lt;_Uf, _Tf&gt;(__uses_alloc_ctor&lt;_Tf, _Alloc, _Up&gt;(), __a,</span>
+<span class="lineNum">     426 </span><span class="lineCov">         23 :             _VSTD::forward&lt;_Up&gt;(__u))...,</span>
+<span class="lineNum">     427 </span><span class="lineCov">         15 :             __tuple_leaf&lt;_Ul, _Tl&gt;(__uses_alloc_ctor&lt;_Tl, _Alloc&gt;(), __a)...</span>
+<span class="lineNum">     428 </span><span class="lineCov">         57 :             {}</span>
+<span class="lineNum">     429 </span>            : 
+<span class="lineNum">     430 </span>            :     template &lt;class _Tuple,
+<span class="lineNum">     431 </span>            :               class = typename enable_if
+<span class="lineNum">     432 </span>            :                       &lt;
+<span class="lineNum">     433 </span>            :                          __tuple_constructible&lt;_Tuple, tuple&lt;_Tp...&gt; &gt;::value
+<span class="lineNum">     434 </span>            :                       &gt;::type
+<a name="435"><span class="lineNum">     435 </span>            :              &gt;</a>
+<span class="lineNum">     436 </span>            :         _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_AFTER_CXX11
+<span class="lineNum">     437 </span>            :         __tuple_impl(_Tuple&amp;&amp; __t) _NOEXCEPT_((__all&lt;is_nothrow_constructible&lt;_Tp, typename tuple_element&lt;_Indx,
+<span class="lineNum">     438 </span>            :                                        typename __make_tuple_types&lt;_Tuple&gt;::type&gt;::type&gt;::value...&gt;::value))
+<span class="lineNum">     439 </span><span class="lineCov">         90 :             : __tuple_leaf&lt;_Indx, _Tp&gt;(_VSTD::forward&lt;typename tuple_element&lt;_Indx,</span>
+<span class="lineNum">     440 </span><span class="lineCov">         90 :                                        typename __make_tuple_types&lt;_Tuple&gt;::type&gt;::type&gt;(_VSTD::get&lt;_Indx&gt;(__t)))...</span>
+<span class="lineNum">     441 </span><span class="lineCov">        130 :             {}</span>
+<span class="lineNum">     442 </span>            : 
+<span class="lineNum">     443 </span>            :     template &lt;class _Alloc, class _Tuple,
+<span class="lineNum">     444 </span>            :               class = typename enable_if
+<span class="lineNum">     445 </span>            :                       &lt;
+<span class="lineNum">     446 </span>            :                          __tuple_convertible&lt;_Tuple, tuple&lt;_Tp...&gt; &gt;::value
+<span class="lineNum">     447 </span>            :                       &gt;::type
+<a name="448"><span class="lineNum">     448 </span>            :              &gt;</a>
+<span class="lineNum">     449 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     450 </span>            :         __tuple_impl(allocator_arg_t, const _Alloc&amp; __a, _Tuple&amp;&amp; __t)
+<span class="lineNum">     451 </span><span class="lineCov">         76 :             : __tuple_leaf&lt;_Indx, _Tp&gt;(__uses_alloc_ctor&lt;_Tp, _Alloc, typename tuple_element&lt;_Indx,</span>
+<span class="lineNum">     452 </span><span class="lineCov">         38 :                                        typename __make_tuple_types&lt;_Tuple&gt;::type&gt;::type&gt;(), __a,</span>
+<span class="lineNum">     453 </span><span class="lineCov">         38 :                                        _VSTD::forward&lt;typename tuple_element&lt;_Indx,</span>
+<span class="lineNum">     454 </span><span class="lineCov">         38 :                                        typename __make_tuple_types&lt;_Tuple&gt;::type&gt;::type&gt;(_VSTD::get&lt;_Indx&gt;(__t)))...</span>
+<span class="lineNum">     455 </span><span class="lineCov">         60 :             {}</span>
+<span class="lineNum">     456 </span>            : 
+<span class="lineNum">     457 </span>            :     template &lt;class _Tuple&gt;
+<span class="lineNum">     458 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     459 </span>            :         typename enable_if
+<span class="lineNum">     460 </span>            :         &lt;
+<span class="lineNum">     461 </span>            :             __tuple_assignable&lt;_Tuple, tuple&lt;_Tp...&gt; &gt;::value,
+<a name="462"><span class="lineNum">     462 </span>            :             __tuple_impl&amp;</a>
+<span class="lineNum">     463 </span>            :         &gt;::type
+<span class="lineNum">     464 </span>            :         operator=(_Tuple&amp;&amp; __t) _NOEXCEPT_((__all&lt;is_nothrow_assignable&lt;_Tp&amp;, typename tuple_element&lt;_Indx,
+<span class="lineNum">     465 </span>            :                                        typename __make_tuple_types&lt;_Tuple&gt;::type&gt;::type&gt;::value...&gt;::value))
+<span class="lineNum">     466 </span>            :         {
+<span class="lineNum">     467 </span><span class="lineCov">         45 :             __swallow(__tuple_leaf&lt;_Indx, _Tp&gt;::operator=(_VSTD::forward&lt;typename tuple_element&lt;_Indx,</span>
+<span class="lineNum">     468 </span><span class="lineCov">         31 :                                        typename __make_tuple_types&lt;_Tuple&gt;::type&gt;::type&gt;(_VSTD::get&lt;_Indx&gt;(__t)))...);</span>
+<span class="lineNum">     469 </span><span class="lineCov">         14 :             return *this;</span>
+<a name="470"><span class="lineNum">     470 </span>            :         }</a>
+<a name="471"><span class="lineNum">     471 </span>            : </a>
+<span class="lineNum">     472 </span><span class="lineCov">          1 :     __tuple_impl(const __tuple_impl&amp;) = default;</span>
+<span class="lineNum">     473 </span><span class="lineCov">          6 :     __tuple_impl(__tuple_impl&amp;&amp;) = default;</span>
+<span class="lineNum">     474 </span>            : 
+<a name="475"><span class="lineNum">     475 </span>            :     _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     476 </span>            :     __tuple_impl&amp;
+<span class="lineNum">     477 </span>            :     operator=(const __tuple_impl&amp; __t) _NOEXCEPT_((__all&lt;is_nothrow_copy_assignable&lt;_Tp&gt;::value...&gt;::value))
+<span class="lineNum">     478 </span>            :     {
+<span class="lineNum">     479 </span><span class="lineCov">          1 :         __swallow(__tuple_leaf&lt;_Indx, _Tp&gt;::operator=(static_cast&lt;const __tuple_leaf&lt;_Indx, _Tp&gt;&amp;&gt;(__t).get())...);</span>
+<span class="lineNum">     480 </span><span class="lineCov">          1 :         return *this;</span>
+<span class="lineNum">     481 </span>            :     }
+<span class="lineNum">     482 </span>            : 
+<a name="483"><span class="lineNum">     483 </span>            :     _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     484 </span>            :     __tuple_impl&amp;
+<span class="lineNum">     485 </span>            :     operator=(__tuple_impl&amp;&amp; __t) _NOEXCEPT_((__all&lt;is_nothrow_move_assignable&lt;_Tp&gt;::value...&gt;::value))
+<span class="lineNum">     486 </span>            :     {
+<span class="lineNum">     487 </span><span class="lineCov">          4 :         __swallow(__tuple_leaf&lt;_Indx, _Tp&gt;::operator=(_VSTD::forward&lt;_Tp&gt;(static_cast&lt;__tuple_leaf&lt;_Indx, _Tp&gt;&amp;&gt;(__t).get()))...);</span>
+<span class="lineNum">     488 </span><span class="lineCov">          4 :         return *this;</span>
+<span class="lineNum">     489 </span>            :     }
+<a name="490"><span class="lineNum">     490 </span>            : </a>
+<span class="lineNum">     491 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     492 </span>            :     void swap(__tuple_impl&amp; __t)
+<span class="lineNum">     493 </span>            :         _NOEXCEPT_(__all&lt;__is_nothrow_swappable&lt;_Tp&gt;::value...&gt;::value)
+<span class="lineNum">     494 </span>            :     {
+<span class="lineNum">     495 </span><span class="lineCov">          6 :         __swallow(__tuple_leaf&lt;_Indx, _Tp&gt;::swap(static_cast&lt;__tuple_leaf&lt;_Indx, _Tp&gt;&amp;&gt;(__t))...);</span>
+<span class="lineNum">     496 </span><span class="lineCov">          6 :     }</span>
+<span class="lineNum">     497 </span>            : };
+<a name="498"><span class="lineNum">     498 </span>            : </a>
+<span class="lineNum">     499 </span>            : template &lt;class ..._Tp&gt;
+<span class="lineNum">     500 </span><span class="lineCov">        150 : class _LIBCPP_TYPE_VIS_ONLY tuple</span>
+<span class="lineNum">     501 </span>            : {
+<span class="lineNum">     502 </span>            :     typedef __tuple_impl&lt;typename __make_tuple_indices&lt;sizeof...(_Tp)&gt;::type, _Tp...&gt; base;
+<span class="lineNum">     503 </span>            : 
+<span class="lineNum">     504 </span>            :     base base_;
+<span class="lineNum">     505 </span>            : 
+<span class="lineNum">     506 </span>            :     template &lt;size_t _Jp, class ..._Up&gt; friend _LIBCPP_CONSTEXPR_AFTER_CXX11
+<span class="lineNum">     507 </span>            :         typename tuple_element&lt;_Jp, tuple&lt;_Up...&gt; &gt;::type&amp; get(tuple&lt;_Up...&gt;&amp;) _NOEXCEPT;
+<span class="lineNum">     508 </span>            :     template &lt;size_t _Jp, class ..._Up&gt; friend _LIBCPP_CONSTEXPR_AFTER_CXX11
+<span class="lineNum">     509 </span>            :         const typename tuple_element&lt;_Jp, tuple&lt;_Up...&gt; &gt;::type&amp; get(const tuple&lt;_Up...&gt;&amp;) _NOEXCEPT;
+<span class="lineNum">     510 </span>            :     template &lt;size_t _Jp, class ..._Up&gt; friend _LIBCPP_CONSTEXPR_AFTER_CXX11
+<span class="lineNum">     511 </span>            :         typename tuple_element&lt;_Jp, tuple&lt;_Up...&gt; &gt;::type&amp;&amp; get(tuple&lt;_Up...&gt;&amp;&amp;) _NOEXCEPT;
+<span class="lineNum">     512 </span>            : public:
+<span class="lineNum">     513 </span>            : 
+<span class="lineNum">     514 </span>            :     template &lt;bool _Dummy = true, class = typename enable_if&lt;
+<span class="lineNum">     515 </span>            :         __all&lt;__dependent_type&lt;is_default_constructible&lt;_Tp&gt;, _Dummy&gt;::value...&gt;::value
+<a name="516"><span class="lineNum">     516 </span>            :     &gt;::type&gt;</a>
+<span class="lineNum">     517 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     518 </span><span class="lineCov">         44 :     _LIBCPP_CONSTEXPR tuple()</span>
+<span class="lineNum">     519 </span><span class="lineCov">         44 :         _NOEXCEPT_(__all&lt;is_nothrow_default_constructible&lt;_Tp&gt;::value...&gt;::value) {}</span>
+<a name="520"><span class="lineNum">     520 </span>            : </a>
+<span class="lineNum">     521 </span>            :     _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_AFTER_CXX11
+<span class="lineNum">     522 </span>            :     explicit tuple(const _Tp&amp; ... __t) _NOEXCEPT_((__all&lt;is_nothrow_copy_constructible&lt;_Tp&gt;::value...&gt;::value)) 
+<span class="lineNum">     523 </span><span class="lineCov">        338 :         : base_(typename __make_tuple_indices&lt;sizeof...(_Tp)&gt;::type(),</span>
+<span class="lineNum">     524 </span>            :                 typename __make_tuple_types&lt;tuple, sizeof...(_Tp)&gt;::type(),
+<span class="lineNum">     525 </span>            :                 typename __make_tuple_indices&lt;0&gt;::type(),
+<span class="lineNum">     526 </span>            :                 typename __make_tuple_types&lt;tuple, 0&gt;::type(),
+<span class="lineNum">     527 </span><span class="lineCov">        169 :                 __t...</span>
+<span class="lineNum">     528 </span><span class="lineCov">        169 :                ) {}</span>
+<span class="lineNum">     529 </span>            : 
+<span class="lineNum">     530 </span>            :     template &lt;class _Alloc&gt;
+<span class="lineNum">     531 </span>            :       _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     532 </span>            :       tuple(allocator_arg_t, const _Alloc&amp; __a, const _Tp&amp; ... __t)
+<span class="lineNum">     533 </span>            :         : base_(allocator_arg_t(), __a,
+<span class="lineNum">     534 </span>            :                 typename __make_tuple_indices&lt;sizeof...(_Tp)&gt;::type(),
+<span class="lineNum">     535 </span>            :                 typename __make_tuple_types&lt;tuple, sizeof...(_Tp)&gt;::type(),
+<span class="lineNum">     536 </span>            :                 typename __make_tuple_indices&lt;0&gt;::type(),
+<span class="lineNum">     537 </span>            :                 typename __make_tuple_types&lt;tuple, 0&gt;::type(),
+<span class="lineNum">     538 </span>            :                 __t...
+<span class="lineNum">     539 </span>            :                ) {}
+<span class="lineNum">     540 </span>            : 
+<span class="lineNum">     541 </span>            :     template &lt;class ..._Up,
+<span class="lineNum">     542 </span>            :               typename enable_if
+<span class="lineNum">     543 </span>            :                       &lt;
+<span class="lineNum">     544 </span>            :                          sizeof...(_Up) &lt;= sizeof...(_Tp) &amp;&amp;
+<span class="lineNum">     545 </span>            :                          __tuple_convertible
+<span class="lineNum">     546 </span>            :                          &lt;
+<span class="lineNum">     547 </span>            :                             tuple&lt;_Up...&gt;,
+<span class="lineNum">     548 </span>            :                             typename __make_tuple_types&lt;tuple,
+<span class="lineNum">     549 </span>            :                                      sizeof...(_Up) &lt; sizeof...(_Tp) ?
+<span class="lineNum">     550 </span>            :                                         sizeof...(_Up) :
+<span class="lineNum">     551 </span>            :                                         sizeof...(_Tp)&gt;::type
+<span class="lineNum">     552 </span>            :                          &gt;::value &amp;&amp;
+<span class="lineNum">     553 </span>            :                          __all_default_constructible&lt;
+<span class="lineNum">     554 </span>            :                             typename __make_tuple_types&lt;tuple, sizeof...(_Tp),
+<span class="lineNum">     555 </span>            :                                 sizeof...(_Up) &lt; sizeof...(_Tp) ?
+<span class="lineNum">     556 </span>            :                                     sizeof...(_Up) :
+<span class="lineNum">     557 </span>            :                                     sizeof...(_Tp)&gt;::type
+<span class="lineNum">     558 </span>            :                          &gt;::value,
+<span class="lineNum">     559 </span>            :                          bool
+<span class="lineNum">     560 </span>            :                       &gt;::type = false
+<a name="561"><span class="lineNum">     561 </span>            :              &gt;</a>
+<span class="lineNum">     562 </span>            :         _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_AFTER_CXX11
+<span class="lineNum">     563 </span>            :         tuple(_Up&amp;&amp;... __u)
+<span class="lineNum">     564 </span>            :             _NOEXCEPT_((
+<span class="lineNum">     565 </span>            :                 is_nothrow_constructible&lt;base,
+<span class="lineNum">     566 </span>            :                     typename __make_tuple_indices&lt;sizeof...(_Up)&gt;::type,
+<span class="lineNum">     567 </span>            :                     typename __make_tuple_types&lt;tuple, sizeof...(_Up)&gt;::type,
+<span class="lineNum">     568 </span>            :                     typename __make_tuple_indices&lt;sizeof...(_Tp), sizeof...(_Up)&gt;::type,
+<span class="lineNum">     569 </span>            :                     typename __make_tuple_types&lt;tuple, sizeof...(_Tp), sizeof...(_Up)&gt;::type,
+<span class="lineNum">     570 </span>            :                     _Up...
+<span class="lineNum">     571 </span>            :                 &gt;::value
+<span class="lineNum">     572 </span>            :             ))
+<span class="lineNum">     573 </span><span class="lineCov">     256246 :             : base_(typename __make_tuple_indices&lt;sizeof...(_Up)&gt;::type(),</span>
+<span class="lineNum">     574 </span>            :                     typename __make_tuple_types&lt;tuple, sizeof...(_Up)&gt;::type(),
+<span class="lineNum">     575 </span>            :                     typename __make_tuple_indices&lt;sizeof...(_Tp), sizeof...(_Up)&gt;::type(),
+<span class="lineNum">     576 </span>            :                     typename __make_tuple_types&lt;tuple, sizeof...(_Tp), sizeof...(_Up)&gt;::type(),
+<span class="lineNum">     577 </span><span class="lineCov">     256246 :                     _VSTD::forward&lt;_Up&gt;(__u)...) {}</span>
+<span class="lineNum">     578 </span>            : 
+<span class="lineNum">     579 </span>            :     template &lt;class ..._Up,
+<span class="lineNum">     580 </span>            :               typename enable_if
+<span class="lineNum">     581 </span>            :                       &lt;
+<span class="lineNum">     582 </span>            :                          sizeof...(_Up) &lt;= sizeof...(_Tp) &amp;&amp;
+<span class="lineNum">     583 </span>            :                          __tuple_constructible
+<span class="lineNum">     584 </span>            :                          &lt;
+<span class="lineNum">     585 </span>            :                             tuple&lt;_Up...&gt;,
+<span class="lineNum">     586 </span>            :                             typename __make_tuple_types&lt;tuple,
+<span class="lineNum">     587 </span>            :                                      sizeof...(_Up) &lt; sizeof...(_Tp) ?
+<span class="lineNum">     588 </span>            :                                         sizeof...(_Up) :
+<span class="lineNum">     589 </span>            :                                         sizeof...(_Tp)&gt;::type
+<span class="lineNum">     590 </span>            :                          &gt;::value &amp;&amp;
+<span class="lineNum">     591 </span>            :                          !__tuple_convertible
+<span class="lineNum">     592 </span>            :                          &lt;
+<span class="lineNum">     593 </span>            :                             tuple&lt;_Up...&gt;,
+<span class="lineNum">     594 </span>            :                             typename __make_tuple_types&lt;tuple,
+<span class="lineNum">     595 </span>            :                                      sizeof...(_Up) &lt; sizeof...(_Tp) ?
+<span class="lineNum">     596 </span>            :                                         sizeof...(_Up) :
+<span class="lineNum">     597 </span>            :                                         sizeof...(_Tp)&gt;::type
+<span class="lineNum">     598 </span>            :                          &gt;::value &amp;&amp;
+<span class="lineNum">     599 </span>            :                          __all_default_constructible&lt;
+<span class="lineNum">     600 </span>            :                             typename __make_tuple_types&lt;tuple, sizeof...(_Tp),
+<span class="lineNum">     601 </span>            :                                 sizeof...(_Up) &lt; sizeof...(_Tp) ?
+<span class="lineNum">     602 </span>            :                                     sizeof...(_Up) :
+<span class="lineNum">     603 </span>            :                                     sizeof...(_Tp)&gt;::type
+<span class="lineNum">     604 </span>            :                          &gt;::value,
+<span class="lineNum">     605 </span>            :                          bool
+<span class="lineNum">     606 </span>            :                       &gt;::type =false
+<span class="lineNum">     607 </span>            :              &gt;
+<span class="lineNum">     608 </span>            :         _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_AFTER_CXX11
+<span class="lineNum">     609 </span>            :         explicit
+<span class="lineNum">     610 </span>            :         tuple(_Up&amp;&amp;... __u)
+<span class="lineNum">     611 </span>            :             _NOEXCEPT_((
+<span class="lineNum">     612 </span>            :                 is_nothrow_constructible&lt;base,
+<span class="lineNum">     613 </span>            :                     typename __make_tuple_indices&lt;sizeof...(_Up)&gt;::type,
+<span class="lineNum">     614 </span>            :                     typename __make_tuple_types&lt;tuple, sizeof...(_Up)&gt;::type,
+<span class="lineNum">     615 </span>            :                     typename __make_tuple_indices&lt;sizeof...(_Tp), sizeof...(_Up)&gt;::type,
+<span class="lineNum">     616 </span>            :                     typename __make_tuple_types&lt;tuple, sizeof...(_Tp), sizeof...(_Up)&gt;::type,
+<span class="lineNum">     617 </span>            :                     _Up...
+<span class="lineNum">     618 </span>            :                 &gt;::value
+<span class="lineNum">     619 </span>            :             ))
+<span class="lineNum">     620 </span>            :             : base_(typename __make_tuple_indices&lt;sizeof...(_Up)&gt;::type(),
+<span class="lineNum">     621 </span>            :                     typename __make_tuple_types&lt;tuple, sizeof...(_Up)&gt;::type(),
+<span class="lineNum">     622 </span>            :                     typename __make_tuple_indices&lt;sizeof...(_Tp), sizeof...(_Up)&gt;::type(),
+<span class="lineNum">     623 </span>            :                     typename __make_tuple_types&lt;tuple, sizeof...(_Tp), sizeof...(_Up)&gt;::type(),
+<span class="lineNum">     624 </span>            :                     _VSTD::forward&lt;_Up&gt;(__u)...) {}
+<span class="lineNum">     625 </span>            : 
+<span class="lineNum">     626 </span>            :     template &lt;class _Alloc, class ..._Up,
+<span class="lineNum">     627 </span>            :               class = typename enable_if
+<span class="lineNum">     628 </span>            :                       &lt;
+<span class="lineNum">     629 </span>            :                          sizeof...(_Up) &lt;= sizeof...(_Tp) &amp;&amp;
+<span class="lineNum">     630 </span>            :                          __tuple_convertible
+<span class="lineNum">     631 </span>            :                          &lt;
+<span class="lineNum">     632 </span>            :                             tuple&lt;_Up...&gt;,
+<span class="lineNum">     633 </span>            :                             typename __make_tuple_types&lt;tuple,
+<span class="lineNum">     634 </span>            :                                      sizeof...(_Up) &lt; sizeof...(_Tp) ?
+<span class="lineNum">     635 </span>            :                                         sizeof...(_Up) :
+<span class="lineNum">     636 </span>            :                                         sizeof...(_Tp)&gt;::type
+<span class="lineNum">     637 </span>            :                          &gt;::value &amp;&amp;
+<span class="lineNum">     638 </span>            :                          __all_default_constructible&lt;
+<span class="lineNum">     639 </span>            :                             typename __make_tuple_types&lt;tuple, sizeof...(_Tp),
+<span class="lineNum">     640 </span>            :                                 sizeof...(_Up) &lt; sizeof...(_Tp) ?
+<span class="lineNum">     641 </span>            :                                     sizeof...(_Up) :
+<span class="lineNum">     642 </span>            :                                     sizeof...(_Tp)&gt;::type
+<span class="lineNum">     643 </span>            :                          &gt;::value
+<span class="lineNum">     644 </span>            :                       &gt;::type
+<a name="645"><span class="lineNum">     645 </span>            :              &gt;</a>
+<span class="lineNum">     646 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     647 </span>            :         tuple(allocator_arg_t, const _Alloc&amp; __a, _Up&amp;&amp;... __u)
+<span class="lineNum">     648 </span><span class="lineCov">         31 :             : base_(allocator_arg_t(), __a,</span>
+<span class="lineNum">     649 </span>            :                     typename __make_tuple_indices&lt;sizeof...(_Up)&gt;::type(),
+<span class="lineNum">     650 </span>            :                     typename __make_tuple_types&lt;tuple, sizeof...(_Up)&gt;::type(),
+<span class="lineNum">     651 </span>            :                     typename __make_tuple_indices&lt;sizeof...(_Tp), sizeof...(_Up)&gt;::type(),
+<span class="lineNum">     652 </span>            :                     typename __make_tuple_types&lt;tuple, sizeof...(_Tp), sizeof...(_Up)&gt;::type(),
+<span class="lineNum">     653 </span><span class="lineCov">         31 :                     _VSTD::forward&lt;_Up&gt;(__u)...) {}</span>
+<span class="lineNum">     654 </span>            : 
+<span class="lineNum">     655 </span>            :     template &lt;class _Tuple,
+<span class="lineNum">     656 </span>            :               typename enable_if
+<span class="lineNum">     657 </span>            :                       &lt;
+<span class="lineNum">     658 </span>            :                          __tuple_convertible&lt;_Tuple, tuple&gt;::value,
+<span class="lineNum">     659 </span>            :                          bool
+<span class="lineNum">     660 </span>            :                       &gt;::type = false
+<a name="661"><span class="lineNum">     661 </span>            :              &gt;</a>
+<span class="lineNum">     662 </span>            :         _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_AFTER_CXX11
+<span class="lineNum">     663 </span>            :         tuple(_Tuple&amp;&amp; __t) _NOEXCEPT_((is_nothrow_constructible&lt;base, _Tuple&gt;::value))
+<span class="lineNum">     664 </span><span class="lineCov">         39 :             : base_(_VSTD::forward&lt;_Tuple&gt;(__t)) {}</span>
+<span class="lineNum">     665 </span>            : 
+<span class="lineNum">     666 </span>            :     template &lt;class _Tuple,
+<span class="lineNum">     667 </span>            :               typename enable_if
+<span class="lineNum">     668 </span>            :                       &lt;
+<span class="lineNum">     669 </span>            :                          __tuple_constructible&lt;_Tuple, tuple&gt;::value &amp;&amp;
+<span class="lineNum">     670 </span>            :                          !__tuple_convertible&lt;_Tuple, tuple&gt;::value,
+<span class="lineNum">     671 </span>            :                          bool
+<span class="lineNum">     672 </span>            :                       &gt;::type = false
+<span class="lineNum">     673 </span>            :              &gt;
+<a name="674"><span class="lineNum">     674 </span>            :         _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_AFTER_CXX11</a>
+<span class="lineNum">     675 </span>            :         explicit
+<span class="lineNum">     676 </span>            :         tuple(_Tuple&amp;&amp; __t) _NOEXCEPT_((is_nothrow_constructible&lt;base, _Tuple&gt;::value))
+<span class="lineNum">     677 </span><span class="lineCov">          1 :             : base_(_VSTD::forward&lt;_Tuple&gt;(__t)) {}</span>
+<span class="lineNum">     678 </span>            : 
+<span class="lineNum">     679 </span>            :     template &lt;class _Alloc, class _Tuple,
+<span class="lineNum">     680 </span>            :               class = typename enable_if
+<span class="lineNum">     681 </span>            :                       &lt;
+<span class="lineNum">     682 </span>            :                          __tuple_convertible&lt;_Tuple, tuple&gt;::value
+<span class="lineNum">     683 </span>            :                       &gt;::type
+<a name="684"><span class="lineNum">     684 </span>            :              &gt;</a>
+<span class="lineNum">     685 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     686 </span>            :         tuple(allocator_arg_t, const _Alloc&amp; __a, _Tuple&amp;&amp; __t)
+<span class="lineNum">     687 </span><span class="lineCov">         22 :             : base_(allocator_arg_t(), __a, _VSTD::forward&lt;_Tuple&gt;(__t)) {}</span>
+<span class="lineNum">     688 </span>            : 
+<span class="lineNum">     689 </span>            :     template &lt;class _Tuple,
+<span class="lineNum">     690 </span>            :               class = typename enable_if
+<span class="lineNum">     691 </span>            :                       &lt;
+<span class="lineNum">     692 </span>            :                          __tuple_assignable&lt;_Tuple, tuple&gt;::value
+<span class="lineNum">     693 </span>            :                       &gt;::type
+<span class="lineNum">     694 </span>            :              &gt;
+<a name="695"><span class="lineNum">     695 </span>            :         _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     696 </span>            :         tuple&amp;
+<span class="lineNum">     697 </span>            :         operator=(_Tuple&amp;&amp; __t) _NOEXCEPT_((is_nothrow_assignable&lt;base&amp;, _Tuple&gt;::value))
+<span class="lineNum">     698 </span>            :         {
+<span class="lineNum">     699 </span><span class="lineCov">         14 :             base_.operator=(_VSTD::forward&lt;_Tuple&gt;(__t));</span>
+<span class="lineNum">     700 </span><span class="lineCov">         14 :             return *this;</span>
+<span class="lineNum">     701 </span>            :         }
+<a name="702"><span class="lineNum">     702 </span>            : </a>
+<span class="lineNum">     703 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     704 </span>            :     void swap(tuple&amp; __t) _NOEXCEPT_(__all&lt;__is_nothrow_swappable&lt;_Tp&gt;::value...&gt;::value)
+<span class="lineNum">     705 </span><span class="lineCov">          6 :         {base_.swap(__t.base_);}</span>
+<span class="lineNum">     706 </span>            : };
+<span class="lineNum">     707 </span>            : 
+<span class="lineNum">     708 </span>            : template &lt;&gt;
+<span class="lineNum">     709 </span>            : class _LIBCPP_TYPE_VIS_ONLY tuple&lt;&gt;
+<span class="lineNum">     710 </span>            : {
+<a name="711"><span class="lineNum">     711 </span>            : public:</a>
+<span class="lineNum">     712 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     713 </span><span class="lineCov">        229 :     _LIBCPP_CONSTEXPR tuple() _NOEXCEPT {}</span>
+<a name="714"><span class="lineNum">     714 </span>            :     template &lt;class _Alloc&gt;</a>
+<span class="lineNum">     715 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     716 </span><span class="lineCov">          1 :         tuple(allocator_arg_t, const _Alloc&amp;) _NOEXCEPT {}</span>
+<a name="717"><span class="lineNum">     717 </span>            :     template &lt;class _Alloc&gt;</a>
+<span class="lineNum">     718 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     719 </span><span class="lineCov">          2 :         tuple(allocator_arg_t, const _Alloc&amp;, const tuple&amp;) _NOEXCEPT {}</span>
+<span class="lineNum">     720 </span>            :     template &lt;class _Up&gt;
+<span class="lineNum">     721 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     722 </span>            :         tuple(array&lt;_Up, 0&gt;) _NOEXCEPT {}
+<span class="lineNum">     723 </span>            :     template &lt;class _Alloc, class _Up&gt;
+<span class="lineNum">     724 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<a name="725"><span class="lineNum">     725 </span>            :         tuple(allocator_arg_t, const _Alloc&amp;, array&lt;_Up, 0&gt;) _NOEXCEPT {}</a>
+<span class="lineNum">     726 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     727 </span><span class="lineCov">          2 :     void swap(tuple&amp;) _NOEXCEPT {}</span>
+<span class="lineNum">     728 </span>            : };
+<span class="lineNum">     729 </span>            : 
+<span class="lineNum">     730 </span>            : template &lt;class ..._Tp&gt;
+<span class="lineNum">     731 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     732 </span>            : typename enable_if
+<span class="lineNum">     733 </span>            : &lt;
+<span class="lineNum">     734 </span>            :     __all&lt;__is_swappable&lt;_Tp&gt;::value...&gt;::value,
+<a name="735"><span class="lineNum">     735 </span>            :     void</a>
+<span class="lineNum">     736 </span>            : &gt;::type
+<span class="lineNum">     737 </span>            : swap(tuple&lt;_Tp...&gt;&amp; __t, tuple&lt;_Tp...&gt;&amp; __u)
+<span class="lineNum">     738 </span>            :                  _NOEXCEPT_(__all&lt;__is_nothrow_swappable&lt;_Tp&gt;::value...&gt;::value)
+<span class="lineNum">     739 </span><span class="lineCov">          4 :     {__t.swap(__u);}</span>
+<span class="lineNum">     740 </span>            : 
+<span class="lineNum">     741 </span>            : // get
+<span class="lineNum">     742 </span>            : 
+<span class="lineNum">     743 </span>            : template &lt;size_t _Ip, class ..._Tp&gt;
+<a name="744"><span class="lineNum">     744 </span>            : inline _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_AFTER_CXX11</a>
+<span class="lineNum">     745 </span>            : typename tuple_element&lt;_Ip, tuple&lt;_Tp...&gt; &gt;::type&amp;
+<span class="lineNum">     746 </span>            : get(tuple&lt;_Tp...&gt;&amp; __t) _NOEXCEPT
+<span class="lineNum">     747 </span>            : {
+<span class="lineNum">     748 </span>            :     typedef typename tuple_element&lt;_Ip, tuple&lt;_Tp...&gt; &gt;::type type;
+<span class="lineNum">     749 </span><span class="lineCov">     128951 :     return static_cast&lt;__tuple_leaf&lt;_Ip, type&gt;&amp;&gt;(__t.base_).get();</span>
+<span class="lineNum">     750 </span>            : }
+<span class="lineNum">     751 </span>            : 
+<span class="lineNum">     752 </span>            : template &lt;size_t _Ip, class ..._Tp&gt;
+<a name="753"><span class="lineNum">     753 </span>            : inline _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_AFTER_CXX11</a>
+<span class="lineNum">     754 </span>            : const typename tuple_element&lt;_Ip, tuple&lt;_Tp...&gt; &gt;::type&amp;
+<span class="lineNum">     755 </span>            : get(const tuple&lt;_Tp...&gt;&amp; __t) _NOEXCEPT
+<span class="lineNum">     756 </span>            : {
+<span class="lineNum">     757 </span>            :     typedef typename tuple_element&lt;_Ip, tuple&lt;_Tp...&gt; &gt;::type type;
+<span class="lineNum">     758 </span><span class="lineCov">        575 :     return static_cast&lt;const __tuple_leaf&lt;_Ip, type&gt;&amp;&gt;(__t.base_).get();</span>
+<span class="lineNum">     759 </span>            : }
+<span class="lineNum">     760 </span>            : 
+<span class="lineNum">     761 </span>            : template &lt;size_t _Ip, class ..._Tp&gt;
+<a name="762"><span class="lineNum">     762 </span>            : inline _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_AFTER_CXX11</a>
+<span class="lineNum">     763 </span>            : typename tuple_element&lt;_Ip, tuple&lt;_Tp...&gt; &gt;::type&amp;&amp;
+<span class="lineNum">     764 </span>            : get(tuple&lt;_Tp...&gt;&amp;&amp; __t) _NOEXCEPT
+<span class="lineNum">     765 </span>            : {
+<span class="lineNum">     766 </span>            :     typedef typename tuple_element&lt;_Ip, tuple&lt;_Tp...&gt; &gt;::type type;
+<span class="lineNum">     767 </span><span class="lineCov">         49 :     return static_cast&lt;type&amp;&amp;&gt;(</span>
+<span class="lineNum">     768 </span><span class="lineCov">         49 :              static_cast&lt;__tuple_leaf&lt;_Ip, type&gt;&amp;&amp;&gt;(__t.base_).get());</span>
+<span class="lineNum">     769 </span>            : }
+<span class="lineNum">     770 </span>            : 
+<span class="lineNum">     771 </span>            : #if _LIBCPP_STD_VER &gt; 11
+<span class="lineNum">     772 </span>            : // get by type
+<span class="lineNum">     773 </span>            : template &lt;typename _T1, size_t _Idx, typename... _Args&gt;
+<span class="lineNum">     774 </span>            : struct __find_exactly_one_t_helper;
+<span class="lineNum">     775 </span>            : 
+<span class="lineNum">     776 </span>            : // -- find exactly one
+<span class="lineNum">     777 </span>            : template &lt;typename _T1, size_t _Idx, typename... _Args&gt;
+<span class="lineNum">     778 </span>            : struct __find_exactly_one_t_checker {
+<span class="lineNum">     779 </span>            :     static constexpr size_t value = _Idx;
+<span class="lineNum">     780 </span>            : //  Check the rest of the list to make sure there's only one
+<span class="lineNum">     781 </span>            :     static_assert ( __find_exactly_one_t_helper&lt;_T1, 0, _Args...&gt;::value == -1, &quot;type can only occur once in type list&quot; );
+<span class="lineNum">     782 </span>            :     };
+<span class="lineNum">     783 </span>            : 
+<span class="lineNum">     784 </span>            : 
+<span class="lineNum">     785 </span>            : template &lt;typename _T1, size_t _Idx&gt;
+<span class="lineNum">     786 </span>            : struct __find_exactly_one_t_helper &lt;_T1, _Idx&gt; {
+<span class="lineNum">     787 </span>            :     static constexpr size_t value = -1;
+<span class="lineNum">     788 </span>            :     };
+<span class="lineNum">     789 </span>            : 
+<span class="lineNum">     790 </span>            : template &lt;typename _T1, size_t _Idx, typename _Head, typename... _Args&gt;
+<span class="lineNum">     791 </span>            : struct __find_exactly_one_t_helper &lt;_T1, _Idx, _Head, _Args...&gt; {
+<span class="lineNum">     792 </span>            :     static constexpr size_t value =
+<span class="lineNum">     793 </span>            :         std::conditional&lt;
+<span class="lineNum">     794 </span>            :             std::is_same&lt;_T1, _Head&gt;::value,
+<span class="lineNum">     795 </span>            :             __find_exactly_one_t_checker&lt;_T1, _Idx,   _Args...&gt;,
+<span class="lineNum">     796 </span>            :             __find_exactly_one_t_helper &lt;_T1, _Idx+1, _Args...&gt;
+<span class="lineNum">     797 </span>            :         &gt;::type::value;
+<span class="lineNum">     798 </span>            :     };
+<span class="lineNum">     799 </span>            : 
+<span class="lineNum">     800 </span>            : template &lt;typename _T1, typename... _Args&gt;
+<span class="lineNum">     801 </span>            : struct __find_exactly_one_t {
+<span class="lineNum">     802 </span>            :     static constexpr size_t value = __find_exactly_one_t_helper&lt;_T1, 0, _Args...&gt;::value;
+<span class="lineNum">     803 </span>            :     static_assert ( value != -1, &quot;type not found in type list&quot; );
+<span class="lineNum">     804 </span>            :     };
+<span class="lineNum">     805 </span>            : 
+<a name="806"><span class="lineNum">     806 </span>            : template &lt;class _T1, class... _Args&gt;</a>
+<span class="lineNum">     807 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     808 </span>            : constexpr _T1&amp; get(tuple&lt;_Args...&gt;&amp; __tup) noexcept
+<span class="lineNum">     809 </span>            : {
+<span class="lineNum">     810 </span><span class="lineCov">          6 :     return _VSTD::get&lt;__find_exactly_one_t&lt;_T1, _Args...&gt;::value&gt;(__tup);</span>
+<span class="lineNum">     811 </span>            : }
+<span class="lineNum">     812 </span>            : 
+<a name="813"><span class="lineNum">     813 </span>            : template &lt;class _T1, class... _Args&gt;</a>
+<span class="lineNum">     814 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     815 </span>            : constexpr _T1 const&amp; get(tuple&lt;_Args...&gt; const&amp; __tup) noexcept
+<span class="lineNum">     816 </span>            : {
+<span class="lineNum">     817 </span><span class="lineCov">          2 :     return _VSTD::get&lt;__find_exactly_one_t&lt;_T1, _Args...&gt;::value&gt;(__tup);</span>
+<span class="lineNum">     818 </span>            : }
+<span class="lineNum">     819 </span>            : 
+<a name="820"><span class="lineNum">     820 </span>            : template &lt;class _T1, class... _Args&gt;</a>
+<span class="lineNum">     821 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     822 </span>            : constexpr _T1&amp;&amp; get(tuple&lt;_Args...&gt;&amp;&amp; __tup) noexcept
+<span class="lineNum">     823 </span>            : {
+<span class="lineNum">     824 </span><span class="lineCov">          1 :     return _VSTD::get&lt;__find_exactly_one_t&lt;_T1, _Args...&gt;::value&gt;(_VSTD::move(__tup));</span>
+<span class="lineNum">     825 </span>            : }
+<span class="lineNum">     826 </span>            : 
+<span class="lineNum">     827 </span>            : #endif
+<span class="lineNum">     828 </span>            : 
+<span class="lineNum">     829 </span>            : // tie
+<span class="lineNum">     830 </span>            : 
+<span class="lineNum">     831 </span>            : template &lt;class ..._Tp&gt;
+<a name="832"><span class="lineNum">     832 </span>            : inline _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_AFTER_CXX11</a>
+<span class="lineNum">     833 </span>            : tuple&lt;_Tp&amp;...&gt;
+<span class="lineNum">     834 </span>            : tie(_Tp&amp;... __t) _NOEXCEPT
+<span class="lineNum">     835 </span>            : {
+<span class="lineNum">     836 </span><span class="lineCov">          1 :     return tuple&lt;_Tp&amp;...&gt;(__t...);</span>
+<span class="lineNum">     837 </span>            : }
+<span class="lineNum">     838 </span>            : 
+<span class="lineNum">     839 </span>            : template &lt;class _Up&gt;
+<span class="lineNum">     840 </span>            : struct __ignore_t
+<span class="lineNum">     841 </span>            : {
+<a name="842"><span class="lineNum">     842 </span>            :     template &lt;class _Tp&gt;</a>
+<span class="lineNum">     843 </span>            :         _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     844 </span><span class="lineCov">          1 :         const __ignore_t&amp; operator=(_Tp&amp;&amp;) const {return *this;}</span>
+<span class="lineNum">     845 </span>            : };
+<span class="lineNum">     846 </span>            : 
+<span class="lineNum">     847 </span>            : namespace { const __ignore_t&lt;unsigned char&gt; ignore = __ignore_t&lt;unsigned char&gt;(); }
+<span class="lineNum">     848 </span>            : 
+<span class="lineNum">     849 </span>            : template &lt;class _Tp&gt;
+<span class="lineNum">     850 </span>            : struct __make_tuple_return_impl
+<span class="lineNum">     851 </span>            : {
+<span class="lineNum">     852 </span>            :     typedef _Tp type;
+<span class="lineNum">     853 </span>            : };
+<span class="lineNum">     854 </span>            : 
+<span class="lineNum">     855 </span>            : template &lt;class _Tp&gt;
+<span class="lineNum">     856 </span>            : struct __make_tuple_return_impl&lt;reference_wrapper&lt;_Tp&gt; &gt;
+<span class="lineNum">     857 </span>            : {
+<span class="lineNum">     858 </span>            :     typedef _Tp&amp; type;
+<span class="lineNum">     859 </span>            : };
+<span class="lineNum">     860 </span>            : 
+<span class="lineNum">     861 </span>            : template &lt;class _Tp&gt;
+<span class="lineNum">     862 </span>            : struct __make_tuple_return
+<span class="lineNum">     863 </span>            : {
+<span class="lineNum">     864 </span>            :     typedef typename __make_tuple_return_impl&lt;typename decay&lt;_Tp&gt;::type&gt;::type type;
+<span class="lineNum">     865 </span>            : };
+<span class="lineNum">     866 </span>            : 
+<span class="lineNum">     867 </span>            : template &lt;class... _Tp&gt;
+<a name="868"><span class="lineNum">     868 </span>            : inline _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_AFTER_CXX11</a>
+<span class="lineNum">     869 </span>            : tuple&lt;typename __make_tuple_return&lt;_Tp&gt;::type...&gt;
+<span class="lineNum">     870 </span>            : make_tuple(_Tp&amp;&amp;... __t)
+<span class="lineNum">     871 </span>            : {
+<span class="lineNum">     872 </span><span class="lineCov">         31 :     return tuple&lt;typename __make_tuple_return&lt;_Tp&gt;::type...&gt;(_VSTD::forward&lt;_Tp&gt;(__t)...);</span>
+<span class="lineNum">     873 </span>            : }
+<span class="lineNum">     874 </span>            : 
+<span class="lineNum">     875 </span>            : template &lt;class... _Tp&gt;
+<a name="876"><span class="lineNum">     876 </span>            : inline _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_AFTER_CXX11</a>
+<span class="lineNum">     877 </span>            : tuple&lt;_Tp&amp;&amp;...&gt;
+<span class="lineNum">     878 </span>            : forward_as_tuple(_Tp&amp;&amp;... __t) _NOEXCEPT
+<span class="lineNum">     879 </span>            : {
+<span class="lineNum">     880 </span><span class="lineCov">        439 :     return tuple&lt;_Tp&amp;&amp;...&gt;(_VSTD::forward&lt;_Tp&gt;(__t)...);</span>
+<span class="lineNum">     881 </span>            : }
+<span class="lineNum">     882 </span>            : 
+<span class="lineNum">     883 </span>            : template &lt;size_t _Ip&gt;
+<span class="lineNum">     884 </span>            : struct __tuple_equal
+<span class="lineNum">     885 </span>            : {
+<a name="886"><span class="lineNum">     886 </span>            :     template &lt;class _Tp, class _Up&gt;</a>
+<span class="lineNum">     887 </span>            :     _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_AFTER_CXX11
+<span class="lineNum">     888 </span>            :     bool operator()(const _Tp&amp; __x, const _Up&amp; __y)
+<span class="lineNum">     889 </span>            :     {
+<span class="lineNum">     890 </span><span class="lineCov">        273 :         return __tuple_equal&lt;_Ip - 1&gt;()(__x, __y) &amp;&amp; _VSTD::get&lt;_Ip-1&gt;(__x) == _VSTD::get&lt;_Ip-1&gt;(__y);</span>
+<span class="lineNum">     891 </span>            :     }
+<span class="lineNum">     892 </span>            : };
+<span class="lineNum">     893 </span>            : 
+<span class="lineNum">     894 </span>            : template &lt;&gt;
+<span class="lineNum">     895 </span>            : struct __tuple_equal&lt;0&gt;
+<span class="lineNum">     896 </span>            : {
+<a name="897"><span class="lineNum">     897 </span>            :     template &lt;class _Tp, class _Up&gt;</a>
+<span class="lineNum">     898 </span>            :     _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_AFTER_CXX11
+<span class="lineNum">     899 </span>            :     bool operator()(const _Tp&amp;, const _Up&amp;)
+<span class="lineNum">     900 </span>            :     {
+<span class="lineNum">     901 </span><span class="lineCov">         39 :         return true;</span>
+<span class="lineNum">     902 </span>            :     }
+<span class="lineNum">     903 </span>            : };
+<span class="lineNum">     904 </span>            : 
+<span class="lineNum">     905 </span>            : template &lt;class ..._Tp, class ..._Up&gt;
+<a name="906"><span class="lineNum">     906 </span>            : inline _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_AFTER_CXX11</a>
+<span class="lineNum">     907 </span>            : bool
+<span class="lineNum">     908 </span>            : operator==(const tuple&lt;_Tp...&gt;&amp; __x, const tuple&lt;_Up...&gt;&amp; __y)
+<span class="lineNum">     909 </span>            : {
+<span class="lineNum">     910 </span><span class="lineCov">         39 :     return __tuple_equal&lt;sizeof...(_Tp)&gt;()(__x, __y);</span>
+<span class="lineNum">     911 </span>            : }
+<span class="lineNum">     912 </span>            : 
+<span class="lineNum">     913 </span>            : template &lt;class ..._Tp, class ..._Up&gt;
+<a name="914"><span class="lineNum">     914 </span>            : inline _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_AFTER_CXX11</a>
+<span class="lineNum">     915 </span>            : bool
+<span class="lineNum">     916 </span>            : operator!=(const tuple&lt;_Tp...&gt;&amp; __x, const tuple&lt;_Up...&gt;&amp; __y)
+<span class="lineNum">     917 </span>            : {
+<span class="lineNum">     918 </span><span class="lineCov">         14 :     return !(__x == __y);</span>
+<span class="lineNum">     919 </span>            : }
+<span class="lineNum">     920 </span>            : 
+<span class="lineNum">     921 </span>            : template &lt;size_t _Ip&gt;
+<span class="lineNum">     922 </span>            : struct __tuple_less
+<span class="lineNum">     923 </span>            : {
+<a name="924"><span class="lineNum">     924 </span>            :     template &lt;class _Tp, class _Up&gt;</a>
+<span class="lineNum">     925 </span>            :     _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_AFTER_CXX11
+<span class="lineNum">     926 </span>            :     bool operator()(const _Tp&amp; __x, const _Up&amp; __y)
+<span class="lineNum">     927 </span>            :     {
+<span class="lineNum">     928 </span><span class="lineCov">        104 :         const size_t __idx = tuple_size&lt;_Tp&gt;::value - _Ip;</span>
+<span class="lineNum">     929 </span><span class="lineCov">        104 :         if (_VSTD::get&lt;__idx&gt;(__x) &lt; _VSTD::get&lt;__idx&gt;(__y))</span>
+<span class="lineNum">     930 </span><span class="lineCov">         24 :             return true;</span>
+<span class="lineNum">     931 </span><span class="lineCov">         80 :         if (_VSTD::get&lt;__idx&gt;(__y) &lt; _VSTD::get&lt;__idx&gt;(__x))</span>
+<span class="lineNum">     932 </span><span class="lineCov">         24 :             return false;</span>
+<span class="lineNum">     933 </span><span class="lineCov">         56 :         return __tuple_less&lt;_Ip-1&gt;()(__x, __y);</span>
+<span class="lineNum">     934 </span><span class="lineCov">        104 :     }</span>
+<span class="lineNum">     935 </span>            : };
+<span class="lineNum">     936 </span>            : 
+<span class="lineNum">     937 </span>            : template &lt;&gt;
+<span class="lineNum">     938 </span>            : struct __tuple_less&lt;0&gt;
+<span class="lineNum">     939 </span>            : {
+<a name="940"><span class="lineNum">     940 </span>            :     template &lt;class _Tp, class _Up&gt;</a>
+<span class="lineNum">     941 </span>            :     _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_AFTER_CXX11
+<span class="lineNum">     942 </span>            :     bool operator()(const _Tp&amp;, const _Up&amp;)
+<span class="lineNum">     943 </span>            :     {
+<span class="lineNum">     944 </span><span class="lineCov">         12 :         return false;</span>
+<span class="lineNum">     945 </span>            :     }
+<span class="lineNum">     946 </span>            : };
+<span class="lineNum">     947 </span>            : 
+<span class="lineNum">     948 </span>            : template &lt;class ..._Tp, class ..._Up&gt;
+<a name="949"><span class="lineNum">     949 </span>            : inline _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_AFTER_CXX11</a>
+<span class="lineNum">     950 </span>            : bool
+<span class="lineNum">     951 </span>            : operator&lt;(const tuple&lt;_Tp...&gt;&amp; __x, const tuple&lt;_Up...&gt;&amp; __y)
+<span class="lineNum">     952 </span>            : {
+<span class="lineNum">     953 </span><span class="lineCov">         60 :     return __tuple_less&lt;sizeof...(_Tp)&gt;()(__x, __y);</span>
+<span class="lineNum">     954 </span>            : }
+<span class="lineNum">     955 </span>            : 
+<span class="lineNum">     956 </span>            : template &lt;class ..._Tp, class ..._Up&gt;
+<a name="957"><span class="lineNum">     957 </span>            : inline _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_AFTER_CXX11</a>
+<span class="lineNum">     958 </span>            : bool
+<span class="lineNum">     959 </span>            : operator&gt;(const tuple&lt;_Tp...&gt;&amp; __x, const tuple&lt;_Up...&gt;&amp; __y)
+<span class="lineNum">     960 </span>            : {
+<span class="lineNum">     961 </span><span class="lineCov">         15 :     return __y &lt; __x;</span>
+<span class="lineNum">     962 </span>            : }
+<span class="lineNum">     963 </span>            : 
+<span class="lineNum">     964 </span>            : template &lt;class ..._Tp, class ..._Up&gt;
+<a name="965"><span class="lineNum">     965 </span>            : inline _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_AFTER_CXX11</a>
+<span class="lineNum">     966 </span>            : bool
+<span class="lineNum">     967 </span>            : operator&gt;=(const tuple&lt;_Tp...&gt;&amp; __x, const tuple&lt;_Up...&gt;&amp; __y)
+<span class="lineNum">     968 </span>            : {
+<span class="lineNum">     969 </span><span class="lineCov">         15 :     return !(__x &lt; __y);</span>
+<span class="lineNum">     970 </span>            : }
+<span class="lineNum">     971 </span>            : 
+<span class="lineNum">     972 </span>            : template &lt;class ..._Tp, class ..._Up&gt;
+<a name="973"><span class="lineNum">     973 </span>            : inline _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_AFTER_CXX11</a>
+<span class="lineNum">     974 </span>            : bool
+<span class="lineNum">     975 </span>            : operator&lt;=(const tuple&lt;_Tp...&gt;&amp; __x, const tuple&lt;_Up...&gt;&amp; __y)
+<span class="lineNum">     976 </span>            : {
+<span class="lineNum">     977 </span><span class="lineCov">         15 :     return !(__y &lt; __x);</span>
+<span class="lineNum">     978 </span>            : }
+<span class="lineNum">     979 </span>            : 
+<span class="lineNum">     980 </span>            : // tuple_cat
+<span class="lineNum">     981 </span>            : 
+<span class="lineNum">     982 </span>            : template &lt;class _Tp, class _Up&gt; struct __tuple_cat_type;
+<span class="lineNum">     983 </span>            : 
+<span class="lineNum">     984 </span>            : template &lt;class ..._Ttypes, class ..._Utypes&gt;
+<span class="lineNum">     985 </span>            : struct __tuple_cat_type&lt;tuple&lt;_Ttypes...&gt;, __tuple_types&lt;_Utypes...&gt; &gt;
+<span class="lineNum">     986 </span>            : {
+<span class="lineNum">     987 </span>            :     typedef tuple&lt;_Ttypes..., _Utypes...&gt; type;
+<span class="lineNum">     988 </span>            : };
+<span class="lineNum">     989 </span>            : 
+<span class="lineNum">     990 </span>            : template &lt;class _ResultTuple, bool _Is_Tuple0TupleLike, class ..._Tuples&gt;
+<span class="lineNum">     991 </span>            : struct __tuple_cat_return_1
+<span class="lineNum">     992 </span>            : {
+<span class="lineNum">     993 </span>            : };
+<span class="lineNum">     994 </span>            : 
+<span class="lineNum">     995 </span>            : template &lt;class ..._Types, class _Tuple0&gt;
+<span class="lineNum">     996 </span>            : struct __tuple_cat_return_1&lt;tuple&lt;_Types...&gt;, true, _Tuple0&gt;
+<span class="lineNum">     997 </span>            : {
+<span class="lineNum">     998 </span>            :     typedef typename __tuple_cat_type&lt;tuple&lt;_Types...&gt;,
+<span class="lineNum">     999 </span>            :             typename __make_tuple_types&lt;typename remove_reference&lt;_Tuple0&gt;::type&gt;::type&gt;::type
+<span class="lineNum">    1000 </span>            :                                                                            type;
+<span class="lineNum">    1001 </span>            : };
+<span class="lineNum">    1002 </span>            : 
+<span class="lineNum">    1003 </span>            : template &lt;class ..._Types, class _Tuple0, class _Tuple1, class ..._Tuples&gt;
+<span class="lineNum">    1004 </span>            : struct __tuple_cat_return_1&lt;tuple&lt;_Types...&gt;, true, _Tuple0, _Tuple1, _Tuples...&gt;
+<span class="lineNum">    1005 </span>            :     : public __tuple_cat_return_1&lt;
+<span class="lineNum">    1006 </span>            :                  typename __tuple_cat_type&lt;
+<span class="lineNum">    1007 </span>            :                      tuple&lt;_Types...&gt;,
+<span class="lineNum">    1008 </span>            :                      typename __make_tuple_types&lt;typename remove_reference&lt;_Tuple0&gt;::type&gt;::type
+<span class="lineNum">    1009 </span>            :                  &gt;::type,
+<span class="lineNum">    1010 </span>            :                  __tuple_like&lt;typename remove_reference&lt;_Tuple1&gt;::type&gt;::value,
+<span class="lineNum">    1011 </span>            :                  _Tuple1, _Tuples...&gt;
+<span class="lineNum">    1012 </span>            : {
+<span class="lineNum">    1013 </span>            : };
+<span class="lineNum">    1014 </span>            : 
+<span class="lineNum">    1015 </span>            : template &lt;class ..._Tuples&gt; struct __tuple_cat_return;
+<span class="lineNum">    1016 </span>            : 
+<span class="lineNum">    1017 </span>            : template &lt;class _Tuple0, class ..._Tuples&gt;
+<span class="lineNum">    1018 </span>            : struct __tuple_cat_return&lt;_Tuple0, _Tuples...&gt;
+<span class="lineNum">    1019 </span>            :     : public __tuple_cat_return_1&lt;tuple&lt;&gt;,
+<span class="lineNum">    1020 </span>            :          __tuple_like&lt;typename remove_reference&lt;_Tuple0&gt;::type&gt;::value, _Tuple0,
+<span class="lineNum">    1021 </span>            :                                                                      _Tuples...&gt;
+<span class="lineNum">    1022 </span>            : {
+<span class="lineNum">    1023 </span>            : };
+<span class="lineNum">    1024 </span>            : 
+<span class="lineNum">    1025 </span>            : template &lt;&gt;
+<span class="lineNum">    1026 </span>            : struct __tuple_cat_return&lt;&gt;
+<span class="lineNum">    1027 </span>            : {
+<span class="lineNum">    1028 </span>            :     typedef tuple&lt;&gt; type;
+<span class="lineNum">    1029 </span>            : };
+<span class="lineNum">    1030 </span>            : 
+<a name="1031"><span class="lineNum">    1031 </span>            : inline _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_AFTER_CXX11</a>
+<span class="lineNum">    1032 </span>            : tuple&lt;&gt;
+<span class="lineNum">    1033 </span>            : tuple_cat()
+<span class="lineNum">    1034 </span>            : {
+<span class="lineNum">    1035 </span><span class="lineCov">          1 :     return tuple&lt;&gt;();</span>
+<span class="lineNum">    1036 </span>            : }
+<span class="lineNum">    1037 </span>            : 
+<span class="lineNum">    1038 </span>            : template &lt;class _Rp, class _Indices, class _Tuple0, class ..._Tuples&gt;
+<span class="lineNum">    1039 </span>            : struct __tuple_cat_return_ref_imp;
+<span class="lineNum">    1040 </span>            : 
+<span class="lineNum">    1041 </span>            : template &lt;class ..._Types, size_t ..._I0, class _Tuple0&gt;
+<span class="lineNum">    1042 </span>            : struct __tuple_cat_return_ref_imp&lt;tuple&lt;_Types...&gt;, __tuple_indices&lt;_I0...&gt;, _Tuple0&gt;
+<span class="lineNum">    1043 </span>            : {
+<span class="lineNum">    1044 </span>            :     typedef typename remove_reference&lt;_Tuple0&gt;::type _T0;
+<span class="lineNum">    1045 </span>            :     typedef tuple&lt;_Types..., typename __apply_cv&lt;_Tuple0,
+<span class="lineNum">    1046 </span>            :                           typename tuple_element&lt;_I0, _T0&gt;::type&gt;::type&amp;&amp;...&gt; type;
+<span class="lineNum">    1047 </span>            : };
+<span class="lineNum">    1048 </span>            : 
+<span class="lineNum">    1049 </span>            : template &lt;class ..._Types, size_t ..._I0, class _Tuple0, class _Tuple1, class ..._Tuples&gt;
+<span class="lineNum">    1050 </span>            : struct __tuple_cat_return_ref_imp&lt;tuple&lt;_Types...&gt;, __tuple_indices&lt;_I0...&gt;,
+<span class="lineNum">    1051 </span>            :                                   _Tuple0, _Tuple1, _Tuples...&gt;
+<span class="lineNum">    1052 </span>            :     : public __tuple_cat_return_ref_imp&lt;
+<span class="lineNum">    1053 </span>            :          tuple&lt;_Types..., typename __apply_cv&lt;_Tuple0,
+<span class="lineNum">    1054 </span>            :                typename tuple_element&lt;_I0,
+<span class="lineNum">    1055 </span>            :                   typename remove_reference&lt;_Tuple0&gt;::type&gt;::type&gt;::type&amp;&amp;...&gt;,
+<span class="lineNum">    1056 </span>            :          typename __make_tuple_indices&lt;tuple_size&lt;typename
+<span class="lineNum">    1057 </span>            :                                  remove_reference&lt;_Tuple1&gt;::type&gt;::value&gt;::type,
+<span class="lineNum">    1058 </span>            :          _Tuple1, _Tuples...&gt;
+<span class="lineNum">    1059 </span>            : {
+<span class="lineNum">    1060 </span>            : };
+<span class="lineNum">    1061 </span>            : 
+<span class="lineNum">    1062 </span>            : template &lt;class _Tuple0, class ..._Tuples&gt;
+<span class="lineNum">    1063 </span>            : struct __tuple_cat_return_ref
+<span class="lineNum">    1064 </span>            :     : public __tuple_cat_return_ref_imp&lt;tuple&lt;&gt;,
+<span class="lineNum">    1065 </span>            :                typename __make_tuple_indices&lt;
+<span class="lineNum">    1066 </span>            :                         tuple_size&lt;typename remove_reference&lt;_Tuple0&gt;::type&gt;::value
+<span class="lineNum">    1067 </span>            :                &gt;::type, _Tuple0, _Tuples...&gt;
+<span class="lineNum">    1068 </span>            : {
+<span class="lineNum">    1069 </span>            : };
+<span class="lineNum">    1070 </span>            : 
+<span class="lineNum">    1071 </span>            : template &lt;class _Types, class _I0, class _J0&gt;
+<span class="lineNum">    1072 </span>            : struct __tuple_cat;
+<span class="lineNum">    1073 </span>            : 
+<span class="lineNum">    1074 </span>            : template &lt;class ..._Types, size_t ..._I0, size_t ..._J0&gt;
+<span class="lineNum">    1075 </span>            : struct __tuple_cat&lt;tuple&lt;_Types...&gt;, __tuple_indices&lt;_I0...&gt;, __tuple_indices&lt;_J0...&gt; &gt;
+<span class="lineNum">    1076 </span>            : {
+<span class="lineNum">    1077 </span>            :     template &lt;class _Tuple0&gt;
+<a name="1078"><span class="lineNum">    1078 </span>            :     _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_AFTER_CXX11</a>
+<span class="lineNum">    1079 </span>            :     typename __tuple_cat_return_ref&lt;tuple&lt;_Types...&gt;&amp;&amp;, _Tuple0&amp;&amp;&gt;::type
+<span class="lineNum">    1080 </span>            :     operator()(tuple&lt;_Types...&gt; __t, _Tuple0&amp;&amp; __t0)
+<span class="lineNum">    1081 </span>            :     {
+<span class="lineNum">    1082 </span><span class="lineCov">         34 :         return forward_as_tuple(_VSTD::forward&lt;_Types&gt;(_VSTD::get&lt;_I0&gt;(__t))...,</span>
+<span class="lineNum">    1083 </span><span class="lineCov">         16 :                                       _VSTD::get&lt;_J0&gt;(_VSTD::forward&lt;_Tuple0&gt;(__t0))...);</span>
+<span class="lineNum">    1084 </span>            :     }
+<span class="lineNum">    1085 </span>            : 
+<span class="lineNum">    1086 </span>            :     template &lt;class _Tuple0, class _Tuple1, class ..._Tuples&gt;
+<a name="1087"><span class="lineNum">    1087 </span>            :     _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_AFTER_CXX11</a>
+<span class="lineNum">    1088 </span>            :     typename __tuple_cat_return_ref&lt;tuple&lt;_Types...&gt;&amp;&amp;, _Tuple0&amp;&amp;, _Tuple1&amp;&amp;, _Tuples&amp;&amp;...&gt;::type
+<span class="lineNum">    1089 </span>            :     operator()(tuple&lt;_Types...&gt; __t, _Tuple0&amp;&amp; __t0, _Tuple1&amp;&amp; __t1, _Tuples&amp;&amp; ...__tpls)
+<span class="lineNum">    1090 </span>            :     {
+<span class="lineNum">    1091 </span>            :         typedef typename remove_reference&lt;_Tuple0&gt;::type _T0;
+<span class="lineNum">    1092 </span>            :         typedef typename remove_reference&lt;_Tuple1&gt;::type _T1;
+<span class="lineNum">    1093 </span><span class="lineCov">         20 :         return __tuple_cat&lt;</span>
+<span class="lineNum">    1094 </span>            :            tuple&lt;_Types..., typename __apply_cv&lt;_Tuple0, typename tuple_element&lt;_J0, _T0&gt;::type&gt;::type&amp;&amp;...&gt;,
+<span class="lineNum">    1095 </span>            :            typename __make_tuple_indices&lt;sizeof ...(_Types) + tuple_size&lt;_T0&gt;::value&gt;::type,
+<span class="lineNum">    1096 </span>            :            typename __make_tuple_indices&lt;tuple_size&lt;_T1&gt;::value&gt;::type&gt;()
+<span class="lineNum">    1097 </span><span class="lineCov">         20 :                            (forward_as_tuple(</span>
+<span class="lineNum">    1098 </span><span class="lineCov">          3 :                               _VSTD::forward&lt;_Types&gt;(_VSTD::get&lt;_I0&gt;(__t))...,</span>
+<span class="lineNum">    1099 </span><span class="lineCov">         16 :                               _VSTD::get&lt;_J0&gt;(_VSTD::forward&lt;_Tuple0&gt;(__t0))...</span>
+<span class="lineNum">    1100 </span>            :                             ),
+<span class="lineNum">    1101 </span><span class="lineCov">         20 :                             _VSTD::forward&lt;_Tuple1&gt;(__t1),</span>
+<span class="lineNum">    1102 </span><span class="lineCov">          4 :                             _VSTD::forward&lt;_Tuples&gt;(__tpls)...);</span>
+<span class="lineNum">    1103 </span>            :     }
+<span class="lineNum">    1104 </span>            : };
+<span class="lineNum">    1105 </span>            : 
+<span class="lineNum">    1106 </span>            : template &lt;class _Tuple0, class... _Tuples&gt;
+<a name="1107"><span class="lineNum">    1107 </span>            : inline _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_AFTER_CXX11</a>
+<span class="lineNum">    1108 </span>            : typename __tuple_cat_return&lt;_Tuple0, _Tuples...&gt;::type
+<span class="lineNum">    1109 </span>            : tuple_cat(_Tuple0&amp;&amp; __t0, _Tuples&amp;&amp;... __tpls)
+<span class="lineNum">    1110 </span>            : {
+<span class="lineNum">    1111 </span>            :     typedef typename remove_reference&lt;_Tuple0&gt;::type _T0;
+<span class="lineNum">    1112 </span><span class="lineCov">         23 :     return __tuple_cat&lt;tuple&lt;&gt;, __tuple_indices&lt;&gt;,</span>
+<span class="lineNum">    1113 </span>            :                   typename __make_tuple_indices&lt;tuple_size&lt;_T0&gt;::value&gt;::type&gt;()
+<span class="lineNum">    1114 </span><span class="lineCov">         23 :                   (tuple&lt;&gt;(), _VSTD::forward&lt;_Tuple0&gt;(__t0),</span>
+<span class="lineNum">    1115 </span><span class="lineCov">         16 :                                             _VSTD::forward&lt;_Tuples&gt;(__tpls)...);</span>
+<span class="lineNum">    1116 </span>            : }
+<span class="lineNum">    1117 </span>            : 
+<span class="lineNum">    1118 </span>            : template &lt;class ..._Tp, class _Alloc&gt;
+<span class="lineNum">    1119 </span>            : struct _LIBCPP_TYPE_VIS_ONLY uses_allocator&lt;tuple&lt;_Tp...&gt;, _Alloc&gt;
+<span class="lineNum">    1120 </span>            :     : true_type {};
+<span class="lineNum">    1121 </span>            : 
+<span class="lineNum">    1122 </span>            : template &lt;class _T1, class _T2&gt;
+<a name="1123"><span class="lineNum">    1123 </span>            : template &lt;class... _Args1, class... _Args2, size_t ..._I1, size_t ..._I2&gt;</a>
+<span class="lineNum">    1124 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">    1125 </span>            : pair&lt;_T1, _T2&gt;::pair(piecewise_construct_t,
+<span class="lineNum">    1126 </span>            :                      tuple&lt;_Args1...&gt;&amp; __first_args, tuple&lt;_Args2...&gt;&amp; __second_args,
+<span class="lineNum">    1127 </span>            :                      __tuple_indices&lt;_I1...&gt;, __tuple_indices&lt;_I2...&gt;)
+<span class="lineNum">    1128 </span><span class="lineCov">         58 :     :  first(_VSTD::forward&lt;_Args1&gt;(_VSTD::get&lt;_I1&gt;( __first_args))...),</span>
+<span class="lineNum">    1129 </span><span class="lineCov">         58 :       second(_VSTD::forward&lt;_Args2&gt;(_VSTD::get&lt;_I2&gt;(__second_args))...)</span>
+<span class="lineNum">    1130 </span>            : {
+<span class="lineNum">    1131 </span><span class="lineCov">         58 : }</span>
+<span class="lineNum">    1132 </span>            : 
+<span class="lineNum">    1133 </span>            : #endif  // _LIBCPP_HAS_NO_VARIADICS
+<span class="lineNum">    1134 </span>            : 
+<span class="lineNum">    1135 </span>            : _LIBCPP_END_NAMESPACE_STD
+<span class="lineNum">    1136 </span>            : 
+<span class="lineNum">    1137 </span>            : #endif  // _LIBCPP_TUPLE
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

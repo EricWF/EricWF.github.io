@@ -1,0 +1,392 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - test_coverage.info - include/experimental/dynarray</title>
+  <link rel="stylesheet" type="text/css" href="../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../index.html">top level</a> - <a href="index.html">include/experimental</a> - dynarray<span style="font-size: 80%;"> (source / <a href="dynarray.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">test_coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">68</td>
+            <td class="headerCovTableEntry">71</td>
+            <td class="headerCovTableEntryHi">95.8 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2015-06-02</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">146</td>
+            <td class="headerCovTableEntry">148</td>
+            <td class="headerCovTableEntryHi">98.6 %</td>
+          </tr>
+          <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : // -*- C++ -*-</a>
+<span class="lineNum">       2 </span>            : //===-------------------------- dynarray ----------------------------------===//
+<span class="lineNum">       3 </span>            : //
+<span class="lineNum">       4 </span>            : //                     The LLVM Compiler Infrastructure
+<span class="lineNum">       5 </span>            : //
+<span class="lineNum">       6 </span>            : // This file is dual licensed under the MIT and the University of Illinois Open
+<span class="lineNum">       7 </span>            : // Source Licenses. See LICENSE.TXT for details.
+<span class="lineNum">       8 </span>            : //
+<span class="lineNum">       9 </span>            : //===----------------------------------------------------------------------===//
+<span class="lineNum">      10 </span>            : 
+<span class="lineNum">      11 </span>            : #ifndef _LIBCPP_DYNARRAY
+<span class="lineNum">      12 </span>            : #define _LIBCPP_DYNARRAY
+<span class="lineNum">      13 </span>            : 
+<span class="lineNum">      14 </span>            : #include &lt;__config&gt;
+<span class="lineNum">      15 </span>            : #if _LIBCPP_STD_VER &gt; 11
+<span class="lineNum">      16 </span>            : 
+<span class="lineNum">      17 </span>            : /*
+<span class="lineNum">      18 </span>            :     dynarray synopsis
+<span class="lineNum">      19 </span>            : 
+<span class="lineNum">      20 </span>            : namespace std { namespace experimental {
+<span class="lineNum">      21 </span>            : 
+<span class="lineNum">      22 </span>            : template&lt; typename T &gt;
+<span class="lineNum">      23 </span>            : class dynarray
+<span class="lineNum">      24 </span>            : {
+<span class="lineNum">      25 </span>            :     // types:
+<span class="lineNum">      26 </span>            :     typedef       T                               value_type;
+<span class="lineNum">      27 </span>            :     typedef       T&amp;                              reference;
+<span class="lineNum">      28 </span>            :     typedef const T&amp;                              const_reference;
+<span class="lineNum">      29 </span>            :     typedef       T*                              pointer;
+<span class="lineNum">      30 </span>            :     typedef const T*                              const_pointer;
+<span class="lineNum">      31 </span>            :     typedef       implementation-defined          iterator;
+<span class="lineNum">      32 </span>            :     typedef       implementation-defined          const_iterator;
+<span class="lineNum">      33 </span>            :     typedef reverse_iterator&lt;iterator&gt;            reverse_iterator;
+<span class="lineNum">      34 </span>            :     typedef reverse_iterator&lt;const_iterator&gt;      const_reverse_iterator;
+<span class="lineNum">      35 </span>            :     typedef size_t                                size_type;
+<span class="lineNum">      36 </span>            :     typedef ptrdiff_t                             difference_type;
+<span class="lineNum">      37 </span>            : 
+<span class="lineNum">      38 </span>            : public:
+<span class="lineNum">      39 </span>            :     // construct/copy/destroy:
+<span class="lineNum">      40 </span>            :     explicit dynarray(size_type c);
+<span class="lineNum">      41 </span>            :     dynarray(size_type c, const T&amp; v);
+<span class="lineNum">      42 </span>            :     dynarray(const dynarray&amp; d);
+<span class="lineNum">      43 </span>            :     dynarray(initializer_list&lt;T&gt;);
+<span class="lineNum">      44 </span>            : 
+<span class="lineNum">      45 </span>            :     template &lt;class Alloc&gt;
+<span class="lineNum">      46 </span>            :       dynarray(allocator_arg_t, const Alloc&amp; a, size_type c, const Alloc&amp; alloc);
+<span class="lineNum">      47 </span>            :     template &lt;class Alloc&gt;
+<span class="lineNum">      48 </span>            :       dynarray(allocator_arg_t, const Alloc&amp; a, size_type c, const T&amp; v, const Alloc&amp; alloc);
+<span class="lineNum">      49 </span>            :     template &lt;class Alloc&gt;
+<span class="lineNum">      50 </span>            :       dynarray(allocator_arg_t, const Alloc&amp; a, const dynarray&amp; d, const Alloc&amp; alloc);
+<span class="lineNum">      51 </span>            :     template &lt;class Alloc&gt;
+<span class="lineNum">      52 </span>            :       dynarray(allocator_arg_t, const Alloc&amp; a, initializer_list&lt;T&gt;, const Alloc&amp; alloc);
+<span class="lineNum">      53 </span>            :     dynarray&amp; operator=(const dynarray&amp;) = delete;
+<span class="lineNum">      54 </span>            :     ~dynarray();
+<span class="lineNum">      55 </span>            : 
+<span class="lineNum">      56 </span>            :     // iterators:
+<span class="lineNum">      57 </span>            :     iterator       begin()        noexcept;
+<span class="lineNum">      58 </span>            :     const_iterator begin()  const noexcept;
+<span class="lineNum">      59 </span>            :     const_iterator cbegin() const noexcept;
+<span class="lineNum">      60 </span>            :     iterator       end()          noexcept;
+<span class="lineNum">      61 </span>            :     const_iterator end()    const noexcept;
+<span class="lineNum">      62 </span>            :     const_iterator cend()   const noexcept;
+<span class="lineNum">      63 </span>            : 
+<span class="lineNum">      64 </span>            :     reverse_iterator       rbegin()        noexcept;
+<span class="lineNum">      65 </span>            :     const_reverse_iterator rbegin()  const noexcept;
+<span class="lineNum">      66 </span>            :     const_reverse_iterator crbegin() const noexcept;
+<span class="lineNum">      67 </span>            :     reverse_iterator       rend()          noexcept;
+<span class="lineNum">      68 </span>            :     const_reverse_iterator rend()    const noexcept;
+<span class="lineNum">      69 </span>            :     const_reverse_iterator crend()   const noexcept;
+<span class="lineNum">      70 </span>            : 
+<span class="lineNum">      71 </span>            :     // capacity:
+<span class="lineNum">      72 </span>            :     size_type size()     const noexcept;
+<span class="lineNum">      73 </span>            :     size_type max_size() const noexcept;
+<span class="lineNum">      74 </span>            :     bool      empty()    const noexcept;
+<span class="lineNum">      75 </span>            : 
+<span class="lineNum">      76 </span>            :     // element access:
+<span class="lineNum">      77 </span>            :     reference       operator[](size_type n);
+<span class="lineNum">      78 </span>            :     const_reference operator[](size_type n) const;
+<span class="lineNum">      79 </span>            : 
+<span class="lineNum">      80 </span>            :     reference       front();
+<span class="lineNum">      81 </span>            :     const_reference front() const;
+<span class="lineNum">      82 </span>            :     reference       back();
+<span class="lineNum">      83 </span>            :     const_reference back()  const;
+<span class="lineNum">      84 </span>            : 
+<span class="lineNum">      85 </span>            :     const_reference at(size_type n) const;
+<span class="lineNum">      86 </span>            :     reference       at(size_type n);
+<span class="lineNum">      87 </span>            : 
+<span class="lineNum">      88 </span>            :     // data access:
+<span class="lineNum">      89 </span>            :     T*       data()       noexcept;
+<span class="lineNum">      90 </span>            :     const T* data() const noexcept;
+<span class="lineNum">      91 </span>            : 
+<span class="lineNum">      92 </span>            :     // mutating member functions:
+<span class="lineNum">      93 </span>            :     void fill(const T&amp; v);
+<span class="lineNum">      94 </span>            : };
+<span class="lineNum">      95 </span>            : 
+<span class="lineNum">      96 </span>            : }}  // std::experimental
+<span class="lineNum">      97 </span>            : 
+<span class="lineNum">      98 </span>            : */
+<span class="lineNum">      99 </span>            : 
+<span class="lineNum">     100 </span>            : #include &lt;__functional_base&gt;
+<span class="lineNum">     101 </span>            : #include &lt;iterator&gt;
+<span class="lineNum">     102 </span>            : #include &lt;stdexcept&gt;
+<span class="lineNum">     103 </span>            : #include &lt;initializer_list&gt;
+<span class="lineNum">     104 </span>            : #include &lt;new&gt;
+<span class="lineNum">     105 </span>            : #include &lt;algorithm&gt;
+<span class="lineNum">     106 </span>            : 
+<span class="lineNum">     107 </span>            : #include &lt;__undef___deallocate&gt;
+<span class="lineNum">     108 </span>            : 
+<span class="lineNum">     109 </span>            : #if defined(_LIBCPP_NO_EXCEPTIONS)
+<span class="lineNum">     110 </span>            :     #include &lt;cassert&gt;
+<span class="lineNum">     111 </span>            : #endif
+<span class="lineNum">     112 </span>            : 
+<span class="lineNum">     113 </span>            : #if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
+<span class="lineNum">     114 </span>            : #pragma GCC system_header
+<span class="lineNum">     115 </span>            : #endif
+<span class="lineNum">     116 </span>            : 
+<span class="lineNum">     117 </span>            : namespace std { namespace experimental { inline namespace __array_extensions_v1 {
+<span class="lineNum">     118 </span>            : 
+<span class="lineNum">     119 </span>            : template &lt;class _Tp&gt;
+<span class="lineNum">     120 </span>            : struct _LIBCPP_TYPE_VIS_ONLY dynarray
+<span class="lineNum">     121 </span>            : {
+<span class="lineNum">     122 </span>            : public:
+<span class="lineNum">     123 </span>            :     // types:
+<span class="lineNum">     124 </span>            :     typedef dynarray __self;
+<span class="lineNum">     125 </span>            :     typedef _Tp                                   value_type;
+<span class="lineNum">     126 </span>            :     typedef value_type&amp;                           reference;
+<span class="lineNum">     127 </span>            :     typedef const value_type&amp;                     const_reference;
+<span class="lineNum">     128 </span>            :     typedef value_type*                           iterator;
+<span class="lineNum">     129 </span>            :     typedef const value_type*                     const_iterator;
+<span class="lineNum">     130 </span>            :     typedef value_type*                           pointer;
+<span class="lineNum">     131 </span>            :     typedef const value_type*                     const_pointer;
+<span class="lineNum">     132 </span>            :     typedef size_t                                size_type;
+<span class="lineNum">     133 </span>            :     typedef ptrdiff_t                             difference_type;
+<span class="lineNum">     134 </span>            :     typedef std::reverse_iterator&lt;iterator&gt;       reverse_iterator;
+<span class="lineNum">     135 </span>            :     typedef std::reverse_iterator&lt;const_iterator&gt; const_reverse_iterator;
+<span class="lineNum">     136 </span>            : 
+<span class="lineNum">     137 </span>            : private:
+<a name="138"><span class="lineNum">     138 </span>            :     size_t                  __size_;</a>
+<span class="lineNum">     139 </span>            :     value_type *            __base_;
+<a name="140"><span class="lineNum">     140 </span><span class="lineCov">         68 :     _LIBCPP_ALWAYS_INLINE dynarray () noexcept : __base_(nullptr), __size_(0) {}</span></a>
+<span class="lineNum">     141 </span>            :     
+<span class="lineNum">     142 </span>            :     static inline _LIBCPP_INLINE_VISIBILITY value_type* __allocate ( size_t count )
+<span class="lineNum">     143 </span>            :     {
+<span class="lineNum">     144 </span><span class="lineCov">         68 :         if ( numeric_limits&lt;size_t&gt;::max() / sizeof (value_type) &lt;= count )</span>
+<span class="lineNum">     145 </span>            :         {
+<span class="lineNum">     146 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     147 </span><span class="lineNoCov">          0 :             throw bad_array_length();</span>
+<span class="lineNum">     148 </span>            : #else
+<span class="lineNum">     149 </span>            :             assert(!&quot;dynarray::allocation&quot;);
+<span class="lineNum">     150 </span>            : #endif
+<span class="lineNum">     151 </span>            :         }
+<span class="lineNum">     152 </span><span class="lineCov">         67 :         return static_cast&lt;value_type *&gt; (_VSTD::__allocate (sizeof(value_type) * count));</span>
+<a name="153"><span class="lineNum">     153 </span>            :     }</a>
+<span class="lineNum">     154 </span>            : 
+<span class="lineNum">     155 </span>            :     static inline _LIBCPP_INLINE_VISIBILITY void __deallocate ( value_type* __ptr ) noexcept
+<span class="lineNum">     156 </span>            :     {
+<span class="lineNum">     157 </span><span class="lineCov">         68 :         _VSTD::__deallocate (static_cast&lt;void *&gt; (__ptr));</span>
+<span class="lineNum">     158 </span><span class="lineCov">         68 :     }</span>
+<span class="lineNum">     159 </span>            : 
+<span class="lineNum">     160 </span>            : public:
+<span class="lineNum">     161 </span>            : 
+<span class="lineNum">     162 </span>            :     explicit dynarray(size_type __c);
+<span class="lineNum">     163 </span>            :     dynarray(size_type __c, const value_type&amp; __v);
+<span class="lineNum">     164 </span>            :     dynarray(const dynarray&amp; __d);
+<span class="lineNum">     165 </span>            :     dynarray(initializer_list&lt;value_type&gt;);
+<span class="lineNum">     166 </span>            : 
+<span class="lineNum">     167 </span>            : //  We're not implementing these right now.
+<span class="lineNum">     168 </span>            : //  Updated with the resolution of LWG issue #2255
+<span class="lineNum">     169 </span>            : //     template &lt;typename _Alloc&gt;
+<span class="lineNum">     170 </span>            : //       dynarray(allocator_arg_t, const _Alloc&amp; __alloc, size_type __c);
+<span class="lineNum">     171 </span>            : //     template &lt;typename _Alloc&gt;
+<span class="lineNum">     172 </span>            : //       dynarray(allocator_arg_t, const _Alloc&amp; __alloc, size_type __c, const value_type&amp; __v);
+<span class="lineNum">     173 </span>            : //     template &lt;typename _Alloc&gt;
+<span class="lineNum">     174 </span>            : //       dynarray(allocator_arg_t, const _Alloc&amp; __alloc, const dynarray&amp; __d);
+<span class="lineNum">     175 </span>            : //     template &lt;typename _Alloc&gt;
+<span class="lineNum">     176 </span>            : //       dynarray(allocator_arg_t, const _Alloc&amp; __alloc, initializer_list&lt;value_type&gt;);
+<span class="lineNum">     177 </span>            : 
+<span class="lineNum">     178 </span>            :     dynarray&amp; operator=(const dynarray&amp;) = delete;
+<span class="lineNum">     179 </span>            :     ~dynarray();
+<a name="180"><span class="lineNum">     180 </span>            : </a>
+<a name="181"><span class="lineNum">     181 </span>            :     // iterators:</a>
+<a name="182"><span class="lineNum">     182 </span><span class="lineCov">         84 :     inline _LIBCPP_INLINE_VISIBILITY iterator       begin()        noexcept { return iterator(data()); }</span></a>
+<a name="183"><span class="lineNum">     183 </span><span class="lineCov">         92 :     inline _LIBCPP_INLINE_VISIBILITY const_iterator begin()  const noexcept { return const_iterator(data()); }</span></a>
+<a name="184"><span class="lineNum">     184 </span><span class="lineCov">         64 :     inline _LIBCPP_INLINE_VISIBILITY const_iterator cbegin() const noexcept { return const_iterator(data()); }</span></a>
+<a name="185"><span class="lineNum">     185 </span><span class="lineCov">         80 :     inline _LIBCPP_INLINE_VISIBILITY iterator       end()          noexcept { return iterator(data() + __size_); }</span></a>
+<span class="lineNum">     186 </span><span class="lineCov">        120 :     inline _LIBCPP_INLINE_VISIBILITY const_iterator end()    const noexcept { return const_iterator(data() + __size_); }</span>
+<a name="187"><span class="lineNum">     187 </span><span class="lineCov">         32 :     inline _LIBCPP_INLINE_VISIBILITY const_iterator cend()   const noexcept { return const_iterator(data() + __size_); }</span></a>
+<a name="188"><span class="lineNum">     188 </span>            : </a>
+<a name="189"><span class="lineNum">     189 </span><span class="lineCov">         64 :     inline _LIBCPP_INLINE_VISIBILITY reverse_iterator       rbegin()        noexcept { return reverse_iterator(end()); }</span></a>
+<a name="190"><span class="lineNum">     190 </span><span class="lineCov">         64 :     inline _LIBCPP_INLINE_VISIBILITY const_reverse_iterator rbegin()  const noexcept { return const_reverse_iterator(end()); }</span></a>
+<a name="191"><span class="lineNum">     191 </span><span class="lineCov">        128 :     inline _LIBCPP_INLINE_VISIBILITY const_reverse_iterator crbegin() const noexcept { return const_reverse_iterator(end()); }</span></a>
+<a name="192"><span class="lineNum">     192 </span><span class="lineCov">         32 :     inline _LIBCPP_INLINE_VISIBILITY reverse_iterator       rend()          noexcept { return reverse_iterator(begin()); }</span></a>
+<span class="lineNum">     193 </span><span class="lineCov">         32 :     inline _LIBCPP_INLINE_VISIBILITY const_reverse_iterator rend()    const noexcept { return const_reverse_iterator(begin()); }</span>
+<span class="lineNum">     194 </span><span class="lineCov">         64 :     inline _LIBCPP_INLINE_VISIBILITY const_reverse_iterator crend()   const noexcept { return const_reverse_iterator(begin()); }</span>
+<a name="195"><span class="lineNum">     195 </span>            : </a>
+<a name="196"><span class="lineNum">     196 </span>            :     // capacity:</a>
+<a name="197"><span class="lineNum">     197 </span><span class="lineCov">        262 :     inline _LIBCPP_INLINE_VISIBILITY size_type size()     const noexcept { return __size_; }</span></a>
+<span class="lineNum">     198 </span><span class="lineCov">          6 :     inline _LIBCPP_INLINE_VISIBILITY size_type max_size() const noexcept { return __size_; }</span>
+<span class="lineNum">     199 </span><span class="lineCov">          6 :     inline _LIBCPP_INLINE_VISIBILITY bool      empty()    const noexcept { return __size_ == 0; }</span>
+<a name="200"><span class="lineNum">     200 </span>            : </a>
+<a name="201"><span class="lineNum">     201 </span>            :     // element access:</a>
+<span class="lineNum">     202 </span><span class="lineCov">         36 :     inline _LIBCPP_INLINE_VISIBILITY reference       operator[](size_type __n)       { return data()[__n]; }</span>
+<a name="203"><span class="lineNum">     203 </span><span class="lineCov">         36 :     inline _LIBCPP_INLINE_VISIBILITY const_reference operator[](size_type __n) const { return data()[__n]; }</span></a>
+<a name="204"><span class="lineNum">     204 </span>            : </a>
+<a name="205"><span class="lineNum">     205 </span><span class="lineCov">          8 :     inline _LIBCPP_INLINE_VISIBILITY reference       front()       { return data()[0]; }</span></a>
+<a name="206"><span class="lineNum">     206 </span><span class="lineCov">          8 :     inline _LIBCPP_INLINE_VISIBILITY const_reference front() const { return data()[0]; }</span></a>
+<span class="lineNum">     207 </span><span class="lineCov">          8 :     inline _LIBCPP_INLINE_VISIBILITY reference       back()        { return data()[__size_-1]; }</span>
+<span class="lineNum">     208 </span><span class="lineCov">          8 :     inline _LIBCPP_INLINE_VISIBILITY const_reference back()  const { return data()[__size_-1]; }</span>
+<span class="lineNum">     209 </span>            : 
+<span class="lineNum">     210 </span>            :     inline _LIBCPP_INLINE_VISIBILITY const_reference at(size_type __n) const;
+<span class="lineNum">     211 </span>            :     inline _LIBCPP_INLINE_VISIBILITY reference       at(size_type __n);
+<a name="212"><span class="lineNum">     212 </span>            : </a>
+<a name="213"><span class="lineNum">     213 </span>            :     // data access:</a>
+<span class="lineNum">     214 </span><span class="lineCov">        422 :     inline _LIBCPP_INLINE_VISIBILITY _Tp*       data()       noexcept { return __base_; }</span>
+<span class="lineNum">     215 </span><span class="lineCov">        432 :     inline _LIBCPP_INLINE_VISIBILITY const _Tp* data() const noexcept { return __base_; }</span>
+<a name="216"><span class="lineNum">     216 </span>            : </a>
+<span class="lineNum">     217 </span>            :     // mutating member functions:
+<span class="lineNum">     218 </span><span class="lineCov">          4 :     inline _LIBCPP_INLINE_VISIBILITY void fill(const value_type&amp; __v) { fill_n(begin(), __size_, __v); }</span>
+<span class="lineNum">     219 </span>            : };
+<span class="lineNum">     220 </span>            : 
+<a name="221"><span class="lineNum">     221 </span>            : template &lt;class _Tp&gt;</a>
+<span class="lineNum">     222 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     223 </span><span class="lineCov">         26 : dynarray&lt;_Tp&gt;::dynarray(size_type __c) : dynarray ()</span>
+<span class="lineNum">     224 </span>            : {
+<span class="lineNum">     225 </span><span class="lineCov">         50 :     __base_ = __allocate (__c);</span>
+<span class="lineNum">     226 </span><span class="lineCov">         24 :     value_type *__data = data ();</span>
+<span class="lineNum">     227 </span><span class="lineCov">        208 :     for ( __size_ = 0; __size_ &lt; __c; ++__size_, ++__data )</span>
+<span class="lineNum">     228 </span><span class="lineCov">        100 :         ::new (__data) value_type;</span>
+<span class="lineNum">     229 </span><span class="lineCov">         26 : }</span>
+<span class="lineNum">     230 </span>            : 
+<a name="231"><span class="lineNum">     231 </span>            : template &lt;class _Tp&gt;</a>
+<span class="lineNum">     232 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     233 </span><span class="lineCov">         17 : dynarray&lt;_Tp&gt;::dynarray(size_type __c, const value_type&amp; __v) : dynarray ()</span>
+<span class="lineNum">     234 </span>            : {
+<span class="lineNum">     235 </span><span class="lineCov">         34 :     __base_ = __allocate (__c);</span>
+<span class="lineNum">     236 </span><span class="lineCov">         17 :     value_type *__data = data ();</span>
+<span class="lineNum">     237 </span><span class="lineCov">        298 :     for ( __size_ = 0; __size_ &lt; __c; ++__size_, ++__data )</span>
+<span class="lineNum">     238 </span><span class="lineCov">        160 :         ::new (__data) value_type (__v);</span>
+<span class="lineNum">     239 </span><span class="lineCov">         17 : }</span>
+<span class="lineNum">     240 </span>            : 
+<a name="241"><span class="lineNum">     241 </span>            : template &lt;class _Tp&gt;</a>
+<span class="lineNum">     242 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     243 </span><span class="lineCov">         21 : dynarray&lt;_Tp&gt;::dynarray(initializer_list&lt;value_type&gt; __il) : dynarray ()</span>
+<span class="lineNum">     244 </span>            : {
+<span class="lineNum">     245 </span><span class="lineCov">         21 :     size_t sz = __il.size();</span>
+<span class="lineNum">     246 </span><span class="lineCov">         42 :     __base_ = __allocate (sz);</span>
+<span class="lineNum">     247 </span><span class="lineCov">         21 :     value_type *__data = data ();</span>
+<span class="lineNum">     248 </span><span class="lineCov">         21 :     auto src = __il.begin();</span>
+<span class="lineNum">     249 </span><span class="lineCov">        186 :     for ( __size_ = 0; __size_ &lt; sz; ++__size_, ++__data, ++src )</span>
+<span class="lineNum">     250 </span><span class="lineCov">         96 :         ::new (__data) value_type (*src);</span>
+<span class="lineNum">     251 </span><span class="lineCov">         21 : }</span>
+<span class="lineNum">     252 </span>            : 
+<a name="253"><span class="lineNum">     253 </span>            : template &lt;class _Tp&gt;</a>
+<span class="lineNum">     254 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     255 </span><span class="lineCov">          4 : dynarray&lt;_Tp&gt;::dynarray(const dynarray&amp; __d) : dynarray ()</span>
+<span class="lineNum">     256 </span>            : {
+<span class="lineNum">     257 </span><span class="lineCov">          4 :     size_t sz = __d.size();</span>
+<span class="lineNum">     258 </span><span class="lineCov">          8 :     __base_ = __allocate (sz);</span>
+<span class="lineNum">     259 </span><span class="lineCov">          4 :     value_type *__data = data ();</span>
+<span class="lineNum">     260 </span><span class="lineCov">          4 :     auto src = __d.begin();</span>
+<span class="lineNum">     261 </span><span class="lineCov">         64 :     for ( __size_ = 0; __size_ &lt; sz; ++__size_, ++__data, ++src )</span>
+<span class="lineNum">     262 </span><span class="lineCov">         35 :         ::new (__data) value_type (*src);</span>
+<span class="lineNum">     263 </span><span class="lineCov">          4 : }</span>
+<span class="lineNum">     264 </span>            : 
+<a name="265"><span class="lineNum">     265 </span>            : template &lt;class _Tp&gt;</a>
+<span class="lineNum">     266 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     267 </span>            : dynarray&lt;_Tp&gt;::~dynarray()
+<span class="lineNum">     268 </span>            : { 
+<span class="lineNum">     269 </span><span class="lineCov">         68 :     value_type *__data = data () + __size_;</span>
+<span class="lineNum">     270 </span><span class="lineCov">        760 :     for ( size_t i = 0; i &lt; __size_; ++i )</span>
+<span class="lineNum">     271 </span><span class="lineCov">        312 :         (--__data)-&gt;value_type::~value_type();</span>
+<span class="lineNum">     272 </span><span class="lineCov">         68 :     __deallocate ( __base_ );</span>
+<span class="lineNum">     273 </span><span class="lineCov">         68 : }</span>
+<span class="lineNum">     274 </span>            : 
+<span class="lineNum">     275 </span>            : template &lt;class _Tp&gt;
+<a name="276"><span class="lineNum">     276 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     277 </span>            : typename dynarray&lt;_Tp&gt;::reference
+<span class="lineNum">     278 </span>            : dynarray&lt;_Tp&gt;::at(size_type __n)
+<span class="lineNum">     279 </span>            : {
+<span class="lineNum">     280 </span><span class="lineCov">         54 :     if (__n &gt;= __size_)</span>
+<span class="lineNum">     281 </span>            :     {
+<span class="lineNum">     282 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     283 </span><span class="lineCov">         18 :         throw out_of_range(&quot;dynarray::at&quot;);</span>
+<span class="lineNum">     284 </span>            : #else
+<span class="lineNum">     285 </span>            :         assert(!&quot;dynarray::at out_of_range&quot;);
+<span class="lineNum">     286 </span>            : #endif
+<span class="lineNum">     287 </span>            :     }
+<span class="lineNum">     288 </span><span class="lineCov">         36 :     return data()[__n];</span>
+<span class="lineNum">     289 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     290 </span>            : 
+<span class="lineNum">     291 </span>            : template &lt;class _Tp&gt;
+<a name="292"><span class="lineNum">     292 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     293 </span>            : typename dynarray&lt;_Tp&gt;::const_reference
+<span class="lineNum">     294 </span>            : dynarray&lt;_Tp&gt;::at(size_type __n) const
+<span class="lineNum">     295 </span>            : {
+<span class="lineNum">     296 </span><span class="lineCov">         54 :     if (__n &gt;= __size_)</span>
+<span class="lineNum">     297 </span>            :     {
+<span class="lineNum">     298 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     299 </span><span class="lineCov">         18 :         throw out_of_range(&quot;dynarray::at&quot;);</span>
+<span class="lineNum">     300 </span>            : #else
+<span class="lineNum">     301 </span>            :         assert(!&quot;dynarray::at out_of_range&quot;);
+<span class="lineNum">     302 </span>            : #endif
+<span class="lineNum">     303 </span>            :     }
+<span class="lineNum">     304 </span><span class="lineCov">         36 :     return data()[__n];</span>
+<span class="lineNum">     305 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     306 </span>            : 
+<span class="lineNum">     307 </span>            : }}}
+<span class="lineNum">     308 </span>            : 
+<span class="lineNum">     309 </span>            : 
+<span class="lineNum">     310 </span>            : _LIBCPP_BEGIN_NAMESPACE_STD
+<span class="lineNum">     311 </span>            : template &lt;class _Tp, class _Alloc&gt;
+<span class="lineNum">     312 </span>            : struct _LIBCPP_TYPE_VIS_ONLY uses_allocator&lt;std::experimental::dynarray&lt;_Tp&gt;, _Alloc&gt; : true_type {};
+<span class="lineNum">     313 </span>            : _LIBCPP_END_NAMESPACE_STD
+<span class="lineNum">     314 </span>            : 
+<span class="lineNum">     315 </span>            : #endif  // if _LIBCPP_STD_VER &gt; 11 
+<span class="lineNum">     316 </span>            : #endif  // _LIBCPP_DYNARRAY
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

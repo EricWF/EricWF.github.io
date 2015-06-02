@@ -1,0 +1,190 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - test_coverage.info - include/experimental/algorithm</title>
+  <link rel="stylesheet" type="text/css" href="../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../index.html">top level</a> - <a href="index.html">include/experimental</a> - algorithm<span style="font-size: 80%;"> (source / <a href="algorithm.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">test_coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">23</td>
+            <td class="headerCovTableEntry">23</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2015-06-02</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">15</td>
+            <td class="headerCovTableEntry">15</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : // -*- C++ -*-</a>
+<span class="lineNum">       2 </span>            : //===-------------------------- algorithm ---------------------------------===//
+<span class="lineNum">       3 </span>            : //
+<span class="lineNum">       4 </span>            : //                     The LLVM Compiler Infrastructure
+<span class="lineNum">       5 </span>            : //
+<span class="lineNum">       6 </span>            : // This file is dual licensed under the MIT and the University of Illinois Open
+<span class="lineNum">       7 </span>            : // Source Licenses. See LICENSE.TXT for details.
+<span class="lineNum">       8 </span>            : //
+<span class="lineNum">       9 </span>            : //===----------------------------------------------------------------------===//
+<span class="lineNum">      10 </span>            : 
+<span class="lineNum">      11 </span>            : #ifndef _LIBCPP_EXPERIMENTAL_ALGORITHM
+<span class="lineNum">      12 </span>            : #define _LIBCPP_EXPERIMENTAL_ALGORITHM
+<span class="lineNum">      13 </span>            : 
+<span class="lineNum">      14 </span>            : /*
+<span class="lineNum">      15 </span>            :    experimental/algorithm synopsis
+<span class="lineNum">      16 </span>            : 
+<span class="lineNum">      17 </span>            : #include &lt;algorithm&gt;
+<span class="lineNum">      18 </span>            : 
+<span class="lineNum">      19 </span>            : namespace std {
+<span class="lineNum">      20 </span>            : namespace experimental {
+<span class="lineNum">      21 </span>            : inline namespace fundamentals_v1 {
+<span class="lineNum">      22 </span>            : 
+<span class="lineNum">      23 </span>            : template &lt;class ForwardIterator, class Searcher&gt;
+<span class="lineNum">      24 </span>            : ForwardIterator search(ForwardIterator first, ForwardIterator last,
+<span class="lineNum">      25 </span>            :                        const Searcher &amp;searcher);
+<span class="lineNum">      26 </span>            : template &lt;class PopulationIterator, class SampleIterator, class Distance,
+<span class="lineNum">      27 </span>            :           class UniformRandomNumberGenerator&gt;
+<span class="lineNum">      28 </span>            : SampleIterator sample(PopulationIterator first, PopulationIterator last,
+<span class="lineNum">      29 </span>            :                       SampleIterator out, Distance n,
+<span class="lineNum">      30 </span>            :                       UniformRandomNumberGenerator &amp;&amp;g);
+<span class="lineNum">      31 </span>            : 
+<span class="lineNum">      32 </span>            : } // namespace fundamentals_v1
+<span class="lineNum">      33 </span>            : } // namespace experimental
+<span class="lineNum">      34 </span>            : } // namespace std
+<span class="lineNum">      35 </span>            : 
+<span class="lineNum">      36 </span>            : */
+<span class="lineNum">      37 </span>            : 
+<span class="lineNum">      38 </span>            : #include &lt;experimental/__config&gt;
+<span class="lineNum">      39 </span>            : #include &lt;algorithm&gt;
+<span class="lineNum">      40 </span>            : #include &lt;type_traits&gt;
+<span class="lineNum">      41 </span>            : 
+<span class="lineNum">      42 </span>            : #include &lt;__undef_min_max&gt;
+<span class="lineNum">      43 </span>            : 
+<span class="lineNum">      44 </span>            : #include &lt;__debug&gt;
+<span class="lineNum">      45 </span>            : 
+<span class="lineNum">      46 </span>            : #if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
+<span class="lineNum">      47 </span>            : #pragma GCC system_header
+<span class="lineNum">      48 </span>            : #endif
+<span class="lineNum">      49 </span>            : 
+<span class="lineNum">      50 </span>            : _LIBCPP_BEGIN_NAMESPACE_LFTS
+<span class="lineNum">      51 </span>            : 
+<span class="lineNum">      52 </span>            : 
+<span class="lineNum">      53 </span>            : template &lt;class _PopulationIterator, class _SampleIterator, class _Distance,
+<a name="54"><span class="lineNum">      54 </span>            :           class _UniformRandomNumberGenerator&gt;</a>
+<span class="lineNum">      55 </span>            : _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">      56 </span>            : _SampleIterator __sample(_PopulationIterator __first,
+<span class="lineNum">      57 </span>            :                          _PopulationIterator __last, _SampleIterator __out,
+<span class="lineNum">      58 </span>            :                          _Distance __n,
+<span class="lineNum">      59 </span>            :                          _UniformRandomNumberGenerator &amp;&amp;__g,
+<span class="lineNum">      60 </span>            :                          input_iterator_tag) {
+<span class="lineNum">      61 </span>            : 
+<span class="lineNum">      62 </span><span class="lineCov">       1007 :   _Distance __k = 0;</span>
+<span class="lineNum">      63 </span><span class="lineCov">      84110 :   for (; __first != __last &amp;&amp; __k &lt; __n; ++__first, (void)++__k)</span>
+<span class="lineNum">      64 </span><span class="lineCov">      20021 :     __out[__k] = *__first;</span>
+<span class="lineNum">      65 </span><span class="lineCov">       1007 :   _Distance __sz = __k;</span>
+<span class="lineNum">      66 </span><span class="lineCov">     162082 :   for (; __first != __last; ++__first, (void)++__k) {</span>
+<span class="lineNum">      67 </span><span class="lineCov">      80034 :     _Distance __r = _VSTD::uniform_int_distribution&lt;_Distance&gt;(0, __k)(__g);</span>
+<span class="lineNum">      68 </span><span class="lineCov">      80034 :     if (__r &lt; __sz)</span>
+<span class="lineNum">      69 </span><span class="lineCov">      31597 :       __out[__r] = *__first;</span>
+<span class="lineNum">      70 </span><span class="lineCov">      80034 :   }</span>
+<span class="lineNum">      71 </span><span class="lineCov">       1007 :   return __out + _VSTD::min(__n, __k);</span>
+<span class="lineNum">      72 </span>            : }
+<span class="lineNum">      73 </span>            : 
+<span class="lineNum">      74 </span>            : template &lt;class _PopulationIterator, class _SampleIterator, class _Distance,
+<a name="75"><span class="lineNum">      75 </span>            :           class _UniformRandomNumberGenerator&gt;</a>
+<span class="lineNum">      76 </span>            : _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">      77 </span>            : _SampleIterator __sample(_PopulationIterator __first,
+<span class="lineNum">      78 </span>            :                          _PopulationIterator __last, _SampleIterator __out,
+<span class="lineNum">      79 </span>            :                          _Distance __n,
+<span class="lineNum">      80 </span>            :                          _UniformRandomNumberGenerator &amp;&amp;__g,
+<span class="lineNum">      81 </span>            :                          forward_iterator_tag) {
+<span class="lineNum">      82 </span><span class="lineCov">       1014 :   _Distance __unsampled_sz = _VSTD::distance(__first, __last);</span>
+<span class="lineNum">      83 </span><span class="lineCov">     194502 :   for (__n = _VSTD::min(__n, __unsampled_sz); __n != 0; ++__first) {</span>
+<span class="lineNum">      84 </span><span class="lineCov">      96237 :     _Distance __r =</span>
+<span class="lineNum">      85 </span><span class="lineCov">      96237 :         _VSTD::uniform_int_distribution&lt;_Distance&gt;(0, --__unsampled_sz)(__g);</span>
+<span class="lineNum">      86 </span><span class="lineCov">      96237 :     if (__r &lt; __n) {</span>
+<span class="lineNum">      87 </span><span class="lineCov">      20042 :       *__out++ = *__first;</span>
+<span class="lineNum">      88 </span><span class="lineCov">      20042 :       --__n;</span>
+<span class="lineNum">      89 </span><span class="lineCov">      20042 :     }</span>
+<span class="lineNum">      90 </span><span class="lineCov">      96237 :   }</span>
+<span class="lineNum">      91 </span><span class="lineCov">       1014 :   return __out;</span>
+<span class="lineNum">      92 </span>            : }
+<span class="lineNum">      93 </span>            : 
+<span class="lineNum">      94 </span>            : template &lt;class _PopulationIterator, class _SampleIterator, class _Distance,
+<a name="95"><span class="lineNum">      95 </span>            :           class _UniformRandomNumberGenerator&gt;</a>
+<span class="lineNum">      96 </span>            : _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">      97 </span>            : _SampleIterator sample(_PopulationIterator __first,
+<span class="lineNum">      98 </span>            :                          _PopulationIterator __last, _SampleIterator __out,
+<span class="lineNum">      99 </span>            :                          _Distance __n, _UniformRandomNumberGenerator &amp;&amp;__g) {
+<span class="lineNum">     100 </span>            :   typedef typename iterator_traits&lt;_PopulationIterator&gt;::iterator_category
+<span class="lineNum">     101 </span>            :         _PopCategory;
+<span class="lineNum">     102 </span>            :   typedef typename iterator_traits&lt;_PopulationIterator&gt;::difference_type
+<span class="lineNum">     103 </span>            :         _Difference;
+<span class="lineNum">     104 </span>            :   typedef typename common_type&lt;_Distance, _Difference&gt;::type _CommonType;
+<span class="lineNum">     105 </span>            :   _LIBCPP_ASSERT(__n &gt;= 0, &quot;N must be a positive number.&quot;);
+<span class="lineNum">     106 </span><span class="lineCov">       2021 :   return _VSTD_LFTS::__sample(</span>
+<span class="lineNum">     107 </span><span class="lineCov">       2021 :       __first, __last, __out, _CommonType(__n),</span>
+<span class="lineNum">     108 </span><span class="lineCov">       2021 :       _VSTD::forward&lt;_UniformRandomNumberGenerator&gt;(__g),</span>
+<span class="lineNum">     109 </span>            :       _PopCategory());
+<span class="lineNum">     110 </span>            : }
+<span class="lineNum">     111 </span>            : 
+<span class="lineNum">     112 </span>            : _LIBCPP_END_NAMESPACE_LFTS
+<span class="lineNum">     113 </span>            : 
+<span class="lineNum">     114 </span>            : #endif /* _LIBCPP_EXPERIMENTAL_ALGORITHM */
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

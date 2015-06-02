@@ -1,0 +1,718 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - test_coverage.info - include/system_error</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">include</a> - system_error<span style="font-size: 80%;"> (source / <a href="system_error.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">test_coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">49</td>
+            <td class="headerCovTableEntry">49</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2015-06-02</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">40</td>
+            <td class="headerCovTableEntry">41</td>
+            <td class="headerCovTableEntryHi">97.6 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : // -*- C++ -*-</a>
+<span class="lineNum">       2 </span>            : //===---------------------------- system_error ----------------------------===//
+<span class="lineNum">       3 </span>            : //
+<span class="lineNum">       4 </span>            : //                     The LLVM Compiler Infrastructure
+<span class="lineNum">       5 </span>            : //
+<span class="lineNum">       6 </span>            : // This file is dual licensed under the MIT and the University of Illinois Open
+<span class="lineNum">       7 </span>            : // Source Licenses. See LICENSE.TXT for details.
+<span class="lineNum">       8 </span>            : //
+<span class="lineNum">       9 </span>            : //===----------------------------------------------------------------------===//
+<span class="lineNum">      10 </span>            : 
+<span class="lineNum">      11 </span>            : #ifndef _LIBCPP_SYSTEM_ERROR
+<span class="lineNum">      12 </span>            : #define _LIBCPP_SYSTEM_ERROR
+<span class="lineNum">      13 </span>            : 
+<span class="lineNum">      14 </span>            : /*
+<span class="lineNum">      15 </span>            :     system_error synopsis
+<span class="lineNum">      16 </span>            : 
+<span class="lineNum">      17 </span>            : namespace std
+<span class="lineNum">      18 </span>            : {
+<span class="lineNum">      19 </span>            : 
+<span class="lineNum">      20 </span>            : class error_category
+<span class="lineNum">      21 </span>            : {
+<span class="lineNum">      22 </span>            : public:
+<span class="lineNum">      23 </span>            :     virtual ~error_category() noexcept;
+<span class="lineNum">      24 </span>            : 
+<span class="lineNum">      25 </span>            :     constexpr error_category();
+<span class="lineNum">      26 </span>            :     error_category(const error_category&amp;) = delete;
+<span class="lineNum">      27 </span>            :     error_category&amp; operator=(const error_category&amp;) = delete;
+<span class="lineNum">      28 </span>            : 
+<span class="lineNum">      29 </span>            :     virtual const char* name() const noexcept = 0;
+<span class="lineNum">      30 </span>            :     virtual error_condition default_error_condition(int ev) const noexcept;
+<span class="lineNum">      31 </span>            :     virtual bool equivalent(int code, const error_condition&amp; condition) const noexcept;
+<span class="lineNum">      32 </span>            :     virtual bool equivalent(const error_code&amp; code, int condition) const noexcept;
+<span class="lineNum">      33 </span>            :     virtual string message(int ev) const = 0;
+<span class="lineNum">      34 </span>            : 
+<span class="lineNum">      35 </span>            :     bool operator==(const error_category&amp; rhs) const noexcept;
+<span class="lineNum">      36 </span>            :     bool operator!=(const error_category&amp; rhs) const noexcept;
+<span class="lineNum">      37 </span>            :     bool operator&lt;(const error_category&amp; rhs) const noexcept;
+<span class="lineNum">      38 </span>            : };
+<span class="lineNum">      39 </span>            : 
+<span class="lineNum">      40 </span>            : const error_category&amp; generic_category() noexcept;
+<span class="lineNum">      41 </span>            : const error_category&amp; system_category() noexcept;
+<span class="lineNum">      42 </span>            : 
+<span class="lineNum">      43 </span>            : template &lt;class T&gt; struct is_error_code_enum
+<span class="lineNum">      44 </span>            :     : public false_type {};
+<span class="lineNum">      45 </span>            : 
+<span class="lineNum">      46 </span>            : template &lt;class T&gt; struct is_error_condition_enum
+<span class="lineNum">      47 </span>            :     : public false_type {};
+<span class="lineNum">      48 </span>            : 
+<span class="lineNum">      49 </span>            : class error_code
+<span class="lineNum">      50 </span>            : {
+<span class="lineNum">      51 </span>            : public:
+<span class="lineNum">      52 </span>            :     // constructors:
+<span class="lineNum">      53 </span>            :     error_code() noexcept;
+<span class="lineNum">      54 </span>            :     error_code(int val, const error_category&amp; cat) noexcept;
+<span class="lineNum">      55 </span>            :     template &lt;class ErrorCodeEnum&gt;
+<span class="lineNum">      56 </span>            :         error_code(ErrorCodeEnum e) noexcept;
+<span class="lineNum">      57 </span>            : 
+<span class="lineNum">      58 </span>            :     // modifiers:
+<span class="lineNum">      59 </span>            :     void assign(int val, const error_category&amp; cat) noexcept;
+<span class="lineNum">      60 </span>            :     template &lt;class ErrorCodeEnum&gt;
+<span class="lineNum">      61 </span>            :         error_code&amp; operator=(ErrorCodeEnum e) noexcept;
+<span class="lineNum">      62 </span>            :     void clear() noexcept;
+<span class="lineNum">      63 </span>            : 
+<span class="lineNum">      64 </span>            :     // observers:
+<span class="lineNum">      65 </span>            :     int value() const noexcept;
+<span class="lineNum">      66 </span>            :     const error_category&amp; category() const noexcept;
+<span class="lineNum">      67 </span>            :     error_condition default_error_condition() const noexcept;
+<span class="lineNum">      68 </span>            :     string message() const;
+<span class="lineNum">      69 </span>            :     explicit operator bool() const noexcept;
+<span class="lineNum">      70 </span>            : };
+<span class="lineNum">      71 </span>            : 
+<span class="lineNum">      72 </span>            : // non-member functions:
+<span class="lineNum">      73 </span>            : bool operator&lt;(const error_code&amp; lhs, const error_code&amp; rhs) noexcept;
+<span class="lineNum">      74 </span>            : template &lt;class charT, class traits&gt;
+<span class="lineNum">      75 </span>            :     basic_ostream&lt;charT,traits&gt;&amp;
+<span class="lineNum">      76 </span>            :     operator&lt;&lt;(basic_ostream&lt;charT,traits&gt;&amp; os, const error_code&amp; ec);
+<span class="lineNum">      77 </span>            : 
+<span class="lineNum">      78 </span>            : class error_condition
+<span class="lineNum">      79 </span>            : {
+<span class="lineNum">      80 </span>            : public:
+<span class="lineNum">      81 </span>            :     // constructors:
+<span class="lineNum">      82 </span>            :     error_condition() noexcept;
+<span class="lineNum">      83 </span>            :     error_condition(int val, const error_category&amp; cat) noexcept;
+<span class="lineNum">      84 </span>            :     template &lt;class ErrorConditionEnum&gt;
+<span class="lineNum">      85 </span>            :         error_condition(ErrorConditionEnum e) noexcept;
+<span class="lineNum">      86 </span>            : 
+<span class="lineNum">      87 </span>            :     // modifiers:
+<span class="lineNum">      88 </span>            :     void assign(int val, const error_category&amp; cat) noexcept;
+<span class="lineNum">      89 </span>            :     template &lt;class ErrorConditionEnum&gt;
+<span class="lineNum">      90 </span>            :         error_condition&amp; operator=(ErrorConditionEnum e) noexcept;
+<span class="lineNum">      91 </span>            :     void clear() noexcept;
+<span class="lineNum">      92 </span>            : 
+<span class="lineNum">      93 </span>            :     // observers:
+<span class="lineNum">      94 </span>            :     int value() const noexcept;
+<span class="lineNum">      95 </span>            :     const error_category&amp; category() const noexcept;
+<span class="lineNum">      96 </span>            :     string message() const noexcept;
+<span class="lineNum">      97 </span>            :     explicit operator bool() const noexcept;
+<span class="lineNum">      98 </span>            : };
+<span class="lineNum">      99 </span>            : 
+<span class="lineNum">     100 </span>            : bool operator&lt;(const error_condition&amp; lhs, const error_condition&amp; rhs) noexcept;
+<span class="lineNum">     101 </span>            : 
+<span class="lineNum">     102 </span>            : class system_error
+<span class="lineNum">     103 </span>            :     : public runtime_error
+<span class="lineNum">     104 </span>            : {
+<span class="lineNum">     105 </span>            : public:
+<span class="lineNum">     106 </span>            :     system_error(error_code ec, const string&amp; what_arg);
+<span class="lineNum">     107 </span>            :     system_error(error_code ec, const char* what_arg);
+<span class="lineNum">     108 </span>            :     system_error(error_code ec);
+<span class="lineNum">     109 </span>            :     system_error(int ev, const error_category&amp; ecat, const string&amp; what_arg);
+<span class="lineNum">     110 </span>            :     system_error(int ev, const error_category&amp; ecat, const char* what_arg);
+<span class="lineNum">     111 </span>            :     system_error(int ev, const error_category&amp; ecat);
+<span class="lineNum">     112 </span>            : 
+<span class="lineNum">     113 </span>            :     const error_code&amp; code() const noexcept;
+<span class="lineNum">     114 </span>            :     const char* what() const noexcept;
+<span class="lineNum">     115 </span>            : };
+<span class="lineNum">     116 </span>            : 
+<span class="lineNum">     117 </span>            : enum class errc
+<span class="lineNum">     118 </span>            : {
+<span class="lineNum">     119 </span>            :     address_family_not_supported,       // EAFNOSUPPORT
+<span class="lineNum">     120 </span>            :     address_in_use,                     // EADDRINUSE
+<span class="lineNum">     121 </span>            :     address_not_available,              // EADDRNOTAVAIL
+<span class="lineNum">     122 </span>            :     already_connected,                  // EISCONN
+<span class="lineNum">     123 </span>            :     argument_list_too_long,             // E2BIG
+<span class="lineNum">     124 </span>            :     argument_out_of_domain,             // EDOM
+<span class="lineNum">     125 </span>            :     bad_address,                        // EFAULT
+<span class="lineNum">     126 </span>            :     bad_file_descriptor,                // EBADF
+<span class="lineNum">     127 </span>            :     bad_message,                        // EBADMSG
+<span class="lineNum">     128 </span>            :     broken_pipe,                        // EPIPE
+<span class="lineNum">     129 </span>            :     connection_aborted,                 // ECONNABORTED
+<span class="lineNum">     130 </span>            :     connection_already_in_progress,     // EALREADY
+<span class="lineNum">     131 </span>            :     connection_refused,                 // ECONNREFUSED
+<span class="lineNum">     132 </span>            :     connection_reset,                   // ECONNRESET
+<span class="lineNum">     133 </span>            :     cross_device_link,                  // EXDEV
+<span class="lineNum">     134 </span>            :     destination_address_required,       // EDESTADDRREQ
+<span class="lineNum">     135 </span>            :     device_or_resource_busy,            // EBUSY
+<span class="lineNum">     136 </span>            :     directory_not_empty,                // ENOTEMPTY
+<span class="lineNum">     137 </span>            :     executable_format_error,            // ENOEXEC
+<span class="lineNum">     138 </span>            :     file_exists,                        // EEXIST
+<span class="lineNum">     139 </span>            :     file_too_large,                     // EFBIG
+<span class="lineNum">     140 </span>            :     filename_too_long,                  // ENAMETOOLONG
+<span class="lineNum">     141 </span>            :     function_not_supported,             // ENOSYS
+<span class="lineNum">     142 </span>            :     host_unreachable,                   // EHOSTUNREACH
+<span class="lineNum">     143 </span>            :     identifier_removed,                 // EIDRM
+<span class="lineNum">     144 </span>            :     illegal_byte_sequence,              // EILSEQ
+<span class="lineNum">     145 </span>            :     inappropriate_io_control_operation, // ENOTTY
+<span class="lineNum">     146 </span>            :     interrupted,                        // EINTR
+<span class="lineNum">     147 </span>            :     invalid_argument,                   // EINVAL
+<span class="lineNum">     148 </span>            :     invalid_seek,                       // ESPIPE
+<span class="lineNum">     149 </span>            :     io_error,                           // EIO
+<span class="lineNum">     150 </span>            :     is_a_directory,                     // EISDIR
+<span class="lineNum">     151 </span>            :     message_size,                       // EMSGSIZE
+<span class="lineNum">     152 </span>            :     network_down,                       // ENETDOWN
+<span class="lineNum">     153 </span>            :     network_reset,                      // ENETRESET
+<span class="lineNum">     154 </span>            :     network_unreachable,                // ENETUNREACH
+<span class="lineNum">     155 </span>            :     no_buffer_space,                    // ENOBUFS
+<span class="lineNum">     156 </span>            :     no_child_process,                   // ECHILD
+<span class="lineNum">     157 </span>            :     no_link,                            // ENOLINK
+<span class="lineNum">     158 </span>            :     no_lock_available,                  // ENOLCK
+<span class="lineNum">     159 </span>            :     no_message_available,               // ENODATA
+<span class="lineNum">     160 </span>            :     no_message,                         // ENOMSG
+<span class="lineNum">     161 </span>            :     no_protocol_option,                 // ENOPROTOOPT
+<span class="lineNum">     162 </span>            :     no_space_on_device,                 // ENOSPC
+<span class="lineNum">     163 </span>            :     no_stream_resources,                // ENOSR
+<span class="lineNum">     164 </span>            :     no_such_device_or_address,          // ENXIO
+<span class="lineNum">     165 </span>            :     no_such_device,                     // ENODEV
+<span class="lineNum">     166 </span>            :     no_such_file_or_directory,          // ENOENT
+<span class="lineNum">     167 </span>            :     no_such_process,                    // ESRCH
+<span class="lineNum">     168 </span>            :     not_a_directory,                    // ENOTDIR
+<span class="lineNum">     169 </span>            :     not_a_socket,                       // ENOTSOCK
+<span class="lineNum">     170 </span>            :     not_a_stream,                       // ENOSTR
+<span class="lineNum">     171 </span>            :     not_connected,                      // ENOTCONN
+<span class="lineNum">     172 </span>            :     not_enough_memory,                  // ENOMEM
+<span class="lineNum">     173 </span>            :     not_supported,                      // ENOTSUP
+<span class="lineNum">     174 </span>            :     operation_canceled,                 // ECANCELED
+<span class="lineNum">     175 </span>            :     operation_in_progress,              // EINPROGRESS
+<span class="lineNum">     176 </span>            :     operation_not_permitted,            // EPERM
+<span class="lineNum">     177 </span>            :     operation_not_supported,            // EOPNOTSUPP
+<span class="lineNum">     178 </span>            :     operation_would_block,              // EWOULDBLOCK
+<span class="lineNum">     179 </span>            :     owner_dead,                         // EOWNERDEAD
+<span class="lineNum">     180 </span>            :     permission_denied,                  // EACCES
+<span class="lineNum">     181 </span>            :     protocol_error,                     // EPROTO
+<span class="lineNum">     182 </span>            :     protocol_not_supported,             // EPROTONOSUPPORT
+<span class="lineNum">     183 </span>            :     read_only_file_system,              // EROFS
+<span class="lineNum">     184 </span>            :     resource_deadlock_would_occur,      // EDEADLK
+<span class="lineNum">     185 </span>            :     resource_unavailable_try_again,     // EAGAIN
+<span class="lineNum">     186 </span>            :     result_out_of_range,                // ERANGE
+<span class="lineNum">     187 </span>            :     state_not_recoverable,              // ENOTRECOVERABLE
+<span class="lineNum">     188 </span>            :     stream_timeout,                     // ETIME
+<span class="lineNum">     189 </span>            :     text_file_busy,                     // ETXTBSY
+<span class="lineNum">     190 </span>            :     timed_out,                          // ETIMEDOUT
+<span class="lineNum">     191 </span>            :     too_many_files_open_in_system,      // ENFILE
+<span class="lineNum">     192 </span>            :     too_many_files_open,                // EMFILE
+<span class="lineNum">     193 </span>            :     too_many_links,                     // EMLINK
+<span class="lineNum">     194 </span>            :     too_many_symbolic_link_levels,      // ELOOP
+<span class="lineNum">     195 </span>            :     value_too_large,                    // EOVERFLOW
+<span class="lineNum">     196 </span>            :     wrong_protocol_type                 // EPROTOTYPE
+<span class="lineNum">     197 </span>            : };
+<span class="lineNum">     198 </span>            : 
+<span class="lineNum">     199 </span>            : template &lt;&gt; struct is_error_condition_enum&lt;errc&gt;
+<span class="lineNum">     200 </span>            :     : true_type { }
+<span class="lineNum">     201 </span>            : 
+<span class="lineNum">     202 </span>            : error_code make_error_code(errc e) noexcept;
+<span class="lineNum">     203 </span>            : error_condition make_error_condition(errc e) noexcept;
+<span class="lineNum">     204 </span>            : 
+<span class="lineNum">     205 </span>            : // Comparison operators:
+<span class="lineNum">     206 </span>            : bool operator==(const error_code&amp; lhs, const error_code&amp; rhs) noexcept;
+<span class="lineNum">     207 </span>            : bool operator==(const error_code&amp; lhs, const error_condition&amp; rhs) noexcept;
+<span class="lineNum">     208 </span>            : bool operator==(const error_condition&amp; lhs, const error_code&amp; rhs) noexcept;
+<span class="lineNum">     209 </span>            : bool operator==(const error_condition&amp; lhs, const error_condition&amp; rhs) noexcept;
+<span class="lineNum">     210 </span>            : bool operator!=(const error_code&amp; lhs, const error_code&amp; rhs) noexcept;
+<span class="lineNum">     211 </span>            : bool operator!=(const error_code&amp; lhs, const error_condition&amp; rhs) noexcept;
+<span class="lineNum">     212 </span>            : bool operator!=(const error_condition&amp; lhs, const error_code&amp; rhs) noexcept;
+<span class="lineNum">     213 </span>            : bool operator!=(const error_condition&amp; lhs, const error_condition&amp; rhs) noexcept;
+<span class="lineNum">     214 </span>            : 
+<span class="lineNum">     215 </span>            : template &lt;&gt; struct hash&lt;std::error_code&gt;;
+<span class="lineNum">     216 </span>            : 
+<span class="lineNum">     217 </span>            : }  // std
+<span class="lineNum">     218 </span>            : 
+<span class="lineNum">     219 </span>            : */
+<span class="lineNum">     220 </span>            : 
+<span class="lineNum">     221 </span>            : #include &lt;__config&gt;
+<span class="lineNum">     222 </span>            : #include &lt;cerrno&gt;
+<span class="lineNum">     223 </span>            : #include &lt;type_traits&gt;
+<span class="lineNum">     224 </span>            : #include &lt;stdexcept&gt;
+<span class="lineNum">     225 </span>            : #include &lt;__functional_base&gt;
+<span class="lineNum">     226 </span>            : 
+<span class="lineNum">     227 </span>            : #if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
+<span class="lineNum">     228 </span>            : #pragma GCC system_header
+<span class="lineNum">     229 </span>            : #endif
+<span class="lineNum">     230 </span>            : 
+<span class="lineNum">     231 </span>            : _LIBCPP_BEGIN_NAMESPACE_STD
+<span class="lineNum">     232 </span>            : 
+<span class="lineNum">     233 </span>            : // is_error_code_enum
+<span class="lineNum">     234 </span>            : 
+<span class="lineNum">     235 </span>            : template &lt;class _Tp&gt;
+<span class="lineNum">     236 </span>            : struct _LIBCPP_TYPE_VIS_ONLY is_error_code_enum
+<span class="lineNum">     237 </span>            :     : public false_type {};
+<span class="lineNum">     238 </span>            : 
+<span class="lineNum">     239 </span>            : // is_error_condition_enum
+<span class="lineNum">     240 </span>            : 
+<span class="lineNum">     241 </span>            : template &lt;class _Tp&gt;
+<span class="lineNum">     242 </span>            : struct _LIBCPP_TYPE_VIS_ONLY is_error_condition_enum
+<span class="lineNum">     243 </span>            :     : public false_type {};
+<span class="lineNum">     244 </span>            : 
+<span class="lineNum">     245 </span>            : // Some error codes are not present on all platforms, so we provide equivalents
+<span class="lineNum">     246 </span>            : // for them:
+<span class="lineNum">     247 </span>            : 
+<span class="lineNum">     248 </span>            : //enum class errc
+<span class="lineNum">     249 </span>            : _LIBCPP_DECLARE_STRONG_ENUM(errc)
+<span class="lineNum">     250 </span>            : {
+<span class="lineNum">     251 </span>            :     address_family_not_supported        = EAFNOSUPPORT,
+<span class="lineNum">     252 </span>            :     address_in_use                      = EADDRINUSE,
+<span class="lineNum">     253 </span>            :     address_not_available               = EADDRNOTAVAIL,
+<span class="lineNum">     254 </span>            :     already_connected                   = EISCONN,
+<span class="lineNum">     255 </span>            :     argument_list_too_long              = E2BIG,
+<span class="lineNum">     256 </span>            :     argument_out_of_domain              = EDOM,
+<span class="lineNum">     257 </span>            :     bad_address                         = EFAULT,
+<span class="lineNum">     258 </span>            :     bad_file_descriptor                 = EBADF,
+<span class="lineNum">     259 </span>            :     bad_message                         = EBADMSG,
+<span class="lineNum">     260 </span>            :     broken_pipe                         = EPIPE,
+<span class="lineNum">     261 </span>            :     connection_aborted                  = ECONNABORTED,
+<span class="lineNum">     262 </span>            :     connection_already_in_progress      = EALREADY,
+<span class="lineNum">     263 </span>            :     connection_refused                  = ECONNREFUSED,
+<span class="lineNum">     264 </span>            :     connection_reset                    = ECONNRESET,
+<span class="lineNum">     265 </span>            :     cross_device_link                   = EXDEV,
+<span class="lineNum">     266 </span>            :     destination_address_required        = EDESTADDRREQ,
+<span class="lineNum">     267 </span>            :     device_or_resource_busy             = EBUSY,
+<span class="lineNum">     268 </span>            :     directory_not_empty                 = ENOTEMPTY,
+<span class="lineNum">     269 </span>            :     executable_format_error             = ENOEXEC,
+<span class="lineNum">     270 </span>            :     file_exists                         = EEXIST,
+<span class="lineNum">     271 </span>            :     file_too_large                      = EFBIG,
+<span class="lineNum">     272 </span>            :     filename_too_long                   = ENAMETOOLONG,
+<span class="lineNum">     273 </span>            :     function_not_supported              = ENOSYS,
+<span class="lineNum">     274 </span>            :     host_unreachable                    = EHOSTUNREACH,
+<span class="lineNum">     275 </span>            :     identifier_removed                  = EIDRM,
+<span class="lineNum">     276 </span>            :     illegal_byte_sequence               = EILSEQ,
+<span class="lineNum">     277 </span>            :     inappropriate_io_control_operation  = ENOTTY,
+<span class="lineNum">     278 </span>            :     interrupted                         = EINTR,
+<span class="lineNum">     279 </span>            :     invalid_argument                    = EINVAL,
+<span class="lineNum">     280 </span>            :     invalid_seek                        = ESPIPE,
+<span class="lineNum">     281 </span>            :     io_error                            = EIO,
+<span class="lineNum">     282 </span>            :     is_a_directory                      = EISDIR,
+<span class="lineNum">     283 </span>            :     message_size                        = EMSGSIZE,
+<span class="lineNum">     284 </span>            :     network_down                        = ENETDOWN,
+<span class="lineNum">     285 </span>            :     network_reset                       = ENETRESET,
+<span class="lineNum">     286 </span>            :     network_unreachable                 = ENETUNREACH,
+<span class="lineNum">     287 </span>            :     no_buffer_space                     = ENOBUFS,
+<span class="lineNum">     288 </span>            :     no_child_process                    = ECHILD,
+<span class="lineNum">     289 </span>            :     no_link                             = ENOLINK,
+<span class="lineNum">     290 </span>            :     no_lock_available                   = ENOLCK,
+<span class="lineNum">     291 </span>            : #ifdef ENODATA
+<span class="lineNum">     292 </span>            :     no_message_available                = ENODATA,
+<span class="lineNum">     293 </span>            : #else
+<span class="lineNum">     294 </span>            :     no_message_available                = ENOMSG,
+<span class="lineNum">     295 </span>            : #endif
+<span class="lineNum">     296 </span>            :     no_message                          = ENOMSG,
+<span class="lineNum">     297 </span>            :     no_protocol_option                  = ENOPROTOOPT,
+<span class="lineNum">     298 </span>            :     no_space_on_device                  = ENOSPC,
+<span class="lineNum">     299 </span>            : #ifdef ENOSR
+<span class="lineNum">     300 </span>            :     no_stream_resources                 = ENOSR,
+<span class="lineNum">     301 </span>            : #else
+<span class="lineNum">     302 </span>            :     no_stream_resources                 = ENOMEM,
+<span class="lineNum">     303 </span>            : #endif
+<span class="lineNum">     304 </span>            :     no_such_device_or_address           = ENXIO,
+<span class="lineNum">     305 </span>            :     no_such_device                      = ENODEV,
+<span class="lineNum">     306 </span>            :     no_such_file_or_directory           = ENOENT,
+<span class="lineNum">     307 </span>            :     no_such_process                     = ESRCH,
+<span class="lineNum">     308 </span>            :     not_a_directory                     = ENOTDIR,
+<span class="lineNum">     309 </span>            :     not_a_socket                        = ENOTSOCK,
+<span class="lineNum">     310 </span>            : #ifdef ENOSTR
+<span class="lineNum">     311 </span>            :     not_a_stream                        = ENOSTR,
+<span class="lineNum">     312 </span>            : #else
+<span class="lineNum">     313 </span>            :     not_a_stream                        = EINVAL,
+<span class="lineNum">     314 </span>            : #endif
+<span class="lineNum">     315 </span>            :     not_connected                       = ENOTCONN,
+<span class="lineNum">     316 </span>            :     not_enough_memory                   = ENOMEM,
+<span class="lineNum">     317 </span>            :     not_supported                       = ENOTSUP,
+<span class="lineNum">     318 </span>            :     operation_canceled                  = ECANCELED,
+<span class="lineNum">     319 </span>            :     operation_in_progress               = EINPROGRESS,
+<span class="lineNum">     320 </span>            :     operation_not_permitted             = EPERM,
+<span class="lineNum">     321 </span>            :     operation_not_supported             = EOPNOTSUPP,
+<span class="lineNum">     322 </span>            :     operation_would_block               = EWOULDBLOCK,
+<span class="lineNum">     323 </span>            :     owner_dead                          = EOWNERDEAD,
+<span class="lineNum">     324 </span>            :     permission_denied                   = EACCES,
+<span class="lineNum">     325 </span>            :     protocol_error                      = EPROTO,
+<span class="lineNum">     326 </span>            :     protocol_not_supported              = EPROTONOSUPPORT,
+<span class="lineNum">     327 </span>            :     read_only_file_system               = EROFS,
+<span class="lineNum">     328 </span>            :     resource_deadlock_would_occur       = EDEADLK,
+<span class="lineNum">     329 </span>            :     resource_unavailable_try_again      = EAGAIN,
+<span class="lineNum">     330 </span>            :     result_out_of_range                 = ERANGE,
+<span class="lineNum">     331 </span>            :     state_not_recoverable               = ENOTRECOVERABLE,
+<span class="lineNum">     332 </span>            : #ifdef ETIME
+<span class="lineNum">     333 </span>            :     stream_timeout                      = ETIME,
+<span class="lineNum">     334 </span>            : #else
+<span class="lineNum">     335 </span>            :     stream_timeout                      = ETIMEDOUT,
+<span class="lineNum">     336 </span>            : #endif
+<span class="lineNum">     337 </span>            :     text_file_busy                      = ETXTBSY,
+<span class="lineNum">     338 </span>            :     timed_out                           = ETIMEDOUT,
+<span class="lineNum">     339 </span>            :     too_many_files_open_in_system       = ENFILE,
+<span class="lineNum">     340 </span>            :     too_many_files_open                 = EMFILE,
+<span class="lineNum">     341 </span>            :     too_many_links                      = EMLINK,
+<span class="lineNum">     342 </span>            :     too_many_symbolic_link_levels       = ELOOP,
+<span class="lineNum">     343 </span>            :     value_too_large                     = EOVERFLOW,
+<span class="lineNum">     344 </span>            :     wrong_protocol_type                 = EPROTOTYPE
+<span class="lineNum">     345 </span>            : };
+<span class="lineNum">     346 </span>            : _LIBCPP_DECLARE_STRONG_ENUM_EPILOG(errc)
+<span class="lineNum">     347 </span>            : 
+<span class="lineNum">     348 </span>            : template &lt;&gt;
+<span class="lineNum">     349 </span>            : struct _LIBCPP_TYPE_VIS_ONLY is_error_condition_enum&lt;errc&gt;
+<span class="lineNum">     350 </span>            :     : true_type { };
+<span class="lineNum">     351 </span>            : 
+<span class="lineNum">     352 </span>            : #ifdef _LIBCPP_HAS_NO_STRONG_ENUMS
+<span class="lineNum">     353 </span>            : template &lt;&gt;
+<span class="lineNum">     354 </span>            : struct _LIBCPP_TYPE_VIS_ONLY is_error_condition_enum&lt;errc::__lx&gt;
+<span class="lineNum">     355 </span>            :     : true_type { };
+<span class="lineNum">     356 </span>            : #endif
+<span class="lineNum">     357 </span>            : 
+<span class="lineNum">     358 </span>            : class _LIBCPP_TYPE_VIS error_condition;
+<span class="lineNum">     359 </span>            : class _LIBCPP_TYPE_VIS error_code;
+<span class="lineNum">     360 </span>            : 
+<span class="lineNum">     361 </span>            : // class error_category
+<span class="lineNum">     362 </span>            : 
+<span class="lineNum">     363 </span>            : class _LIBCPP_HIDDEN __do_message;
+<span class="lineNum">     364 </span>            : 
+<span class="lineNum">     365 </span>            : class _LIBCPP_TYPE_VIS error_category
+<span class="lineNum">     366 </span>            : {
+<span class="lineNum">     367 </span>            : public:
+<span class="lineNum">     368 </span>            :     virtual ~error_category() _NOEXCEPT;
+<span class="lineNum">     369 </span>            : 
+<span class="lineNum">     370 </span>            : #ifdef _LIBCPP_BUILDING_SYSTEM_ERROR
+<span class="lineNum">     371 </span>            :     error_category() _NOEXCEPT;
+<a name="372"><span class="lineNum">     372 </span>            : #else</a>
+<span class="lineNum">     373 </span>            :     _LIBCPP_ALWAYS_INLINE
+<span class="lineNum">     374 </span><span class="lineCov">        106 :     _LIBCPP_CONSTEXPR_AFTER_CXX11 error_category() _NOEXCEPT _LIBCPP_DEFAULT;</span>
+<span class="lineNum">     375 </span>            : #endif
+<span class="lineNum">     376 </span>            : private:
+<span class="lineNum">     377 </span>            :     error_category(const error_category&amp;);// = delete;
+<span class="lineNum">     378 </span>            :     error_category&amp; operator=(const error_category&amp;);// = delete;
+<span class="lineNum">     379 </span>            : 
+<span class="lineNum">     380 </span>            : public:
+<span class="lineNum">     381 </span>            :     virtual const char* name() const _NOEXCEPT = 0;
+<span class="lineNum">     382 </span>            :     virtual error_condition default_error_condition(int __ev) const _NOEXCEPT;
+<span class="lineNum">     383 </span>            :     virtual bool equivalent(int __code, const error_condition&amp; __condition) const _NOEXCEPT;
+<span class="lineNum">     384 </span>            :     virtual bool equivalent(const error_code&amp; __code, int __condition) const _NOEXCEPT;
+<span class="lineNum">     385 </span>            :     virtual string message(int __ev) const = 0;
+<a name="386"><span class="lineNum">     386 </span>            : </a>
+<span class="lineNum">     387 </span>            :     _LIBCPP_ALWAYS_INLINE
+<span class="lineNum">     388 </span><span class="lineCov">        172 :     bool operator==(const error_category&amp; __rhs) const _NOEXCEPT {return this == &amp;__rhs;}</span>
+<a name="389"><span class="lineNum">     389 </span>            : </a>
+<span class="lineNum">     390 </span>            :     _LIBCPP_ALWAYS_INLINE
+<span class="lineNum">     391 </span><span class="lineCov">          2 :     bool operator!=(const error_category&amp; __rhs) const _NOEXCEPT {return !(*this == __rhs);}</span>
+<a name="392"><span class="lineNum">     392 </span>            : </a>
+<span class="lineNum">     393 </span>            :     _LIBCPP_ALWAYS_INLINE
+<span class="lineNum">     394 </span><span class="lineCov">          5 :     bool operator&lt; (const error_category&amp; __rhs) const _NOEXCEPT {return this &lt; &amp;__rhs;}</span>
+<span class="lineNum">     395 </span>            : 
+<span class="lineNum">     396 </span>            :     friend class _LIBCPP_HIDDEN __do_message;
+<a name="397"><span class="lineNum">     397 </span>            : };</a>
+<span class="lineNum">     398 </span>            : 
+<span class="lineNum">     399 </span><span class="lineCov">        212 : class _LIBCPP_HIDDEN __do_message</span>
+<span class="lineNum">     400 </span>            :     : public error_category
+<span class="lineNum">     401 </span>            : {
+<span class="lineNum">     402 </span>            : public:
+<span class="lineNum">     403 </span>            :     virtual string message(int ev) const;
+<span class="lineNum">     404 </span>            : };
+<span class="lineNum">     405 </span>            : 
+<span class="lineNum">     406 </span>            : _LIBCPP_FUNC_VIS const error_category&amp; generic_category() _NOEXCEPT;
+<span class="lineNum">     407 </span>            : _LIBCPP_FUNC_VIS const error_category&amp; system_category() _NOEXCEPT;
+<span class="lineNum">     408 </span>            : 
+<span class="lineNum">     409 </span>            : class _LIBCPP_TYPE_VIS error_condition
+<span class="lineNum">     410 </span>            : {
+<span class="lineNum">     411 </span>            :     int __val_;
+<span class="lineNum">     412 </span>            :     const error_category* __cat_;
+<a name="413"><span class="lineNum">     413 </span>            : public:</a>
+<span class="lineNum">     414 </span>            :     _LIBCPP_ALWAYS_INLINE
+<span class="lineNum">     415 </span><span class="lineCov">          5 :     error_condition() _NOEXCEPT : __val_(0), __cat_(&amp;generic_category()) {}</span>
+<a name="416"><span class="lineNum">     416 </span>            : </a>
+<span class="lineNum">     417 </span>            :     _LIBCPP_ALWAYS_INLINE
+<span class="lineNum">     418 </span>            :     error_condition(int __val, const error_category&amp; __cat) _NOEXCEPT
+<span class="lineNum">     419 </span><span class="lineCov">         64 :         : __val_(__val), __cat_(&amp;__cat) {}</span>
+<span class="lineNum">     420 </span>            : 
+<a name="421"><span class="lineNum">     421 </span>            :     template &lt;class _Ep&gt;</a>
+<span class="lineNum">     422 </span>            :         _LIBCPP_ALWAYS_INLINE
+<span class="lineNum">     423 </span>            :         error_condition(_Ep __e,
+<span class="lineNum">     424 </span>            :               typename enable_if&lt;is_error_condition_enum&lt;_Ep&gt;::value&gt;::type* = 0
+<span class="lineNum">     425 </span>            :                                                                      ) _NOEXCEPT
+<span class="lineNum">     426 </span><span class="lineCov">          1 :             {*this = make_error_condition(__e);}</span>
+<a name="427"><span class="lineNum">     427 </span>            : </a>
+<span class="lineNum">     428 </span>            :     _LIBCPP_ALWAYS_INLINE
+<span class="lineNum">     429 </span>            :     void assign(int __val, const error_category&amp; __cat) _NOEXCEPT
+<span class="lineNum">     430 </span>            :     {
+<span class="lineNum">     431 </span><span class="lineCov">          3 :         __val_ = __val;</span>
+<span class="lineNum">     432 </span><span class="lineCov">          3 :         __cat_ = &amp;__cat;</span>
+<span class="lineNum">     433 </span><span class="lineCov">          3 :     }</span>
+<span class="lineNum">     434 </span>            : 
+<span class="lineNum">     435 </span>            :     template &lt;class _Ep&gt;
+<span class="lineNum">     436 </span>            :         _LIBCPP_ALWAYS_INLINE
+<span class="lineNum">     437 </span>            :         typename enable_if
+<span class="lineNum">     438 </span>            :         &lt;
+<span class="lineNum">     439 </span>            :             is_error_condition_enum&lt;_Ep&gt;::value,
+<a name="440"><span class="lineNum">     440 </span>            :             error_condition&amp;</a>
+<span class="lineNum">     441 </span>            :         &gt;::type
+<span class="lineNum">     442 </span>            :         operator=(_Ep __e) _NOEXCEPT
+<span class="lineNum">     443 </span><span class="lineCov">          1 :             {*this = make_error_condition(__e); return *this;}</span>
+<a name="444"><span class="lineNum">     444 </span>            : </a>
+<span class="lineNum">     445 </span>            :     _LIBCPP_ALWAYS_INLINE
+<span class="lineNum">     446 </span>            :     void clear() _NOEXCEPT
+<span class="lineNum">     447 </span>            :     {
+<span class="lineNum">     448 </span><span class="lineCov">          1 :         __val_ = 0;</span>
+<span class="lineNum">     449 </span><span class="lineCov">          1 :         __cat_ = &amp;generic_category();</span>
+<span class="lineNum">     450 </span><span class="lineCov">          1 :     }</span>
+<a name="451"><span class="lineNum">     451 </span>            : </a>
+<span class="lineNum">     452 </span>            :     _LIBCPP_ALWAYS_INLINE
+<span class="lineNum">     453 </span><span class="lineCov">        103 :     int value() const _NOEXCEPT {return __val_;}</span>
+<a name="454"><span class="lineNum">     454 </span>            : </a>
+<span class="lineNum">     455 </span>            :     _LIBCPP_ALWAYS_INLINE
+<span class="lineNum">     456 </span><span class="lineCov">        153 :     const error_category&amp; category() const _NOEXCEPT {return *__cat_;}</span>
+<span class="lineNum">     457 </span>            :     string message() const;
+<span class="lineNum">     458 </span>            : 
+<a name="459"><span class="lineNum">     459 </span>            :     _LIBCPP_ALWAYS_INLINE</a>
+<span class="lineNum">     460 </span>            :         _LIBCPP_EXPLICIT
+<span class="lineNum">     461 </span><span class="lineCov">          2 :         operator bool() const _NOEXCEPT {return __val_ != 0;}</span>
+<span class="lineNum">     462 </span>            : };
+<span class="lineNum">     463 </span>            : 
+<a name="464"><span class="lineNum">     464 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     465 </span>            : error_condition
+<span class="lineNum">     466 </span>            : make_error_condition(errc __e) _NOEXCEPT
+<span class="lineNum">     467 </span>            : {
+<span class="lineNum">     468 </span><span class="lineCov">          3 :     return error_condition(static_cast&lt;int&gt;(__e), generic_category());</span>
+<span class="lineNum">     469 </span>            : }
+<span class="lineNum">     470 </span>            : 
+<a name="471"><span class="lineNum">     471 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     472 </span>            : bool
+<span class="lineNum">     473 </span>            : operator&lt;(const error_condition&amp; __x, const error_condition&amp; __y) _NOEXCEPT
+<span class="lineNum">     474 </span>            : {
+<span class="lineNum">     475 </span><span class="lineCov">          2 :     return __x.category() &lt; __y.category()</span>
+<span class="lineNum">     476 </span><span class="lineCov">          4 :         || (__x.category() == __y.category() &amp;&amp; __x.value() &lt; __y.value());</span>
+<span class="lineNum">     477 </span>            : }
+<span class="lineNum">     478 </span>            : 
+<span class="lineNum">     479 </span>            : // error_code
+<span class="lineNum">     480 </span>            : 
+<span class="lineNum">     481 </span>            : class _LIBCPP_TYPE_VIS error_code
+<span class="lineNum">     482 </span>            : {
+<span class="lineNum">     483 </span>            :     int __val_;
+<span class="lineNum">     484 </span>            :     const error_category* __cat_;
+<a name="485"><span class="lineNum">     485 </span>            : public:</a>
+<span class="lineNum">     486 </span>            :     _LIBCPP_ALWAYS_INLINE
+<span class="lineNum">     487 </span><span class="lineCov">          6 :     error_code() _NOEXCEPT : __val_(0), __cat_(&amp;system_category()) {}</span>
+<a name="488"><span class="lineNum">     488 </span>            : </a>
+<span class="lineNum">     489 </span>            :     _LIBCPP_ALWAYS_INLINE
+<span class="lineNum">     490 </span>            :     error_code(int __val, const error_category&amp; __cat) _NOEXCEPT
+<span class="lineNum">     491 </span><span class="lineCov">        154 :         : __val_(__val), __cat_(&amp;__cat) {}</span>
+<span class="lineNum">     492 </span>            : 
+<a name="493"><span class="lineNum">     493 </span>            :     template &lt;class _Ep&gt;</a>
+<span class="lineNum">     494 </span>            :         _LIBCPP_ALWAYS_INLINE
+<span class="lineNum">     495 </span>            :         error_code(_Ep __e,
+<span class="lineNum">     496 </span>            :                    typename enable_if&lt;is_error_code_enum&lt;_Ep&gt;::value&gt;::type* = 0
+<span class="lineNum">     497 </span>            :                                                                      ) _NOEXCEPT
+<span class="lineNum">     498 </span><span class="lineCov">         15 :             {*this = make_error_code(__e);}</span>
+<a name="499"><span class="lineNum">     499 </span>            : </a>
+<span class="lineNum">     500 </span>            :     _LIBCPP_ALWAYS_INLINE
+<span class="lineNum">     501 </span>            :     void assign(int __val, const error_category&amp; __cat) _NOEXCEPT
+<span class="lineNum">     502 </span>            :     {
+<span class="lineNum">     503 </span><span class="lineCov">          3 :         __val_ = __val;</span>
+<span class="lineNum">     504 </span><span class="lineCov">          3 :         __cat_ = &amp;__cat;</span>
+<span class="lineNum">     505 </span><span class="lineCov">          3 :     }</span>
+<span class="lineNum">     506 </span>            : 
+<span class="lineNum">     507 </span>            :     template &lt;class _Ep&gt;
+<span class="lineNum">     508 </span>            :         _LIBCPP_ALWAYS_INLINE
+<span class="lineNum">     509 </span>            :         typename enable_if
+<span class="lineNum">     510 </span>            :         &lt;
+<span class="lineNum">     511 </span>            :             is_error_code_enum&lt;_Ep&gt;::value,
+<a name="512"><span class="lineNum">     512 </span>            :             error_code&amp;</a>
+<span class="lineNum">     513 </span>            :         &gt;::type
+<span class="lineNum">     514 </span>            :         operator=(_Ep __e) _NOEXCEPT
+<span class="lineNum">     515 </span><span class="lineCov">          2 :             {*this = make_error_code(__e); return *this;}</span>
+<a name="516"><span class="lineNum">     516 </span>            : </a>
+<span class="lineNum">     517 </span>            :     _LIBCPP_ALWAYS_INLINE
+<span class="lineNum">     518 </span>            :     void clear() _NOEXCEPT
+<span class="lineNum">     519 </span>            :     {
+<span class="lineNum">     520 </span><span class="lineCov">          1 :         __val_ = 0;</span>
+<span class="lineNum">     521 </span><span class="lineCov">          1 :         __cat_ = &amp;system_category();</span>
+<span class="lineNum">     522 </span><span class="lineCov">          1 :     }</span>
+<a name="523"><span class="lineNum">     523 </span>            : </a>
+<span class="lineNum">     524 </span>            :     _LIBCPP_ALWAYS_INLINE
+<span class="lineNum">     525 </span><span class="lineCov">        189 :     int value() const _NOEXCEPT {return __val_;}</span>
+<a name="526"><span class="lineNum">     526 </span>            : </a>
+<span class="lineNum">     527 </span>            :     _LIBCPP_ALWAYS_INLINE
+<span class="lineNum">     528 </span><span class="lineCov">        188 :     const error_category&amp; category() const _NOEXCEPT {return *__cat_;}</span>
+<a name="529"><span class="lineNum">     529 </span>            : </a>
+<span class="lineNum">     530 </span>            :     _LIBCPP_ALWAYS_INLINE
+<span class="lineNum">     531 </span>            :     error_condition default_error_condition() const _NOEXCEPT
+<span class="lineNum">     532 </span><span class="lineCov">          2 :         {return __cat_-&gt;default_error_condition(__val_);}</span>
+<span class="lineNum">     533 </span>            : 
+<span class="lineNum">     534 </span>            :     string message() const;
+<span class="lineNum">     535 </span>            : 
+<a name="536"><span class="lineNum">     536 </span>            :     _LIBCPP_ALWAYS_INLINE</a>
+<span class="lineNum">     537 </span>            :         _LIBCPP_EXPLICIT
+<span class="lineNum">     538 </span><span class="lineCov">         52 :         operator bool() const _NOEXCEPT {return __val_ != 0;}</span>
+<span class="lineNum">     539 </span>            : };
+<span class="lineNum">     540 </span>            : 
+<a name="541"><span class="lineNum">     541 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     542 </span>            : error_code
+<span class="lineNum">     543 </span>            : make_error_code(errc __e) _NOEXCEPT
+<span class="lineNum">     544 </span>            : {
+<span class="lineNum">     545 </span><span class="lineCov">         13 :     return error_code(static_cast&lt;int&gt;(__e), generic_category());</span>
+<span class="lineNum">     546 </span>            : }
+<span class="lineNum">     547 </span>            : 
+<a name="548"><span class="lineNum">     548 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     549 </span>            : bool
+<span class="lineNum">     550 </span>            : operator&lt;(const error_code&amp; __x, const error_code&amp; __y) _NOEXCEPT
+<span class="lineNum">     551 </span>            : {
+<span class="lineNum">     552 </span><span class="lineCov">          2 :     return __x.category() &lt; __y.category()</span>
+<span class="lineNum">     553 </span><span class="lineCov">          4 :         || (__x.category() == __y.category() &amp;&amp; __x.value() &lt; __y.value());</span>
+<span class="lineNum">     554 </span>            : }
+<span class="lineNum">     555 </span>            : 
+<a name="556"><span class="lineNum">     556 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     557 </span>            : bool
+<span class="lineNum">     558 </span>            : operator==(const error_code&amp; __x, const error_code&amp; __y) _NOEXCEPT
+<span class="lineNum">     559 </span>            : {
+<span class="lineNum">     560 </span><span class="lineCov">        154 :     return __x.category() == __y.category() &amp;&amp; __x.value() == __y.value();</span>
+<span class="lineNum">     561 </span>            : }
+<span class="lineNum">     562 </span>            : 
+<a name="563"><span class="lineNum">     563 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     564 </span>            : bool
+<span class="lineNum">     565 </span>            : operator==(const error_code&amp; __x, const error_condition&amp; __y) _NOEXCEPT
+<span class="lineNum">     566 </span>            : {
+<span class="lineNum">     567 </span><span class="lineCov">         68 :     return __x.category().equivalent(__x.value(), __y)</span>
+<span class="lineNum">     568 </span><span class="lineCov">         58 :         || __y.category().equivalent(__x, __y.value());</span>
+<span class="lineNum">     569 </span>            : }
+<span class="lineNum">     570 </span>            : 
+<a name="571"><span class="lineNum">     571 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     572 </span>            : bool
+<span class="lineNum">     573 </span>            : operator==(const error_condition&amp; __x, const error_code&amp; __y) _NOEXCEPT
+<span class="lineNum">     574 </span>            : {
+<span class="lineNum">     575 </span><span class="lineCov">         18 :     return __y == __x;</span>
+<span class="lineNum">     576 </span>            : }
+<span class="lineNum">     577 </span>            : 
+<a name="578"><span class="lineNum">     578 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     579 </span>            : bool
+<span class="lineNum">     580 </span>            : operator==(const error_condition&amp; __x, const error_condition&amp; __y) _NOEXCEPT
+<span class="lineNum">     581 </span>            : {
+<span class="lineNum">     582 </span><span class="lineCov">        138 :     return __x.category() == __y.category() &amp;&amp; __x.value() == __y.value();</span>
+<span class="lineNum">     583 </span>            : }
+<span class="lineNum">     584 </span>            : 
+<a name="585"><span class="lineNum">     585 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     586 </span>            : bool
+<span class="lineNum">     587 </span>            : operator!=(const error_code&amp; __x, const error_code&amp; __y) _NOEXCEPT
+<span class="lineNum">     588 </span><span class="lineCov">         12 : {return !(__x == __y);}</span>
+<span class="lineNum">     589 </span>            : 
+<a name="590"><span class="lineNum">     590 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     591 </span>            : bool
+<span class="lineNum">     592 </span>            : operator!=(const error_code&amp; __x, const error_condition&amp; __y) _NOEXCEPT
+<span class="lineNum">     593 </span><span class="lineCov">         10 : {return !(__x == __y);}</span>
+<span class="lineNum">     594 </span>            : 
+<a name="595"><span class="lineNum">     595 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     596 </span>            : bool
+<span class="lineNum">     597 </span>            : operator!=(const error_condition&amp; __x, const error_code&amp; __y) _NOEXCEPT
+<span class="lineNum">     598 </span><span class="lineCov">         10 : {return !(__x == __y);}</span>
+<span class="lineNum">     599 </span>            : 
+<a name="600"><span class="lineNum">     600 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     601 </span>            : bool
+<span class="lineNum">     602 </span>            : operator!=(const error_condition&amp; __x, const error_condition&amp; __y) _NOEXCEPT
+<span class="lineNum">     603 </span><span class="lineCov">         12 : {return !(__x == __y);}</span>
+<span class="lineNum">     604 </span>            : 
+<span class="lineNum">     605 </span>            : template &lt;&gt;
+<span class="lineNum">     606 </span>            : struct _LIBCPP_TYPE_VIS_ONLY hash&lt;error_code&gt;
+<span class="lineNum">     607 </span>            :     : public unary_function&lt;error_code, size_t&gt;
+<a name="608"><span class="lineNum">     608 </span>            : {</a>
+<span class="lineNum">     609 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     610 </span>            :     size_t operator()(const error_code&amp; __ec) const _NOEXCEPT
+<span class="lineNum">     611 </span>            :     {
+<span class="lineNum">     612 </span><span class="lineCov">          3 :         return static_cast&lt;size_t&gt;(__ec.value());</span>
+<span class="lineNum">     613 </span>            :     }
+<span class="lineNum">     614 </span>            : };
+<span class="lineNum">     615 </span>            : 
+<span class="lineNum">     616 </span>            : // system_error
+<span class="lineNum">     617 </span>            : 
+<span class="lineNum">     618 </span>            : class _LIBCPP_TYPE_VIS system_error
+<span class="lineNum">     619 </span>            :     : public runtime_error
+<span class="lineNum">     620 </span>            : {
+<span class="lineNum">     621 </span>            :     error_code __ec_;
+<span class="lineNum">     622 </span>            : public:
+<span class="lineNum">     623 </span>            :     system_error(error_code __ec, const string&amp; __what_arg);
+<span class="lineNum">     624 </span>            :     system_error(error_code __ec, const char* __what_arg);
+<span class="lineNum">     625 </span>            :     system_error(error_code __ec);
+<span class="lineNum">     626 </span>            :     system_error(int __ev, const error_category&amp; __ecat, const string&amp; __what_arg);
+<span class="lineNum">     627 </span>            :     system_error(int __ev, const error_category&amp; __ecat, const char* __what_arg);
+<span class="lineNum">     628 </span>            :     system_error(int __ev, const error_category&amp; __ecat);
+<span class="lineNum">     629 </span>            :     ~system_error() _NOEXCEPT;
+<a name="630"><span class="lineNum">     630 </span>            : </a>
+<span class="lineNum">     631 </span>            :     _LIBCPP_ALWAYS_INLINE
+<span class="lineNum">     632 </span><span class="lineCov">         38 :     const error_code&amp; code() const _NOEXCEPT {return __ec_;}</span>
+<span class="lineNum">     633 </span>            : 
+<span class="lineNum">     634 </span>            : private:
+<span class="lineNum">     635 </span>            :     static string __init(const error_code&amp;, string);
+<span class="lineNum">     636 </span>            : };
+<span class="lineNum">     637 </span>            : 
+<span class="lineNum">     638 </span>            : _LIBCPP_FUNC_VIS void __throw_system_error(int ev, const char* what_arg);
+<span class="lineNum">     639 </span>            : 
+<span class="lineNum">     640 </span>            : _LIBCPP_END_NAMESPACE_STD
+<span class="lineNum">     641 </span>            : 
+<span class="lineNum">     642 </span>            : #endif  // _LIBCPP_SYSTEM_ERROR
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

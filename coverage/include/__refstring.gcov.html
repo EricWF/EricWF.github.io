@@ -1,0 +1,215 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - test_coverage.info - include/__refstring</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">include</a> - __refstring<span style="font-size: 80%;"> (source / <a href="__refstring.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">test_coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">27</td>
+            <td class="headerCovTableEntry">29</td>
+            <td class="headerCovTableEntryHi">93.1 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2015-06-02</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">6</td>
+            <td class="headerCovTableEntry">6</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : //===------------------------ __refstring ---------------------------------===//</a>
+<span class="lineNum">       2 </span>            : //
+<span class="lineNum">       3 </span>            : //                     The LLVM Compiler Infrastructure
+<span class="lineNum">       4 </span>            : //
+<span class="lineNum">       5 </span>            : // This file is dual licensed under the MIT and the University of Illinois Open
+<span class="lineNum">       6 </span>            : // Source Licenses. See LICENSE.TXT for details.
+<span class="lineNum">       7 </span>            : //
+<span class="lineNum">       8 </span>            : //===----------------------------------------------------------------------===//
+<span class="lineNum">       9 </span>            : 
+<span class="lineNum">      10 </span>            : #ifndef _LIBCPP___REFSTRING
+<span class="lineNum">      11 </span>            : #define _LIBCPP___REFSTRING
+<span class="lineNum">      12 </span>            : 
+<span class="lineNum">      13 </span>            : #include &lt;__config&gt;
+<span class="lineNum">      14 </span>            : #include &lt;cstddef&gt;
+<span class="lineNum">      15 </span>            : #include &lt;cstring&gt;
+<span class="lineNum">      16 </span>            : #ifdef __APPLE__
+<span class="lineNum">      17 </span>            : #include &lt;dlfcn.h&gt;
+<span class="lineNum">      18 </span>            : #include &lt;mach-o/dyld.h&gt;
+<span class="lineNum">      19 </span>            : #endif
+<span class="lineNum">      20 </span>            : 
+<span class="lineNum">      21 </span>            : _LIBCPP_BEGIN_NAMESPACE_STD
+<span class="lineNum">      22 </span>            : 
+<span class="lineNum">      23 </span>            : class _LIBCPP_HIDDEN __libcpp_refstring
+<span class="lineNum">      24 </span>            : {
+<span class="lineNum">      25 </span>            : private:
+<span class="lineNum">      26 </span>            :     const char* str_;
+<span class="lineNum">      27 </span>            : 
+<span class="lineNum">      28 </span>            :     typedef int count_t;
+<span class="lineNum">      29 </span>            : 
+<span class="lineNum">      30 </span>            :     struct _Rep_base
+<span class="lineNum">      31 </span>            :     {
+<span class="lineNum">      32 </span>            :         std::size_t len;
+<span class="lineNum">      33 </span>            :         std::size_t cap;
+<span class="lineNum">      34 </span>            :         count_t     count;
+<span class="lineNum">      35 </span>            :     };
+<span class="lineNum">      36 </span>            : 
+<a name="37"><span class="lineNum">      37 </span>            :     static</a>
+<span class="lineNum">      38 </span>            :     _Rep_base*
+<span class="lineNum">      39 </span>            :     rep_from_data(const char *data_) _NOEXCEPT
+<span class="lineNum">      40 </span>            :     {
+<span class="lineNum">      41 </span><span class="lineCov">         64 :         char *data = const_cast&lt;char *&gt;(data_);</span>
+<span class="lineNum">      42 </span><span class="lineCov">         64 :         return reinterpret_cast&lt;_Rep_base *&gt;(data - sizeof(_Rep_base));</span>
+<span class="lineNum">      43 </span>            :     }
+<a name="44"><span class="lineNum">      44 </span>            :     static</a>
+<span class="lineNum">      45 </span>            :     char *
+<span class="lineNum">      46 </span>            :     data_from_rep(_Rep_base *rep) _NOEXCEPT
+<span class="lineNum">      47 </span>            :     {
+<span class="lineNum">      48 </span><span class="lineCov">       4935 :         char *data = reinterpret_cast&lt;char *&gt;(rep);</span>
+<span class="lineNum">      49 </span><span class="lineCov">       4935 :         return data + sizeof(*rep);</span>
+<span class="lineNum">      50 </span>            :     }
+<span class="lineNum">      51 </span>            : 
+<span class="lineNum">      52 </span>            : #ifdef __APPLE__
+<span class="lineNum">      53 </span>            :     static
+<span class="lineNum">      54 </span>            :     const char*
+<span class="lineNum">      55 </span>            :     compute_gcc_empty_string_storage() _NOEXCEPT
+<span class="lineNum">      56 </span>            :     {
+<span class="lineNum">      57 </span>            :         void* handle = dlopen(&quot;/usr/lib/libstdc++.6.dylib&quot;, RTLD_NOLOAD);
+<span class="lineNum">      58 </span>            :         if (handle == nullptr)
+<span class="lineNum">      59 </span>            :             return nullptr;
+<span class="lineNum">      60 </span>            :         void* sym = dlsym(handle, &quot;_ZNSs4_Rep20_S_empty_rep_storageE&quot;);
+<span class="lineNum">      61 </span>            :         if (sym == nullptr)
+<span class="lineNum">      62 </span>            :             return nullptr;
+<span class="lineNum">      63 </span>            :         return data_from_rep(reinterpret_cast&lt;_Rep_base *&gt;(sym));
+<span class="lineNum">      64 </span>            :     }
+<span class="lineNum">      65 </span>            : 
+<span class="lineNum">      66 </span>            :     static
+<span class="lineNum">      67 </span>            :     const char*
+<span class="lineNum">      68 </span>            :     get_gcc_empty_string_storage() _NOEXCEPT
+<span class="lineNum">      69 </span>            :     {
+<span class="lineNum">      70 </span>            :         static const char* p = compute_gcc_empty_string_storage();
+<span class="lineNum">      71 </span>            :         return p;
+<span class="lineNum">      72 </span>            :     }
+<span class="lineNum">      73 </span>            : 
+<span class="lineNum">      74 </span>            :     bool
+<span class="lineNum">      75 </span>            :     uses_refcount() const
+<span class="lineNum">      76 </span>            :     {
+<span class="lineNum">      77 </span>            :         return str_ != get_gcc_empty_string_storage();
+<span class="lineNum">      78 </span>            :     }
+<a name="79"><span class="lineNum">      79 </span>            : #else</a>
+<span class="lineNum">      80 </span>            :     bool
+<span class="lineNum">      81 </span>            :     uses_refcount() const
+<span class="lineNum">      82 </span>            :     {
+<span class="lineNum">      83 </span><span class="lineCov">         64 :         return true;</span>
+<span class="lineNum">      84 </span>            :     }
+<span class="lineNum">      85 </span>            : #endif
+<a name="86"><span class="lineNum">      86 </span>            : </a>
+<span class="lineNum">      87 </span>            : public:
+<span class="lineNum">      88 </span>            :     explicit __libcpp_refstring(const char* msg) {
+<span class="lineNum">      89 </span><span class="lineCov">       4935 :         std::size_t len = strlen(msg);</span>
+<span class="lineNum">      90 </span><span class="lineCov">       4935 :         _Rep_base* rep = static_cast&lt;_Rep_base *&gt;(::operator new(sizeof(*rep) + len + 1));</span>
+<span class="lineNum">      91 </span><span class="lineCov">       4935 :         rep-&gt;len = len;</span>
+<span class="lineNum">      92 </span><span class="lineCov">       4935 :         rep-&gt;cap = len;</span>
+<span class="lineNum">      93 </span><span class="lineCov">       4935 :         rep-&gt;count = 0;</span>
+<span class="lineNum">      94 </span><span class="lineCov">       4935 :         char *data = data_from_rep(rep);</span>
+<span class="lineNum">      95 </span><span class="lineCov">       4935 :         std::memcpy(data, msg, len + 1);</span>
+<span class="lineNum">      96 </span><span class="lineCov">       4935 :         str_ = data;</span>
+<a name="97"><span class="lineNum">      97 </span><span class="lineCov">       4935 :     }</span></a>
+<span class="lineNum">      98 </span>            : 
+<span class="lineNum">      99 </span><span class="lineCov">         28 :     __libcpp_refstring(const __libcpp_refstring&amp; s) _NOEXCEPT : str_(s.str_)</span>
+<span class="lineNum">     100 </span>            :     {
+<span class="lineNum">     101 </span><span class="lineCov">         56 :         if (uses_refcount())</span>
+<span class="lineNum">     102 </span><span class="lineCov">         28 :             __sync_add_and_fetch(&amp;rep_from_data(str_)-&gt;count, 1);</span>
+<a name="103"><span class="lineNum">     103 </span><span class="lineCov">         28 :     }</span></a>
+<span class="lineNum">     104 </span>            : 
+<span class="lineNum">     105 </span>            :     __libcpp_refstring&amp; operator=(const __libcpp_refstring&amp; s) _NOEXCEPT
+<span class="lineNum">     106 </span>            :     {
+<span class="lineNum">     107 </span><span class="lineCov">         36 :         bool adjust_old_count = uses_refcount();</span>
+<span class="lineNum">     108 </span><span class="lineCov">         18 :         struct _Rep_base *old_rep = rep_from_data(str_);</span>
+<span class="lineNum">     109 </span><span class="lineCov">         18 :         str_ = s.str_;</span>
+<span class="lineNum">     110 </span><span class="lineCov">         36 :         if (uses_refcount())</span>
+<span class="lineNum">     111 </span><span class="lineCov">         18 :             __sync_add_and_fetch(&amp;rep_from_data(str_)-&gt;count, 1);</span>
+<span class="lineNum">     112 </span><span class="lineCov">         18 :         if (adjust_old_count)</span>
+<span class="lineNum">     113 </span>            :         {
+<span class="lineNum">     114 </span><span class="lineCov">         18 :             if (__sync_add_and_fetch(&amp;old_rep-&gt;count, count_t(-1)) &lt; 0)</span>
+<span class="lineNum">     115 </span>            :             {
+<span class="lineNum">     116 </span><span class="lineNoCov">          0 :                 ::operator delete(old_rep);</span>
+<span class="lineNum">     117 </span><span class="lineNoCov">          0 :             }</span>
+<span class="lineNum">     118 </span><span class="lineCov">         18 :         }</span>
+<span class="lineNum">     119 </span><span class="lineCov">         18 :         return *this;</span>
+<span class="lineNum">     120 </span>            :     }
+<span class="lineNum">     121 </span>            : 
+<span class="lineNum">     122 </span>            :     ~__libcpp_refstring()
+<span class="lineNum">     123 </span>            :     {
+<span class="lineNum">     124 </span>            :         if (uses_refcount())
+<span class="lineNum">     125 </span>            :         {
+<span class="lineNum">     126 </span>            :             _Rep_base* rep = rep_from_data(str_);
+<span class="lineNum">     127 </span>            :             if (__sync_add_and_fetch(&amp;rep-&gt;count, count_t(-1)) &lt; 0)
+<span class="lineNum">     128 </span>            :             {
+<span class="lineNum">     129 </span>            :                 ::operator delete(rep);
+<span class="lineNum">     130 </span>            :             }
+<span class="lineNum">     131 </span>            :         }
+<span class="lineNum">     132 </span>            :     }
+<span class="lineNum">     133 </span>            : 
+<span class="lineNum">     134 </span>            :     const char* c_str() const _NOEXCEPT {return str_;}
+<span class="lineNum">     135 </span>            : };
+<span class="lineNum">     136 </span>            : 
+<span class="lineNum">     137 </span>            : _LIBCPP_END_NAMESPACE_STD
+<span class="lineNum">     138 </span>            : 
+<span class="lineNum">     139 </span>            : #endif //_LIBCPP___REFSTRING
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

@@ -1,0 +1,541 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - test_coverage.info - include/thread</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">include</a> - thread<span style="font-size: 80%;"> (source / <a href="thread.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">test_coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">62</td>
+            <td class="headerCovTableEntry">67</td>
+            <td class="headerCovTableEntryHi">92.5 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2015-06-02</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">76</td>
+            <td class="headerCovTableEntry">76</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : // -*- C++ -*-</a>
+<span class="lineNum">       2 </span>            : //===--------------------------- thread -----------------------------------===//
+<span class="lineNum">       3 </span>            : //
+<span class="lineNum">       4 </span>            : //                     The LLVM Compiler Infrastructure
+<span class="lineNum">       5 </span>            : //
+<span class="lineNum">       6 </span>            : // This file is dual licensed under the MIT and the University of Illinois Open
+<span class="lineNum">       7 </span>            : // Source Licenses. See LICENSE.TXT for details.
+<span class="lineNum">       8 </span>            : //
+<span class="lineNum">       9 </span>            : //===----------------------------------------------------------------------===//
+<span class="lineNum">      10 </span>            : 
+<span class="lineNum">      11 </span>            : #ifndef _LIBCPP_THREAD
+<span class="lineNum">      12 </span>            : #define _LIBCPP_THREAD
+<span class="lineNum">      13 </span>            : 
+<span class="lineNum">      14 </span>            : /*
+<span class="lineNum">      15 </span>            : 
+<span class="lineNum">      16 </span>            :     thread synopsis
+<span class="lineNum">      17 </span>            : 
+<span class="lineNum">      18 </span>            : #define __STDCPP_THREADS__ __cplusplus
+<span class="lineNum">      19 </span>            : 
+<span class="lineNum">      20 </span>            : namespace std
+<span class="lineNum">      21 </span>            : {
+<span class="lineNum">      22 </span>            : 
+<span class="lineNum">      23 </span>            : class thread
+<span class="lineNum">      24 </span>            : {
+<span class="lineNum">      25 </span>            : public:
+<span class="lineNum">      26 </span>            :     class id;
+<span class="lineNum">      27 </span>            :     typedef pthread_t native_handle_type;
+<span class="lineNum">      28 </span>            : 
+<span class="lineNum">      29 </span>            :     thread() noexcept;
+<span class="lineNum">      30 </span>            :     template &lt;class F, class ...Args&gt; explicit thread(F&amp;&amp; f, Args&amp;&amp;... args);
+<span class="lineNum">      31 </span>            :     ~thread();
+<span class="lineNum">      32 </span>            : 
+<span class="lineNum">      33 </span>            :     thread(const thread&amp;) = delete;
+<span class="lineNum">      34 </span>            :     thread(thread&amp;&amp; t) noexcept;
+<span class="lineNum">      35 </span>            : 
+<span class="lineNum">      36 </span>            :     thread&amp; operator=(const thread&amp;) = delete;
+<span class="lineNum">      37 </span>            :     thread&amp; operator=(thread&amp;&amp; t) noexcept;
+<span class="lineNum">      38 </span>            : 
+<span class="lineNum">      39 </span>            :     void swap(thread&amp; t) noexcept;
+<span class="lineNum">      40 </span>            : 
+<span class="lineNum">      41 </span>            :     bool joinable() const noexcept;
+<span class="lineNum">      42 </span>            :     void join();
+<span class="lineNum">      43 </span>            :     void detach();
+<span class="lineNum">      44 </span>            :     id get_id() const noexcept;
+<span class="lineNum">      45 </span>            :     native_handle_type native_handle();
+<span class="lineNum">      46 </span>            : 
+<span class="lineNum">      47 </span>            :     static unsigned hardware_concurrency() noexcept;
+<span class="lineNum">      48 </span>            : };
+<span class="lineNum">      49 </span>            : 
+<span class="lineNum">      50 </span>            : void swap(thread&amp; x, thread&amp; y) noexcept;
+<span class="lineNum">      51 </span>            : 
+<span class="lineNum">      52 </span>            : class thread::id
+<span class="lineNum">      53 </span>            : {
+<span class="lineNum">      54 </span>            : public:
+<span class="lineNum">      55 </span>            :     id() noexcept;
+<span class="lineNum">      56 </span>            : };
+<span class="lineNum">      57 </span>            : 
+<span class="lineNum">      58 </span>            : bool operator==(thread::id x, thread::id y) noexcept;
+<span class="lineNum">      59 </span>            : bool operator!=(thread::id x, thread::id y) noexcept;
+<span class="lineNum">      60 </span>            : bool operator&lt; (thread::id x, thread::id y) noexcept;
+<span class="lineNum">      61 </span>            : bool operator&lt;=(thread::id x, thread::id y) noexcept;
+<span class="lineNum">      62 </span>            : bool operator&gt; (thread::id x, thread::id y) noexcept;
+<span class="lineNum">      63 </span>            : bool operator&gt;=(thread::id x, thread::id y) noexcept;
+<span class="lineNum">      64 </span>            : 
+<span class="lineNum">      65 </span>            : template&lt;class charT, class traits&gt;
+<span class="lineNum">      66 </span>            : basic_ostream&lt;charT, traits&gt;&amp;
+<span class="lineNum">      67 </span>            : operator&lt;&lt;(basic_ostream&lt;charT, traits&gt;&amp; out, thread::id id);
+<span class="lineNum">      68 </span>            : 
+<span class="lineNum">      69 </span>            : namespace this_thread
+<span class="lineNum">      70 </span>            : {
+<span class="lineNum">      71 </span>            : 
+<span class="lineNum">      72 </span>            : thread::id get_id() noexcept;
+<span class="lineNum">      73 </span>            : 
+<span class="lineNum">      74 </span>            : void yield() noexcept;
+<span class="lineNum">      75 </span>            : 
+<span class="lineNum">      76 </span>            : template &lt;class Clock, class Duration&gt;
+<span class="lineNum">      77 </span>            : void sleep_until(const chrono::time_point&lt;Clock, Duration&gt;&amp; abs_time);
+<span class="lineNum">      78 </span>            : 
+<span class="lineNum">      79 </span>            : template &lt;class Rep, class Period&gt;
+<span class="lineNum">      80 </span>            : void sleep_for(const chrono::duration&lt;Rep, Period&gt;&amp; rel_time);
+<span class="lineNum">      81 </span>            : 
+<span class="lineNum">      82 </span>            : }  // this_thread
+<span class="lineNum">      83 </span>            : 
+<span class="lineNum">      84 </span>            : }  // std
+<span class="lineNum">      85 </span>            : 
+<span class="lineNum">      86 </span>            : */
+<span class="lineNum">      87 </span>            : 
+<span class="lineNum">      88 </span>            : #include &lt;__config&gt;
+<span class="lineNum">      89 </span>            : #include &lt;iosfwd&gt;
+<span class="lineNum">      90 </span>            : #include &lt;__functional_base&gt;
+<span class="lineNum">      91 </span>            : #include &lt;type_traits&gt;
+<span class="lineNum">      92 </span>            : #include &lt;cstddef&gt;
+<span class="lineNum">      93 </span>            : #include &lt;functional&gt;
+<span class="lineNum">      94 </span>            : #include &lt;memory&gt;
+<span class="lineNum">      95 </span>            : #include &lt;system_error&gt;
+<span class="lineNum">      96 </span>            : #include &lt;chrono&gt;
+<span class="lineNum">      97 </span>            : #include &lt;__mutex_base&gt;
+<span class="lineNum">      98 </span>            : #ifndef _LIBCPP_HAS_NO_VARIADICS
+<span class="lineNum">      99 </span>            : #include &lt;tuple&gt;
+<span class="lineNum">     100 </span>            : #endif
+<span class="lineNum">     101 </span>            : #include &lt;pthread.h&gt;
+<span class="lineNum">     102 </span>            : #include &lt;sched.h&gt;
+<span class="lineNum">     103 </span>            : 
+<span class="lineNum">     104 </span>            : #if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
+<span class="lineNum">     105 </span>            : #pragma GCC system_header
+<span class="lineNum">     106 </span>            : #endif
+<span class="lineNum">     107 </span>            : 
+<span class="lineNum">     108 </span>            : #define __STDCPP_THREADS__ __cplusplus
+<span class="lineNum">     109 </span>            : 
+<span class="lineNum">     110 </span>            : #ifdef _LIBCPP_HAS_NO_THREADS
+<span class="lineNum">     111 </span>            : #error &lt;thread&gt; is not supported on this single threaded system
+<span class="lineNum">     112 </span>            : #else // !_LIBCPP_HAS_NO_THREADS
+<span class="lineNum">     113 </span>            : 
+<span class="lineNum">     114 </span>            : _LIBCPP_BEGIN_NAMESPACE_STD
+<span class="lineNum">     115 </span>            : 
+<span class="lineNum">     116 </span>            : template &lt;class _Tp&gt;
+<span class="lineNum">     117 </span>            : class __thread_specific_ptr
+<span class="lineNum">     118 </span>            : {
+<span class="lineNum">     119 </span>            :     pthread_key_t __key_;
+<span class="lineNum">     120 </span>            : 
+<span class="lineNum">     121 </span>            :     __thread_specific_ptr(const __thread_specific_ptr&amp;);
+<span class="lineNum">     122 </span>            :     __thread_specific_ptr&amp; operator=(const __thread_specific_ptr&amp;);
+<span class="lineNum">     123 </span>            : 
+<span class="lineNum">     124 </span>            :     static void __at_thread_exit(void*);
+<span class="lineNum">     125 </span>            : public:
+<span class="lineNum">     126 </span>            :     typedef _Tp* pointer;
+<span class="lineNum">     127 </span>            : 
+<span class="lineNum">     128 </span>            :     __thread_specific_ptr();
+<span class="lineNum">     129 </span>            :     ~__thread_specific_ptr();
+<a name="130"><span class="lineNum">     130 </span>            : </a>
+<span class="lineNum">     131 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     132 </span><span class="lineCov">        237 :     pointer get() const {return static_cast&lt;_Tp*&gt;(pthread_getspecific(__key_));}</span>
+<span class="lineNum">     133 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<a name="134"><span class="lineNum">     134 </span>            :     pointer operator*() const {return *get();}</a>
+<span class="lineNum">     135 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     136 </span><span class="lineCov">          9 :     pointer operator-&gt;() const {return get();}</span>
+<span class="lineNum">     137 </span>            :     pointer release();
+<span class="lineNum">     138 </span>            :     void reset(pointer __p = nullptr);
+<span class="lineNum">     139 </span>            : };
+<span class="lineNum">     140 </span>            : 
+<a name="141"><span class="lineNum">     141 </span>            : template &lt;class _Tp&gt;</a>
+<span class="lineNum">     142 </span>            : void
+<span class="lineNum">     143 </span>            : __thread_specific_ptr&lt;_Tp&gt;::__at_thread_exit(void* __p)
+<span class="lineNum">     144 </span>            : {
+<span class="lineNum">     145 </span><span class="lineCov">        452 :     delete static_cast&lt;pointer&gt;(__p);</span>
+<span class="lineNum">     146 </span><span class="lineCov">        223 : }</span>
+<a name="147"><span class="lineNum">     147 </span>            : </a>
+<span class="lineNum">     148 </span>            : template &lt;class _Tp&gt;
+<span class="lineNum">     149 </span>            : __thread_specific_ptr&lt;_Tp&gt;::__thread_specific_ptr()
+<span class="lineNum">     150 </span>            : {
+<span class="lineNum">     151 </span><span class="lineCov">         84 :     int __ec = pthread_key_create(&amp;__key_, &amp;__thread_specific_ptr::__at_thread_exit);</span>
+<span class="lineNum">     152 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     153 </span><span class="lineCov">         84 :     if (__ec)</span>
+<span class="lineNum">     154 </span><span class="lineNoCov">          0 :         throw system_error(error_code(__ec, system_category()),</span>
+<span class="lineNum">     155 </span>            :                            &quot;__thread_specific_ptr construction failed&quot;);
+<span class="lineNum">     156 </span>            : #endif
+<span class="lineNum">     157 </span><span class="lineCov">         84 : }</span>
+<a name="158"><span class="lineNum">     158 </span>            : </a>
+<span class="lineNum">     159 </span>            : template &lt;class _Tp&gt;
+<span class="lineNum">     160 </span>            : __thread_specific_ptr&lt;_Tp&gt;::~__thread_specific_ptr()
+<span class="lineNum">     161 </span>            : {
+<span class="lineNum">     162 </span><span class="lineCov">         83 :     pthread_key_delete(__key_);</span>
+<span class="lineNum">     163 </span><span class="lineCov">         83 : }</span>
+<span class="lineNum">     164 </span>            : 
+<span class="lineNum">     165 </span>            : template &lt;class _Tp&gt;
+<span class="lineNum">     166 </span>            : typename __thread_specific_ptr&lt;_Tp&gt;::pointer
+<span class="lineNum">     167 </span>            : __thread_specific_ptr&lt;_Tp&gt;::release()
+<span class="lineNum">     168 </span>            : {
+<span class="lineNum">     169 </span>            :     pointer __p = get();
+<span class="lineNum">     170 </span>            :     pthread_setspecific(__key_, 0);
+<span class="lineNum">     171 </span>            :     return __p;
+<span class="lineNum">     172 </span>            : }
+<span class="lineNum">     173 </span>            : 
+<a name="174"><span class="lineNum">     174 </span>            : template &lt;class _Tp&gt;</a>
+<span class="lineNum">     175 </span>            : void
+<span class="lineNum">     176 </span>            : __thread_specific_ptr&lt;_Tp&gt;::reset(pointer __p)
+<span class="lineNum">     177 </span>            : {
+<span class="lineNum">     178 </span><span class="lineCov">        228 :     pointer __p_old = get();</span>
+<span class="lineNum">     179 </span><span class="lineCov">        228 :     pthread_setspecific(__key_, __p);</span>
+<span class="lineNum">     180 </span><span class="lineCov">        228 :     delete __p_old;</span>
+<span class="lineNum">     181 </span><span class="lineCov">        228 : }</span>
+<span class="lineNum">     182 </span>            : 
+<span class="lineNum">     183 </span>            : class _LIBCPP_TYPE_VIS thread;
+<span class="lineNum">     184 </span>            : class _LIBCPP_TYPE_VIS __thread_id;
+<span class="lineNum">     185 </span>            : 
+<span class="lineNum">     186 </span>            : namespace this_thread
+<span class="lineNum">     187 </span>            : {
+<span class="lineNum">     188 </span>            : 
+<span class="lineNum">     189 </span>            : _LIBCPP_INLINE_VISIBILITY __thread_id get_id() _NOEXCEPT;
+<span class="lineNum">     190 </span>            : 
+<span class="lineNum">     191 </span>            : }  // this_thread
+<span class="lineNum">     192 </span>            : 
+<span class="lineNum">     193 </span>            : template&lt;&gt; struct _LIBCPP_TYPE_VIS_ONLY hash&lt;__thread_id&gt;;
+<span class="lineNum">     194 </span>            : 
+<span class="lineNum">     195 </span>            : class _LIBCPP_TYPE_VIS_ONLY __thread_id
+<span class="lineNum">     196 </span>            : {
+<span class="lineNum">     197 </span>            :     // FIXME: pthread_t is a pointer on Darwin but a long on Linux.
+<span class="lineNum">     198 </span>            :     // NULL is the no-thread value on Darwin.  Someone needs to check
+<span class="lineNum">     199 </span>            :     // on other platforms.  We assume 0 works everywhere for now.
+<span class="lineNum">     200 </span>            :     pthread_t __id_;
+<span class="lineNum">     201 </span>            : 
+<a name="202"><span class="lineNum">     202 </span>            : public:</a>
+<span class="lineNum">     203 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     204 </span><span class="lineCov">         15 :     __thread_id() _NOEXCEPT : __id_(0) {}</span>
+<a name="205"><span class="lineNum">     205 </span>            : </a>
+<span class="lineNum">     206 </span>            :     friend _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     207 </span>            :         bool operator==(__thread_id __x, __thread_id __y) _NOEXCEPT
+<a name="208"><span class="lineNum">     208 </span><span class="lineCov">         21 :         {return __x.__id_ == __y.__id_;}</span></a>
+<span class="lineNum">     209 </span>            :     friend _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     210 </span>            :         bool operator!=(__thread_id __x, __thread_id __y) _NOEXCEPT
+<a name="211"><span class="lineNum">     211 </span><span class="lineCov">          5 :         {return !(__x == __y);}</span></a>
+<span class="lineNum">     212 </span>            :     friend _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     213 </span>            :         bool operator&lt; (__thread_id __x, __thread_id __y) _NOEXCEPT
+<a name="214"><span class="lineNum">     214 </span><span class="lineCov">          8 :         {return __x.__id_ &lt; __y.__id_;}</span></a>
+<span class="lineNum">     215 </span>            :     friend _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     216 </span>            :         bool operator&lt;=(__thread_id __x, __thread_id __y) _NOEXCEPT
+<a name="217"><span class="lineNum">     217 </span><span class="lineCov">          2 :         {return !(__y &lt; __x);}</span></a>
+<span class="lineNum">     218 </span>            :     friend _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     219 </span>            :         bool operator&gt; (__thread_id __x, __thread_id __y) _NOEXCEPT
+<a name="220"><span class="lineNum">     220 </span><span class="lineCov">          2 :         {return   __y &lt; __x ;}</span></a>
+<span class="lineNum">     221 </span>            :     friend _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     222 </span>            :         bool operator&gt;=(__thread_id __x, __thread_id __y) _NOEXCEPT
+<span class="lineNum">     223 </span><span class="lineCov">          2 :         {return !(__x &lt; __y);}</span>
+<span class="lineNum">     224 </span>            : 
+<span class="lineNum">     225 </span>            :     template&lt;class _CharT, class _Traits&gt;
+<span class="lineNum">     226 </span>            :     friend
+<a name="227"><span class="lineNum">     227 </span>            :     _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     228 </span>            :     basic_ostream&lt;_CharT, _Traits&gt;&amp;
+<span class="lineNum">     229 </span>            :     operator&lt;&lt;(basic_ostream&lt;_CharT, _Traits&gt;&amp; __os, __thread_id __id)
+<span class="lineNum">     230 </span><span class="lineCov">          1 :         {return __os &lt;&lt; __id.__id_;}</span>
+<span class="lineNum">     231 </span>            : 
+<a name="232"><span class="lineNum">     232 </span>            : private:</a>
+<span class="lineNum">     233 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     234 </span><span class="lineCov">         27 :     __thread_id(pthread_t __id) : __id_(__id) {}</span>
+<span class="lineNum">     235 </span>            : 
+<span class="lineNum">     236 </span>            :     friend __thread_id this_thread::get_id() _NOEXCEPT;
+<span class="lineNum">     237 </span>            :     friend class _LIBCPP_TYPE_VIS thread;
+<span class="lineNum">     238 </span>            :     friend struct _LIBCPP_TYPE_VIS_ONLY hash&lt;__thread_id&gt;;
+<span class="lineNum">     239 </span>            : };
+<span class="lineNum">     240 </span>            : 
+<span class="lineNum">     241 </span>            : template&lt;&gt;
+<span class="lineNum">     242 </span>            : struct _LIBCPP_TYPE_VIS_ONLY hash&lt;__thread_id&gt;
+<span class="lineNum">     243 </span>            :     : public unary_function&lt;__thread_id, size_t&gt;
+<a name="244"><span class="lineNum">     244 </span>            : {</a>
+<span class="lineNum">     245 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     246 </span>            :     size_t operator()(__thread_id __v) const
+<span class="lineNum">     247 </span>            :     {
+<span class="lineNum">     248 </span><span class="lineCov">          2 :         return hash&lt;pthread_t&gt;()(__v.__id_);</span>
+<span class="lineNum">     249 </span>            :     }
+<span class="lineNum">     250 </span>            : };
+<span class="lineNum">     251 </span>            : 
+<span class="lineNum">     252 </span>            : namespace this_thread
+<span class="lineNum">     253 </span>            : {
+<span class="lineNum">     254 </span>            : 
+<a name="255"><span class="lineNum">     255 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     256 </span>            : __thread_id
+<span class="lineNum">     257 </span>            : get_id() _NOEXCEPT
+<span class="lineNum">     258 </span>            : {
+<span class="lineNum">     259 </span><span class="lineCov">         14 :     return pthread_self();</span>
+<span class="lineNum">     260 </span>            : }
+<span class="lineNum">     261 </span>            : 
+<span class="lineNum">     262 </span>            : }  // this_thread
+<span class="lineNum">     263 </span>            : 
+<span class="lineNum">     264 </span>            : class _LIBCPP_TYPE_VIS thread
+<span class="lineNum">     265 </span>            : {
+<span class="lineNum">     266 </span>            :     pthread_t __t_;
+<span class="lineNum">     267 </span>            : 
+<span class="lineNum">     268 </span>            :     thread(const thread&amp;);
+<span class="lineNum">     269 </span>            :     thread&amp; operator=(const thread&amp;);
+<span class="lineNum">     270 </span>            : public:
+<span class="lineNum">     271 </span>            :     typedef __thread_id id;
+<span class="lineNum">     272 </span>            :     typedef pthread_t native_handle_type;
+<a name="273"><span class="lineNum">     273 </span>            : </a>
+<span class="lineNum">     274 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     275 </span><span class="lineCov">          6 :     thread() _NOEXCEPT : __t_(0) {}</span>
+<span class="lineNum">     276 </span>            : #ifndef _LIBCPP_HAS_NO_VARIADICS
+<span class="lineNum">     277 </span>            :     template &lt;class _Fp, class ..._Args,
+<span class="lineNum">     278 </span>            :               class = typename enable_if
+<span class="lineNum">     279 </span>            :               &lt;
+<span class="lineNum">     280 </span>            :                    !is_same&lt;typename decay&lt;_Fp&gt;::type, thread&gt;::value
+<span class="lineNum">     281 </span>            :               &gt;::type
+<span class="lineNum">     282 </span>            :              &gt;
+<span class="lineNum">     283 </span>            :         explicit thread(_Fp&amp;&amp; __f, _Args&amp;&amp;... __args);
+<span class="lineNum">     284 </span>            : #else  // _LIBCPP_HAS_NO_VARIADICS
+<span class="lineNum">     285 </span>            :     template &lt;class _Fp&gt; explicit thread(_Fp __f);
+<span class="lineNum">     286 </span>            : #endif
+<span class="lineNum">     287 </span>            :     ~thread();
+<span class="lineNum">     288 </span>            : 
+<a name="289"><span class="lineNum">     289 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES</a>
+<span class="lineNum">     290 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     291 </span><span class="lineCov">        157 :     thread(thread&amp;&amp; __t) _NOEXCEPT : __t_(__t.__t_) {__t.__t_ = 0;}</span>
+<span class="lineNum">     292 </span>            :     thread&amp; operator=(thread&amp;&amp; __t) _NOEXCEPT;
+<span class="lineNum">     293 </span>            : #endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<a name="294"><span class="lineNum">     294 </span>            : </a>
+<span class="lineNum">     295 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     296 </span><span class="lineCov">          2 :     void swap(thread&amp; __t) _NOEXCEPT {_VSTD::swap(__t_, __t.__t_);}</span>
+<a name="297"><span class="lineNum">     297 </span>            : </a>
+<span class="lineNum">     298 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     299 </span><span class="lineCov">          6 :     bool joinable() const _NOEXCEPT {return __t_ != 0;}</span>
+<span class="lineNum">     300 </span>            :     void join();
+<a name="301"><span class="lineNum">     301 </span>            :     void detach();</a>
+<span class="lineNum">     302 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<a name="303"><span class="lineNum">     303 </span><span class="lineCov">         40 :     id get_id() const _NOEXCEPT {return __t_;}</span></a>
+<span class="lineNum">     304 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     305 </span><span class="lineCov">          1 :     native_handle_type native_handle() _NOEXCEPT {return __t_;}</span>
+<span class="lineNum">     306 </span>            : 
+<span class="lineNum">     307 </span>            :     static unsigned hardware_concurrency() _NOEXCEPT;
+<span class="lineNum">     308 </span>            : };
+<span class="lineNum">     309 </span>            : 
+<span class="lineNum">     310 </span>            : class __assoc_sub_state;
+<span class="lineNum">     311 </span>            : 
+<span class="lineNum">     312 </span>            : class _LIBCPP_HIDDEN __thread_struct_imp;
+<span class="lineNum">     313 </span>            : 
+<span class="lineNum">     314 </span>            : class _LIBCPP_TYPE_VIS __thread_struct
+<span class="lineNum">     315 </span>            : {
+<span class="lineNum">     316 </span>            :     __thread_struct_imp* __p_;
+<span class="lineNum">     317 </span>            : 
+<span class="lineNum">     318 </span>            :     __thread_struct(const __thread_struct&amp;);
+<span class="lineNum">     319 </span>            :     __thread_struct&amp; operator=(const __thread_struct&amp;);
+<span class="lineNum">     320 </span>            : public:
+<span class="lineNum">     321 </span>            :     __thread_struct();
+<span class="lineNum">     322 </span>            :     ~__thread_struct();
+<span class="lineNum">     323 </span>            : 
+<span class="lineNum">     324 </span>            :     void notify_all_at_thread_exit(condition_variable*, mutex*);
+<span class="lineNum">     325 </span>            :     void __make_ready_at_thread_exit(__assoc_sub_state*);
+<span class="lineNum">     326 </span>            : };
+<span class="lineNum">     327 </span>            : 
+<span class="lineNum">     328 </span>            : _LIBCPP_FUNC_VIS __thread_specific_ptr&lt;__thread_struct&gt;&amp; __thread_local_data();
+<span class="lineNum">     329 </span>            : 
+<span class="lineNum">     330 </span>            : #ifndef _LIBCPP_HAS_NO_VARIADICS
+<span class="lineNum">     331 </span>            : 
+<span class="lineNum">     332 </span>            : template &lt;class _Fp, class ..._Args, size_t ..._Indices&gt;
+<a name="333"><span class="lineNum">     333 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     334 </span>            : void
+<span class="lineNum">     335 </span>            : __thread_execute(tuple&lt;_Fp, _Args...&gt;&amp; __t, __tuple_indices&lt;_Indices...&gt;)
+<span class="lineNum">     336 </span>            : {
+<span class="lineNum">     337 </span><span class="lineCov">        227 :     __invoke(_VSTD::move(_VSTD::get&lt;0&gt;(__t)), _VSTD::move(_VSTD::get&lt;_Indices&gt;(__t))...);</span>
+<span class="lineNum">     338 </span><span class="lineCov">        227 : }</span>
+<span class="lineNum">     339 </span>            : 
+<a name="340"><span class="lineNum">     340 </span>            : template &lt;class _Fp&gt;</a>
+<span class="lineNum">     341 </span>            : void*
+<span class="lineNum">     342 </span>            : __thread_proxy(void* __vp)
+<span class="lineNum">     343 </span>            : {
+<span class="lineNum">     344 </span><span class="lineCov">        407 :     __thread_local_data().reset(new __thread_struct);</span>
+<span class="lineNum">     345 </span><span class="lineCov">        222 :     std::unique_ptr&lt;_Fp&gt; __p(static_cast&lt;_Fp*&gt;(__vp));</span>
+<span class="lineNum">     346 </span>            :     typedef typename __make_tuple_indices&lt;tuple_size&lt;_Fp&gt;::value, 1&gt;::type _Index;
+<span class="lineNum">     347 </span><span class="lineCov">        449 :     __thread_execute(*__p, _Index());</span>
+<span class="lineNum">     348 </span>            :     return nullptr;
+<span class="lineNum">     349 </span><span class="lineCov">        227 : }</span>
+<span class="lineNum">     350 </span>            : 
+<span class="lineNum">     351 </span>            : template &lt;class _Fp, class ..._Args,
+<a name="352"><span class="lineNum">     352 </span>            :           class</a>
+<span class="lineNum">     353 </span>            :          &gt;
+<span class="lineNum">     354 </span>            : thread::thread(_Fp&amp;&amp; __f, _Args&amp;&amp;... __args)
+<span class="lineNum">     355 </span>            : {
+<span class="lineNum">     356 </span>            :     typedef tuple&lt;typename decay&lt;_Fp&gt;::type, typename decay&lt;_Args&gt;::type...&gt; _Gp;
+<span class="lineNum">     357 </span><span class="lineCov">        527 :     _VSTD::unique_ptr&lt;_Gp&gt; __p(new _Gp(__decay_copy(_VSTD::forward&lt;_Fp&gt;(__f)),</span>
+<span class="lineNum">     358 </span><span class="lineCov">         82 :                                 __decay_copy(_VSTD::forward&lt;_Args&gt;(__args))...));</span>
+<span class="lineNum">     359 </span><span class="lineCov">        228 :     int __ec = pthread_create(&amp;__t_, 0, &amp;__thread_proxy&lt;_Gp&gt;, __p.get());</span>
+<span class="lineNum">     360 </span><span class="lineCov">        228 :     if (__ec == 0)</span>
+<span class="lineNum">     361 </span><span class="lineCov">        228 :         __p.release();</span>
+<span class="lineNum">     362 </span>            :     else
+<span class="lineNum">     363 </span><span class="lineNoCov">          0 :         __throw_system_error(__ec, &quot;thread constructor failed&quot;);</span>
+<span class="lineNum">     364 </span><span class="lineCov">        228 : }</span>
+<span class="lineNum">     365 </span>            : 
+<span class="lineNum">     366 </span>            : #else  // _LIBCPP_HAS_NO_VARIADICS
+<span class="lineNum">     367 </span>            : 
+<span class="lineNum">     368 </span>            : template &lt;class _Fp&gt;
+<span class="lineNum">     369 </span>            : void*
+<span class="lineNum">     370 </span>            : __thread_proxy(void* __vp)
+<span class="lineNum">     371 </span>            : {
+<span class="lineNum">     372 </span>            :     __thread_local_data().reset(new __thread_struct);
+<span class="lineNum">     373 </span>            :     std::unique_ptr&lt;_Fp&gt; __p(static_cast&lt;_Fp*&gt;(__vp));
+<span class="lineNum">     374 </span>            :     (*__p)();
+<span class="lineNum">     375 </span>            :     return nullptr;
+<span class="lineNum">     376 </span>            : }
+<span class="lineNum">     377 </span>            : 
+<span class="lineNum">     378 </span>            : template &lt;class _Fp&gt;
+<span class="lineNum">     379 </span>            : thread::thread(_Fp __f)
+<span class="lineNum">     380 </span>            : {
+<span class="lineNum">     381 </span>            :     std::unique_ptr&lt;_Fp&gt; __p(new _Fp(__f));
+<span class="lineNum">     382 </span>            :     int __ec = pthread_create(&amp;__t_, 0, &amp;__thread_proxy&lt;_Fp&gt;, __p.get());
+<span class="lineNum">     383 </span>            :     if (__ec == 0)
+<span class="lineNum">     384 </span>            :         __p.release();
+<span class="lineNum">     385 </span>            :     else
+<span class="lineNum">     386 </span>            :         __throw_system_error(__ec, &quot;thread constructor failed&quot;);
+<span class="lineNum">     387 </span>            : }
+<span class="lineNum">     388 </span>            : 
+<span class="lineNum">     389 </span>            : #endif  // _LIBCPP_HAS_NO_VARIADICS
+<span class="lineNum">     390 </span>            : 
+<span class="lineNum">     391 </span>            : #ifndef _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<span class="lineNum">     392 </span>            : 
+<a name="393"><span class="lineNum">     393 </span>            : inline _LIBCPP_INLINE_VISIBILITY</a>
+<span class="lineNum">     394 </span>            : thread&amp;
+<span class="lineNum">     395 </span>            : thread::operator=(thread&amp;&amp; __t) _NOEXCEPT
+<span class="lineNum">     396 </span>            : {
+<span class="lineNum">     397 </span><span class="lineCov">         12 :     if (__t_ != 0)</span>
+<span class="lineNum">     398 </span><span class="lineNoCov">          0 :         terminate();</span>
+<span class="lineNum">     399 </span><span class="lineCov">         11 :     __t_ = __t.__t_;</span>
+<span class="lineNum">     400 </span><span class="lineCov">         11 :     __t.__t_ = 0;</span>
+<span class="lineNum">     401 </span><span class="lineCov">         11 :     return *this;</span>
+<span class="lineNum">     402 </span>            : }
+<span class="lineNum">     403 </span>            : 
+<span class="lineNum">     404 </span>            : #endif  // _LIBCPP_HAS_NO_RVALUE_REFERENCES
+<a name="405"><span class="lineNum">     405 </span>            : </a>
+<span class="lineNum">     406 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     407 </span><span class="lineCov">          1 : void swap(thread&amp; __x, thread&amp; __y) _NOEXCEPT {__x.swap(__y);}</span>
+<span class="lineNum">     408 </span>            : 
+<span class="lineNum">     409 </span>            : namespace this_thread
+<span class="lineNum">     410 </span>            : {
+<span class="lineNum">     411 </span>            : 
+<span class="lineNum">     412 </span>            : _LIBCPP_FUNC_VIS void sleep_for(const chrono::nanoseconds&amp; ns);
+<span class="lineNum">     413 </span>            : 
+<a name="414"><span class="lineNum">     414 </span>            : template &lt;class _Rep, class _Period&gt;</a>
+<span class="lineNum">     415 </span>            : void
+<span class="lineNum">     416 </span>            : sleep_for(const chrono::duration&lt;_Rep, _Period&gt;&amp; __d)
+<span class="lineNum">     417 </span>            : {
+<span class="lineNum">     418 </span>            :     using namespace chrono;
+<span class="lineNum">     419 </span><span class="lineCov">        127 :     if (__d &gt; duration&lt;_Rep, _Period&gt;::zero())</span>
+<span class="lineNum">     420 </span>            :     {
+<span class="lineNum">     421 </span>            :         _LIBCPP_CONSTEXPR duration&lt;long double&gt; _Max = nanoseconds::max();
+<span class="lineNum">     422 </span>            :         nanoseconds __ns;
+<span class="lineNum">     423 </span><span class="lineCov">        127 :         if (__d &lt; _Max)</span>
+<span class="lineNum">     424 </span>            :         {
+<span class="lineNum">     425 </span><span class="lineCov">        127 :             __ns = duration_cast&lt;nanoseconds&gt;(__d);</span>
+<span class="lineNum">     426 </span><span class="lineCov">        127 :             if (__ns &lt; __d)</span>
+<span class="lineNum">     427 </span><span class="lineNoCov">          0 :                 ++__ns;</span>
+<span class="lineNum">     428 </span><span class="lineCov">        127 :         }</span>
+<span class="lineNum">     429 </span>            :         else
+<span class="lineNum">     430 </span><span class="lineNoCov">          0 :             __ns = nanoseconds::max();</span>
+<span class="lineNum">     431 </span><span class="lineCov">        127 :         sleep_for(__ns);</span>
+<span class="lineNum">     432 </span><span class="lineCov">        127 :     }</span>
+<span class="lineNum">     433 </span><span class="lineCov">        127 : }</span>
+<span class="lineNum">     434 </span>            : 
+<a name="435"><span class="lineNum">     435 </span>            : template &lt;class _Clock, class _Duration&gt;</a>
+<span class="lineNum">     436 </span>            : void
+<span class="lineNum">     437 </span>            : sleep_until(const chrono::time_point&lt;_Clock, _Duration&gt;&amp; __t)
+<span class="lineNum">     438 </span>            : {
+<span class="lineNum">     439 </span>            :     using namespace chrono;
+<span class="lineNum">     440 </span><span class="lineCov">          1 :     mutex __mut;</span>
+<span class="lineNum">     441 </span><span class="lineCov">          1 :     condition_variable __cv;</span>
+<span class="lineNum">     442 </span><span class="lineCov">          1 :     unique_lock&lt;mutex&gt; __lk(__mut);</span>
+<span class="lineNum">     443 </span><span class="lineCov">          6 :     while (_Clock::now() &lt; __t)</span>
+<span class="lineNum">     444 </span><span class="lineCov">          1 :         __cv.wait_until(__lk, __t);</span>
+<span class="lineNum">     445 </span><span class="lineCov">          1 : }</span>
+<span class="lineNum">     446 </span>            : 
+<span class="lineNum">     447 </span>            : template &lt;class _Duration&gt;
+<span class="lineNum">     448 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     449 </span>            : void
+<span class="lineNum">     450 </span>            : sleep_until(const chrono::time_point&lt;chrono::steady_clock, _Duration&gt;&amp; __t)
+<span class="lineNum">     451 </span>            : {
+<span class="lineNum">     452 </span>            :     using namespace chrono;
+<span class="lineNum">     453 </span>            :     sleep_for(__t - steady_clock::now());
+<span class="lineNum">     454 </span>            : }
+<a name="455"><span class="lineNum">     455 </span>            : </a>
+<span class="lineNum">     456 </span>            : inline _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     457 </span><span class="lineCov">          1 : void yield() _NOEXCEPT {sched_yield();}</span>
+<span class="lineNum">     458 </span>            : 
+<span class="lineNum">     459 </span>            : }  // this_thread
+<span class="lineNum">     460 </span>            : 
+<span class="lineNum">     461 </span>            : _LIBCPP_END_NAMESPACE_STD
+<span class="lineNum">     462 </span>            : 
+<span class="lineNum">     463 </span>            : #endif // !_LIBCPP_HAS_NO_THREADS
+<span class="lineNum">     464 </span>            : 
+<span class="lineNum">     465 </span>            : #endif  // _LIBCPP_THREAD
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

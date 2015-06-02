@@ -1,0 +1,298 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - test_coverage.info - include/__debug</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">include</a> - __debug<span style="font-size: 80%;"> (source / <a href="__debug.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">test_coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntryLo">0.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2015-06-02</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntryLo">0.0 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : // -*- C++ -*-</a>
+<span class="lineNum">       2 </span>            : //===--------------------------- __debug ----------------------------------===//
+<span class="lineNum">       3 </span>            : //
+<span class="lineNum">       4 </span>            : //                     The LLVM Compiler Infrastructure
+<span class="lineNum">       5 </span>            : //
+<span class="lineNum">       6 </span>            : // This file is dual licensed under the MIT and the University of Illinois Open
+<span class="lineNum">       7 </span>            : // Source Licenses. See LICENSE.TXT for details.
+<span class="lineNum">       8 </span>            : //
+<span class="lineNum">       9 </span>            : //===----------------------------------------------------------------------===//
+<span class="lineNum">      10 </span>            : 
+<span class="lineNum">      11 </span>            : #ifndef _LIBCPP_DEBUG_H
+<span class="lineNum">      12 </span>            : #define _LIBCPP_DEBUG_H
+<span class="lineNum">      13 </span>            : 
+<span class="lineNum">      14 </span>            : #include &lt;__config&gt;
+<span class="lineNum">      15 </span>            : 
+<span class="lineNum">      16 </span>            : #if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
+<span class="lineNum">      17 </span>            : #pragma GCC system_header
+<span class="lineNum">      18 </span>            : #endif
+<span class="lineNum">      19 </span>            : 
+<span class="lineNum">      20 </span>            : #if _LIBCPP_DEBUG_LEVEL &gt;= 1
+<span class="lineNum">      21 </span>            : #   include &lt;cstdlib&gt;
+<span class="lineNum">      22 </span>            : #   include &lt;cstdio&gt;
+<span class="lineNum">      23 </span>            : #   include &lt;cstddef&gt;
+<span class="lineNum">      24 </span>            : #   ifndef _LIBCPP_ASSERT
+<span class="lineNum">      25 </span>            : #      define _LIBCPP_ASSERT(x, m) ((x) ? (void)0 : (_VSTD::fprintf(stderr, &quot;%s\n&quot;, m), _VSTD::abort()))
+<span class="lineNum">      26 </span>            : #   endif
+<span class="lineNum">      27 </span>            : #endif
+<span class="lineNum">      28 </span>            : 
+<span class="lineNum">      29 </span>            : #ifndef _LIBCPP_ASSERT
+<span class="lineNum">      30 </span>            : #   define _LIBCPP_ASSERT(x, m) ((void)0)
+<span class="lineNum">      31 </span>            : #endif
+<span class="lineNum">      32 </span>            : 
+<span class="lineNum">      33 </span>            : #if _LIBCPP_DEBUG_LEVEL &gt;= 2
+<span class="lineNum">      34 </span>            : 
+<span class="lineNum">      35 </span>            : _LIBCPP_BEGIN_NAMESPACE_STD
+<span class="lineNum">      36 </span>            : 
+<span class="lineNum">      37 </span>            : struct _LIBCPP_TYPE_VIS __c_node;
+<span class="lineNum">      38 </span>            : 
+<span class="lineNum">      39 </span>            : struct _LIBCPP_TYPE_VIS __i_node
+<span class="lineNum">      40 </span>            : {
+<span class="lineNum">      41 </span>            :     void* __i_;
+<span class="lineNum">      42 </span>            :     __i_node* __next_;
+<span class="lineNum">      43 </span>            :     __c_node* __c_;
+<span class="lineNum">      44 </span>            : 
+<span class="lineNum">      45 </span>            : #ifndef _LIBCPP_HAS_NO_DELETED_FUNCTIONS
+<span class="lineNum">      46 </span>            :     __i_node(const __i_node&amp;) = delete;
+<span class="lineNum">      47 </span>            :     __i_node&amp; operator=(const __i_node&amp;) = delete;
+<span class="lineNum">      48 </span>            : #else
+<span class="lineNum">      49 </span>            : private:
+<span class="lineNum">      50 </span>            :     __i_node(const __i_node&amp;);
+<span class="lineNum">      51 </span>            :     __i_node&amp; operator=(const __i_node&amp;);
+<span class="lineNum">      52 </span>            : public:
+<a name="53"><span class="lineNum">      53 </span>            : #endif</a>
+<span class="lineNum">      54 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">      55 </span>            :     __i_node(void* __i, __i_node* __next, __c_node* __c)
+<span class="lineNum">      56 </span><span class="lineNoCov">          0 :         : __i_(__i), __next_(__next), __c_(__c) {}</span>
+<span class="lineNum">      57 </span>            :     ~__i_node();
+<span class="lineNum">      58 </span>            : };
+<span class="lineNum">      59 </span>            : 
+<span class="lineNum">      60 </span>            : struct _LIBCPP_TYPE_VIS __c_node
+<span class="lineNum">      61 </span>            : {
+<span class="lineNum">      62 </span>            :     void* __c_;
+<span class="lineNum">      63 </span>            :     __c_node* __next_;
+<span class="lineNum">      64 </span>            :     __i_node** beg_;
+<span class="lineNum">      65 </span>            :     __i_node** end_;
+<span class="lineNum">      66 </span>            :     __i_node** cap_;
+<span class="lineNum">      67 </span>            : 
+<span class="lineNum">      68 </span>            : #ifndef _LIBCPP_HAS_NO_DELETED_FUNCTIONS
+<span class="lineNum">      69 </span>            :     __c_node(const __c_node&amp;) = delete;
+<span class="lineNum">      70 </span>            :     __c_node&amp; operator=(const __c_node&amp;) = delete;
+<span class="lineNum">      71 </span>            : #else
+<span class="lineNum">      72 </span>            : private:
+<span class="lineNum">      73 </span>            :     __c_node(const __c_node&amp;);
+<span class="lineNum">      74 </span>            :     __c_node&amp; operator=(const __c_node&amp;);
+<span class="lineNum">      75 </span>            : public:
+<span class="lineNum">      76 </span>            : #endif
+<span class="lineNum">      77 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">      78 </span>            :     __c_node(void* __c, __c_node* __next)
+<span class="lineNum">      79 </span>            :         : __c_(__c), __next_(__next), beg_(nullptr), end_(nullptr), cap_(nullptr) {}
+<span class="lineNum">      80 </span>            :     virtual ~__c_node();
+<span class="lineNum">      81 </span>            : 
+<span class="lineNum">      82 </span>            :     virtual bool __dereferenceable(const void*) const = 0;
+<span class="lineNum">      83 </span>            :     virtual bool __decrementable(const void*) const = 0;
+<span class="lineNum">      84 </span>            :     virtual bool __addable(const void*, ptrdiff_t) const = 0;
+<span class="lineNum">      85 </span>            :     virtual bool __subscriptable(const void*, ptrdiff_t) const = 0;
+<span class="lineNum">      86 </span>            : 
+<span class="lineNum">      87 </span>            :     void __add(__i_node* __i);
+<span class="lineNum">      88 </span>            :     _LIBCPP_HIDDEN void __remove(__i_node* __i);
+<span class="lineNum">      89 </span>            : };
+<span class="lineNum">      90 </span>            : 
+<span class="lineNum">      91 </span>            : template &lt;class _Cont&gt;
+<span class="lineNum">      92 </span>            : struct _C_node
+<span class="lineNum">      93 </span>            :     : public __c_node
+<span class="lineNum">      94 </span>            : {
+<span class="lineNum">      95 </span>            :     _C_node(void* __c, __c_node* __n)
+<span class="lineNum">      96 </span>            :         : __c_node(__c, __n) {}
+<span class="lineNum">      97 </span>            : 
+<span class="lineNum">      98 </span>            :     virtual bool __dereferenceable(const void*) const;
+<span class="lineNum">      99 </span>            :     virtual bool __decrementable(const void*) const;
+<span class="lineNum">     100 </span>            :     virtual bool __addable(const void*, ptrdiff_t) const;
+<span class="lineNum">     101 </span>            :     virtual bool __subscriptable(const void*, ptrdiff_t) const;
+<span class="lineNum">     102 </span>            : };
+<span class="lineNum">     103 </span>            : 
+<span class="lineNum">     104 </span>            : template &lt;class _Cont&gt;
+<span class="lineNum">     105 </span>            : bool
+<span class="lineNum">     106 </span>            : _C_node&lt;_Cont&gt;::__dereferenceable(const void* __i) const
+<span class="lineNum">     107 </span>            : {
+<span class="lineNum">     108 </span>            :     typedef typename _Cont::const_iterator iterator;
+<span class="lineNum">     109 </span>            :     const iterator* __j = static_cast&lt;const iterator*&gt;(__i);
+<span class="lineNum">     110 </span>            :     _Cont* _Cp = static_cast&lt;_Cont*&gt;(__c_);
+<span class="lineNum">     111 </span>            :     return _Cp-&gt;__dereferenceable(__j);
+<span class="lineNum">     112 </span>            : }
+<span class="lineNum">     113 </span>            : 
+<span class="lineNum">     114 </span>            : template &lt;class _Cont&gt;
+<span class="lineNum">     115 </span>            : bool
+<span class="lineNum">     116 </span>            : _C_node&lt;_Cont&gt;::__decrementable(const void* __i) const
+<span class="lineNum">     117 </span>            : {
+<span class="lineNum">     118 </span>            :     typedef typename _Cont::const_iterator iterator;
+<span class="lineNum">     119 </span>            :     const iterator* __j = static_cast&lt;const iterator*&gt;(__i);
+<span class="lineNum">     120 </span>            :     _Cont* _Cp = static_cast&lt;_Cont*&gt;(__c_);
+<span class="lineNum">     121 </span>            :     return _Cp-&gt;__decrementable(__j);
+<span class="lineNum">     122 </span>            : }
+<span class="lineNum">     123 </span>            : 
+<span class="lineNum">     124 </span>            : template &lt;class _Cont&gt;
+<span class="lineNum">     125 </span>            : bool
+<span class="lineNum">     126 </span>            : _C_node&lt;_Cont&gt;::__addable(const void* __i, ptrdiff_t __n) const
+<span class="lineNum">     127 </span>            : {
+<span class="lineNum">     128 </span>            :     typedef typename _Cont::const_iterator iterator;
+<span class="lineNum">     129 </span>            :     const iterator* __j = static_cast&lt;const iterator*&gt;(__i);
+<span class="lineNum">     130 </span>            :     _Cont* _Cp = static_cast&lt;_Cont*&gt;(__c_);
+<span class="lineNum">     131 </span>            :     return _Cp-&gt;__addable(__j, __n);
+<span class="lineNum">     132 </span>            : }
+<span class="lineNum">     133 </span>            : 
+<span class="lineNum">     134 </span>            : template &lt;class _Cont&gt;
+<span class="lineNum">     135 </span>            : bool
+<span class="lineNum">     136 </span>            : _C_node&lt;_Cont&gt;::__subscriptable(const void* __i, ptrdiff_t __n) const
+<span class="lineNum">     137 </span>            : {
+<span class="lineNum">     138 </span>            :     typedef typename _Cont::const_iterator iterator;
+<span class="lineNum">     139 </span>            :     const iterator* __j = static_cast&lt;const iterator*&gt;(__i);
+<span class="lineNum">     140 </span>            :     _Cont* _Cp = static_cast&lt;_Cont*&gt;(__c_);
+<span class="lineNum">     141 </span>            :     return _Cp-&gt;__subscriptable(__j, __n);
+<span class="lineNum">     142 </span>            : }
+<span class="lineNum">     143 </span>            : 
+<span class="lineNum">     144 </span>            : class _LIBCPP_TYPE_VIS __libcpp_db
+<span class="lineNum">     145 </span>            : {
+<span class="lineNum">     146 </span>            :     __c_node** __cbeg_;
+<span class="lineNum">     147 </span>            :     __c_node** __cend_;
+<span class="lineNum">     148 </span>            :     size_t   __csz_;
+<span class="lineNum">     149 </span>            :     __i_node** __ibeg_;
+<span class="lineNum">     150 </span>            :     __i_node** __iend_;
+<span class="lineNum">     151 </span>            :     size_t   __isz_;
+<span class="lineNum">     152 </span>            : 
+<span class="lineNum">     153 </span>            :     __libcpp_db();
+<span class="lineNum">     154 </span>            : public:
+<span class="lineNum">     155 </span>            : #ifndef _LIBCPP_HAS_NO_DELETED_FUNCTIONS
+<span class="lineNum">     156 </span>            :     __libcpp_db(const __libcpp_db&amp;) = delete;
+<span class="lineNum">     157 </span>            :     __libcpp_db&amp; operator=(const __libcpp_db&amp;) = delete;
+<span class="lineNum">     158 </span>            : #else
+<span class="lineNum">     159 </span>            : private:
+<span class="lineNum">     160 </span>            :     __libcpp_db(const __libcpp_db&amp;);
+<span class="lineNum">     161 </span>            :     __libcpp_db&amp; operator=(const __libcpp_db&amp;);
+<span class="lineNum">     162 </span>            : public:
+<span class="lineNum">     163 </span>            : #endif
+<span class="lineNum">     164 </span>            :     ~__libcpp_db();
+<span class="lineNum">     165 </span>            : 
+<span class="lineNum">     166 </span>            :     class __db_c_iterator;
+<span class="lineNum">     167 </span>            :     class __db_c_const_iterator;
+<span class="lineNum">     168 </span>            :     class __db_i_iterator;
+<span class="lineNum">     169 </span>            :     class __db_i_const_iterator;
+<span class="lineNum">     170 </span>            : 
+<span class="lineNum">     171 </span>            :     __db_c_const_iterator __c_end() const;
+<span class="lineNum">     172 </span>            :     __db_i_const_iterator __i_end() const;
+<span class="lineNum">     173 </span>            : 
+<span class="lineNum">     174 </span>            :     template &lt;class _Cont&gt;
+<span class="lineNum">     175 </span>            :     _LIBCPP_INLINE_VISIBILITY
+<span class="lineNum">     176 </span>            :     void __insert_c(_Cont* __c)
+<span class="lineNum">     177 </span>            :     {
+<span class="lineNum">     178 </span>            :         __c_node* __n = __insert_c(static_cast&lt;void*&gt;(__c));
+<span class="lineNum">     179 </span>            :         ::new(__n) _C_node&lt;_Cont&gt;(__n-&gt;__c_, __n-&gt;__next_);
+<span class="lineNum">     180 </span>            :     }
+<span class="lineNum">     181 </span>            : 
+<span class="lineNum">     182 </span>            :     void __insert_i(void* __i);
+<span class="lineNum">     183 </span>            :     __c_node* __insert_c(void* __c);
+<span class="lineNum">     184 </span>            :     void __erase_c(void* __c);
+<span class="lineNum">     185 </span>            : 
+<span class="lineNum">     186 </span>            :     void __insert_ic(void* __i, const void* __c);
+<span class="lineNum">     187 </span>            :     void __iterator_copy(void* __i, const void* __i0);
+<span class="lineNum">     188 </span>            :     void __erase_i(void* __i);
+<span class="lineNum">     189 </span>            : 
+<span class="lineNum">     190 </span>            :     void* __find_c_from_i(void* __i) const;
+<span class="lineNum">     191 </span>            :     void __invalidate_all(void* __c);
+<span class="lineNum">     192 </span>            :     __c_node* __find_c_and_lock(void* __c) const;
+<span class="lineNum">     193 </span>            :     __c_node* __find_c(void* __c) const;
+<span class="lineNum">     194 </span>            :     void unlock() const;
+<span class="lineNum">     195 </span>            : 
+<span class="lineNum">     196 </span>            :     void swap(void* __c1, void* __c2);
+<span class="lineNum">     197 </span>            : 
+<span class="lineNum">     198 </span>            : 
+<span class="lineNum">     199 </span>            :     bool __dereferenceable(const void* __i) const;
+<span class="lineNum">     200 </span>            :     bool __decrementable(const void* __i) const;
+<span class="lineNum">     201 </span>            :     bool __addable(const void* __i, ptrdiff_t __n) const;
+<span class="lineNum">     202 </span>            :     bool __subscriptable(const void* __i, ptrdiff_t __n) const;
+<span class="lineNum">     203 </span>            :     bool __less_than_comparable(const void* __i, const void* __j) const;
+<span class="lineNum">     204 </span>            : private:
+<span class="lineNum">     205 </span>            :     _LIBCPP_HIDDEN
+<span class="lineNum">     206 </span>            :     __i_node* __insert_iterator(void* __i);
+<span class="lineNum">     207 </span>            :     _LIBCPP_HIDDEN
+<span class="lineNum">     208 </span>            :     __i_node* __find_iterator(const void* __i) const;
+<span class="lineNum">     209 </span>            : 
+<span class="lineNum">     210 </span>            :     friend _LIBCPP_FUNC_VIS __libcpp_db* __get_db();
+<span class="lineNum">     211 </span>            : };
+<span class="lineNum">     212 </span>            : 
+<span class="lineNum">     213 </span>            : _LIBCPP_FUNC_VIS __libcpp_db* __get_db();
+<span class="lineNum">     214 </span>            : _LIBCPP_FUNC_VIS const __libcpp_db* __get_const_db();
+<span class="lineNum">     215 </span>            : 
+<span class="lineNum">     216 </span>            : 
+<span class="lineNum">     217 </span>            : _LIBCPP_END_NAMESPACE_STD
+<span class="lineNum">     218 </span>            : 
+<span class="lineNum">     219 </span>            : #endif
+<span class="lineNum">     220 </span>            : 
+<span class="lineNum">     221 </span>            : #endif  // _LIBCPP_DEBUG_H
+<span class="lineNum">     222 </span>            : 
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

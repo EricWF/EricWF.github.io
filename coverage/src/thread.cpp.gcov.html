@@ -1,0 +1,308 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - test_coverage.info - src/thread.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">src</a> - thread.cpp<span style="font-size: 80%;"> (source / <a href="thread.cpp.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">test_coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">58</td>
+            <td class="headerCovTableEntry">65</td>
+            <td class="headerCovTableEntryMed">89.2 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2015-06-02</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">20</td>
+            <td class="headerCovTableEntry">20</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : //===------------------------- thread.cpp----------------------------------===//</a>
+<span class="lineNum">       2 </span>            : //
+<span class="lineNum">       3 </span>            : //                     The LLVM Compiler Infrastructure
+<span class="lineNum">       4 </span>            : //
+<span class="lineNum">       5 </span>            : // This file is dual licensed under the MIT and the University of Illinois Open
+<span class="lineNum">       6 </span>            : // Source Licenses. See LICENSE.TXT for details.
+<span class="lineNum">       7 </span>            : //
+<span class="lineNum">       8 </span>            : //===----------------------------------------------------------------------===//
+<span class="lineNum">       9 </span>            : 
+<span class="lineNum">      10 </span>            : #include &quot;__config&quot;
+<span class="lineNum">      11 </span>            : #ifndef _LIBCPP_HAS_NO_THREADS
+<span class="lineNum">      12 </span>            : 
+<span class="lineNum">      13 </span>            : #include &quot;thread&quot;
+<span class="lineNum">      14 </span>            : #include &quot;exception&quot;
+<span class="lineNum">      15 </span>            : #include &quot;vector&quot;
+<span class="lineNum">      16 </span>            : #include &quot;future&quot;
+<span class="lineNum">      17 </span>            : #include &quot;limits&quot;
+<span class="lineNum">      18 </span>            : #include &lt;sys/types.h&gt;
+<span class="lineNum">      19 </span>            : #if !defined(_WIN32)
+<span class="lineNum">      20 </span>            : # if !defined(__sun__) &amp;&amp; !defined(__linux__) &amp;&amp; !defined(_AIX) &amp;&amp; !defined(__native_client__) &amp;&amp; !defined(__CloudABI__)
+<span class="lineNum">      21 </span>            : #   include &lt;sys/sysctl.h&gt;
+<span class="lineNum">      22 </span>            : # endif // !defined(__sun__) &amp;&amp; !defined(__linux__) &amp;&amp; !defined(_AIX) &amp;&amp; !defined(__native_client__) &amp;&amp; !defined(__CloudABI__)
+<span class="lineNum">      23 </span>            : # include &lt;unistd.h&gt;
+<span class="lineNum">      24 </span>            : #endif // !_WIN32
+<span class="lineNum">      25 </span>            : 
+<span class="lineNum">      26 </span>            : #if defined(__NetBSD__)
+<span class="lineNum">      27 </span>            : #pragma weak pthread_create // Do not create libpthread dependency
+<span class="lineNum">      28 </span>            : #endif
+<span class="lineNum">      29 </span>            : #if defined(_WIN32)
+<span class="lineNum">      30 </span>            : #include &lt;windows.h&gt;
+<span class="lineNum">      31 </span>            : #endif
+<span class="lineNum">      32 </span>            : 
+<a name="33"><span class="lineNum">      33 </span>            : _LIBCPP_BEGIN_NAMESPACE_STD</a>
+<span class="lineNum">      34 </span>            : 
+<span class="lineNum">      35 </span>            : thread::~thread()
+<span class="lineNum">      36 </span>            : {
+<span class="lineNum">      37 </span><span class="lineCov">        389 :     if (__t_ != 0)</span>
+<span class="lineNum">      38 </span><span class="lineNoCov">          0 :         terminate();</span>
+<span class="lineNum">      39 </span><span class="lineCov">        388 : }</span>
+<a name="40"><span class="lineNum">      40 </span>            : </a>
+<span class="lineNum">      41 </span>            : void
+<span class="lineNum">      42 </span>            : thread::join()
+<span class="lineNum">      43 </span>            : {
+<span class="lineNum">      44 </span><span class="lineCov">        168 :     int ec = pthread_join(__t_, 0);</span>
+<span class="lineNum">      45 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">      46 </span><span class="lineCov">        168 :     if (ec)</span>
+<span class="lineNum">      47 </span><span class="lineNoCov">          0 :         throw system_error(error_code(ec, system_category()), &quot;thread::join failed&quot;);</span>
+<span class="lineNum">      48 </span>            : #else
+<span class="lineNum">      49 </span>            :     (void)ec;
+<span class="lineNum">      50 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">      51 </span><span class="lineCov">        168 :     __t_ = 0;</span>
+<span class="lineNum">      52 </span><span class="lineCov">        168 : }</span>
+<a name="53"><span class="lineNum">      53 </span>            : </a>
+<span class="lineNum">      54 </span>            : void
+<span class="lineNum">      55 </span>            : thread::detach()
+<span class="lineNum">      56 </span>            : {
+<span class="lineNum">      57 </span><span class="lineCov">         58 :     int ec = EINVAL;</span>
+<span class="lineNum">      58 </span><span class="lineCov">         58 :     if (__t_ != 0)</span>
+<span class="lineNum">      59 </span>            :     {
+<span class="lineNum">      60 </span><span class="lineCov">         58 :         ec = pthread_detach(__t_);</span>
+<span class="lineNum">      61 </span><span class="lineCov">         58 :         if (ec == 0)</span>
+<span class="lineNum">      62 </span><span class="lineCov">         58 :             __t_ = 0;</span>
+<span class="lineNum">      63 </span><span class="lineCov">         58 :     }</span>
+<span class="lineNum">      64 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">      65 </span><span class="lineCov">         58 :     if (ec)</span>
+<span class="lineNum">      66 </span><span class="lineNoCov">          0 :         throw system_error(error_code(ec, system_category()), &quot;thread::detach failed&quot;);</span>
+<span class="lineNum">      67 </span>            : #endif  // _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">      68 </span><span class="lineCov">         58 : }</span>
+<a name="69"><span class="lineNum">      69 </span>            : </a>
+<span class="lineNum">      70 </span>            : unsigned
+<span class="lineNum">      71 </span>            : thread::hardware_concurrency() _NOEXCEPT
+<span class="lineNum">      72 </span>            : {
+<span class="lineNum">      73 </span>            : #if defined(CTL_HW) &amp;&amp; defined(HW_NCPU)
+<span class="lineNum">      74 </span>            :     unsigned n;
+<span class="lineNum">      75 </span>            :     int mib[2] = {CTL_HW, HW_NCPU};
+<span class="lineNum">      76 </span>            :     std::size_t s = sizeof(n);
+<span class="lineNum">      77 </span>            :     sysctl(mib, 2, &amp;n, &amp;s, 0, 0);
+<span class="lineNum">      78 </span>            :     return n;
+<span class="lineNum">      79 </span>            : #elif defined(_SC_NPROCESSORS_ONLN)
+<span class="lineNum">      80 </span><span class="lineCov">          1 :     long result = sysconf(_SC_NPROCESSORS_ONLN);</span>
+<span class="lineNum">      81 </span>            :     // sysconf returns -1 if the name is invalid, the option does not exist or
+<span class="lineNum">      82 </span>            :     // does not have a definite limit.
+<span class="lineNum">      83 </span>            :     // if sysconf returns some other negative number, we have no idea
+<span class="lineNum">      84 </span>            :     // what is going on. Default to something safe.
+<span class="lineNum">      85 </span><span class="lineCov">          1 :     if (result &lt; 0)</span>
+<span class="lineNum">      86 </span><span class="lineNoCov">          0 :         return 0;</span>
+<span class="lineNum">      87 </span><span class="lineCov">          1 :     return static_cast&lt;unsigned&gt;(result);</span>
+<span class="lineNum">      88 </span>            : #elif defined(_WIN32)
+<span class="lineNum">      89 </span>            :     SYSTEM_INFO info;
+<span class="lineNum">      90 </span>            :     GetSystemInfo(&amp;info);
+<span class="lineNum">      91 </span>            :     return info.dwNumberOfProcessors;
+<span class="lineNum">      92 </span>            : #else  // defined(CTL_HW) &amp;&amp; defined(HW_NCPU)
+<span class="lineNum">      93 </span>            :     // TODO: grovel through /proc or check cpuid on x86 and similar
+<span class="lineNum">      94 </span>            :     // instructions on other architectures.
+<span class="lineNum">      95 </span>            : #   if defined(_MSC_VER) &amp;&amp; ! defined(__clang__)
+<span class="lineNum">      96 </span>            :         _LIBCPP_WARNING(&quot;hardware_concurrency not yet implemented&quot;)
+<span class="lineNum">      97 </span>            : #   else
+<span class="lineNum">      98 </span>            : #       warning hardware_concurrency not yet implemented
+<span class="lineNum">      99 </span>            : #   endif
+<span class="lineNum">     100 </span>            :     return 0;  // Means not computable [thread.thread.static]
+<span class="lineNum">     101 </span>            : #endif  // defined(CTL_HW) &amp;&amp; defined(HW_NCPU)
+<span class="lineNum">     102 </span><span class="lineCov">          1 : }</span>
+<span class="lineNum">     103 </span>            : 
+<span class="lineNum">     104 </span>            : namespace this_thread
+<span class="lineNum">     105 </span>            : {
+<a name="106"><span class="lineNum">     106 </span>            : </a>
+<span class="lineNum">     107 </span>            : void
+<span class="lineNum">     108 </span>            : sleep_for(const chrono::nanoseconds&amp; ns)
+<span class="lineNum">     109 </span>            : {
+<span class="lineNum">     110 </span>            :     using namespace chrono;
+<span class="lineNum">     111 </span><span class="lineCov">        127 :     if (ns &gt; nanoseconds::zero())</span>
+<span class="lineNum">     112 </span>            :     {
+<span class="lineNum">     113 </span><span class="lineCov">        127 :         seconds s = duration_cast&lt;seconds&gt;(ns);</span>
+<span class="lineNum">     114 </span>            :         timespec ts;
+<span class="lineNum">     115 </span>            :         typedef decltype(ts.tv_sec) ts_sec;
+<span class="lineNum">     116 </span><span class="lineCov">        127 :         _LIBCPP_CONSTEXPR ts_sec ts_sec_max = numeric_limits&lt;ts_sec&gt;::max();</span>
+<span class="lineNum">     117 </span><span class="lineCov">        127 :         if (s.count() &lt; ts_sec_max)</span>
+<span class="lineNum">     118 </span>            :         {
+<span class="lineNum">     119 </span><span class="lineCov">        127 :             ts.tv_sec = static_cast&lt;ts_sec&gt;(s.count());</span>
+<span class="lineNum">     120 </span><span class="lineCov">        127 :             ts.tv_nsec = static_cast&lt;decltype(ts.tv_nsec)&gt;((ns-s).count());</span>
+<span class="lineNum">     121 </span><span class="lineCov">        127 :         }</span>
+<span class="lineNum">     122 </span>            :         else
+<span class="lineNum">     123 </span>            :         {
+<span class="lineNum">     124 </span><span class="lineNoCov">          0 :             ts.tv_sec = ts_sec_max;</span>
+<span class="lineNum">     125 </span><span class="lineNoCov">          0 :             ts.tv_nsec = giga::num - 1;</span>
+<span class="lineNum">     126 </span>            :         }
+<span class="lineNum">     127 </span>            : 
+<span class="lineNum">     128 </span><span class="lineCov">        385 :         while (nanosleep(&amp;ts, &amp;ts) == -1 &amp;&amp; errno == EINTR)</span>
+<span class="lineNum">     129 </span>            :             ;
+<span class="lineNum">     130 </span><span class="lineCov">        127 :     }</span>
+<span class="lineNum">     131 </span><span class="lineCov">        127 : }</span>
+<span class="lineNum">     132 </span>            : 
+<span class="lineNum">     133 </span>            : }  // this_thread
+<a name="134"><span class="lineNum">     134 </span>            : </a>
+<span class="lineNum">     135 </span>            : __thread_specific_ptr&lt;__thread_struct&gt;&amp;
+<span class="lineNum">     136 </span>            : __thread_local_data()
+<span class="lineNum">     137 </span>            : {
+<span class="lineNum">     138 </span><span class="lineCov">        507 :     static __thread_specific_ptr&lt;__thread_struct&gt; __p;</span>
+<span class="lineNum">     139 </span><span class="lineCov">        235 :     return __p;</span>
+<span class="lineNum">     140 </span><span class="lineNoCov">          0 : }</span>
+<span class="lineNum">     141 </span>            : 
+<span class="lineNum">     142 </span>            : // __thread_struct_imp
+<span class="lineNum">     143 </span>            : 
+<span class="lineNum">     144 </span>            : template &lt;class T&gt;
+<span class="lineNum">     145 </span>            : class _LIBCPP_HIDDEN __hidden_allocator
+<span class="lineNum">     146 </span>            : {
+<span class="lineNum">     147 </span>            : public:
+<a name="148"><span class="lineNum">     148 </span>            :     typedef T  value_type;</a>
+<span class="lineNum">     149 </span>            :     
+<a name="150"><span class="lineNum">     150 </span>            :     T* allocate(size_t __n)</a>
+<span class="lineNum">     151 </span><span class="lineCov">          9 :         {return static_cast&lt;T*&gt;(::operator new(__n * sizeof(T)));}</span>
+<a name="152"><span class="lineNum">     152 </span><span class="lineCov">          9 :     void deallocate(T* __p, size_t) {::operator delete(static_cast&lt;void*&gt;(__p));}</span></a>
+<span class="lineNum">     153 </span>            : 
+<span class="lineNum">     154 </span><span class="lineCov">          9 :     size_t max_size() const {return size_t(~0) / sizeof(T);}</span>
+<span class="lineNum">     155 </span>            : };
+<span class="lineNum">     156 </span>            : 
+<span class="lineNum">     157 </span>            : class _LIBCPP_HIDDEN __thread_struct_imp
+<span class="lineNum">     158 </span>            : {
+<span class="lineNum">     159 </span>            :     typedef vector&lt;__assoc_sub_state*,
+<span class="lineNum">     160 </span>            :                           __hidden_allocator&lt;__assoc_sub_state*&gt; &gt; _AsyncStates;
+<span class="lineNum">     161 </span>            :     typedef vector&lt;pair&lt;condition_variable*, mutex*&gt;,
+<span class="lineNum">     162 </span>            :                __hidden_allocator&lt;pair&lt;condition_variable*, mutex*&gt; &gt; &gt; _Notify;
+<span class="lineNum">     163 </span>            : 
+<span class="lineNum">     164 </span>            :     _AsyncStates async_states_;
+<span class="lineNum">     165 </span>            :     _Notify notify_;
+<span class="lineNum">     166 </span>            : 
+<span class="lineNum">     167 </span>            :     __thread_struct_imp(const __thread_struct_imp&amp;);
+<a name="168"><span class="lineNum">     168 </span>            :     __thread_struct_imp&amp; operator=(const __thread_struct_imp&amp;);</a>
+<span class="lineNum">     169 </span>            : public:
+<span class="lineNum">     170 </span><span class="lineCov">        228 :     __thread_struct_imp() {}</span>
+<span class="lineNum">     171 </span>            :     ~__thread_struct_imp();
+<span class="lineNum">     172 </span>            : 
+<span class="lineNum">     173 </span>            :     void notify_all_at_thread_exit(condition_variable* cv, mutex* m);
+<span class="lineNum">     174 </span>            :     void __make_ready_at_thread_exit(__assoc_sub_state* __s);
+<a name="175"><span class="lineNum">     175 </span>            : };</a>
+<span class="lineNum">     176 </span>            : 
+<span class="lineNum">     177 </span>            : __thread_struct_imp::~__thread_struct_imp()
+<span class="lineNum">     178 </span>            : {
+<span class="lineNum">     179 </span><span class="lineCov">        447 :     for (_Notify::iterator i = notify_.begin(), e = notify_.end();</span>
+<span class="lineNum">     180 </span><span class="lineCov">        225 :             i != e; ++i)</span>
+<span class="lineNum">     181 </span>            :     {
+<span class="lineNum">     182 </span><span class="lineCov">          1 :         i-&gt;second-&gt;unlock();</span>
+<span class="lineNum">     183 </span><span class="lineCov">          1 :         i-&gt;first-&gt;notify_all();</span>
+<span class="lineNum">     184 </span><span class="lineCov">          1 :     }</span>
+<span class="lineNum">     185 </span><span class="lineCov">        459 :     for (_AsyncStates::iterator i = async_states_.begin(), e = async_states_.end();</span>
+<span class="lineNum">     186 </span><span class="lineCov">        236 :             i != e; ++i)</span>
+<span class="lineNum">     187 </span>            :     {
+<span class="lineNum">     188 </span><span class="lineCov">          8 :         (*i)-&gt;__make_ready();</span>
+<span class="lineNum">     189 </span><span class="lineCov">          8 :         (*i)-&gt;__release_shared();</span>
+<span class="lineNum">     190 </span><span class="lineCov">          8 :     }</span>
+<span class="lineNum">     191 </span><span class="lineCov">        220 : }</span>
+<a name="192"><span class="lineNum">     192 </span>            : </a>
+<span class="lineNum">     193 </span>            : void
+<span class="lineNum">     194 </span>            : __thread_struct_imp::notify_all_at_thread_exit(condition_variable* cv, mutex* m)
+<span class="lineNum">     195 </span>            : {
+<span class="lineNum">     196 </span><span class="lineCov">          1 :     notify_.push_back(pair&lt;condition_variable*, mutex*&gt;(cv, m));</span>
+<span class="lineNum">     197 </span><span class="lineCov">          1 : }</span>
+<a name="198"><span class="lineNum">     198 </span>            : </a>
+<span class="lineNum">     199 </span>            : void
+<span class="lineNum">     200 </span>            : __thread_struct_imp::__make_ready_at_thread_exit(__assoc_sub_state* __s)
+<span class="lineNum">     201 </span>            : {
+<span class="lineNum">     202 </span><span class="lineCov">          8 :     async_states_.push_back(__s);</span>
+<span class="lineNum">     203 </span><span class="lineCov">          8 :     __s-&gt;__add_shared();</span>
+<span class="lineNum">     204 </span><span class="lineCov">          8 : }</span>
+<span class="lineNum">     205 </span>            : 
+<a name="206"><span class="lineNum">     206 </span>            : // __thread_struct</a>
+<span class="lineNum">     207 </span>            : 
+<span class="lineNum">     208 </span>            : __thread_struct::__thread_struct()
+<span class="lineNum">     209 </span><span class="lineCov">        452 :     : __p_(new __thread_struct_imp)</span>
+<span class="lineNum">     210 </span>            : {
+<a name="211"><span class="lineNum">     211 </span><span class="lineCov">        226 : }</span></a>
+<span class="lineNum">     212 </span>            : 
+<span class="lineNum">     213 </span>            : __thread_struct::~__thread_struct()
+<span class="lineNum">     214 </span>            : {
+<span class="lineNum">     215 </span><span class="lineCov">        445 :     delete __p_;</span>
+<span class="lineNum">     216 </span><span class="lineCov">        223 : }</span>
+<a name="217"><span class="lineNum">     217 </span>            : </a>
+<span class="lineNum">     218 </span>            : void
+<span class="lineNum">     219 </span>            : __thread_struct::notify_all_at_thread_exit(condition_variable* cv, mutex* m)
+<span class="lineNum">     220 </span>            : {
+<span class="lineNum">     221 </span><span class="lineCov">          1 :     __p_-&gt;notify_all_at_thread_exit(cv, m);</span>
+<span class="lineNum">     222 </span><span class="lineCov">          1 : }</span>
+<a name="223"><span class="lineNum">     223 </span>            : </a>
+<span class="lineNum">     224 </span>            : void
+<span class="lineNum">     225 </span>            : __thread_struct::__make_ready_at_thread_exit(__assoc_sub_state* __s)
+<span class="lineNum">     226 </span>            : {
+<span class="lineNum">     227 </span><span class="lineCov">          8 :     __p_-&gt;__make_ready_at_thread_exit(__s);</span>
+<span class="lineNum">     228 </span><span class="lineCov">          8 : }</span>
+<span class="lineNum">     229 </span>            : 
+<span class="lineNum">     230 </span>            : _LIBCPP_END_NAMESPACE_STD
+<span class="lineNum">     231 </span>            : 
+<span class="lineNum">     232 </span>            : #endif // !_LIBCPP_HAS_NO_THREADS
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

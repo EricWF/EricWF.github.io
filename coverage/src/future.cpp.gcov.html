@@ -1,0 +1,382 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - test_coverage.info - src/future.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">src</a> - future.cpp<span style="font-size: 80%;"> (source / <a href="future.cpp.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">test_coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">109</td>
+            <td class="headerCovTableEntry">125</td>
+            <td class="headerCovTableEntryMed">87.2 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2015-06-02</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">27</td>
+            <td class="headerCovTableEntry">31</td>
+            <td class="headerCovTableEntryMed">87.1 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : //===------------------------- future.cpp ---------------------------------===//</a>
+<span class="lineNum">       2 </span>            : //
+<span class="lineNum">       3 </span>            : //                     The LLVM Compiler Infrastructure
+<span class="lineNum">       4 </span>            : //
+<span class="lineNum">       5 </span>            : // This file is dual licensed under the MIT and the University of Illinois Open
+<span class="lineNum">       6 </span>            : // Source Licenses. See LICENSE.TXT for details.
+<span class="lineNum">       7 </span>            : //
+<span class="lineNum">       8 </span>            : //===----------------------------------------------------------------------===//
+<span class="lineNum">       9 </span>            : 
+<span class="lineNum">      10 </span>            : #include &quot;__config&quot;
+<span class="lineNum">      11 </span>            : 
+<span class="lineNum">      12 </span>            : #ifndef _LIBCPP_HAS_NO_THREADS
+<span class="lineNum">      13 </span>            : 
+<span class="lineNum">      14 </span>            : #include &quot;future&quot;
+<span class="lineNum">      15 </span>            : #include &quot;string&quot;
+<span class="lineNum">      16 </span>            : 
+<a name="17"><span class="lineNum">      17 </span>            : _LIBCPP_BEGIN_NAMESPACE_STD</a>
+<span class="lineNum">      18 </span>            : 
+<span class="lineNum">      19 </span><span class="lineCov">         48 : class _LIBCPP_HIDDEN __future_error_category</span>
+<span class="lineNum">      20 </span>            :     : public __do_message
+<span class="lineNum">      21 </span>            : {
+<span class="lineNum">      22 </span>            : public:
+<span class="lineNum">      23 </span>            :     virtual const char* name() const _NOEXCEPT;
+<span class="lineNum">      24 </span>            :     virtual string message(int ev) const;
+<span class="lineNum">      25 </span>            : };
+<a name="26"><span class="lineNum">      26 </span>            : </a>
+<span class="lineNum">      27 </span>            : const char*
+<span class="lineNum">      28 </span>            : __future_error_category::name() const _NOEXCEPT
+<span class="lineNum">      29 </span>            : {
+<span class="lineNum">      30 </span><span class="lineCov">          1 :     return &quot;future&quot;;</span>
+<span class="lineNum">      31 </span>            : }
+<span class="lineNum">      32 </span>            : 
+<span class="lineNum">      33 </span>            : #if defined(__clang__)
+<span class="lineNum">      34 </span>            : #pragma clang diagnostic push
+<span class="lineNum">      35 </span>            : #pragma clang diagnostic ignored &quot;-Wswitch&quot;
+<span class="lineNum">      36 </span>            : #elif defined(__GNUC__) || defined(__GNUG__)
+<span class="lineNum">      37 </span>            : #pragma GCC diagnostic push
+<span class="lineNum">      38 </span>            : #pragma GCC diagnostic ignored &quot;-Wswitch&quot;
+<span class="lineNum">      39 </span>            : #endif
+<a name="40"><span class="lineNum">      40 </span>            : </a>
+<span class="lineNum">      41 </span>            : string
+<span class="lineNum">      42 </span>            : __future_error_category::message(int ev) const
+<span class="lineNum">      43 </span>            : {
+<span class="lineNum">      44 </span><span class="lineCov">         38 :     switch (static_cast&lt;future_errc&gt;(ev))</span>
+<span class="lineNum">      45 </span>            :     {
+<span class="lineNum">      46 </span>            :     case future_errc(0):  // For backwards compatibility with C++11 (LWG 2056)
+<span class="lineNum">      47 </span>            :     case future_errc::broken_promise:
+<span class="lineNum">      48 </span><span class="lineCov">         12 :         return string(&quot;The associated promise has been destructed prior &quot;</span>
+<span class="lineNum">      49 </span>            :                       &quot;to the associated state becoming ready.&quot;);
+<span class="lineNum">      50 </span>            :     case future_errc::future_already_retrieved:
+<span class="lineNum">      51 </span><span class="lineCov">          4 :         return string(&quot;The future has already been retrieved from &quot;</span>
+<span class="lineNum">      52 </span>            :                       &quot;the promise or packaged_task.&quot;);
+<span class="lineNum">      53 </span>            :     case future_errc::promise_already_satisfied:
+<span class="lineNum">      54 </span><span class="lineCov">          9 :         return string(&quot;The state of the promise has already been set.&quot;);</span>
+<span class="lineNum">      55 </span>            :     case future_errc::no_state:
+<span class="lineNum">      56 </span><span class="lineCov">         13 :         return string(&quot;Operation not permitted on an object without &quot;</span>
+<span class="lineNum">      57 </span>            :                       &quot;an associated state.&quot;);
+<span class="lineNum">      58 </span>            :     }
+<span class="lineNum">      59 </span><span class="lineNoCov">          0 :     return string(&quot;unspecified future_errc value\n&quot;);</span>
+<span class="lineNum">      60 </span><span class="lineCov">         38 : }</span>
+<span class="lineNum">      61 </span>            : 
+<span class="lineNum">      62 </span>            : #if defined(__clang__)
+<span class="lineNum">      63 </span>            : #pragma clang diagnostic pop
+<span class="lineNum">      64 </span>            : #elif defined(__GNUC__) || defined(__GNUG__)
+<span class="lineNum">      65 </span>            : #pragma GCC diagnostic pop
+<span class="lineNum">      66 </span>            : #endif
+<a name="67"><span class="lineNum">      67 </span>            : </a>
+<span class="lineNum">      68 </span>            : const error_category&amp;
+<span class="lineNum">      69 </span>            : future_category() _NOEXCEPT
+<span class="lineNum">      70 </span>            : {
+<span class="lineNum">      71 </span><span class="lineCov">        118 :     static __future_error_category __f;</span>
+<span class="lineNum">      72 </span><span class="lineCov">         70 :     return __f;</span>
+<a name="73"><span class="lineNum">      73 </span>            : }</a>
+<span class="lineNum">      74 </span>            : 
+<span class="lineNum">      75 </span>            : future_error::future_error(error_code __ec)
+<span class="lineNum">      76 </span><span class="lineCov">         76 :     : logic_error(__ec.message()),</span>
+<span class="lineNum">      77 </span><span class="lineCov">         38 :       __ec_(__ec)</span>
+<span class="lineNum">      78 </span><span class="lineCov">         76 : {</span>
+<a name="79"><span class="lineNum">      79 </span><span class="lineCov">         38 : }</span></a>
+<span class="lineNum">      80 </span>            : 
+<span class="lineNum">      81 </span>            : future_error::~future_error() _NOEXCEPT
+<span class="lineNum">      82 </span><span class="lineNoCov">          0 : {</span>
+<span class="lineNum">      83 </span><span class="lineCov">         48 : }</span>
+<a name="84"><span class="lineNum">      84 </span>            : </a>
+<span class="lineNum">      85 </span>            : void
+<span class="lineNum">      86 </span>            : __assoc_sub_state::__on_zero_shared() _NOEXCEPT
+<span class="lineNum">      87 </span>            : {
+<span class="lineNum">      88 </span><span class="lineCov">         58 :     delete this;</span>
+<span class="lineNum">      89 </span><span class="lineCov">         29 : }</span>
+<a name="90"><span class="lineNum">      90 </span>            : </a>
+<span class="lineNum">      91 </span>            : void
+<span class="lineNum">      92 </span>            : __assoc_sub_state::set_value()
+<span class="lineNum">      93 </span>            : {
+<span class="lineNum">      94 </span><span class="lineCov">         15 :     unique_lock&lt;mutex&gt; __lk(__mut_);</span>
+<span class="lineNum">      95 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">      96 </span><span class="lineCov">         30 :     if (__has_value())</span>
+<span class="lineNum">      97 </span><span class="lineCov">          2 :         throw future_error(make_error_code(future_errc::promise_already_satisfied));</span>
+<span class="lineNum">      98 </span>            : #endif
+<span class="lineNum">      99 </span><span class="lineCov">         14 :     __state_ |= __constructed | ready;</span>
+<span class="lineNum">     100 </span><span class="lineCov">         14 :     __cv_.notify_all();</span>
+<span class="lineNum">     101 </span><span class="lineCov">         14 :     __lk.unlock();</span>
+<span class="lineNum">     102 </span><span class="lineCov">         16 : }</span>
+<a name="103"><span class="lineNum">     103 </span>            : </a>
+<span class="lineNum">     104 </span>            : void
+<span class="lineNum">     105 </span>            : __assoc_sub_state::set_value_at_thread_exit()
+<span class="lineNum">     106 </span>            : {
+<span class="lineNum">     107 </span><span class="lineCov">          1 :     unique_lock&lt;mutex&gt; __lk(__mut_);</span>
+<span class="lineNum">     108 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     109 </span><span class="lineCov">          2 :     if (__has_value())</span>
+<span class="lineNum">     110 </span><span class="lineNoCov">          0 :         throw future_error(make_error_code(future_errc::promise_already_satisfied));</span>
+<span class="lineNum">     111 </span>            : #endif
+<span class="lineNum">     112 </span><span class="lineCov">          1 :     __state_ |= __constructed;</span>
+<span class="lineNum">     113 </span><span class="lineCov">          3 :     __thread_local_data()-&gt;__make_ready_at_thread_exit(this);</span>
+<span class="lineNum">     114 </span><span class="lineCov">          1 :     __lk.unlock();</span>
+<span class="lineNum">     115 </span><span class="lineCov">          1 : }</span>
+<a name="116"><span class="lineNum">     116 </span>            : </a>
+<span class="lineNum">     117 </span>            : void
+<span class="lineNum">     118 </span>            : __assoc_sub_state::set_exception(exception_ptr __p)
+<span class="lineNum">     119 </span>            : {
+<span class="lineNum">     120 </span><span class="lineCov">         21 :     unique_lock&lt;mutex&gt; __lk(__mut_);</span>
+<span class="lineNum">     121 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     122 </span><span class="lineCov">         42 :     if (__has_value())</span>
+<span class="lineNum">     123 </span><span class="lineCov">          2 :         throw future_error(make_error_code(future_errc::promise_already_satisfied));</span>
+<span class="lineNum">     124 </span>            : #endif
+<span class="lineNum">     125 </span><span class="lineCov">         20 :     __exception_ = __p;</span>
+<span class="lineNum">     126 </span><span class="lineCov">         20 :     __state_ |= ready;</span>
+<span class="lineNum">     127 </span><span class="lineCov">         20 :     __lk.unlock();</span>
+<span class="lineNum">     128 </span><span class="lineCov">         20 :     __cv_.notify_all();</span>
+<span class="lineNum">     129 </span><span class="lineCov">         22 : }</span>
+<a name="130"><span class="lineNum">     130 </span>            : </a>
+<span class="lineNum">     131 </span>            : void
+<span class="lineNum">     132 </span>            : __assoc_sub_state::set_exception_at_thread_exit(exception_ptr __p)
+<span class="lineNum">     133 </span>            : {
+<span class="lineNum">     134 </span><span class="lineCov">          2 :     unique_lock&lt;mutex&gt; __lk(__mut_);</span>
+<span class="lineNum">     135 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     136 </span><span class="lineCov">          4 :     if (__has_value())</span>
+<span class="lineNum">     137 </span><span class="lineNoCov">          0 :         throw future_error(make_error_code(future_errc::promise_already_satisfied));</span>
+<span class="lineNum">     138 </span>            : #endif
+<span class="lineNum">     139 </span><span class="lineCov">          2 :     __exception_ = __p;</span>
+<span class="lineNum">     140 </span><span class="lineCov">          6 :     __thread_local_data()-&gt;__make_ready_at_thread_exit(this);</span>
+<span class="lineNum">     141 </span><span class="lineCov">          2 :     __lk.unlock();</span>
+<span class="lineNum">     142 </span><span class="lineCov">          2 : }</span>
+<a name="143"><span class="lineNum">     143 </span>            : </a>
+<span class="lineNum">     144 </span>            : void
+<span class="lineNum">     145 </span>            : __assoc_sub_state::__make_ready()
+<span class="lineNum">     146 </span>            : {
+<span class="lineNum">     147 </span><span class="lineCov">          8 :     unique_lock&lt;mutex&gt; __lk(__mut_);</span>
+<span class="lineNum">     148 </span><span class="lineCov">          8 :     __state_ |= ready;</span>
+<span class="lineNum">     149 </span><span class="lineCov">          8 :     __lk.unlock();</span>
+<span class="lineNum">     150 </span><span class="lineCov">          8 :     __cv_.notify_all();</span>
+<span class="lineNum">     151 </span><span class="lineCov">          8 : }</span>
+<a name="152"><span class="lineNum">     152 </span>            : </a>
+<span class="lineNum">     153 </span>            : void
+<span class="lineNum">     154 </span>            : __assoc_sub_state::copy()
+<span class="lineNum">     155 </span>            : {
+<span class="lineNum">     156 </span><span class="lineCov">         14 :     unique_lock&lt;mutex&gt; __lk(__mut_);</span>
+<span class="lineNum">     157 </span><span class="lineCov">         14 :     __sub_wait(__lk);</span>
+<span class="lineNum">     158 </span><span class="lineCov">         14 :     if (__exception_ != nullptr)</span>
+<span class="lineNum">     159 </span><span class="lineCov">         10 :         rethrow_exception(__exception_);</span>
+<span class="lineNum">     160 </span><span class="lineCov">         19 : }</span>
+<a name="161"><span class="lineNum">     161 </span>            : </a>
+<span class="lineNum">     162 </span>            : void
+<span class="lineNum">     163 </span>            : __assoc_sub_state::wait()
+<span class="lineNum">     164 </span>            : {
+<span class="lineNum">     165 </span><span class="lineCov">         36 :     unique_lock&lt;mutex&gt; __lk(__mut_);</span>
+<span class="lineNum">     166 </span><span class="lineCov">         36 :     __sub_wait(__lk);</span>
+<span class="lineNum">     167 </span><span class="lineCov">         36 : }</span>
+<a name="168"><span class="lineNum">     168 </span>            : </a>
+<span class="lineNum">     169 </span>            : void
+<span class="lineNum">     170 </span>            : __assoc_sub_state::__sub_wait(unique_lock&lt;mutex&gt;&amp; __lk)
+<span class="lineNum">     171 </span>            : {
+<span class="lineNum">     172 </span><span class="lineCov">        106 :     if (!__is_ready())</span>
+<span class="lineNum">     173 </span>            :     {
+<span class="lineNum">     174 </span><span class="lineCov">         35 :         if (__state_ &amp; static_cast&lt;unsigned&gt;(deferred))</span>
+<span class="lineNum">     175 </span>            :         {
+<span class="lineNum">     176 </span><span class="lineCov">          4 :             __state_ &amp;= ~static_cast&lt;unsigned&gt;(deferred);</span>
+<span class="lineNum">     177 </span><span class="lineCov">          4 :             __lk.unlock();</span>
+<span class="lineNum">     178 </span><span class="lineCov">          4 :             __execute();</span>
+<span class="lineNum">     179 </span><span class="lineCov">          4 :         }</span>
+<span class="lineNum">     180 </span>            :         else
+<span class="lineNum">     181 </span><span class="lineCov">        124 :             while (!__is_ready())</span>
+<span class="lineNum">     182 </span><span class="lineCov">         31 :                 __cv_.wait(__lk);</span>
+<span class="lineNum">     183 </span><span class="lineCov">         35 :     }</span>
+<span class="lineNum">     184 </span><span class="lineCov">        106 : }</span>
+<a name="185"><span class="lineNum">     185 </span>            : </a>
+<span class="lineNum">     186 </span>            : void
+<span class="lineNum">     187 </span>            : __assoc_sub_state::__execute()
+<span class="lineNum">     188 </span>            : {
+<span class="lineNum">     189 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     190 </span><span class="lineNoCov">          0 :     throw future_error(make_error_code(future_errc::no_state));</span>
+<span class="lineNum">     191 </span>            : #endif
+<a name="192"><span class="lineNum">     192 </span><span class="lineNoCov">          0 : }</span></a>
+<span class="lineNum">     193 </span>            : 
+<span class="lineNum">     194 </span>            : future&lt;void&gt;::future(__assoc_sub_state* __state)
+<span class="lineNum">     195 </span><span class="lineCov">         36 :     : __state_(__state)</span>
+<span class="lineNum">     196 </span>            : {
+<span class="lineNum">     197 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     198 </span><span class="lineCov">         36 :     if (__state_-&gt;__has_future_attached())</span>
+<span class="lineNum">     199 </span><span class="lineNoCov">          0 :         throw future_error(make_error_code(future_errc::future_already_retrieved));</span>
+<span class="lineNum">     200 </span>            : #endif
+<span class="lineNum">     201 </span><span class="lineCov">         36 :     __state_-&gt;__add_shared();</span>
+<span class="lineNum">     202 </span><span class="lineCov">         36 :     __state_-&gt;__set_future_attached();</span>
+<a name="203"><span class="lineNum">     203 </span><span class="lineCov">         36 : }</span></a>
+<span class="lineNum">     204 </span>            : 
+<span class="lineNum">     205 </span>            : future&lt;void&gt;::~future()
+<span class="lineNum">     206 </span>            : {
+<span class="lineNum">     207 </span><span class="lineCov">         53 :     if (__state_)</span>
+<span class="lineNum">     208 </span><span class="lineCov">         12 :         __state_-&gt;__release_shared();</span>
+<span class="lineNum">     209 </span><span class="lineCov">         53 : }</span>
+<a name="210"><span class="lineNum">     210 </span>            : </a>
+<span class="lineNum">     211 </span>            : void
+<span class="lineNum">     212 </span>            : future&lt;void&gt;::get()
+<span class="lineNum">     213 </span>            : {
+<span class="lineNum">     214 </span><span class="lineCov">         12 :     unique_ptr&lt;__shared_count, __release_shared_count&gt; __(__state_);</span>
+<span class="lineNum">     215 </span><span class="lineCov">         12 :     __assoc_sub_state* __s = __state_;</span>
+<span class="lineNum">     216 </span><span class="lineCov">         12 :     __state_ = nullptr;</span>
+<span class="lineNum">     217 </span><span class="lineCov">         12 :     __s-&gt;copy();</span>
+<a name="218"><span class="lineNum">     218 </span><span class="lineCov">         12 : }</span></a>
+<span class="lineNum">     219 </span>            : 
+<span class="lineNum">     220 </span>            : promise&lt;void&gt;::promise()
+<span class="lineNum">     221 </span><span class="lineCov">         46 :     : __state_(new __assoc_sub_state)</span>
+<span class="lineNum">     222 </span>            : {
+<a name="223"><span class="lineNum">     223 </span><span class="lineCov">         23 : }</span></a>
+<span class="lineNum">     224 </span>            : 
+<span class="lineNum">     225 </span>            : promise&lt;void&gt;::~promise()
+<span class="lineNum">     226 </span>            : {
+<span class="lineNum">     227 </span><span class="lineCov">         66 :     if (__state_)</span>
+<span class="lineNum">     228 </span>            :     {
+<span class="lineNum">     229 </span><span class="lineCov">         80 :         if (!__state_-&gt;__has_value() &amp;&amp; __state_-&gt;use_count() &gt; 1)</span>
+<span class="lineNum">     230 </span><span class="lineCov">          9 :             __state_-&gt;set_exception(make_exception_ptr(</span>
+<span class="lineNum">     231 </span><span class="lineCov">          3 :                       future_error(make_error_code(future_errc::broken_promise))</span>
+<span class="lineNum">     232 </span>            :                                                       ));
+<span class="lineNum">     233 </span><span class="lineCov">         31 :         __state_-&gt;__release_shared();</span>
+<span class="lineNum">     234 </span><span class="lineCov">         31 :     }</span>
+<span class="lineNum">     235 </span><span class="lineCov">         66 : }</span>
+<a name="236"><span class="lineNum">     236 </span>            : </a>
+<span class="lineNum">     237 </span>            : future&lt;void&gt;
+<span class="lineNum">     238 </span>            : promise&lt;void&gt;::get_future()
+<span class="lineNum">     239 </span>            : {
+<span class="lineNum">     240 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     241 </span><span class="lineCov">         32 :     if (__state_ == nullptr)</span>
+<span class="lineNum">     242 </span><span class="lineCov">          2 :         throw future_error(make_error_code(future_errc::no_state));</span>
+<span class="lineNum">     243 </span>            : #endif
+<span class="lineNum">     244 </span><span class="lineCov">         30 :     return future&lt;void&gt;(__state_);</span>
+<span class="lineNum">     245 </span><span class="lineNoCov">          0 : }</span>
+<a name="246"><span class="lineNum">     246 </span>            : </a>
+<span class="lineNum">     247 </span>            : void
+<span class="lineNum">     248 </span>            : promise&lt;void&gt;::set_value()
+<span class="lineNum">     249 </span>            : {
+<span class="lineNum">     250 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     251 </span><span class="lineCov">         11 :     if (__state_ == nullptr)</span>
+<span class="lineNum">     252 </span><span class="lineNoCov">          0 :         throw future_error(make_error_code(future_errc::no_state));</span>
+<span class="lineNum">     253 </span>            : #endif
+<span class="lineNum">     254 </span><span class="lineCov">         11 :     __state_-&gt;set_value();</span>
+<span class="lineNum">     255 </span><span class="lineCov">         11 : }</span>
+<a name="256"><span class="lineNum">     256 </span>            : </a>
+<span class="lineNum">     257 </span>            : void
+<span class="lineNum">     258 </span>            : promise&lt;void&gt;::set_exception(exception_ptr __p)
+<span class="lineNum">     259 </span>            : {
+<span class="lineNum">     260 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     261 </span><span class="lineCov">          2 :     if (__state_ == nullptr)</span>
+<span class="lineNum">     262 </span><span class="lineNoCov">          0 :         throw future_error(make_error_code(future_errc::no_state));</span>
+<span class="lineNum">     263 </span>            : #endif
+<span class="lineNum">     264 </span><span class="lineCov">          4 :     __state_-&gt;set_exception(__p);</span>
+<span class="lineNum">     265 </span><span class="lineCov">          2 : }</span>
+<a name="266"><span class="lineNum">     266 </span>            : </a>
+<span class="lineNum">     267 </span>            : void
+<span class="lineNum">     268 </span>            : promise&lt;void&gt;::set_value_at_thread_exit()
+<span class="lineNum">     269 </span>            : {
+<span class="lineNum">     270 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     271 </span><span class="lineCov">          1 :     if (__state_ == nullptr)</span>
+<span class="lineNum">     272 </span><span class="lineNoCov">          0 :         throw future_error(make_error_code(future_errc::no_state));</span>
+<span class="lineNum">     273 </span>            : #endif
+<span class="lineNum">     274 </span><span class="lineCov">          1 :     __state_-&gt;set_value_at_thread_exit();</span>
+<span class="lineNum">     275 </span><span class="lineCov">          1 : }</span>
+<a name="276"><span class="lineNum">     276 </span>            : </a>
+<span class="lineNum">     277 </span>            : void
+<span class="lineNum">     278 </span>            : promise&lt;void&gt;::set_exception_at_thread_exit(exception_ptr __p)
+<span class="lineNum">     279 </span>            : {
+<span class="lineNum">     280 </span>            : #ifndef _LIBCPP_NO_EXCEPTIONS
+<span class="lineNum">     281 </span><span class="lineNoCov">          0 :     if (__state_ == nullptr)</span>
+<span class="lineNum">     282 </span><span class="lineNoCov">          0 :         throw future_error(make_error_code(future_errc::no_state));</span>
+<span class="lineNum">     283 </span>            : #endif
+<span class="lineNum">     284 </span><span class="lineNoCov">          0 :     __state_-&gt;set_exception_at_thread_exit(__p);</span>
+<a name="285"><span class="lineNum">     285 </span><span class="lineNoCov">          0 : }</span></a>
+<span class="lineNum">     286 </span>            : 
+<span class="lineNum">     287 </span>            : shared_future&lt;void&gt;::~shared_future()
+<span class="lineNum">     288 </span>            : {
+<span class="lineNum">     289 </span><span class="lineCov">         33 :     if (__state_)</span>
+<span class="lineNum">     290 </span><span class="lineCov">         14 :         __state_-&gt;__release_shared();</span>
+<span class="lineNum">     291 </span><span class="lineCov">         33 : }</span>
+<a name="292"><span class="lineNum">     292 </span>            : </a>
+<span class="lineNum">     293 </span>            : shared_future&lt;void&gt;&amp;
+<span class="lineNum">     294 </span>            : shared_future&lt;void&gt;::operator=(const shared_future&amp; __rhs)
+<span class="lineNum">     295 </span>            : {
+<span class="lineNum">     296 </span><span class="lineCov">          2 :     if (__rhs.__state_)</span>
+<span class="lineNum">     297 </span><span class="lineCov">          1 :         __rhs.__state_-&gt;__add_shared();</span>
+<span class="lineNum">     298 </span><span class="lineCov">          2 :     if (__state_)</span>
+<span class="lineNum">     299 </span><span class="lineNoCov">          0 :         __state_-&gt;__release_shared();</span>
+<span class="lineNum">     300 </span><span class="lineCov">          2 :     __state_ = __rhs.__state_;</span>
+<span class="lineNum">     301 </span><span class="lineCov">          2 :     return *this;</span>
+<span class="lineNum">     302 </span>            : }
+<span class="lineNum">     303 </span>            : 
+<span class="lineNum">     304 </span>            : _LIBCPP_END_NAMESPACE_STD
+<span class="lineNum">     305 </span>            : 
+<span class="lineNum">     306 </span>            : #endif // !_LIBCPP_HAS_NO_THREADS
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>
